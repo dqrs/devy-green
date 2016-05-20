@@ -33,3 +33,50 @@ then look at the different components
 and see which devy they can be taught in
 use unit tests
 allow the game swap out our code for students code on the fly
+
+
+Left Off:
+
+Implementing display
+
+Figure out how to get user input...
+
+
+Use react or implement js manually?
+
+enemies area:
+var enemies = [{1}, {2}, {3}, ...]
+
+want to change their state and have the display update automatically
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

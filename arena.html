@@ -2,14 +2,35 @@
 <html>
 
 <head>
-    <link href="arena.css" rel="stylesheet" type="text/css" />
+    <link href= "arena.css" rel="stylesheet" type="text/css" />
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    
+    <script src="arena.js"></script>
 </head>
 
 <body>
     <div id="arena">
         <div id="enemiesArea">
             <h3>Enemies</h3>
-            <ul class="enemyStats">
+            <table class="enemyTable hidden">
+              <tr>
+                <th>Species</th><td class="species">***</td>
+              </tr>
+              <tr>
+                <th>Element</th><td class="element">***</td>
+              </tr>
+              <tr>
+                <th>HP</th>
+                <td>
+                  <span class="HP">***</span> /
+                  <span class="maxHP">***</span>
+                </td>
+              </tr>
+              <tr><th>XP</th><td class="XP">***</td></tr>
+              <tr><th>Level</th><td class="level">***</td></tr>
+            </table>
+            <!-- <ul class="enemyStats">
                 <li>Charizard (Fire)</li>
                 <li>HP: 60/100</li>
                 <li>XP: 1000</li>
@@ -29,7 +50,7 @@
                 <li>XP: 4000</li>
                 <li>Level: 8</li>
                 <li>#3</li>
-            </ul>
+            </ul> -->
         </div>
 
         <div id="messageArea">
@@ -39,13 +60,24 @@
         </div>
         <div id="playerArea">
             <h3>Player</h3>
-            <ul id="playerStats">
-                <li>Bulbosaur (Plant)</li>
-                <li>HP: 80/100</li>
-                <li>XP: 2000</li>
-                <li>Level: 3</li>
-            </ul>
-            <ul id="attacksMenu">
+            <table id="playerStats">
+              <tr>
+                <th>Species</th><td class="species">Bulbosaur</td>
+              </tr>
+              <tr>
+                <th>Element</th><td class="element">Plant</td>
+              </tr>
+              <tr>
+                <th>HP</th>
+                <td>
+                  <span class="HP">80</span> /
+                  <span class="maxHP">100</span>
+                </td>
+              </tr>
+              <tr><th>XP</th><td class="XP">2000</td></tr>
+              <tr><th>Level</th><td class="level">3</td></tr>
+            </table>
+            <!-- <ul id="attacksMenu">
                 <li>Attacks</li>
                 <li>#1: attack1</li>
                 <li>#2: attack2</li>
@@ -57,9 +89,9 @@
                 <li>#4: smoke bomb</li>
                 <li>#5: shield </li>
                 <li>#6: health kit</li>
-            </ul>
+            </ul> -->
         </div>
-    </div>    
+    </div>
 </body>
 
 </html>

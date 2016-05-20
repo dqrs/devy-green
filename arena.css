@@ -9,6 +9,13 @@ ul {
     /*border: 1px solid black;*/
 }
 
+.hidden {
+  display: none;
+}
+
+.enemyTable {
+  float: left;
+}
 
 #enemiesArea {
     width: 800px;
