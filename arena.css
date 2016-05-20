@@ -1,0 +1,45 @@
+#arena {
+    width: 800px;
+    height: 600px;
+    border: 2px solid black;
+}
+
+ul {
+    list-style-type: none;
+    /*border: 1px solid black;*/
+}
+
+
+#enemiesArea {
+    width: 800px;
+    height: 200px;
+    display: block;
+    background-color: #fec;
+    border: 1px solid black;
+}
+
+#enemiesArea ul {
+    float: left;
+}
+
+#messageArea {
+    width: 800px;
+    height: 200px;
+    display: block;
+    border: 1px solid black;
+    background-color: #eee;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#playerArea {
+    width: 800px;
+    height: 200px;
+    display: block;
+    border: 1px solid black;
+    background-color: #cef;
+}
+
+#playerArea ul {
+    float: left;
+}

@@ -18,6 +18,7 @@ class Battle {
         }
         return this.determineWinner();
     }
+
     /*
     Looks at the hp of the player and all enemies
     to determine if the battle is over or not
