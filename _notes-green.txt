@@ -1,0 +1,82 @@
+DEVY GREEEN:
+
+Combat
+RPG elements
+3 themes
+type in attacks, or choose from menu
+move from room to room, sometimes enemy in room, must fight
+
+features:
+- randomly trigger battle
+- enter/exit combat mode
+- health
+- experience points
+- attack points
+- different kinds of attacks for each character
+- multiple characters?
+- multiple enemies
+- gain experience points (calculateed somehow)
+- what does the UI look like?
+- items to pickup: first aid kit, new weapon/attack
+
+RPG: single character, fighting 
+
+classes:
+item
+weapon
+character/entity/ 
+
+Idea:
+Use the RPG for all levels of devy (or several levels)
+Build out entire RPG game, 
+then look at the different components
+and see which devy they can be taught in
+use unit tests
+allow the game swap out our code for students code on the fly
+
+
+Left Off:
+
+Implementing display
+
+Figure out how to get user input...
+
+
+Use react or implement js manually?
+
+enemies area:
+var enemies = [{1}, {2}, {3}, ...]
+
+want to change their state and have the display update automatically
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

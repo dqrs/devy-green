@@ -88,11 +88,6 @@ this.attacks = {
   'wand': wand
 }
 
-// while (!gameOver) {
-//   input = getUserInput();
-//   if input == move && 
-
-// }
 
 function main (verb, noun) {
   verb = verb.toLowerCase()

@@ -1,7 +1,7 @@
 #arena {
     width: 800px;
     height: 600px;
-    border: 2px solid black;
+    /*border: 2px solid black;*/
 }
 
 ul {
@@ -11,6 +11,10 @@ ul {
 
 .hidden {
   display: none;
+}
+
+#playerStats {
+  float: left;
 }
 
 .enemyTable {
