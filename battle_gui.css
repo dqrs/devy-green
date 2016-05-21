@@ -1,0 +1,76 @@
+img {
+  width: 100px;
+  float: left;
+}
+
+button.continue {
+  float: right;
+}
+#arena {
+  width: 800px;
+  height: 600px;
+  /*border: 2px solid black;*/
+}
+
+ul {
+  list-style-type: none;
+  /*border: 1px solid black;*/
+}
+
+.hidden {
+  display: none;
+}
+
+#playerStats {
+  float: left;
+}
+
+#enemiesArea {
+  width: 800px;
+  height: 200px;
+  display: block;
+  background-color: #fbb;
+  border: 1px solid black;
+}
+
+.character {
+  background-color: white;
+  border: 3px solid #ccc;
+  float: left;
+  margin-left: 20px;
+}
+
+table {
+  margin-left: 5px;
+}
+
+td {
+  padding-left: 1em;
+}
+
+
+#enemiesArea ul {
+  float: left;
+}
+
+#messageArea {
+  width: 800px;
+  height: 200px;
+  display: block;
+  border: 1px solid black;
+  background-color: #eee;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#playerArea {
+  width: 800px;
+  height: 200px;
+  display: block;
+  border: 1px solid black;
+  background-color: #cef;
+}
+
+#playerArea ul {
+  float: left;
+}

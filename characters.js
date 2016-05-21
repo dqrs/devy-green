@@ -1,6 +1,7 @@
 class Character {
 
   constructor(options) {
+    this.species = options.species;
     this.HP = options.HP;
     this.maxHP = options.maxHP;
     this.element = options.element;
@@ -25,7 +26,7 @@ class Character {
   */
   AIAttack(target) {
     attackIndex = Math.floor(
-      Math.random() * this.attacks.count
+      Math.random() * this.attacks.length
     )
     randomAttack = this.attacks[attackIndex]
     this.useAttack({ attack: randomAttack, target: target})
