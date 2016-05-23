@@ -1,5 +1,32 @@
-DEVY GREEEN:
+DEVY GREEEN
 
+=================================
+Tasks:
+
+LEFT OFF:
+- inserting images, cleaning up UI
+- next step: finish battle states
+
+- finish connecting UI to pokemon logic
+  - finish mapping out all states
+    - player attack
+    - enemy Attack
+    - evalGameState
+- make UI look nicer
+  - improve layout
+  - insert pokemon images
+  - simple animation
+
+
+
+
+
+
+
+
+
+========================================
+Notes:
 Combat
 RPG elements
 3 themes
@@ -35,17 +62,6 @@ use unit tests
 allow the game swap out our code for students code on the fly
 
 
-Tasks:
-
-- finish connecting UI to pokemon logic
-  - finish mapping out all states
-    - player attack
-    - enemy Attack
-    - evalGameState
-- make UI look nicer
-  - improve layout
-  - insert pokemon images
-  - simple animation
 
 
 

@@ -1,10 +1,8 @@
-// Main Function
+// Main/Init Function
 $(document).ready(function() {
   initGameData()
   setupPlayerArea()
   setupEnemiesArea()
-  $("button").click(processEvent);
-  
   // starts battle
   initFSM()
   // var victory = battle.run();
@@ -16,20 +14,47 @@ $(document).ready(function() {
   // updatePlayerStats(battle)
 });
 
-function setupPlayerArea() {
-  var playerTable = $("#playerArea")
-  updateStats(playerTable, player.character)
-  updateAttacks()
-  updateItems()
-}
-
 function setupEnemiesArea() {
   enemiesArea = $("#enemiesArea")
+  enemiesArea.on('click', '.enemy', handleChooseTarget)
   enemy = $(".enemy")
   for (var i=0; i < enemies.length; i++) {
     updateStats(
       enemy.clone(), enemies[i]
-    ).toggleClass('hidden').appendTo(enemiesArea);
+    ).toggleClass('hidden').val(i).appendTo(enemiesArea);
+  }
+}
+
+function setupPlayerArea() {
+  var playerTable = $("#playerArea")
+  updateStats(playerTable, player.character)
+  setupAttacksMenu()
+  updateAttacksMenu()
+  updateItemsMenu()
+  setupGameControlButtons()
+}
+
+function setupGameControlButtons() {
+  $('button#continue').click(handleContinue)
+  $('button#quit').click(handleQuit) 
+}
+
+function setupAttacksMenu() {
+  $('#attacksMenu').on('click', 'button', handleChooseAttack)
+}
+
+function updateAttacksMenu() {
+  attacksMenu = $("#attacksMenu")
+  attacks = player.character.attacks
+  for (var i=0; i < attacks.length; i++) {
+    attack = attacks[i]
+    attacksMenu.append(
+      $(`<li>
+          <button class="attack" value=${i}>
+            ${attack.name}
+          </button>
+        </li>`)
+    )
   }
 }
 
@@ -43,24 +68,8 @@ function updateStats(element, character) {
   element.find(".level").text(character.level);
   return element;
 }
-
-function updateAttacks() {
-  attacksMenu = $("#attacksMenu")
-  attacks = player.character.attacks
-  for (var i=0; i < attacks.length; i++) {
-    attack = attacks[i]
-    attacksMenu.append(
-      $(`<li>
-          <button class="attack" value=${i}>
-            ${attack.name}
-          </button>
-        </li>`).click(processEvent)
-    )
-  }
-}
-
-function updateItems() {
-
+function updateItemsMenu() {
+  // Todo
 }
 
 // function launchAttack(event) {
@@ -69,6 +78,104 @@ function updateItems() {
 // }
 
 
+
+function initFSM() {
+  fsm = StateMachine.create({
+    initial: 'battleStart',
+    events: [
+      {
+        name: 'continue',  
+        from: 'battleStart',  to: 'chooseAttack' 
+      },
+      {
+        name: 'attackChosen',  
+        from: 'chooseAttack',  to: 'chooseTarget'
+      },
+      {
+        name: 'targetChosen',  
+        from: 'chooseTarget',  to: 'showAttack'
+      },
+      {
+        name: 'continue',  
+        from: 'showAttack',  to: 'battleOver' 
+      },
+      // todo: finish...
+      {
+        name: 'quit',  
+        from: ['*'],
+        to: 'battleOver'
+      }
+    ],
+    callbacks: {
+      onenterbattleStart: setupBattleStart,
+      onenterchooseAttack: setupChooseAttack,
+      onenterchooseTarget: setupChooseTarget,
+      onentershowAttack: setupShowAttack,
+      onenterbattleOver: setupBattleOver,
+    }
+  });  
+}
+
+// State Setup Functions
+function setupBattleStart(event, from, to, msg) {
+  $("#message").text("The battle has begun!")
+  $('#message').append('<br/>Click continue')
+}
+
+function setupChooseAttack(event, from, to, msg) {
+  $("#message").text("Choose your attack!")
+}
+
+function setupChooseTarget(event, from, to, msg) {
+  $('#message').text(`You chose attack ${action.attack}`)
+  $('#message').append('Now choose your target')
+}
+
+function setupShowAttack(event, from, to, msg) {
+  $("#message").text("Your attack will commence!")
+}
+
+function setupBattleOver(event, from, to, msg) {
+  $("#message").text("The battle has ended!")
+}
+
+// Event Handlers
+function handleContinue(event) {
+  fsm.continue();
+}
+
+function handleQuit(event) {
+  fsm.quit();
+}
+
+function handleChooseAttack(event) {
+  element = $(event.target)
+  action.attack = element.val()
+  fsm.attackChosen();
+}
+
+function handleChooseTarget(event) {
+  action.target = element.val()
+  action.target = element.val()
+  fsm.targetChosen();
+}
+
+action = {} // global var
+
+
+/*
+Based on the battle that just occurred,
+we increase the player's XP.
+
+For each enemy that the player defeated,
+we increase the player's XP based on the XP of the enemy.
+
+Then we check to see if the player earned enough XP
+to level-up.
+*/
+function updatePlayerStats(battle) {
+
+}
 function initGameData() {
   // init character's attacks
   var myAttacks = []
@@ -171,109 +278,4 @@ function initGameData() {
 
   // initalize battle
   battle = new Battle(player, enemies);
-}
-
-function initFSM() {
-  fsm = StateMachine.create({
-    initial: 'battleStart',
-    events: [
-      {
-        name: 'continue',  
-        from: 'battleStart',  to: 'chooseAttack' 
-      },
-      // {
-      //   name: 'invalidAttackChosen',  
-      //   from: 'chooseAttack',  to: 'chooseAttack' 
-      // },
-      {
-        name: 'validAttackChosen',  
-        from: 'chooseAttack',  to: 'chooseTarget'
-      },
-      // {
-      //   name: 'invalidTargetChosen',  
-      //   from: 'chooseTarget',  to: 'chooseTarget' 
-      // },
-      {
-        name: 'validTargetChosen',  
-        from: 'chooseTarget',  to: 'showAttack'
-      },
-      {
-        name: 'continue',  
-        from: 'showAttack',  to: 'battleOver' 
-      },
-      // todo: finish...
-      {
-        name: 'quit',  
-        from: ['chooseTarget', 'chooseAttack'],
-        to: 'battleOver'
-      }
-    ],
-    callbacks: {
-      onenterbattleStart: setupBattleStart,
-      onenterchooseAttack: setupChooseAttack,
-      onenterchooseTarget: setupChooseTarget,
-      onentershowAttack: setupShowAttack,
-    }
-  });  
-}
-
-function setupBattleStart(event, from, to, msg) {
-  $("#message").text("The battle has begun!")
-  $('#message').append('<br/>Click continue')
-}
-
-function setupChooseAttack(event, from, to, msg) {
-  $("#message").text("Choose your attack!")
-}
-
-function setupChooseTarget(event, from, to, msg) {
-  $('#message').text(`You chose attack ${action.attack}`)
-  $('#message').append('Now choose your target')
-}
-
-function setupShowAttack(event, from, to, msg) {
-  $("#message").text("Your attack will commence!")
-}
-action = {} // global var
-
-function processEvent(event) {
-  element = $(event.target)
-
-  if (fsm.current === "battleStart") {
-    if (element.hasClass("continue")) {
-      fsm.continue();
-    }
-  } else if (fsm.current === "chooseAttack") {
-    if (element.hasClass("attack")) {
-      action.attack = element.value
-      fsm.validAttackChosen();
-    } else if (element.hasClass("quit")) {
-      fsm.quit();
-    }
-  } else if (fsm.current == "chooseTarget") {
-    if (element.hasClass("enemy")) {
-      action.target = element.value
-      fsm.validTargetChosen();
-    } else if (element.text() == "quit") {
-      fsm.quit();
-    }
-  } else if (fsm.current == "showAttack") {
-    if (element.hasClass("continue")) {
-      fsm.continue();
-    }
-  }
-}
-
-/*
-Based on the battle that just occurred,
-we increase the player's XP.
-
-For each enemy that the player defeated,
-we increase the player's XP based on the XP of the enemy.
-
-Then we check to see if the player earned enough XP
-to level-up.
-*/
-function updatePlayerStats(battle) {
-
 }
