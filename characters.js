@@ -22,7 +22,7 @@ class Character {
 
   getAttackedBy(attacker, damage) {
     var eltMultiplier = this.calcEltMultiplier(this.element, attacker.element)
-    damage *= eltMultiplier
+    damage = Math.round(damage * eltMultiplier)
     this.HP -= damage
     
     // ensure that HP is never negative
@@ -34,7 +34,7 @@ class Character {
   }
 
   generateAttackDescription(attack, target, damage) {
-    return `Your <strong>${this.species}</strong> ` +
+    return `<strong>${this.species}</strong> ` +
     `used the <strong>${attack.name}</strong> attack ` +
     `on <strong>${target.species}</strong> ` +
     `causing <strong>${damage}</strong> units of damage.`

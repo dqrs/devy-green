@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function setupEnemiesGUI() {
   enemiesGUI = $("#enemiesGUI")
-  enemiesGUI.on('click', '.enemy', handleChooseTarget)
+  enemiesGUI.on('click', '.enemy', handlePlayerChooseTarget)
   enemy = $(".enemy")
   for (var i=0; i < enemies.length; i++) {
     updateStats(
@@ -45,8 +45,8 @@ function setupPlayerGUI() {
 function updatePlayerGUI() {
   var playerTable = $('#playerGUI')
   updateStats(playerTable, player.character)
-  updateAttacksMenu()
-  updateItemsMenu()
+  // updateAttacksMenu()
+  // updateItemsMenu()
 }
 
 function setupGameControlButtons() {
@@ -55,7 +55,7 @@ function setupGameControlButtons() {
 }
 
 function setupAttacksMenu() {
-  $('#attacksMenu').on('click', 'button', handleChooseAttack)
+  $('#attacksMenu').on('click', 'button', handlePlayerChooseAttack)
 }
 
 function updateAttacksMenu() {
@@ -92,97 +92,152 @@ function initFSM() {
     initial: 'battleStart',
     events: [
       {
-        name: 'continue',  
-        from: 'battleStart',  to: 'chooseAttack' 
+        from: 'battleStart',
+        name: 'continueBattle',  
+        to:   'playerChooseAttack' 
       },
       {
-        name: 'attackChosen',  
-        from: 'chooseAttack',  to: 'chooseTarget'
+        from: 'playerChooseAttack',
+        name: 'attackChosen',
+        to:   'playerChooseTarget'
       },
       {
+        from: 'playerChooseTarget',
         name: 'targetChosen',  
-        from: 'chooseTarget',  to: 'showAttack'
+        to:   'playerUseAttack'
       },
       {
-        name: 'continue',  
-        from: 'showAttack',  to: 'battleOver' 
+        from: 'playerUseAttack',
+        name: 'enemiesDefeated',  
+        to:   'battleOver' 
       },
-      // todo: finish...
       {
+        from: 'playerUseAttack', 
+        name: 'continueBattle',  
+        to:   'enemiesUseAttack' 
+      },
+      {
+        from: 'enemiesUseAttack',
+        name: 'playerDefeated',
+        to:   'battleOver'
+      },
+      {
+        from: 'enemiesUseAttack',
+        name: 'continueBattle',  
+        to:   'playerChooseAttack' 
+      },
+      {
+        from: '*',
         name: 'quit',  
-        from: ['*'],
-        to: 'battleOver'
+        to:   'battleOver'
       }
     ],
     callbacks: {
-      onenterbattleStart: setupBattleStart,
-      onenterchooseAttack: setupChooseAttack,
-      onenterchooseTarget: setupChooseTarget,
-      onentershowAttack: setupShowAttack,
-      onenterbattleOver: setupBattleOver,
+      onenterbattleStart:          battleStart,
+      onenterplayerChooseAttack:   playerChooseAttack,
+      onenterplayerChooseTarget:   playerChooseTarget,
+      onenterplayerUseAttack:      playerUseAttack,
+      onenterenemiesUseAttack:     enemiesUseAttack,
+      onenterbattleOver:           battleOver,
     }
   });  
 }
 
 // State Setup Functions
-function setupBattleStart(event, from, to, msg) {
+function battleStart(event, from, to, msg) {
+  $("#message").text('')
   $("#message").append("<p>The battle has begun!</p>")
-  $('#message').append('<p>Click continue</p>')
+  $('#message').append('<p>Click to continue</p>')
 }
 
-function setupChooseAttack(event, from, to, msg) {
+function playerChooseAttack(event, from, to, msg) {
+  $("#message").text('')
   $("#message").text("Choose your attack!")
 }
 
-function setupChooseTarget(event, from, to, msg) {
-  $('#message').text(`You chose attack ${action.attack}`)
-  $('#message').append('Now choose your target')
+function playerChooseTarget(event, from, to, msg) {
+  $("#message").text('')
+  var attackName = player.character.attacks[action.attack].name
+  $('#message').append(`<p>You chose the attack: <strong>${attackName}</strong></p>`)
+  $('#message').append('<p>Now choose your target!</p>')
 }
 
-function setupShowAttack(event, from, to, msg) {
+function playerUseAttack(event, from, to, msg) {
   // execute the attack in game
   var attack = player.character.attacks[action.attack]
   var target = enemies[action.target]
   var description = player.character.useAttack(attack, target)
   
-  // print out log of the attack
-  $("#message").html(description)
-
   // update GUI with new game state post-attack  
   updateEnemiesGUI()
   updatePlayerGUI()
+  
+  // print out log of the attack
+  $("#message").text('')
+  $("#message").html(description)
+  $('#message').append('<p>Click to continue</p>')
 }
 
-function setupBattleOver(event, from, to, msg) {
-  $("#message").text("The battle has ended!")
+function enemiesUseAttack(event, from, to, msg) {
+  // execute the attack in game
+  var attackerIndex = Math.floor(Math.random()*3)
+  var attacker = enemies[attackerIndex]
+
+  var attackIndex = Math.floor(Math.random()*attacks.length)
+  var attack = attacker.attacks[attackIndex]
+
+  var description = attacker.useAttack(attack, player.character)
+  
+  // update GUI with new game state post-attack  
+  updateEnemiesGUI()
+  updatePlayerGUI()
+
+  // print out log of the attack
+  $("#message").text('')
+  $("#message").html(description)
+  $('#message').append('<p>Click to continue</p>')
+}
+
+function battleOver(event, from, to, msg) {
+  $("#message").text('')
+  $("#message").append('<p>The battle has ended!</p>')
 }
 
 // Event Handlers
 action = {} // global var
 
 function handleContinue(event) {
-  fsm.continue();
+  if (fsm.current === "battleStart") {
+    fsm.continueBattle();
+  } else if (fsm.current === "playerUseAttack") {
+    if (battle.battleIsOver()) {
+      fsm.enemiesDefeated()
+    } else {
+      fsm.continueBattle()
+    }
+  } else if (fsm.current === "enemiesUseAttack") {
+    if (battle.battleIsOver()) {
+      fsm.playerDefeated()
+    } else {
+      fsm.continueBattle()
+    }
+  }
 }
 
 function handleQuit(event) {
   fsm.quit();
 }
 
-function handleChooseAttack(event) {
+function handlePlayerChooseAttack(event) {
   element = $(event.target)
   action.attack = parseInt(element.attr('value'))
   fsm.attackChosen();
 }
 
-// evt = {}
-// th1 = {}
-
-function handleChooseTarget(event) {
+function handlePlayerChooseTarget(event) {
   action.target = parseInt(event.currentTarget.getAttribute('value'))
   fsm.targetChosen()
 }
-
-
 
 /*
 Based on the battle that just occurred,
