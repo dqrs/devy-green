@@ -1,3 +1,7 @@
+EXTRA_DAMAGE = 1.5
+NORMAL_DAMAGE = 1.0
+REDUCED_DAMAGE = 0.67
+
 class Character {
 
   constructor(options) {
@@ -11,14 +15,29 @@ class Character {
   }
 
   useAttack(attack, target) {
-    damage = attack.power * this.calcXpMultiplier()
-    target.getAttacked(this, damage)
+    var damageAttempted = attack.power * this.calcXpMultiplier()
+    var damageAbsorbed = target.getAttackedBy(this, damageAttempted)
+    return this.generateAttackDescription(attack, target, damageAbsorbed)
   }
 
-  getAttacked(attacker, damage) {
-    eltMultiplier = this.calcEltMultiplier(this.element, attacker.element)
-    damage = damage * eltMultiplier
+  getAttackedBy(attacker, damage) {
+    var eltMultiplier = this.calcEltMultiplier(this.element, attacker.element)
+    damage *= eltMultiplier
     this.HP -= damage
+    
+    // ensure that HP is never negative
+    if (this.HP < 0) {
+      this.HP = 0
+    }
+
+    return damage
+  }
+
+  generateAttackDescription(attack, target, damage) {
+    return `Your <strong>${this.species}</strong> ` +
+    `used the <strong>${attack.name}</strong> attack ` +
+    `on <strong>${target.species}</strong> ` +
+    `causing <strong>${damage}</strong> units of damage.`
   }
 
   /*
@@ -63,24 +82,30 @@ class Character {
   WATER beats FIRE
   */
   calcEltMultiplier(attackerElement, targetElement) {
-    EXTRA_DAMAGE = 1.5
-    NORMAL_DAMAGE = 1.0
-    REDUCED_DAMAGE = 0.67
-
-    if (attackerElement == "FIRE") {
-      if (targetElement == "WATER") {
+    if (attackerElement === "fire") {
+      if (targetElement === "water") {
         return REDUCED_DAMAGE
-      } else if (targetElement == "PLANT") {
+      } else if (targetElement === "plant") {
         return EXTRA_DAMAGE
       } else {
         return NORMAL_DAMAGE
       }
-    } else if (attackerElement == "WATER") {
-      // todo finish
-      return NORMAL_DAMAGE
-    } else if (attackerElement == "PLANT") {
-      // todo finish
-      return NORMAL_DAMAGE
+    } else if (attackerElement === "water") {
+      if (targetElement === "plant") {
+        return REDUCED_DAMAGE
+      } else if (targetElement === "fire") {
+        return EXTRA_DAMAGE
+      } else {
+        return NORMAL_DAMAGE
+      }
+    } else if (attackerElement === "plant") {
+      if (targetElement === "fire") {
+        return REDUCED_DAMAGE
+      } else if (targetElement === "water") {
+        return EXTRA_DAMAGE
+      } else {
+        return NORMAL_DAMAGE
+      }
     }
   }
 

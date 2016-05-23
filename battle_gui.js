@@ -1,10 +1,11 @@
 // Main/Init Function
 $(document).ready(function() {
   initGameData()
-  setupPlayerArea()
-  setupEnemiesArea()
-  // starts battle
-  initFSM()
+  setupPlayerGUI()
+  setupEnemiesGUI()
+  
+  initFSM() // starts battle
+
   // var victory = battle.run();
 
   // game over, update stats
@@ -14,24 +15,38 @@ $(document).ready(function() {
   // updatePlayerStats(battle)
 });
 
-function setupEnemiesArea() {
-  enemiesArea = $("#enemiesArea")
-  enemiesArea.on('click', '.enemy', handleChooseTarget)
+function setupEnemiesGUI() {
+  enemiesGUI = $("#enemiesGUI")
+  enemiesGUI.on('click', '.enemy', handleChooseTarget)
   enemy = $(".enemy")
   for (var i=0; i < enemies.length; i++) {
     updateStats(
       enemy.clone(), enemies[i]
-    ).toggleClass('hidden').val(i).appendTo(enemiesArea);
+    ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemiesGUI);
   }
 }
 
-function setupPlayerArea() {
-  var playerTable = $("#playerArea")
+function updateEnemiesGUI() {
+  $(".enemy.visible").each(function() {
+    index = parseInt($(this).attr('value'))
+    updateStats($(this), enemies[index])
+  });
+}
+
+function setupPlayerGUI() {
+  var playerTable = $('#playerGUI')
   updateStats(playerTable, player.character)
   setupAttacksMenu()
   updateAttacksMenu()
   updateItemsMenu()
   setupGameControlButtons()
+}
+
+function updatePlayerGUI() {
+  var playerTable = $('#playerGUI')
+  updateStats(playerTable, player.character)
+  updateAttacksMenu()
+  updateItemsMenu()
 }
 
 function setupGameControlButtons() {
@@ -72,13 +87,6 @@ function updateItemsMenu() {
   // Todo
 }
 
-// function launchAttack(event) {
-//   $("#messageArea").text(this.target)
-//   $(event.target).text()
-// }
-
-
-
 function initFSM() {
   fsm = StateMachine.create({
     initial: 'battleStart',
@@ -118,8 +126,8 @@ function initFSM() {
 
 // State Setup Functions
 function setupBattleStart(event, from, to, msg) {
-  $("#message").text("The battle has begun!")
-  $('#message').append('<br/>Click continue')
+  $("#message").append("<p>The battle has begun!</p>")
+  $('#message').append('<p>Click continue</p>')
 }
 
 function setupChooseAttack(event, from, to, msg) {
@@ -132,7 +140,17 @@ function setupChooseTarget(event, from, to, msg) {
 }
 
 function setupShowAttack(event, from, to, msg) {
-  $("#message").text("Your attack will commence!")
+  // execute the attack in game
+  var attack = player.character.attacks[action.attack]
+  var target = enemies[action.target]
+  var description = player.character.useAttack(attack, target)
+  
+  // print out log of the attack
+  $("#message").html(description)
+
+  // update GUI with new game state post-attack  
+  updateEnemiesGUI()
+  updatePlayerGUI()
 }
 
 function setupBattleOver(event, from, to, msg) {
@@ -140,6 +158,8 @@ function setupBattleOver(event, from, to, msg) {
 }
 
 // Event Handlers
+action = {} // global var
+
 function handleContinue(event) {
   fsm.continue();
 }
@@ -150,17 +170,18 @@ function handleQuit(event) {
 
 function handleChooseAttack(event) {
   element = $(event.target)
-  action.attack = element.val()
+  action.attack = parseInt(element.attr('value'))
   fsm.attackChosen();
 }
 
+// evt = {}
+// th1 = {}
+
 function handleChooseTarget(event) {
-  action.target = element.val()
-  action.target = element.val()
-  fsm.targetChosen();
+  action.target = parseInt(event.currentTarget.getAttribute('value'))
+  fsm.targetChosen()
 }
 
-action = {} // global var
 
 
 /*

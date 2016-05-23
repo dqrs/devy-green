@@ -25,11 +25,11 @@ ul {
   float: left;
 }
 
-#enemiesArea {
+#enemiesGUI {
   width: 800px;
   height: 200px;
   display: block;
-  background-color: #fbb;
+  background-color: #f88;
   border: 1px solid black;
 }
 
@@ -49,28 +49,28 @@ td {
 }
 
 
-#enemiesArea ul {
+#enemiesGUI ul {
   float: left;
 }
 
-#messageArea {
+#messageGUI {
   width: 800px;
   height: 200px;
   display: block;
   border: 1px solid black;
-  background-color: #eee;
+  background-color: #f2f2f2;
   font-style: italic;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
-#playerArea {
+#playerGUI {
   width: 800px;
   height: 200px;
   display: block;
   border: 1px solid black;
-  background-color: #cef;
+  background-color: #aef;
 }
 
-#playerArea ul {
+#playerGUI ul {
   float: left;
 }
