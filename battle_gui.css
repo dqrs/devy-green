@@ -1,3 +1,7 @@
+h3 {
+  margin-left: 20px;
+}
+
 .imageWrapper {
   width: 100px;
   height: 105px;
@@ -11,9 +15,15 @@ img {
 button.continue {
   float: right;
 }
+
+body {
+  background-color: black;
+}
+
 #arena {
   width: 800px;
   height: 600px;
+  margin: auto;
   /*border: 2px solid black;*/
 }
 

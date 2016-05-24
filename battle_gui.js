@@ -14,12 +14,12 @@ $(document).ready(function() {
 });
 
 function battleIsOver() {
-  if (this.player.HP == 0) {
+  if (player.character.HP == 0) {
     return true;
   } else {
     var enemyHP = 0;
-    for (var i = 0; i < this.enemies.length; i++) {
-      enemyHP += this.enemies[i].HP;
+    for (var i = 0; i < enemies.length; i++) {
+      enemyHP += enemies[i].HP;
     }
     return (enemyHP == 0);
   }
@@ -182,10 +182,33 @@ function playerUseAttack(event, from, to, msg) {
   
   animateAttack(action.target, 'playerAttack')
 
-  // update GUI with new game state post-attack  
-  updateEnemiesGUI()
-  updatePlayerGUI()
+  // // update GUI with new game state post-attack  
+  // updateEnemiesGUI()
+  // updatePlayerGUI()
   
+  // print out log of the attack
+  $("#message").text('')
+  $("#message").html(description)
+  $('#message').append('<p>Click to continue</p>')
+}
+
+
+function enemiesUseAttack(event, from, to, msg) {
+  // execute the attack in game
+  var attackerIndex = Math.floor(Math.random()*enemies.length)
+  var attacker = enemies[attackerIndex]
+
+  var attackIndex = Math.floor(Math.random()*attacks.length)
+  var attack = attacker.attacks[attackIndex]
+
+  var description = attacker.useAttack(attack, player.character)
+  
+  animateAttack(attackerIndex, 'enemyAttack')
+
+  // update GUI with new game state post-attack  
+  // updateEnemiesGUI()
+  // updatePlayerGUI()
+
   // print out log of the attack
   $("#message").text('')
   $("#message").html(description)
@@ -239,33 +262,16 @@ function flashTarget() {
     {opacity: 100},
     {duration: 100, queue: true}
   ).removeClass('attackTarget')
-}
-
-function enemiesUseAttack(event, from, to, msg) {
-  // execute the attack in game
-  var attackerIndex = Math.floor(Math.random()*enemies.length)
-  var attacker = enemies[attackerIndex]
-
-  var attackIndex = Math.floor(Math.random()*attacks.length)
-  var attack = attacker.attacks[attackIndex]
-
-  var description = attacker.useAttack(attack, player.character)
-  
-  animateAttack(attackerIndex, 'enemyAttack')
 
   // update GUI with new game state post-attack  
   updateEnemiesGUI()
   updatePlayerGUI()
-
-  // print out log of the attack
-  $("#message").text('')
-  $("#message").html(description)
-  $('#message').append('<p>Click to continue</p>')
 }
 
 function battleOver(event, from, to, msg) {
   $("#message").text('')
   $("#message").append('<p>The battle has ended!</p>')
+  $("#message").append(`<p>${gameOverMessage}</p>`)
 }
 
 // Event Handlers
@@ -276,12 +282,14 @@ function handleContinue(event) {
     fsm.continueBattle();
   } else if (fsm.current === "playerUseAttack") {
     if (battleIsOver()) {
+      gameOverMessage = `${player.name} won!`
       fsm.enemiesDefeated()
     } else {
       fsm.continueBattle()
     }
   } else if (fsm.current === "enemiesUseAttack") {
     if (battleIsOver()) {
+      gameOverMessage = `${player.name} lost!`
       fsm.playerDefeated()
     } else {
       fsm.continueBattle()
@@ -290,6 +298,7 @@ function handleContinue(event) {
 }
 
 function handleQuit(event) {
+  gameOverMessage = `${player.name} quit the battle!`
   fsm.quit();
 }
 
@@ -317,6 +326,7 @@ to level-up.
 function updatePlayerStats(battle) {
 
 }
+
 function initGameData() {
   // init character's attacks
   var myAttacks = []
@@ -355,11 +365,11 @@ function initGameData() {
   enemies = [] // global
   var enemy1 = new Character({
     species: "Charmeleon",
-    HP: 200,
-    maxHP: 200,
+    HP: 95,
+    maxHP: 95,
     element: "fire",
-    XP: 1000,
-    level: 3,
+    XP: 150,
+    level: 2,
     attacks: [
       new Attack({
         name: "Fire Blast",
@@ -375,10 +385,10 @@ function initGameData() {
   });
   var enemy2 = new Character({
     species: "Ivysaur",
-    HP: 150,
-    maxHP: 150,
+    HP: 70,
+    maxHP: 70,
     element: "plant",
-    XP: 900,
+    XP: 90,
     level: 2,
     attacks: [
       new Attack({
@@ -395,11 +405,11 @@ function initGameData() {
   });
   var enemy3 = new Character({
     species: "Starmie",
-    HP: 300,
-    maxHP: 300,
+    HP: 60,
+    maxHP: 60,
     element: "water",
-    XP: 1000,
-    level: 3,
+    XP: 130,
+    level: 1,
     attacks: [
       new Attack({
         name: "Squirt Gun",

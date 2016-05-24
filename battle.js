@@ -23,17 +23,17 @@ class Battle {
   Looks at the HP of the player and all enemies
   to determine if the battle is over or not
   */
-  battleIsOver() {
-    if (this.player.HP == 0) {
-      return true;
-    } else {
-      var enemyHP = 0;
-      for (var i = 0; i < this.enemies.length; i++) {
-        enemyHP += this.enemies[i].HP;
-      }
-      return (enemyHP == 0);
-    }
-  }
+  // battleIsOver() {
+  //   if (this.player.HP == 0) {
+  //     return true;
+  //   } else {
+  //     var enemyHP = 0;
+  //     for (var i = 0; i < this.enemies.length; i++) {
+  //       enemyHP += this.enemies[i].HP;
+  //     }
+  //     return (enemyHP == 0);
+  //   }
+  // }
 
   /*
   Returns true if the player won the battle

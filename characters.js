@@ -105,7 +105,7 @@ class Character {
   the more damage it generates when it attacks
   */
   calcXpMultiplier() {
-    return this.XP / 30
+    return this.XP / 10
   }
   
   /*
