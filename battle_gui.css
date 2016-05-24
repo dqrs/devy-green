@@ -1,6 +1,11 @@
+.imageWrapper {
+  width: 100px;
+  height: 105px;
+  float: left;
+}
+
 img {
   width: 100px;
-  float: left;
 }
 
 button.continue {
@@ -29,7 +34,7 @@ ul {
   width: 800px;
   height: 200px;
   display: block;
-  background-color: #f88;
+  background-color: #f55;
   border: 1px solid black;
 }
 
@@ -48,18 +53,19 @@ td {
   padding-left: 1em;
 }
 
-
 #enemiesGUI ul {
   float: left;
 }
 
 #messageGUI {
+  padding: 20px;
   width: 800px;
   height: 200px;
   display: block;
   border: 1px solid black;
   background-color: #f2f2f2;
   font-style: italic;
+  font-size: 18px;
   /*font-weight: bold;*/
 }
 
@@ -68,7 +74,7 @@ td {
   height: 200px;
   display: block;
   border: 1px solid black;
-  background-color: #aef;
+  background-color: #1af;
 }
 
 #playerGUI ul {

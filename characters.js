@@ -51,16 +51,6 @@ class Character {
     this.useAttack({ attack: randomAttack, target: target})
   }
 
-  /*
-  When the
-  */
-  levelUp() {
-
-  }
-
-  updateXP() {
-
-  }
 
   /* 
   Calculates a damage multiplier based on the elements of the
@@ -115,30 +105,17 @@ class Character {
   the more damage it generates when it attacks
   */
   calcXpMultiplier() {
-    return 1.0
+    return this.XP / 30
   }
   
+  /*
+  When the
+  */
+  levelUp() {
+
+  }
+
+  updateXP() {
+
+  }
 }
-
-// class Squirtle extends Character {
-//   constructor(options) {
-//     this.super({
-//       health: 100,
-//       element: WATER;
-//       experience: 100;
-//       level: 1,
-//       attacks: [sword, axe]
-//     })
-//   }
-// }
-
-// character.useAttack({target: enemy1, attack: sword});
-// character.getAttacked({attacker: enemy2, attack: sword});
-
-// character1 = new Character({
-//   health: 100,
-//   element: WATER;
-//   experience: 100;
-//   level: 1,
-//   attacks: [sword, axe]
-// });

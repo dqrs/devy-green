@@ -6,7 +6,9 @@
   <link href= "battle_gui.css" rel="stylesheet" type="text/css" />
   
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
-  
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/i18n/jquery-ui-i18n.min.js"></script> -->
+
   <script src="state-machine.js"></script>
   <script src="attacks.js"></script>
   <script src="items.js"></script>
@@ -21,7 +23,9 @@
     <div id="enemiesGUI">
       <h3>Enemies</h3>
       <div class="character enemy hidden">
-        <img class="enemyImage" src="images/charmeleon.png" alt="text">
+        <div class="imageWrapper">
+          <img class="enemyImage" src="images/charmeleon.png" alt="text">
+        </div>
         <table class="enemyTable">
           <tr>
           <th>Species</th><td class="species">***</td>
@@ -41,7 +45,6 @@
         </table>
       </div>
     </div>
-
     <div id="messageGUI">
       <p id="message"></p>
       <p id="beginMessage" class="hidden">
@@ -56,9 +59,11 @@
       </p>
     </div>
     <div id="playerGUI">
-      <h3>Player</h3>
-      <div class="character">
-        <img class="playerImage" src="images/charmeleon.png" alt="text">
+      <h3>Player (<span id="playerName"></span>)</h3>
+      <div class="character" id="playerCharacter">
+        <div class="imageWrapper">
+          <img class="playerImage" src="images/charmeleon.png" alt="text">
+        </div>
         <table id="playerStats">
           <tr>
           <th>Species</th><td class="species">***</td>

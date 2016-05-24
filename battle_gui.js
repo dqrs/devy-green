@@ -6,14 +6,24 @@ $(document).ready(function() {
   
   initFSM() // starts battle
 
-  // var victory = battle.run();
-
   // game over, update stats
   // if (!victory) {
   //   return "Your character died! Game over!"
   // }
   // updatePlayerStats(battle)
 });
+
+function battleIsOver() {
+  if (this.player.HP == 0) {
+    return true;
+  } else {
+    var enemyHP = 0;
+    for (var i = 0; i < this.enemies.length; i++) {
+      enemyHP += this.enemies[i].HP;
+    }
+    return (enemyHP == 0);
+  }
+}
 
 function setupEnemiesGUI() {
   enemiesGUI = $("#enemiesGUI")
@@ -35,6 +45,7 @@ function updateEnemiesGUI() {
 
 function setupPlayerGUI() {
   var playerTable = $('#playerGUI')
+  $('#playerName').text(player.name)
   updateStats(playerTable, player.character)
   setupAttacksMenu()
   updateAttacksMenu()
@@ -162,12 +173,15 @@ function playerChooseTarget(event, from, to, msg) {
   $('#message').append('<p>Now choose your target!</p>')
 }
 
+
 function playerUseAttack(event, from, to, msg) {
   // execute the attack in game
   var attack = player.character.attacks[action.attack]
   var target = enemies[action.target]
   var description = player.character.useAttack(attack, target)
   
+  animateAttack(action.target, 'playerAttack')
+
   // update GUI with new game state post-attack  
   updateEnemiesGUI()
   updatePlayerGUI()
@@ -178,9 +192,58 @@ function playerUseAttack(event, from, to, msg) {
   $('#message').append('<p>Click to continue</p>')
 }
 
+function animateAttack(enemyIndex, scenario) {
+  if (scenario === 'playerAttack') {
+    var attackTarget = $(`.enemy[value="${enemyIndex}"]`)
+    var attacker = $('.playerImage')
+  } else { // enemyAttack
+    var attackTarget = $(`#playerCharacter`)
+    var attacker = $(`.enemy[value="${enemyIndex}"] .enemyImage`)
+  }
+  attackTarget.addClass('attackTarget')
+
+  var targetPos = attackTarget.get(0).getBoundingClientRect()
+  var attackerPos = attacker.get(0).getBoundingClientRect()
+
+  attacker.css('position', 'absolute').offset(attackerPos).animate(
+    {
+      left: targetPos.left,
+      top: targetPos.top
+    },
+    {
+      duration: 1000,
+      complete: flashTarget
+    }
+  ).animate(
+    {
+      left: attackerPos.left,
+      top: attackerPos.top
+    },
+    {
+      duration: 1000,
+    }
+  )
+}
+
+function flashTarget() {
+  $('.attackTarget').animate(
+    {opacity: 0},
+    {duration: 100, queue: true}
+  ).animate(
+    {opacity: 100},
+    {duration: 100, queue: true}
+  ).animate(
+    {opacity: 0},
+    {duration: 100, queue: true}
+  ).animate(
+    {opacity: 100},
+    {duration: 100, queue: true}
+  ).removeClass('attackTarget')
+}
+
 function enemiesUseAttack(event, from, to, msg) {
   // execute the attack in game
-  var attackerIndex = Math.floor(Math.random()*3)
+  var attackerIndex = Math.floor(Math.random()*enemies.length)
   var attacker = enemies[attackerIndex]
 
   var attackIndex = Math.floor(Math.random()*attacks.length)
@@ -188,6 +251,8 @@ function enemiesUseAttack(event, from, to, msg) {
 
   var description = attacker.useAttack(attack, player.character)
   
+  animateAttack(attackerIndex, 'enemyAttack')
+
   // update GUI with new game state post-attack  
   updateEnemiesGUI()
   updatePlayerGUI()
@@ -210,13 +275,13 @@ function handleContinue(event) {
   if (fsm.current === "battleStart") {
     fsm.continueBattle();
   } else if (fsm.current === "playerUseAttack") {
-    if (battle.battleIsOver()) {
+    if (battleIsOver()) {
       fsm.enemiesDefeated()
     } else {
       fsm.continueBattle()
     }
   } else if (fsm.current === "enemiesUseAttack") {
-    if (battle.battleIsOver()) {
+    if (battleIsOver()) {
       fsm.playerDefeated()
     } else {
       fsm.continueBattle()
@@ -351,7 +416,4 @@ function initGameData() {
   enemies.push(enemy1)
   enemies.push(enemy2)
   enemies.push(enemy3)
-
-  // initalize battle
-  battle = new Battle(player, enemies);
 }
