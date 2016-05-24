@@ -1,24 +1,13 @@
 DEVY GREEEN
 
 =================================
-Tasks:
 
-LEFT OFF:
-- inserting images, cleaning up UI
-- next step: finish battle states
-
-- finish connecting UI to pokemon logic
-  - finish mapping out all states
-    - player attack
-    - enemy Attack
-    - evalGameState
-- make UI look nicer
-  - improve layout
-  - insert pokemon images
-  - simple animation
-
-
-
+Refactoring Notes:
+- App (Controller), Battle (Models), Gui (View)
+- Started moving game output to battle eg startBattleMessage()
+- clearly label all 'State Setup' Functions
+- Turn App and GUI into classes
+- Refactor/Rename character
 
 
 
@@ -26,12 +15,65 @@ LEFT OFF:
 
 
 ========================================
-Notes:
-Combat
-RPG elements
-3 themes
-type in attacks, or choose from menu
-move from room to room, sometimes enemy in room, must fight
+Curriculum:
+
+
+
+Feature Brainstorm:
+
+Easy:
+- Accept/Display Name
+- Calculate Score
+- Display high score
+
+Medium:
+- XP multiplier
+- Determine attack damage from XP
+- display attack details
+- update character stats at end of battle
+- level up
+- money system, collect coins
+- Randomly spawn enemies for each battle
+
+Hard:
+- implement items
+- link into zork world / adventure mode
+
+Implementation Notes:
+- improve UI, animations
+
+Curriculum Tasks:
+- Decide on order of concepts
+- Create multiple features that require same concept
+- Label code as isolated exercise or project
+- Write isolated exercise code next to project version
+
+Platform Tasks:
+- Confirm cloud9
+- Decide on unit testing framework
+  - simple to run
+  - pretty output
+- Set up script for students to run
+- Write Unit Tests
+- Settle on mechanism for student code inside of game engine
+- Look into: persistence/saving game state
+
+Ideas:
+- Allow students to create their own pokemon classes
+
+=====================================
+
+Lesson Plan Outline:
+
+- introduce new feature to implement
+- present concepts needded to implement features 
+  -  exercises, 
+  - examples, 
+  - drills 
+- use concepts: to implement feature in project:
+  - as a class, write high-level pseudo code (plan)
+  - unit tests and run game to know when theyre done
+
 
 features:
 - randomly trigger battle
@@ -40,55 +82,12 @@ features:
 - experience points
 - attack points
 - different kinds of attacks for each character
-- multiple characters?
+- multiple pokemon
 - multiple enemies
-- gain experience points (calculateed somehow)
-- what does the UI look like?
+- gain experience points
 - items to pickup: first aid kit, new weapon/attack
-
-RPG: single character, fighting 
 
 classes:
 item
 weapon
 character/entity/ 
-
-Idea:
-Use the RPG for all levels of devy (or several levels)
-Build out entire RPG game, 
-then look at the different components
-and see which devy they can be taught in
-use unit tests
-allow the game swap out our code for students code on the fly
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

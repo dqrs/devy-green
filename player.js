@@ -9,6 +9,7 @@ class Player {
     item.use(this)
     this.removeItemFromInventory(item)
   }
+
 }
 
 // if (item instanceof FirstAidKit) {
