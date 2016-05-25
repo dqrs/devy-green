@@ -10,6 +10,11 @@ class Battle {
     return message
   }
 
+  continueMessage() {
+    message = '<p>Click to continue</p>'
+    return message
+  }
+
   chooseAttackMessage() {
     message = "<p>Choose your attack!</p>"
     return message
@@ -51,6 +56,66 @@ class Battle {
     } else {
       return false;
     }
+  }
+
+  /*
+    Selects the next enemy that will attack the Player
+
+    Alternatives:
+    select enemy with least/most HP
+    select enemy with least/most XP
+    select enemy with strongest element against this player
+    round robin through enemies
+    etc.
+  */
+  selectEnemyAttacker() {
+    this.selectRandomEnemy()
+  }
+
+  selectRandomEnemy() {
+    var attackerIndex = Math.floor(
+      Math.random() * this.enemies.length
+    )
+    return this.enemies[attackerIndex]
+  }
+
+  enemiesAttackPlayer() {
+    var attacker = this.selectEnemyAttacker()
+    var attack = attacker.selectAttack()
+    
+    var description = attacker.useAttack(attack, player.character)
+  }
+
+  playerAttacksEnemies(action) {
+    var attacker = this.player.character
+    var playerAttack = attacker.attacks[action.attackName]
+    var target = this.enemies[action.targetIndex]
+    
+    var attackResult = this.battle.executeAttack({
+      attacker: attacker,
+      attack: playerAttack,
+      target: target
+    })
+
+    return attackResult
+  }
+
+  executeAttack(options) {
+    options.attacker
+    options.attack
+    options.target
+
+    return result
+  }
+
+  describeAttack(attackResult) {
+    msg = `<strong>${attackResult.attacker}</strong> `
+    msg += `used the `
+    msg += `<strong>${attackResult.attack.name}</strong> attack `
+    msg += `on <strong>${attackResult.target.species}</strong> `
+    msg += `causing <strong>${attackResult.damage}</strong> `
+    msg += `units of damage.`
+    return msg
   }
 
   /*

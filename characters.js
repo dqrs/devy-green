@@ -14,6 +14,7 @@ class Character {
     this.attacks = options.attacks;
   }
 
+  
   useAttack(attack, target) {
     var damageAttempted = attack.power * this.calcXpMultiplier()
     var damageAbsorbed = target.getAttackedBy(this, damageAttempted)
@@ -33,22 +34,29 @@ class Character {
     return damage
   }
 
-  generateAttackDescription(attack, target, damage) {
-    return `<strong>${this.species}</strong> ` +
-    `used the <strong>${attack.name}</strong> attack ` +
-    `on <strong>${target.species}</strong> ` +
-    `causing <strong>${damage}</strong> units of damage.`
-  }
 
   /*
-  Used by enemy AI to choose an attack randomly
+    Used by enemy AI to choose an attack randomly
+
+    Alternatives:
+    select strongest attack
+    select weakest attack
+    select attack by element
+    select most accurate attack
+    round robin through attacks
+    etc.
   */
-  AIAttack(target) {
-    attackIndex = Math.floor(
-      Math.random() * this.attacks.length
+  selectAttack(target) {
+    return this.selectRandomAttack()
+  }
+
+  selectRandomAttack() {
+    var attacks = this.getArrayOfAttacks()
+    var attackIndex = Math.floor(
+      Math.random() * attacks.length
     )
-    randomAttack = this.attacks[attackIndex]
-    this.useAttack({ attack: randomAttack, target: target})
+
+    return attacks[attackIndex]
   }
 
 
@@ -117,5 +125,9 @@ class Character {
 
   updateXP() {
 
+  }
+  
+  getArrayOfAttacks() {
+    return Object.keys(attacks).map(key => attacks[key])  
   }
 }

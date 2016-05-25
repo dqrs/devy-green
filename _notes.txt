@@ -15,9 +15,6 @@ Refactoring Notes:
 
 
 ========================================
-Curriculum:
-
-
 
 Feature Brainstorm:
 
@@ -38,6 +35,22 @@ Medium:
 Hard:
 - implement items
 - link into zork world / adventure mode
+
+  - randomly trigger battle
+  - enter/exit combat mode
+  - health
+  - experience points
+  - attack points
+  - different kinds of attacks for each character
+  - multiple pokemon
+  - multiple enemies
+  - gain experience points
+  - items to pickup: first aid kit, new weapon/attack
+
+  classes:
+  item
+  weapon
+  character/entity/ 
 
 Implementation Notes:
 - improve UI, animations
@@ -62,7 +75,7 @@ Ideas:
 - Allow students to create their own pokemon classes
 
 =====================================
-
+Curriculum:
 Lesson Plan Outline:
 
 - introduce new feature to implement
@@ -74,20 +87,3 @@ Lesson Plan Outline:
   - as a class, write high-level pseudo code (plan)
   - unit tests and run game to know when theyre done
 
-
-features:
-- randomly trigger battle
-- enter/exit combat mode
-- health
-- experience points
-- attack points
-- different kinds of attacks for each character
-- multiple pokemon
-- multiple enemies
-- gain experience points
-- items to pickup: first aid kit, new weapon/attack
-
-classes:
-item
-weapon
-character/entity/ 
