@@ -3,55 +3,57 @@ class GUI {
   constructor(battle) {
     this.action = {}
     this.battle = battle
+  }
+  
+  setup() {
     this.setupPlayerGUI()
     this.setupEnemiesGUI()
   }
-  
+
   clearMessage() {
-    $("#message").text('')
+    $("#messageGUI").text('')
   }
 
   setMessage(messageHTML) {
-    $('#message').html(messageHTML)
+    $('#messageGUI').html(messageHTML)
   }
 
   appendMessage(messageHTML) {
-    $('#message').append(messageHTML)
+    $('#messageGUI').append(messageHTML)
   }
 
   setupEnemiesGUI() {
     var enemiesGUI = $("#enemiesGUI")
-    enemiesGUI.on('click', '.enemy', handlePlayerChooseTarget)
-    enemy = $(".enemy")
-    for (var i=0; i < enemies.length; i++) {
-      updateStats(
-        enemy.clone(), enemies[i]
+    enemiesGUI.on('click', '.enemy', handlePlayerChoosesTarget)
+    var enemy = $(".enemy")
+    for (var i=0; i < this.battle.enemies.length; i++) {
+      this.updateStats(
+        enemy.clone(), this.battle.enemies[i]
       ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemiesGUI)
     }
   }
 
   updateEnemiesGUI() {
+    var gui = this
     $(".enemy.visible").each(function() {
       index = parseInt($(this).attr('value'))
-      updateStats($(this), enemies[index])
+      gui.updateStats($(this), gui.battle.enemies[index])
     })
   }
 
   setupPlayerGUI() {
-    var playerTable = $('#playerGUI')
     $('#playerName').text(player.name)
-    updateStats(playerTable, player.character)
-    setupAttacksMenu()
-    updateAttacksMenu()
-    updateItemsMenu()
-    setupGameControlButtons()
+    var playerTable = $('#playerGUI')
+    this.updateStats(playerTable, player.pokemon)
+    this.setupAttacksMenu()
+    this.updateAttacksMenu()
+    this.updateItemsMenu()
+    this.setupGameControlButtons()
   }
 
   updatePlayerGUI() {
     var playerTable = $('#playerGUI')
-    updateStats(playerTable, player.character)
-    // updateAttacksMenu()
-    // updateItemsMenu()
+    this.updateStats(playerTable, this.battle.player.pokemon)
   }
 
   setupGameControlButtons() {
@@ -60,14 +62,16 @@ class GUI {
   }
 
   setupAttacksMenu() {
-    $('#attacksMenu').on('click', 'button', handlePlayerChooseAttack)
+    $('#attacksMenu').on(
+      'click', 'button', handlePlayerChoosesAttack
+    )
   }
 
   updateAttacksMenu() {
-    attacksMenu = $("#attacksMenu")
-    attacks = player.character.attacks
+    var attacksMenu = $("#attacksMenu")
+    var attacks = player.pokemon.getArrayOfAttacks()
     for (var i=0; i < attacks.length; i++) {
-      attack = attacks[i]
+      var attack = attacks[i]
       attacksMenu.append(
         $(`<li>
             <button class="attack" value=${attack.name}>
@@ -78,14 +82,14 @@ class GUI {
     }
   }
 
-  updateStats(element, character) {
-    element.find('img').attr('src', `images/${character.species}.png`)
-    element.find(".species").text(character.species)
-    element.find(".element").text(character.element)
-    element.find(".HP").text(character.HP)
-    element.find(".maxHP").text(character.maxHP)
-    element.find(".XP").text(character.XP)
-    element.find(".level").text(character.level)
+  updateStats(element, pokemon) {
+    element.find('img').attr('src', `images/${pokemon.species}.png`)
+    element.find('.species').text(pokemon.species)
+    element.find('.element').text(pokemon.element)
+    element.find('.HP').text(pokemon.HP)
+    element.find('.maxHP').text(pokemon.maxHP)
+    element.find('.XP').text(pokemon.XP)
+    element.find('.level').text(pokemon.level)
     return element
   }
   
@@ -98,15 +102,15 @@ class GUI {
     this.setMessage(this.battle.describeAttack(attackResult))
     this.appendMessage(this.battle.continueMessage())
 
-    // add 'attacker' class to attacker
-    // add 'target' class to target
-    if (attackResult.attacker.owner == 'player') {
+    // select dom elements corresponding to attacker and target
+    // based on the attackResult object
+    if (attackResult.attacker.owner === 'player') {
       var enemyIndex = this.battle.locateEnemyPokemon(attackResult.target)
       var attackTarget = $(`.enemy[value="${enemyIndex}"]`)
       var attacker = $('.playerImage')
-    } else { // enemyAttack
+    } else { // enemy is attacking player
       var enemyIndex = this.battle.locateEnemy(attackResult.attacker)
-      var attackTarget = $(`#playerCharacter`)
+      var attackTarget = $(`#playerPokemon`)
       var attacker = $(`.enemy[value="${enemyIndex}"] .enemyImage`)
     }
     attackTarget.addClass('attackTarget')
@@ -150,7 +154,7 @@ class GUI {
     ).removeClass('attackTarget')
 
     // update GUI with new game state post-attack  
-    updateEnemiesGUI()
-    updatePlayerGUI()
+    this.updateEnemiesGUI()
+    this.updatePlayerGUI()
   }
 }

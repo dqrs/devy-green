@@ -14,15 +14,19 @@
   - battleOutcomeMessage
 */
 function launchGame() {
-  setupBattleData()
-  setupStateMachine()  
-  $(document).ready(setupGUI) // Wait until DOM has loaded
+  setupBattleData();
+  gui = new GUI(battle);
+  setupStateMachine();
+
+   // Wait until DOM has loaded
+  $(document).ready(function() {
+    gui.setup()
+    fsm.pageReady()
+  })
 }
+
 launchGame()
 
-function setupGUI() {
-  gui = new GUI(battle)
-}
 
 function setupBattleData() {
   // initialize enemies (global variable)
@@ -119,7 +123,7 @@ function setupBattleData() {
         power: 3,
         accuracy: 0.95
       })
-    }
+    },
     owner: 'player'
   })
 

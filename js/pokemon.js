@@ -129,6 +129,6 @@ class Pokemon {
   }
   
   getArrayOfAttacks() {
-    return Object.keys(attacks).map(key => attacks[key])  
+    return Object.keys(this.attacks).map(key => this.attacks[key])  
   }
 }

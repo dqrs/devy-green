@@ -13,6 +13,9 @@
   <script src="js/pokemon.js"></script>
   <script src="js/player.js"></script>
   <script src="js/battle.js"></script>
+  <script src="js/event_handlers.js"></script>
+  <script src="js/gui.js"></script>
+  <script src="js/fsm.js"></script>
   <script src="js/game.js"></script>
 </head>
 
@@ -20,7 +23,7 @@
   <div id="arena">
     <div id="enemiesGUI">
       <h3>Enemies</h3>
-      <div class="character enemy hidden">
+      <div class="pokemon enemy hidden">
         <div class="imageWrapper">
           <img class="enemyImage" src="images/charmeleon.png" alt="text">
         </div>
@@ -58,7 +61,7 @@
     </div>
     <div id="playerGUI">
       <h3>Player (<span id="playerName"></span>)</h3>
-      <div class="character" id="playerCharacter">
+      <div class="pokemon" id="playerPokemon">
         <div class="imageWrapper">
           <img class="playerImage" src="images/charmeleon.png" alt="text">
         </div>

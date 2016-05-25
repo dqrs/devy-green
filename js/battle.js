@@ -1,22 +1,22 @@
 class Battle {
+
   constructor(player, enemies) {
     this.player = player;
     this.enemies = enemies;
   }
 
   startBattleMessage() {
-    message = '<p>The battle has begun!</p>'
-    message += '<p>Click to continue</p>'
+    var message = `<p>The battle has begun!</p>`
+    message += `<p>Click to continue</p>`
     return message
   }
 
   continueMessage() {
-    message = '<p>Click to continue</p>'
-    return message
+    return '<p>Click to continue</p>'
   }
 
   chooseAttackMessage() {
-    message = "<p>Choose your attack!</p>"
+    var message = "<p>Choose your attack!</p>"
     return message
   }
 
@@ -28,7 +28,7 @@ class Battle {
   }
 
   chooseTargetMessage() {
-    message = '<p>Now choose your target!</p>'
+    var message = '<p>Now choose your target!</p>'
     return message
   }
 
@@ -37,12 +37,12 @@ class Battle {
   }
 
   playerLostMessage() {
-    message = `<p>${player.name} lost!</p>`
+    var message = `<p>${player.name} lost!</p>`
     return message
   }
 
   playerWonMessage() {
-    message = `<p>${player.name} won!</p>`
+    var message = `<p>${player.name} won!</p>`
     return message
   }
 
@@ -170,7 +170,8 @@ class Battle {
   Then we check to see if the player earned enough XP
   to level-up.
   */
-  function updatePlayerStats(battle) {
+  
+  updatePlayerStats(battle) {
 
   }
 }

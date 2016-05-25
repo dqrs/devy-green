@@ -1,7 +1,12 @@
 function setupStateMachine() {
   fsm = StateMachine.create({
-    initial: 'battleStart',
+    initial: 'loading',
     events: [
+      {
+        from: 'loading',
+        name: 'pageReady',  
+        to:   'battleStart' 
+      },
       {
         from: 'battleStart',
         name: 'continueBattle',  

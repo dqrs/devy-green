@@ -4,17 +4,16 @@ DEVY GREEEN
 
 Refactoring Notes:
 x App (Controller), Battle (Models), Gui (View)
-x Turn App and GUI into classes
 x Refactor/Rename character
+x clearly label all 'State Setup' Functions
+x set 'target'/'attacker' based on id in attackResult
+x Finish moving game output to battle eg startBattleMessage()
+x Finish initial refactor
 
 Next task:
-  - set 'target'/'attacker' based on id in attackResult
+- Debug refactor
+- Refactor attacking, make it simpler for students
 
-- clearly label all 'State Setup' Functions
-- Turn FSM into a class
-- Make sure callback functions still work with class methods
-- Finish refactor
-- Finish moving game output to battle eg startBattleMessage()
 - Implement items
 - Add Enemy Trainer
   - enemy trainer has enemy pokemon
