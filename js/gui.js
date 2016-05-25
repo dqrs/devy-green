@@ -26,7 +26,7 @@ class GUI {
     for (var i=0; i < enemies.length; i++) {
       updateStats(
         enemy.clone(), enemies[i]
-      ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemiesGUI);
+      ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemiesGUI)
     }
   }
 
@@ -34,7 +34,7 @@ class GUI {
     $(".enemy.visible").each(function() {
       index = parseInt($(this).attr('value'))
       updateStats($(this), enemies[index])
-    });
+    })
   }
 
   setupPlayerGUI() {
@@ -80,13 +80,13 @@ class GUI {
 
   updateStats(element, character) {
     element.find('img').attr('src', `images/${character.species}.png`)
-    element.find(".species").text(character.species);
-    element.find(".element").text(character.element);
-    element.find(".HP").text(character.HP);
-    element.find(".maxHP").text(character.maxHP);
-    element.find(".XP").text(character.XP);
-    element.find(".level").text(character.level);
-    return element;
+    element.find(".species").text(character.species)
+    element.find(".element").text(character.element)
+    element.find(".HP").text(character.HP)
+    element.find(".maxHP").text(character.maxHP)
+    element.find(".XP").text(character.XP)
+    element.find(".level").text(character.level)
+    return element
   }
   
   updateItemsMenu() {
@@ -95,16 +95,17 @@ class GUI {
 
   displayAttack(attackResult) {
     // print out description of the attack
-    this.gui.setMessage(this.battle.describeAttack(result))
-    this.gui.appendMessage(this.battle.continueMessage())
+    this.setMessage(this.battle.describeAttack(attackResult))
+    this.appendMessage(this.battle.continueMessage())
 
     // add 'attacker' class to attacker
     // add 'target' class to target
-
-    if (scenario === 'playerAttack') {
+    if (attackResult.attacker.owner == 'player') {
+      var enemyIndex = this.battle.locateEnemyPokemon(attackResult.target)
       var attackTarget = $(`.enemy[value="${enemyIndex}"]`)
       var attacker = $('.playerImage')
     } else { // enemyAttack
+      var enemyIndex = this.battle.locateEnemy(attackResult.attacker)
       var attackTarget = $(`#playerCharacter`)
       var attacker = $(`.enemy[value="${enemyIndex}"] .enemyImage`)
     }
@@ -151,43 +152,5 @@ class GUI {
     // update GUI with new game state post-attack  
     updateEnemiesGUI()
     updatePlayerGUI()
-  }
-
-  // Event Handlers
-
-  handleContinue(event) {
-    if (fsm.current === "battleStart") {
-      fsm.continueBattle();
-    } else if (fsm.current === "playerUseAttack") {
-      if (battleIsOver()) {
-        gameOverMessage = `${player.name} won!`
-        fsm.enemiesDefeated()
-      } else {
-        fsm.continueBattle()
-      }
-    } else if (fsm.current === "enemiesUseAttack") {
-      if (battleIsOver()) {
-        gameOverMessage = `${player.name} lost!`
-        fsm.playerDefeated()
-      } else {
-        fsm.continueBattle()
-      }
-    }
-  }
-
-  handleQuit(event) {
-    gameOverMessage = `${player.name} quit the battle!`
-    fsm.quit();
-  }
-
-  handlePlayerChooseAttack(event) {
-    element = $(event.target)
-    action.attackName = element.attr('value')
-    fsm.attackChosen();
-  }
-
-  handlePlayerChooseTarget(event) {
-    action.targetIndex = parseInt(event.currentTarget.getAttribute('value'))
-    fsm.targetChosen()
   }
 }

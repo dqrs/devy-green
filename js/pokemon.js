@@ -2,16 +2,17 @@ EXTRA_DAMAGE = 1.5
 NORMAL_DAMAGE = 1.0
 REDUCED_DAMAGE = 0.67
 
-class Character {
+class Pokemon {
 
   constructor(options) {
-    this.species = options.species;
-    this.HP = options.HP;
-    this.maxHP = options.maxHP;
-    this.element = options.element;
-    this.XP = options.XP;
-    this.level = options.level;
-    this.attacks = options.attacks;
+    this.species = options.species
+    this.HP = options.HP
+    this.maxHP = options.maxHP
+    this.element = options.element
+    this.XP = options.XP
+    this.level = options.level
+    this.attacks = options.attacks
+    this.owner = options.owner
   }
 
   
@@ -109,7 +110,7 @@ class Character {
 
   /*
   Calculates the XP multiplier.
-  The more experience a character has, 
+  The more experience a pokemon has, 
   the more damage it generates when it attacks
   */
   calcXpMultiplier() {

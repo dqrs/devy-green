@@ -1,7 +1,7 @@
 class Player {
   constructor(options) {
     this.items = []
-    this.character = options.character
+    this.pokemon = options.pokemon
     this.name = options.name
   }
 

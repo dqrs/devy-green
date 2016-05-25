@@ -21,7 +21,7 @@ class Battle {
   }
 
   attackChosenMessage(attackNum) {
-    var attackName = this.player.character.attacks[attackNum].name
+    var attackName = this.player.pokemon.attacks[attackNum].name
     message = `<p>You chose the attack: `
     message += `<strong>${attackName}</strong></p>`
     return message
@@ -31,12 +31,31 @@ class Battle {
     message = '<p>Now choose your target!</p>'
     return message
   }
+
+  battleOverMessage() {
+    return `<p>The battle has ended!</p>`
+  }
+
+  playerLostMessage() {
+    message = `<p>${player.name} lost!</p>`
+    return message
+  }
+
+  playerWonMessage() {
+    message = `<p>${player.name} won!</p>`
+    return message
+  }
+
+  playerQuitMessage() {
+    return `${player.name} quit the battle!`
+  }
+
   /*
   Looks at the HP of the player and all enemies
   to determine if the battle is over or not
   */
-  function battleIsOver() {
-    if (player.character.HP == 0) {
+  battleIsOver() {
+    if (player.pokemon.HP == 0) {
       return true;
     } else {
       var enemyHP = 0;
@@ -83,11 +102,11 @@ class Battle {
     var attacker = this.selectEnemyAttacker()
     var attack = attacker.selectAttack()
     
-    var description = attacker.useAttack(attack, player.character)
+    var description = attacker.useAttack(attack, player.pokemon)
   }
 
   playerAttacksEnemies(action) {
-    var attacker = this.player.character
+    var attacker = this.player.pokemon
     var playerAttack = attacker.attacks[action.attackName]
     var target = this.enemies[action.targetIndex]
     
@@ -118,6 +137,20 @@ class Battle {
     return msg
   }
 
+  /*
+    Returns the array index of the enemy pokemon provided
+    Assumes that the enemy can only have one pokemon
+    of each species. For example, the enemy cannot have 
+    more than one 'Charizard' pokemon
+  */
+  locateEnemyPokemon(pokemon) {
+    for (var i=0; i < this.enemies.length; i++) {
+      if (this.enemies[i].species === pokemon.species) {
+        return i
+      }
+    }
+    return -1 // indicates that we could not find the pokemon
+  }
   /*
   The player's turn is a pair of two numbers:
   (action, target)
