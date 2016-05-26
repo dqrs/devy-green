@@ -11,12 +11,17 @@ x Finish moving game output to battle eg startBattleMessage()
 x Finish initial refactor
 x Debug refactor
 x Refactor attacking, make it simpler for students
+x Decide on XPMultiplier for attack damage
 
 Next task:
-- Decide on XPMultiplier for attack damage
-- Add in accuracy ?
+- Finish documenting Pokemon.js
+- Battle.js
+  - Finish implementation
+    - Enemies dying
+    - Add in accuracy
+  - Document
 - Flesh out student exercises
-
+- Write unit tests
 - Implement items
 - Add Enemy Trainer
   - enemy trainer has enemy pokemon
@@ -69,20 +74,20 @@ Implementation Notes:
 - improve UI, animations
 
 Curriculum Tasks:
-- Decide on order of concepts
-- Create multiple features that require same concept
-- Label code as isolated exercise or project
-- Write isolated exercise code next to project version
+  - Decide on order of concepts
+  - Create multiple features that require same concept
+  - Label code as isolated exercise or project
+  - Write isolated exercise code next to project version
 
 Platform Tasks:
-- Confirm cloud9
-- Decide on unit testing framework
-  - simple to run
-  - pretty output
-- Set up script for students to run
-- Write Unit Tests
-- Settle on mechanism for student code inside of game engine
-- Look into: persistence/saving game state
+  - Confirm cloud9
+  - Decide on unit testing framework
+    - simple to run
+    - pretty output
+  - Set up script for students to run
+  - Write unit Tests
+  - Settle on mechanism for student code inside of game engine
+  - Look into: persistence/saving game state
 
 Ideas:
 - Allow students to create their own pokemon classes
