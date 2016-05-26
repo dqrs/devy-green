@@ -20,9 +20,8 @@ class Battle {
     return message
   }
 
-  attackChosenMessage(attackNum) {
-    var attackName = this.player.pokemon.attacks[attackNum].name
-    message = `<p>You chose the attack: `
+  attackChosenMessage(attackName) {
+    var message = `<p>You chose the attack: `
     message += `<strong>${attackName}</strong></p>`
     return message
   }
@@ -70,6 +69,7 @@ class Battle {
   Otherwise, returns false
   */
   determineWinner() {
+    // TODO:
     if (this.player.HP > 0) {
       return true;
     } else {
@@ -88,7 +88,7 @@ class Battle {
     etc.
   */
   selectEnemyAttacker() {
-    this.selectRandomEnemy()
+    return this.selectRandomEnemy()
   }
 
   selectRandomEnemy() {
@@ -100,17 +100,23 @@ class Battle {
 
   enemiesAttackPlayer() {
     var attacker = this.selectEnemyAttacker()
-    var attack = attacker.selectAttack()
+    var enemyAttack = attacker.selectAttack()
     
-    var description = attacker.useAttack(attack, player.pokemon)
+    var attackResult = this.executeAttack({
+      attacker: attacker,
+      attack: enemyAttack,
+      target: player.pokemon
+    })
+
+    return attackResult
   }
 
   playerAttacksEnemies(action) {
     var attacker = this.player.pokemon
     var playerAttack = attacker.attacks[action.attackName]
     var target = this.enemies[action.targetIndex]
-    
-    var attackResult = this.battle.executeAttack({
+
+    var attackResult = this.executeAttack({
       attacker: attacker,
       attack: playerAttack,
       target: target
@@ -120,15 +126,25 @@ class Battle {
   }
 
   executeAttack(options) {
-    options.attacker
-    options.attack
-    options.target
+    var attacker = options.attacker
+    var attack = options.attack
+    var target = options.target
 
-    return result
+    var damage = attacker.calcAttackDamage(attack, target)
+    target.receiveAttackDamage(damage)
+
+    var attackResult = {
+      attacker: attacker,
+      attack: attack,
+      target: target,
+      damage: damage,
+      status: 'hit'
+    }
+    return attackResult
   }
 
   describeAttack(attackResult) {
-    msg = `<strong>${attackResult.attacker}</strong> `
+    var msg = `<strong>${attackResult.attacker.species}</strong> `
     msg += `used the `
     msg += `<strong>${attackResult.attack.name}</strong> attack `
     msg += `on <strong>${attackResult.target.species}</strong> `
@@ -151,6 +167,7 @@ class Battle {
     }
     return -1 // indicates that we could not find the pokemon
   }
+
   /*
   The player's turn is a pair of two numbers:
   (action, target)

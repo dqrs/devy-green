@@ -2,7 +2,7 @@
 function handleContinue(event) {
   if (fsm.current === "battleStart") {
     fsm.continueBattle()
-  } else if (fsm.current === "playerUseAttack") {
+  } else if (fsm.current === "playerUsesAttack") {
     if (battle.battleIsOver()) {
       battleOutcomeMessage = battle.playerWonMessage()
       fsm.enemiesDefeated()
@@ -26,11 +26,13 @@ function handleQuit(event) {
 
 function handlePlayerChoosesAttack(event) {
   element = $(event.target)
-  action.attackName = element.attr('value')
+  gui.action.attackName = element.attr('value')
   fsm.attackChosen()
 }
 
 function handlePlayerChoosesTarget(event) {
-  action.targetIndex = parseInt(event.currentTarget.getAttribute('value'))
+   gui.action.targetIndex = parseInt(
+    event.currentTarget.getAttribute('value')
+  )
   fsm.targetChosen()
 }

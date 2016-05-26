@@ -5,21 +5,10 @@ class GUI {
     this.battle = battle
   }
   
+
   setup() {
     this.setupPlayerGUI()
     this.setupEnemiesGUI()
-  }
-
-  clearMessage() {
-    $("#messageGUI").text('')
-  }
-
-  setMessage(messageHTML) {
-    $('#messageGUI').html(messageHTML)
-  }
-
-  appendMessage(messageHTML) {
-    $('#messageGUI').append(messageHTML)
   }
 
   setupEnemiesGUI() {
@@ -36,7 +25,7 @@ class GUI {
   updateEnemiesGUI() {
     var gui = this
     $(".enemy.visible").each(function() {
-      index = parseInt($(this).attr('value'))
+      var index = parseInt($(this).attr('value'))
       gui.updateStats($(this), gui.battle.enemies[index])
     })
   }
@@ -74,7 +63,7 @@ class GUI {
       var attack = attacks[i]
       attacksMenu.append(
         $(`<li>
-            <button class="attack" value=${attack.name}>
+            <button class="attack" value="${attack.name}">
               ${attack.name}
             </button>
           </li>`)
@@ -97,6 +86,18 @@ class GUI {
     // Todo
   }
 
+  clearMessage() {
+    $("#messageGUI").text('')
+  }
+
+  setMessage(messageHTML) {
+    $('#messageGUI').html(messageHTML)
+  }
+
+  appendMessage(messageHTML) {
+    $('#messageGUI').append(messageHTML)
+  }
+  
   displayAttack(attackResult) {
     // print out description of the attack
     this.setMessage(this.battle.describeAttack(attackResult))
@@ -109,7 +110,7 @@ class GUI {
       var attackTarget = $(`.enemy[value="${enemyIndex}"]`)
       var attacker = $('.playerImage')
     } else { // enemy is attacking player
-      var enemyIndex = this.battle.locateEnemy(attackResult.attacker)
+      var enemyIndex = this.battle.locateEnemyPokemon(attackResult.attacker)
       var attackTarget = $(`#playerPokemon`)
       var attacker = $(`.enemy[value="${enemyIndex}"] .enemyImage`)
     }
@@ -125,7 +126,7 @@ class GUI {
       },
       {
         duration: 1000,
-        complete: flashTarget
+        complete: this.flashTarget
       }
     ).animate(
       {
@@ -154,7 +155,7 @@ class GUI {
     ).removeClass('attackTarget')
 
     // update GUI with new game state post-attack  
-    this.updateEnemiesGUI()
-    this.updatePlayerGUI()
+    gui.updateEnemiesGUI()
+    gui.updatePlayerGUI()
   }
 }

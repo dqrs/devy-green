@@ -69,7 +69,7 @@ function playerChoosesAttackState(event, from, to, msg) {
 }
 
 function playerChoosesTargetState(event, from, to, msg) {
-  gui.setMessage(battle.attackChosenMessage(action.attack)) 
+  gui.setMessage(battle.attackChosenMessage(gui.action.attackName)) 
   gui.appendMessage(battle.chooseTargetMessage()) 
 }
 
@@ -91,5 +91,5 @@ function enemiesUseAttackState(event, from, to, msg) {
 
 function battleOverState(event, from, to, msg) {
   gui.setMessage(battle.battleOverMessage())
-  gui.appendMessage(gameResultMessage)
+  gui.appendMessage(battleOutcomeMessage)
 }

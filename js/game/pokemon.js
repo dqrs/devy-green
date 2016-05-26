@@ -16,25 +16,25 @@ class Pokemon {
   }
 
   
-  useAttack(attack, target) {
-    var damageAttempted = attack.power * this.calcXpMultiplier()
-    var damageAbsorbed = target.getAttackedBy(this, damageAttempted)
-    return this.generateAttackDescription(attack, target, damageAbsorbed)
+  calcAttackDamage(attack, target) {
+    var damage = attack.power * this.calcXpMultiplier()
+
+    damage = damage * this.calcElementMultiplier({
+      attackerElement: this.element, 
+      targetElement: target.element
+    })
+
+    return Math.round(damage)
   }
 
-  getAttackedBy(attacker, damage) {
-    var eltMultiplier = this.calcEltMultiplier(this.element, attacker.element)
-    damage = Math.round(damage * eltMultiplier)
+  receiveAttackDamage(damage) {
     this.HP -= damage
     
     // ensure that HP is never negative
     if (this.HP < 0) {
       this.HP = 0
     }
-
-    return damage
   }
-
 
   /*
     Used by enemy AI to choose an attack randomly
@@ -47,7 +47,7 @@ class Pokemon {
     round robin through attacks
     etc.
   */
-  selectAttack(target) {
+  selectAttack() {
     return this.selectRandomAttack()
   }
 
@@ -80,7 +80,10 @@ class Pokemon {
   PLANT beats WATER
   WATER beats FIRE
   */
-  calcEltMultiplier(attackerElement, targetElement) {
+  calcElementMultiplier(options) {
+    var attackerElement = options.attackerElement
+    var targetElement = options.targetElement
+
     if (attackerElement === "fire") {
       if (targetElement === "water") {
         return REDUCED_DAMAGE
@@ -129,6 +132,6 @@ class Pokemon {
   }
   
   getArrayOfAttacks() {
-    return Object.keys(this.attacks).map(key => this.attacks[key])  
+    return Object.keys(this.attacks).map(key => this.attacks[key])
   }
 }
