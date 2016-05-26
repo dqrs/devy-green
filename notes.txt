@@ -9,10 +9,13 @@ x clearly label all 'State Setup' Functions
 x set 'target'/'attacker' based on id in attackResult
 x Finish moving game output to battle eg startBattleMessage()
 x Finish initial refactor
+x Debug refactor
+x Refactor attacking, make it simpler for students
 
 Next task:
-- Debug refactor
-- Refactor attacking, make it simpler for students
+- Decide on XPMultiplier for attack damage
+- Add in accuracy ?
+- Flesh out student exercises
 
 - Implement items
 - Add Enemy Trainer
