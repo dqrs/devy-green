@@ -1,16 +1,33 @@
 class Pokemon {
 
+  /*
+    Pokemon Attributes:
+    - owner
+    - element
+    - HP
+    - baseHP
+    - maxHP
+    - AP
+    - baseAP
+    - XP
+    - level
+    - attacks
+    - formNUmber
+    - forms 
+      - species
+      - element
+      - baseHP
+      - baseAP
+      - attacks
+  */
   constructor(options) {
-    this.species = options.species
-    this.forms = options.forms
-    this.element = options.element
-    this.AP = options.AP
-    this.XP = options.XP
-    this.baseHP = options.baseHP
-    this.level = options.level
-    this.attacks = options.attacks
+
+    // input params
     this.owner = options.owner
-    
+    this.element = options.element
+    this.forms = options.forms
+    this.XP = options.XP
+
     this.updateLevel()
   }
 
@@ -39,8 +56,13 @@ class Pokemon {
     this.maxHP = this.baseHP * this.level
   }
 
+  /*
+    updateAP() calculates and updates the pokemon's
+    AP. It does this by setting the pokemon's AP
+    to its baseAP multiplied by its level.
+  */
   updateAP() {
-
+    this.AP = this.baseAP * this.level
   }
 
   /*
@@ -52,12 +74,13 @@ class Pokemon {
     var earnedXP = this.calcEarnedXP(enemies)
     this.addXP(earnedXP)
   }
+  
 
   /*
     calculateEarnedXP(...) is given an array of 'enemies' and it returns the total amount of XP earned by defeating all of
     them. To do this, it loops through all enemies, calling each enemy's giveUpXP() method. Each time it calls giveUpXP(), it adds the value to a running sum. This determines the total amount of XP our pokemon has earned by defeating all of the enemies. It returns this amount.
   */
-  calculateEarnedXP(enemies) {
+  calcEarnedXP(enemies) {
     var earnedXP = 0
     for (var i = 0; i < enemies.length; i++) {
       earnedXP += enemies[i].giveUpXP()
@@ -117,6 +140,15 @@ class Pokemon {
     this.evolveIfNecessary()
   }
 
+  updateStats(enemies) {
+    this.updateXP(enemies)
+    var oldLevel = this.level
+    this.updateLevel()
+    if (this.level > oldLevel) {
+      this.levelUp()
+    }
+  }
+
   /*
     returns true if pokemon evolved
   */
@@ -126,7 +158,7 @@ class Pokemon {
     if (this.level <= 3) {
       if (this.formNumber != 1) {
         this.evolveToForm(1)
-        evolved = true
+        evolved = false
       }
     } else if (this.level > 3 && this.level < 7) {
       if (this.formNumber != 2) {
@@ -151,19 +183,12 @@ class Pokemon {
 
     this.formNumber = formNumber
     self.species = newForm.species
+    self.element = newForm.element
     self.baseHP = newForm.baseHP
     self.AP = newForm.AP
     self.attacks = newForm.attacks
   }
 
-  updateStats(enemies) {
-    this.updateXP(enemies)
-    var oldLevel = this.level
-    this.updateLevel()
-    if (this.level > oldLevel) {
-      this.levelUp()
-    }
-  }
   
   /*
     calcDamage(...) calculates and returns the amount of 
@@ -173,7 +198,6 @@ class Pokemon {
     Damage is calculated by:
       - First multiplying:
         - the pokemon's AP
-        - times its level 
         - times the attack's power
         - times the element multiplier 
       - And then rounding the result
@@ -183,7 +207,7 @@ class Pokemon {
   */
   calcDamage(attack, target) {
     var EM = this.calcElementMultiplier(this, target)
-    var damage = this.AP * this.level * attack.power * EM
+    var damage = this.AP * attack.power * EM
     return Math.round(damage)
   }
 

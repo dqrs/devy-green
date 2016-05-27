@@ -27,6 +27,24 @@ Next task:
   - enemy trainer has enemy pokemon
 - Let player have multiple pokemon
 
+Note:
+  - gui should display pokemon's element
+  - special animation when evolving?
+  - look into pokemon sprites online...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
