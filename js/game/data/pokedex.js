@@ -6,7 +6,7 @@ var pokedex = {
     baseAP: 10,
     attacks: {
       'Scratch': attackedex['Scratch'],
-      'Ember': attackedex['Ember'],
+      'Ember': attackedex['Ember']
     }
   },
   'Charmeleon': {
@@ -17,7 +17,7 @@ var pokedex = {
     attacks: {
       'Scratch': attackedex['Scratch'],
       'Ember': attackedex['Ember'],
-      'Flame Burst': attackedex['Flame Burst'],
+      'Flame Burst': attackedex['Flame Burst']
     }
   },
   'Charizard': {
@@ -29,7 +29,7 @@ var pokedex = {
       'Scratch': attackedex['Scratch'],
       'Ember': attackedex['Ember'],
       'Flame Burst': attackedex['Flame Burst'],
-      'Dragon Rage': attackedex['Dragon Rage'],
+      'Dragon Rage': attackedex['Dragon Rage']
     }
   },
   'Bulbasaur': {
@@ -38,19 +38,20 @@ var pokedex = {
     baseHP: 35,
     baseAP: 8,
     attacks: {
-      'Growl': attackdex['Growl'],
-      'Leech Seed': attackedex['Leech Seed'],
+      'Growl': attackedex['Growl'],
+      'Leech Seed': attackedex['Leech Seed']
     },
+  },
   'Ivysaur': {
     species: 'Ivysaur',
     element: 'plant',
     baseHP: 60,
     baseAP: 16,
     attacks: {
-      'Growl': attackdex['Growl'],
+      'Growl': attackedex['Growl'],
       'Leech Seed': attackedex['Leech Seed'],
-      'Vine Whip': attackedex['Vine Whip'],
-    },
+      'Vine Whip': attackedex['Vine Whip']
+    }
   },
   'Venosaur': {
     species: 'Venosaur',
@@ -58,12 +59,12 @@ var pokedex = {
     baseHP: 80,
     baseAP: 25,
     attacks: {
-      'Growl': attackdex['Growl'],
+      'Growl': attackedex['Growl'],
       'Leech Seed': attackedex['Leech Seed'],
       'Vine Whip': attackedex['Vine Whip'],
       'Razor Leaf': attackedex['Razor Leaf'],
-      'Seed Bomb': attackedex['Seed Bomb'],
-    },
+      'Seed Bomb': attackedex['Seed Bomb']
+    }
   },
   'Squirtle': {
     species: 'Squirtle',
@@ -83,11 +84,11 @@ var pokedex = {
     attacks: {
       'Tackle': attackedex['Tackle'],
       'Water Gun': attackedex['Water Gun'],
-      'Aqua Jet': attackedex['Aqua Jet'],
+      'Aqua Jet': attackedex['Aqua Jet']
     }
   },
-  'Squirtle': {
-    species: 'Squirtle',
+  'Blastoise': {
+    species: 'Blastoise',
     element: 'water',
     baseHP: 72,
     baseAP: 29,
@@ -95,7 +96,7 @@ var pokedex = {
       'Tackle': attackedex['Tackle'],
       'Water Gun': attackedex['Water Gun'],
       'Aqua Jet': attackedex['Aqua Jet'],
-      'Hydro Pump': attackedex['Hydro Pump'],
+      'Hydro Pump': attackedex['Hydro Pump']
     }
   },
 }

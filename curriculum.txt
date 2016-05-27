@@ -1,0 +1,35 @@
+Curriculum Order:
+
+- Intro to Pokemon World and its Rules
+- Intro to Codebase
+- Generating messages
+- Intro to objects
+  - intro to objects and object syntax
+  - using/reading objects
+  - instantiating plain objects
+- Intro to classes
+  - defining what a class is
+  - instantiating objects from pre-written classes
+  - defining your own classes
+- writing methods for your classes
+  - 'generating messages' revisited, this time using:
+      - method parameters
+      - instance variables
+      - properties of instance variables
+  - methods that use other predefined methods in simple ways
+  - methods that calculate and return values
+  - methods with conditionals
+  - methods that set/update object state
+  - more complex methods
+    - e.g.: conditionals + calculation + calling other methods
+- arrays
+  - selecting an element
+  - setting an element
+  - adding an element
+  - removing an element
+  - iterating through all elements
+  - methods that require array iteration
+    - searching
+    - summing
+    - finding max/min
+    - sorting

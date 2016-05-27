@@ -195,14 +195,14 @@ class Pokemon {
 
   */
   evolveToForm(formNumber) {
-    var newForm = self.forms[formNumber]
+    var newForm = this.forms[formNumber]
 
     this.formNumber = formNumber
-    self.species = newForm.species
-    self.element = newForm.element
-    self.baseHP = newForm.baseHP
-    self.AP = newForm.AP
-    self.attacks = newForm.attacks
+    this.species = newForm.species
+    this.element = newForm.element
+    this.baseHP = newForm.baseHP
+    this.AP = newForm.AP
+    this.attacks = newForm.attacks
   }
 
   
@@ -242,11 +242,11 @@ class Pokemon {
   }
 
   /*
-    receieveDamage(...) updates the pokemon's HP by
+    subtractHP(...) updates the pokemon's HP by
     subtracting 'damage' from its current HP. It also
     ensures that the pokemon's HP is never less than 0.
   */
-  receiveDamage(damage) {
+  subtractHP(damage) {
     this.HP -= damage
     
     // ensure that HP is never negative
@@ -336,7 +336,7 @@ class Pokemon {
     Alternative strategy for selectAttack()
   */
   selectRandomAttack() {
-    var attacks = this.getArrayOfAttacks()
+    var attacks = toArray(this.attacks)
     var attackIndex = Math.floor(
       Math.random() * attacks.length
     )
@@ -349,7 +349,7 @@ class Pokemon {
     power level. It is an alternative strategy for selectAttack().
   */
   selectMostPowerfulAttack() {
-    var attacks = this.getArrayOfAttacks()
+    var attacks = toArray(this.attacks)
     
     // will store the index of the strongest attack
     var strongestIndex = 0
@@ -367,7 +367,7 @@ class Pokemon {
     Alternative strategy for selectAttack()
   */
   selectLeastPowerfulAttack() {
-    var attacks = this.getArrayOfAttacks()
+    var attacks = toArray(this.attacks)
     
     // will store the index of the weakest attack
     var weakestIndex = 0
@@ -385,7 +385,7 @@ class Pokemon {
     Alternative strategy for selectAttack()
   */
   selectMostAccurateAttack() {
-    var attacks = this.getArrayOfAttacks()
+    var attacks = toArray(this.attacks)
     
     // will store the index of the most accurate attack
     var mostAcc = 0 
@@ -397,9 +397,5 @@ class Pokemon {
     }
 
     return attacks[mostAcc] 
-  }
-
-  getArrayOfAttacks() {
-    return Object.keys(this.attacks).map(key => this.attacks[key])
   }
 }

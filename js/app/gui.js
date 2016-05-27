@@ -31,9 +31,9 @@ class GUI {
   }
 
   setupPlayerGUI() {
-    $('#playerName').text(player.name)
+    $('#playerName').text(this.battle.player.name)
     var playerTable = $('#playerGUI')
-    this.updateStats(playerTable, player.pokemon)
+    this.updateStats(playerTable, this.battle.player.pokemon)
     this.setupAttacksMenu()
     this.updateAttacksMenu()
     this.updateItemsMenu()
@@ -58,7 +58,7 @@ class GUI {
 
   updateAttacksMenu() {
     var attacksMenu = $("#attacksMenu")
-    var attacks = player.pokemon.getArrayOfAttacks()
+    var attacks = toArray(this.battle.player.pokemon.attacks)
     for (var i=0; i < attacks.length; i++) {
       var attack = attacks[i]
       attacksMenu.append(

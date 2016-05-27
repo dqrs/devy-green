@@ -12,33 +12,40 @@ x Finish initial refactor
 x Debug refactor
 x Refactor attacking, make it simpler for students
 x Decide on XPMultiplier for attack damage
+x Should species link to an array of forms:
+  - e.g: charmander[1], charmander[2], etc.
 
 Question to resolve:
   - How do we keep the pokemon class simple at first, while still
   providing a solid scaffolding for all future features we want to implement?
     - multiple versions
     - in-class versions exercises that build toward the impl.
-    - 
 
-Left Off:
-  - Battle.js createRandomEnemies
-  - Should species link to an array of forms:
-    - e.g: charmander[1], charmander[2], etc.
-
-
-Next task:
+Next tasks:
 - Battle.js
+- Pokemon.js
+  - Finish constructor/initialization
+  - Finish documenting Pokemon.js
+
 - Flesh out student exercises
   - Finish implementation
     - Enemies dying
     - Add in accuracy
   - Document
-- Finish documenting Pokemon.js
+
+GUI Fixes:
+  - health bars in GUI
+  - hide/disable buttons when not usable
+  - remove style attr after animating pokemon to fix abs pos
+  - set continue button as default focus so hitting enter key works
+  - make entire message area clickable to continue
+
 - Write unit tests
 - Implement items
 - Add Enemy Trainer
   - enemy trainer has enemy pokemon
 - Let player have multiple pokemon
+
 
 Note:
   - gui should display pokemon's element

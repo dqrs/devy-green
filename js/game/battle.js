@@ -12,12 +12,10 @@ class Battle {
     Options are 'Bulbasaur', 'Charmander', and 'Squirtle.'
   */
   createPlayer(playerName, speciesChosen) {
-    var speciesForms = []
-
     // initialize player's pokemon
     var playerPokemon = new Pokemon({
-      XP: 100
-      forms: formedex[speciesChosen]
+      XP: 100,
+      forms: formedex[speciesChosen],
       owner: 'player'
     })
 
@@ -68,9 +66,10 @@ class Battle {
       forms: formedex['Bulbasaur']
     })
 
-    enemies.push(enemySquirtle)
-    enemies.push(enemyCharmander)
-    enemies.push(enemyBulbasaur)
+    this.enemies = []
+    this.enemies.push(enemySquirtle)
+    this.enemies.push(enemyCharmander)
+    this.enemies.push(enemyBulbasaur)
   }
 
   /*
@@ -80,7 +79,7 @@ class Battle {
   */
   createRandomEnemies(num) {
     var formedexArray = toArray(formedex)
-    var enemies = []
+    var randomEnemies = []
     
     for (var i=0; i < num; i++) {
       var randomIndex = Math.floor(
@@ -91,8 +90,9 @@ class Battle {
         XP: 50 + Math.random() * 100,
         forms: formedexArray[randomIndex]
       })
-      enemies.push(enemy)
+      randomEnemies.push(enemy)
     }
+    this.enemies = randomEnemies
   }
 
   /*
@@ -266,7 +266,7 @@ class Battle {
   }
 
   chooseAttackMessage() {
-    var message = "<p>Choose your attack!</p>"
+    var message = `<p>Choose your attack!</p>`
     return message
   }
 
@@ -286,17 +286,17 @@ class Battle {
   }
 
   playerLostMessage() {
-    var message = `<p>${player.name} lost!</p>`
+    var message = `<p>${this.player.name} lost!</p>`
     return message
   }
 
   playerWonMessage() {
-    var message = `<p>${player.name} won!</p>`
+    var message = `<p>${this.player.name} won!</p>`
     return message
   }
 
   playerQuitMessage() {
-    return `${player.name} quit the battle!`
+    return `${this.player.name} quit the battle!`
   }
 
   describeAttack(attackResult) {
