@@ -32,8 +32,8 @@ var pokedex = {
       'Dragon Rage': attackedex['Dragon Rage'],
     }
   },
-  'Bulbosaur': {
-    species: 'Bulbosaur',
+  'Bulbasaur': {
+    species: 'Bulbasaur',
     element: 'plant',
     baseHP: 35,
     baseAP: 8,
@@ -75,8 +75,8 @@ var pokedex = {
       'Water Gun': attackedex['Water Gun']
     }
   },
-  'WarTortle': {
-    species: 'WarTortle',
+  'War Tortle': {
+    species: 'War Tortle',
     element: 'water',
     baseHP: 55,
     baseAP: 22,

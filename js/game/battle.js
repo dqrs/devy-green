@@ -1,97 +1,188 @@
 class Battle {
 
-  constructor(player, enemies) {
-    this.player = player;
-    this.enemies = enemies;
-  }
+  constructor() {
 
-  startBattleMessage() {
-    var message = `<p>The battle has begun!</p>`
-    message += `<p>Click to continue</p>`
-    return message
-  }
-
-  continueMessage() {
-    return '<p>Click to continue</p>'
-  }
-
-  chooseAttackMessage() {
-    var message = "<p>Choose your attack!</p>"
-    return message
-  }
-
-  attackChosenMessage(attackName) {
-    var message = `<p>You chose the attack: `
-    message += `<strong>${attackName}</strong></p>`
-    return message
-  }
-
-  chooseTargetMessage() {
-    var message = '<p>Now choose your target!</p>'
-    return message
-  }
-
-  battleOverMessage() {
-    return `<p>The battle has ended!</p>`
-  }
-
-  playerLostMessage() {
-    var message = `<p>${player.name} lost!</p>`
-    return message
-  }
-
-  playerWonMessage() {
-    var message = `<p>${player.name} won!</p>`
-    return message
-  }
-
-  playerQuitMessage() {
-    return `${player.name} quit the battle!`
   }
 
   /*
-  Looks at the HP of the player and all enemies
-  to determine if the battle is over or not
+    createPlayer(...) creates a new player object based
+    on the player's choice of starting character. Then
+    it saves this player as the battle's player attribute.
+    Note: The player chooses which pokemon to start with.
+    Options are 'Bulbasaur', 'Charmander', and 'Squirtle.'
+  */
+  createPlayer(playerName, speciesChosen) {
+    var speciesForms = []
+
+    // initialize player's pokemon
+    var playerPokemon = new Pokemon({
+      XP: 100
+      forms: formedex[speciesChosen]
+      owner: 'player'
+    })
+
+    // initialize player
+    this.player = new Player({
+      name: playerName,
+      pokemon: playerPokemon,
+      items: []
+    })
+  }
+
+  /*
+  Currently uses createRandomEnemies
+  Alternatives:
+    - create random enemies
+    - create unique enemies
+    - create duplicate enemies
+    - create enemies with same element
+    - create weak enemies
+    - create powerful enemies
+  */
+  createEnemies(num) {
+    this.createThreeSpecificEnemies()
+    // this.createRandomEnemies(num)
+  }
+
+  /*
+    Alternative strategy for createEnemies()
+    Simplest version. Creates the three enemies specifically
+    written here by the programmer. Not automatic at all.
+  */
+  createThreeSpecificEnemies() {
+    var enemySquirtle = new Pokemon({
+      owner: 'enemy',
+      XP: 125,
+      forms: formedex['Squirtle']
+    })
+    
+    var enemyCharmander = new Pokemon({
+      owner: 'enemy',
+      XP: 100,
+      forms: formedex['Charmander']
+    })
+    
+    var enemyBulbasaur = new Pokemon({
+      owner: 'enemy',
+      XP: 150,
+      forms: formedex['Bulbasaur']
+    })
+
+    enemies.push(enemySquirtle)
+    enemies.push(enemyCharmander)
+    enemies.push(enemyBulbasaur)
+  }
+
+  /*
+    Alternative strategy for createEnemies()
+    Creates 'num' enemies, each one randomly selected from
+    the formedex.
+  */
+  createRandomEnemies(num) {
+    var formedexArray = toArray(formedex)
+    var enemies = []
+    
+    for (var i=0; i < num; i++) {
+      var randomIndex = Math.floor(
+        Math.random() * formedexArray.length
+      )
+      var enemy = new Pokemon({
+        owner: 'enemy',
+        XP: 50 + Math.random() * 100,
+        forms: formedexArray[randomIndex]
+      })
+      enemies.push(enemy)
+    }
+  }
+
+  /*
+    Alternative strategy for createEnemies()
+    
+  */
+  createUniqueEnemies(num) {
+    
+  }
+
+  /*
+    Alternative strategy for createEnemies()
+  */
+  createDuplicateEnemies(num) {
+    
+  }
+  /*
+    Used by the application to locate enemies.
+  */
+  assignEnemiesIds() {
+    for (var i=0; i < enemies.length; i++) {
+      enemies[i].id = i
+    }
+  }
+
+
+  /*
+    battleIsOver() returns true if the battle has ended
+    ans false if it hasn't.
+    
+    The battle is over if the player's pokemon is dead
+    (has 0 HP) or if all of the enemies are dead.
   */
   battleIsOver() {
-    if (player.pokemon.HP == 0) {
-      return true;
+    if (this.player.pokemon.HP == 0) {
+      return true
     } else {
-      var enemyHP = 0;
-      for (var i = 0; i < enemies.length; i++) {
-        enemyHP += enemies[i].HP;
+      var totalEnemyHP = 0
+      for (var i = 0; i < this.enemies.length; i++) {
+        totalEnemyHP += this.enemies[i].HP
       }
-      return (enemyHP == 0);
+      return (totalEnemyHP == 0)
     }
   }
+  
   /*
-  Returns true if the player won the battle
-  Otherwise, returns false
+    checkIfPlayerWonBattle() returns true if the player won the battle. Otherwise, it returns false.
   */
-  determineWinner() {
-    // TODO:
-    if (this.player.HP > 0) {
-      return true;
+  checkIfPlayerWonBattle() {
+    if (this.battleIsOver() && this.player.HP > 0) {
+      return true
     } else {
-      return false;
+      return false
     }
   }
 
   /*
-    Selects the next enemy that will attack the Player
+    selectEnemyAttacker() selects the next enemy that will attack the Player.
 
-    Alternatives:
-    select enemy with least/most HP
-    select enemy with least/most XP
-    select enemy with strongest element against this player
-    round robin through enemies
-    etc.
+    Alternate Implementations:
+      - select first enemy
+      - select last enemy
+      - select random enemy
+      - select enemy with least/most HP
+      - select enemy with least/most XP
+      - select enemy with strongest element against this player
+      - round robin through enemies
   */
   selectEnemyAttacker() {
-    return this.selectRandomEnemy()
+    return this.selectRandomEnemyAttacker()
   }
 
-  selectRandomEnemy() {
+  /*
+    Alternate Implementation for selectEnemyAttacker()
+  */
+  selectFirstEnemyAttacker() {
+    
+  }
+
+  /*
+    Alternate Implementation for selectEnemyAttacker()
+  */
+  selectLastEnemyAttacker() {
+
+  }
+
+  /*
+    Alternate Implementation for selectEnemyAttacker()
+  */
+  selectRandomEnemyAttacker() {
     var attackerIndex = Math.floor(
       Math.random() * this.enemies.length
     )
@@ -143,6 +234,71 @@ class Battle {
     return attackResult
   }
 
+  /*
+    locateEnemyPokemon() returns the array index of the enemy pokemon provided.
+  */
+  locateEnemyPokemon(pokemon) {
+    for (var i=0; i < this.enemies.length; i++) {
+      if (this.enemies[i].id === pokemon.id) {
+        return i
+      }
+    }
+    return -1 // indicates that we could not find the pokemon
+  }
+  
+  /*
+    updateStats() is called if the player defeats all the enemies.
+    All it does it call the updateStats() method of the player's pokemon, passing in the enemies from this battle.
+  */
+  updateStats() {
+    this.player.pokemon.updateStats(this.enemies)
+  }
+
+  /////////Battle Messages///////////////////////////////
+  startBattleMessage() {
+    var message = `<p>The battle has begun!</p>`
+    message += `<p>Click to continue</p>`
+    return message
+  }
+
+  continueMessage() {
+    return '<p>Click to continue</p>'
+  }
+
+  chooseAttackMessage() {
+    var message = "<p>Choose your attack!</p>"
+    return message
+  }
+
+  attackChosenMessage(attackName) {
+    var message = `<p>You chose the attack: `
+    message += `<strong>${attackName}</strong></p>`
+    return message
+  }
+
+  chooseTargetMessage() {
+    var message = '<p>Now choose your target!</p>'
+    return message
+  }
+
+  battleOverMessage() {
+    return `<p>The battle has ended!</p>`
+  }
+
+  playerLostMessage() {
+    var message = `<p>${player.name} lost!</p>`
+    return message
+  }
+
+  playerWonMessage() {
+    var message = `<p>${player.name} won!</p>`
+    return message
+  }
+
+  playerQuitMessage() {
+    return `${player.name} quit the battle!`
+  }
+
   describeAttack(attackResult) {
     var msg = `<strong>${attackResult.attacker.species}</strong> `
     msg += `used the `
@@ -152,43 +308,15 @@ class Battle {
     msg += `units of damage.`
     return msg
   }
-
-  /*
-    Returns the array index of the enemy pokemon provided
-    Assumes that the enemy can only have one pokemon
-    of each species. For example, the enemy cannot have 
-    more than one 'Charizard' pokemon
-  */
-  locateEnemyPokemon(pokemon) {
-    for (var i=0; i < this.enemies.length; i++) {
-      if (this.enemies[i].species === pokemon.species) {
-        return i
-      }
-    }
-    return -1 // indicates that we could not find the pokemon
-  }
-
-  /*
-  The player's turn is a pair of two numbers:
-  (action, target)
-  The action is the number of an attack or item.
-  Then target is the number of the enemy to apply the action to.
-  Note: enemy can be null 
-  (for example, applying a shield doesn't require specifying an enemy)
-  */
-
-   /*
-  Based on the battle that just occurred,
-  we increase the player's XP.
-
-  For each enemy that the player defeated,
-  we increase the player's XP based on the XP of the enemy.
-
-  Then we check to see if the player earned enough XP
-  to level-up.
-  */
+  /////////End Battle Messages////////////////////////////
   
-  updatePlayerStats(battle) {
+  /*
+    The player's turn is a pair of two numbers:
+    (action, target)
+    The action is the number of an attack or item.
+    Then target is the number of the enemy to apply the action to.
+    Note: enemy can be null 
+    (for example, applying a shield doesn't require specifying an   enemy)
+  */
 
-  }
 }

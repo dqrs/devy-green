@@ -1,5 +1,4 @@
 class Pokemon {
-
   /*
     Pokemon Attributes:
     - owner
@@ -24,11 +23,14 @@ class Pokemon {
 
     // input params
     this.owner = options.owner
-    this.element = options.element
     this.forms = options.forms
     this.XP = options.XP
 
-    this.updateLevel()
+    // TODO:
+    // set up pokemon params
+    // certain params must be calculated
+
+    // this.updateLevel()
   }
 
   /*
@@ -108,6 +110,26 @@ class Pokemon {
   }
 
   /*
+    updateStats()
+    Based on the battle that just occurred,
+    we increase the pokemon's XP.
+
+    For each enemy that the pokemon defeated,
+    we increase the pokemon's XP based on the XP of the enemy.
+
+    Then we check to see if the pokemon earned enough XP
+    to level-up.
+  */
+  updateStats(enemies) {
+    this.updateXP(enemies)
+    var oldLevel = this.level
+    this.updateLevel()
+    if (this.level > oldLevel) {
+      this.levelUp()
+    }
+  }
+
+  /*
     updateLevel() calculates and updates the pokemon's level.
     A pokemon's level is determined by:
       - dividing its XP by 100
@@ -125,13 +147,13 @@ class Pokemon {
   }
 
   /*
-    levelUp() is used when the pokemon has gained enough XP
+    levelUp() is called when the pokemon has gained enough XP
     to cross over to the next level. When this happens,
     the following should happen:
       - the pokemon's maximum HP should be updated
       - the pokemon's AP should be updated
       - the pokemon's HP should be refilled
-      - we should check if the pokemon should evolve
+      - the pokemon should evolve if necessary
   */
   levelUp() {
     this.updateMaxHP()
@@ -140,17 +162,11 @@ class Pokemon {
     this.evolveIfNecessary()
   }
 
-  updateStats(enemies) {
-    this.updateXP(enemies)
-    var oldLevel = this.level
-    this.updateLevel()
-    if (this.level > oldLevel) {
-      this.levelUp()
-    }
-  }
 
   /*
-    returns true if pokemon evolved
+    evolveIfNecessary() checks if the pokemon should evolve
+    and triggers the evolution if so. 
+    It returns true if the pokemon evolved, false  otherwise.
   */
   evolveIfNecessary() {
     var evolved = false
