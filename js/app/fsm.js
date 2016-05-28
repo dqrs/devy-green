@@ -24,21 +24,21 @@ function setupStateMachine() {
       },
       {
         from: 'playerUsesAttack',
-        name: 'enemiesDefeated',  
+        name: 'enemyDefeated',  
         to:   'battleOver' 
       },
       {
         from: 'playerUsesAttack', 
         name: 'continueBattle',  
-        to:   'enemiesUseAttack' 
+        to:   'enemyUsesAttack' 
       },
       {
-        from: 'enemiesUseAttack',
+        from: 'enemyUsesAttack',
         name: 'playerDefeated',
         to:   'battleOver'
       },
       {
-        from: 'enemiesUseAttack',
+        from: 'enemyUsesAttack',
         name: 'continueBattle',  
         to:   'playerChoosesAttack' 
       },
@@ -53,7 +53,7 @@ function setupStateMachine() {
       onplayerChoosesAttack:   playerChoosesAttackState,
       onplayerChoosesTarget:   playerChoosesTargetState,
       onplayerUsesAttack:      playerUsesAttackState,
-      onenemiesUseAttack:      enemiesUseAttackState,
+      onenemyUsesAttack:       enemyUsesAttackState,
       onbattleOver:            battleOverState,
     }
   })  
@@ -75,15 +75,15 @@ function playerChoosesTargetState(event, from, to, msg) {
 
 function playerUsesAttackState(event, from, to, msg) {
   // execute the attack in-game
-  var attackResult = battle.playerAttacksEnemies(gui.action)
+  var attackResult = battle.playerAttacksenemy(gui.action)
   
   // animate the attack and update GUI
   gui.displayAttack(attackResult)
 }
 
-function enemiesUseAttackState(event, from, to, msg) {
+function enemyUsesAttackState(event, from, to, msg) {
   // execute the attack in-game
-  var attackResult = battle.enemiesAttackPlayer()
+  var attackResult = battle.enemyAttacksPlayer()
   
   // animate the attack and update GUI
   gui.displayAttack(attackResult)

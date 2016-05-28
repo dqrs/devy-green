@@ -18,8 +18,8 @@ Curriculum Order:
       - properties of instance variables
   - methods that use other predefined methods in simple ways
   - methods that calculate and return values
-  - methods with conditionals
   - methods that set/update object state
+  - methods with conditionals
   - more complex methods
     - e.g.: conditionals + calculation + calling other methods
 - arrays

@@ -32,6 +32,6 @@ function setupBattle() {
   battle = new Battle()
 
   // todo: let the player pick this
-  battle.createPlayer('Bulbasaur')
-  battle.createEnemies()
+  battle.setupPlayer('Gerardo', 'Bulbasaur')
+  battle.setupEnemy('Ash')
 }

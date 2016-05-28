@@ -53,8 +53,8 @@ var pokedex = {
       'Vine Whip': attackedex['Vine Whip']
     }
   },
-  'Venosaur': {
-    species: 'Venosaur',
+  'Venusaur': {
+    species: 'Venusaur',
     element: 'plant',
     baseHP: 80,
     baseAP: 25,

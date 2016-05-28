@@ -8,25 +8,25 @@ class GUI {
 
   setup() {
     this.setupPlayerGUI()
-    this.setupEnemiesGUI()
+    this.setupEnemyGUI()
   }
 
-  setupEnemiesGUI() {
-    var enemiesGUI = $("#enemiesGUI")
-    enemiesGUI.on('click', '.enemy', handlePlayerChoosesTarget)
+  setupEnemyGUI() {
+    var enemyGUI = $("#enemyGUI")
+    enemyGUI.on('click', '.enemy', handlePlayerChoosesTarget)
     var enemy = $(".enemy")
-    for (var i=0; i < this.battle.enemies.length; i++) {
+    for (var i=0; i < this.battle.enemy.pokemon.length; i++) {
       this.updateStats(
-        enemy.clone(), this.battle.enemies[i]
-      ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemiesGUI)
+        enemy.clone(), this.battle.enemy.pokemon[i]
+      ).removeClass('hidden').addClass('visible').attr('value', i).appendTo(enemyGUI)
     }
   }
 
-  updateEnemiesGUI() {
+  updateEnemyGUI() {
     var gui = this
     $(".enemy.visible").each(function() {
       var index = parseInt($(this).attr('value'))
-      gui.updateStats($(this), gui.battle.enemies[index])
+      gui.updateStats($(this), gui.battle.enemy.pokemon[index])
     })
   }
 
@@ -155,7 +155,7 @@ class GUI {
     ).removeClass('attackTarget')
 
     // update GUI with new game state post-attack  
-    gui.updateEnemiesGUI()
+    gui.updateEnemyGUI()
     gui.updatePlayerGUI()
   }
 }

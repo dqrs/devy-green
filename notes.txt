@@ -14,24 +14,39 @@ x Refactor attacking, make it simpler for students
 x Decide on XPMultiplier for attack damage
 x Should species link to an array of forms:
   - e.g: charmander[1], charmander[2], etc.
+x Add in enemy trainer
+x Added new images
 
-Question to resolve:
-  - How do we keep the pokemon class simple at first, while still
-  providing a solid scaffolding for all future features we want to implement?
-    - multiple versions
-    - in-class versions exercises that build toward the impl.
+
+
+Left Off:
+  - Just added enemy trainer. Debugging
+  - Print out whether attack hit or missed
+
 
 Next tasks:
 - Battle.js
+  - Enemies dying
+  - Add in accuracy
 - Pokemon.js
-  - Finish constructor/initialization
+  x Finish constructor/initialization
+  - Finish debugging pokemon.js
   - Finish documenting Pokemon.js
 
 - Flesh out student exercises
   - Finish implementation
-    - Enemies dying
-    - Add in accuracy
   - Document
+
+ -  Note: See hand-written notes re base/complete classes
+  - Setup Base Classes
+    - PokemonBase
+    - BattleBase
+    - TrainerBase
+
+  - Setup Student Classes
+    - Empty method bodies
+    - With comments spec'ing out each method
+    - Commented out
 
 GUI Fixes:
   - health bars in GUI
@@ -54,8 +69,11 @@ Note:
 
 
 
-
-
+Question to resolve:
+  - How do we keep the pokemon class simple at first, while still
+  providing a solid scaffolding for all future features we want to implement?
+    - multiple versions
+    - in-class versions exercises that build toward the impl.
 
 
 

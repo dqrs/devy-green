@@ -1,8 +1,8 @@
-class Player {
+class Trainer {
   constructor(options) {
+    this.name = options.name
     this.items = []
     this.pokemon = options.pokemon
-    this.name = options.name
   }
 
   useItem(item) {
@@ -10,6 +10,9 @@ class Player {
     this.removeItemFromInventory(item)
   }
 
+  removeItemFromInventory(item) {
+
+  }
 }
 
 // if (item instanceof FirstAidKit) {

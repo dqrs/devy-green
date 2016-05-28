@@ -5,11 +5,11 @@ function handleContinue(event) {
   } else if (fsm.current === "playerUsesAttack") {
     if (battle.battleIsOver()) {
       battleOutcomeMessage = battle.playerWonMessage()
-      fsm.enemiesDefeated()
+      fsm.enemyDefeated()
     } else {
       fsm.continueBattle()
     }
-  } else if (fsm.current === "enemiesUseAttack") {
+  } else if (fsm.current === "enemyUsesAttack") {
     if (battle.battleIsOver()) {
       battleOutcomeMessage = battle.playerLostMessage()
       fsm.playerDefeated()
