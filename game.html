@@ -8,6 +8,7 @@
   
   <!-- external libraries -->
   <script src="js/lib/jquery-2.2.4.min.js"></script>
+  <script src="js/lib/typed.js"></script>
   <script src="js/lib/util.js"></script>
   <script src="js/lib/state-machine.js"></script>
 
@@ -56,17 +57,17 @@
       </div>
     </div>
     <div id="messageGUI">
-      <p id="message"></p>
-      <p id="beginMessage" class="hidden">
-        The battle has begun!
-      </p>
-      <p class="hidden" id="actionMessage">
-        <span id="attacker"></span> used the <span id="attack"></span> attack against <span id="target"></span>  causing <span id="damage"></span> damage points.
-      </p>
-      <p id="endMessage" class="hidden">
-        The battle is over! 
-        You <span id="playerStatus"></span>!
-      </p>
+      <div id="message1">
+      </div>
+      <div class="hidden" id="hiddenMessages">
+        <p>This is the first string</p>
+      </div>
+      <div class="hidden" id="firstMessage">
+        <p>This is the first message</p>
+      </div>
+      <div class="hidden" id="secondMessage">
+        <p>Second string this is</p>
+      </div>
     </div>
     <div id="playerGUI">
       <h3>Player (<span id="playerName"></span>)</h3>

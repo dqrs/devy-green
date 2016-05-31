@@ -62,15 +62,19 @@ function setupStateMachine() {
 // State Functions
 function battleStartState(event, from, to, msg) {
   gui.setMessage(battle.startBattleMessage())
+  gui.appendMessage(battle.continueMessage()) 
+  gui.typeMessages()
 }
 
 function playerChoosesAttackState(event, from, to, msg) {
   gui.setMessage(battle.chooseAttackMessage())
+  gui.typeMessages()
 }
 
 function playerChoosesTargetState(event, from, to, msg) {
   gui.setMessage(battle.attackChosenMessage(gui.action.attackName)) 
   gui.appendMessage(battle.chooseTargetMessage()) 
+  gui.typeMessages()
 }
 
 function playerUsesAttackState(event, from, to, msg) {
@@ -92,4 +96,5 @@ function enemyUsesAttackState(event, from, to, msg) {
 function battleOverState(event, from, to, msg) {
   gui.setMessage(battle.battleOverMessage())
   gui.appendMessage(battleOutcomeMessage)
+  gui.typeMessages()
 }

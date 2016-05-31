@@ -11,7 +11,7 @@ class Battle {
   setupPlayer(playerName, speciesChosen) {
     // initialize player's pokemon
     var playerPokemon = new Pokemon({
-      XP: 100,
+      XP: 450,
       family: familydex[speciesChosen],
       owner: 'player'
     })
@@ -102,7 +102,7 @@ class Battle {
     Todo: Document
   */
   playerQuitMessage() {
-    return `${this.player.name} quit!`
+    return `<p>${this.player.name} quit!</p>`
   }
 
   /*
@@ -309,17 +309,17 @@ class Battle {
   */
   createThreeSpecificPokemon() {
     var enemySquirtle = new Pokemon({
-      XP: 100,
+      XP: 200,
       family: familydex['Squirtle']
     })
     
     var enemyCharmander = new Pokemon({
-      XP: 100,
+      XP: 200,
       family: familydex['Charmander']
     })
     
     var enemyBulbasaur = new Pokemon({
-      XP: 100,
+      XP: 200,
       family: familydex['Bulbasaur']
     })
 

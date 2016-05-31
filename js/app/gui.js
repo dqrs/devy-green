@@ -3,8 +3,8 @@ class GUI {
   constructor(battle) {
     this.action = {}
     this.battle = battle
-  }
-  
+    this.messages = []
+  }  
 
   setup() {
     this.setupPlayerGUI()
@@ -86,23 +86,54 @@ class GUI {
     // Todo
   }
 
-  clearMessage() {
-    $(`#messageGUI`).text(``)
+  clearMessages() {
+    this.messages = []
+    $(`#messageGUI`).empty()
+  }
+  
+  typeMessages() {
+    var self = this
+
+    if (this.messages.length > 0) {
+      $('.newMessage').removeClass('newMessage')
+      
+      var nextMessage = this.messages.shift()
+      $('#messageGUI').append('<div class="newMessage"></div>')
+      
+      $('.newMessage').typed({
+        strings: [nextMessage],
+        typeSpeed: 5,
+        showCursor: false,
+        callback: function() {
+          self.typeMessages()
+        }
+      })
+    }
   }
 
   setMessage(messageHTML) {
-    $(`#messageGUI`).html(messageHTML)
+    this.clearMessages()
+    this.messages.push(messageHTML)
   }
 
   appendMessage(messageHTML) {
-    $(`#messageGUI`).append(messageHTML)
+    this.messages.push(messageHTML)
+    // $('#messageGUI').append('<div id="message2"></div>')
+    // $('#message2').typed({
+    //   stringsElement: $('#secondMessage'),
+    //   showCursor: false,
+    // })
+    // $(`#hiddenMessages`).html(messageHTML)
+    // $('#messages').typed({
+    //   stringsElement: $('#hiddenMessages'),
+    //   showCursor: false,
+    // })
+    // $(`#hiddenMessages`).append(messageHTML)
+    // this.typeMessage()
+    // this.typeMessage()
   }
   
   displayAttack(attackResult) {
-    // print out description of the attack
-    this.setMessage(this.battle.attackResultMessage(attackResult))
-    this.appendMessage(this.battle.continueMessage())
-
     // select dom elements corresponding to attacker and target
     // based on the attackResult object
     if (attackResult.attacker.owner === `player`) {
@@ -119,6 +150,7 @@ class GUI {
     var targetPos = attackTarget.get(0).getBoundingClientRect()
     var attackerPos = attacker.get(0).getBoundingClientRect()
 
+    var self = this
     attacker.css(`position`, `absolute`).offset(attackerPos).animate(
       {
         left: targetPos.left,
@@ -126,7 +158,13 @@ class GUI {
       },
       {
         duration: 1000,
-        complete: this.flashTarget
+        complete: function() {
+          self.flashTarget()
+          // print out description of the attack
+          self.setMessage(self.battle.attackResultMessage(attackResult))
+          self.appendMessage(self.battle.continueMessage())
+          self.typeMessages()
+        }
       }
     ).animate(
       {
