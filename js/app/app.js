@@ -15,8 +15,8 @@
 */
 function launchGame() {
   setupBattle();
-  gui = new GUI(battle);
   setupStateMachine();
+  gui = new GUI(battle);
 
   // Wait until DOM has loaded
   $(document).ready(function() {

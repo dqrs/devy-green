@@ -1,8 +1,29 @@
+Course Strategy:
+Students start with an application framework that creates an empty UI for a Pokemon game. But by writing code they'll get to bring the game to life.
+
+Students start by writing high-level logic using the Pokemon/Battle classes as libraries, and eventually implement the Pokemon/Battle classes themselves.
+
+Pokemon extends BasePokemon
+Battle extends BasePokemon
+
+For each pokemon method, unit tests check to see if the method was written by the student or by us. Points are only awarder if the method was written by the student.
+
+Performance Objectives:
+- read and understand code (e.g. trace code, determine output)
+- read and understand pseudocode
+- write code after seeing similar code example
+- write code without seeing similar code example
+- modify code to perform a specific task
+- write code after being given the pseudocode
+- write the pseudocode given a spec
+- convert code to pseudocode
+
 Curriculum Order:
 
-- Intro to Pokemon World and its Rules
-- Intro to Codebase
-- Generating messages
+- Intro to the Pokemon World and its Rules
+- Intro to the Codebase
+  - Writing code that shows up on the UI
+    - Generating messages
 - Intro to objects
   - intro to objects and object syntax
   - using/reading objects

@@ -108,15 +108,44 @@ class Battle {
   /*
     Todo: Document
   */
-  describeAttack(attackResult) {
-    var msg = `<b>${attackResult.attacker.species}</b> `
-    msg += `used the `
-    msg += `<b>${attackResult.attack.name}</b> attack `
-    msg += `on <b>${attackResult.target.species}</b> `
-    msg += `causing <b>${attackResult.damage}</b> `
-    msg += `units of damage.`
+  attackResultMessage(attackResult) {
+    var msg = this.hitOrMissedMessage(attackResult)
+    msg    += this.attackDetailsMessage(attackResult)
+
     return msg
   }
+
+  /*
+    Returns a string indicating whether the attack hit or missed
+    its target.
+  */
+  hitOrMissedMessage(attackResult) {
+    var msg = ``
+    if (attackResult.hit) {
+      msg = `<p>Attack <b>hit</b>!!</p>`
+    } else {
+      msg = `<p>Attack <b>missed</b>!!</p>`
+    }
+    return msg
+  }
+
+  attackDetailsMessage(attackResult) {
+    var msg  = `<p><b>${attackResult.attacker.species}</b> `
+        msg += `used the `
+        msg += `<b>${attackResult.attack.name}</b> attack `
+        msg += `on <b>${attackResult.target.species}</b> `
+        msg += `causing <b>${attackResult.damage}</b> `
+        msg += `units of damage.</p>`
+    return msg
+  }
+
+  /*
+    Takes in a string 'msg' and adds a new line to it using the HTML <br /> tag.
+  */
+  addNewLine(msg) {
+    return msg += `<br />`
+  }
+
   /////////End Battle Messages////////////////////////////
   
   /*
@@ -169,7 +198,7 @@ class Battle {
     var attackResult = this.executeAttack({
       attacker: attacker,
       attack: enemyAttack,
-      target: player.pokemon
+      target: this.player.pokemon
     })
 
     return attackResult
@@ -203,7 +232,7 @@ class Battle {
     var attack = options.attack
     var target = options.target
 
-    var hit = determineIfAttackHitOrMissed(attack)
+    var hit = this.determineIfAttackHitOrMissed(attack)
 
     if (hit) {
       var damage = attacker.calcDamage(attack, target)
@@ -221,6 +250,21 @@ class Battle {
     }
 
     return attackResult
+  }
+
+  /*
+    checkIfAttackHit(...) returns a boolean value (true or false) 
+    indicating whether the attack hit its target or not.
+    Returns true if the attack hit and false if it missed.
+  */
+  determineIfAttackHitOrMissed(attack) {
+    var rand = Math.random()
+
+    if (rand < attack.accuracy) {
+      return true
+    } else {
+      return false
+    }
   }
 
   /*
@@ -345,28 +389,45 @@ class Battle {
   }
 
   /*
+    Returns an array of the enemy pokemon that are still alive.
+  */
+  getEnemiesThatAreStillAlive() {
+    var livingEnemies = []
+    for (var i=0; i < this.enemy.pokemon.length; i++) {
+      var pokemon = this.enemy.pokemon[i]
+      if (pokemon.isAlive()) {
+        livingEnemies.push(pokemon)
+      }
+    }
+    return livingEnemies
+  }
+
+  /*
     Alternate Implementation for selectEnemyAttacker()
   */
   selectFirstEnemyAttacker() {
-    return this.enemy.pokemon[0]
+    var livingEnemies = this.getEnemiesThatAreStillAlive()
+    return livingEnemies[0]
   }
 
   /*
     Alternate Implementation for selectEnemyAttacker()
   */
   selectLastEnemyAttacker() {
+    var livingEnemies = this.getEnemiesThatAreStillAlive()
     var indexOfLastEnemy = this.enemy.pokemon.length - 1
-    return this.enemy.pokemon[indexOfLastEnemy]
+    return livingEnemies[indexOfLastEnemy]
   }
 
   /*
     Alternate Implementation for selectEnemyAttacker()
   */
   selectRandomEnemyAttacker() {
+    var livingEnemies = this.getEnemiesThatAreStillAlive()
     var attackerIndex = Math.floor(
       Math.random() * this.enemy.pokemon.length
     )
-    return this.enemy.pokemon[attackerIndex]
+    return livingEnemies[attackerIndex]
   }
 
   /*

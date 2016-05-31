@@ -75,7 +75,7 @@ function playerChoosesTargetState(event, from, to, msg) {
 
 function playerUsesAttackState(event, from, to, msg) {
   // execute the attack in-game
-  var attackResult = battle.playerAttacksenemy(gui.action)
+  var attackResult = battle.playerAttacksEnemy(gui.action)
   
   // animate the attack and update GUI
   gui.displayAttack(attackResult)

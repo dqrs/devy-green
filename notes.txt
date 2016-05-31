@@ -1,41 +1,26 @@
 DEVY GREEEN
 
 =================================
-
-Refactoring Notes:
-x App (Controller), Battle (Models), Gui (View)
-x Refactor/Rename character
-x clearly label all 'State Setup' Functions
-x set 'target'/'attacker' based on id in attackResult
-x Finish moving game output to battle eg startBattleMessage()
-x Finish initial refactor
-x Debug refactor
-x Refactor attacking, make it simpler for students
-x Decide on XPMultiplier for attack damage
-x Should species link to an array of forms:
-  - e.g: charmander[1], charmander[2], etc.
-x Add in enemy trainer
-x Added new images
-
-
-
 Left Off:
   - Just added enemy trainer. Debugging
   - Print out whether attack hit or missed
 
 
 Next tasks:
-- Battle.js
-  - Enemies dying
-  - Add in accuracy
-- Pokemon.js
-  x Finish constructor/initialization
-  - Finish debugging pokemon.js
-  - Finish documenting Pokemon.js
+- Finish implementation
+  - Battle.js
+    - Enemies dying
+      - Cannot attack if dead
+  - Fix attack animation
+  - Print out whether attack hit or missed
+  - Attacks should do more damage
+  - Pokemon.js
+    x Finish constructor/initialization
+    - Finish debugging
+      - Finish documenting
 
 - Flesh out student exercises
-  - Finish implementation
-  - Document
+- Create additional exercises/explanations to explain concepts in more depth
 
  -  Note: See hand-written notes re base/complete classes
   - Setup Base Classes
@@ -48,12 +33,33 @@ Next tasks:
     - With comments spec'ing out each method
     - Commented out
 
-GUI Fixes:
-  - health bars in GUI
+  - Adding Easier Functionality to Work On:
+    - Acccepting user name
+    - Choosing starting pokemon
+    - Accepting enemy name
+    - Generating random enemy name
+    - 
+GUI Improvements:
+  - Add trainers to UI
+  - health bars
   - hide/disable buttons when not usable
   - remove style attr after animating pokemon to fix abs pos
   - set continue button as default focus so hitting enter key works
   - make entire message area clickable to continue
+  - animate printing of messages in message area
+  - choose fonts
+  - add logo*
+  - style buttons
+
+Structure the curriculum in terms of milestones:
+  - Milestone 1: all game logic is implemented for them except basic object attributes / messages that will print to the GUI
+    - trainer name
+    - battleStart message
+    - battleOver message, etc.
+  - Milestone 2:
+  - Creating and populating the game with objects
+    - Creating trainers
+    - Creating pokemon
 
 - Write unit tests
 - Implement items
