@@ -309,7 +309,7 @@ class Battle {
   */
   createThreeSpecificPokemon() {
     var enemySquirtle = new Pokemon({
-      XP: 125,
+      XP: 100,
       family: familydex['Squirtle']
     })
     
@@ -319,7 +319,7 @@ class Battle {
     })
     
     var enemyBulbasaur = new Pokemon({
-      XP: 150,
+      XP: 100,
       family: familydex['Bulbasaur']
     })
 

@@ -26,7 +26,7 @@ class Pokemon {
     this.family = options.family
     this.XP = options.XP
 
-    this.formNumber = 0
+    this.formNumber = -1
 
     // calculate pokemon attributes bases on XP and form
     this.updateLevel()
@@ -69,6 +69,26 @@ class Pokemon {
   */
   isAlive() {
     return this.HP > 0
+  }
+
+  /*
+    Returns the name of the Pokemon's image file.
+    The image changes based on the Pokemon's species and
+    whether it is alive or not.
+    For example:
+      a Charmander pokemon's image file should be:
+        'Charmander.png' if it is alive
+        and 'Charmander-Dead.png' if it is dead.
+      a Blastoise pokemon's image file should be:
+        'Blastoise.png' if it is alive
+        and 'Blastoise-Dead.png' if it is dead.
+  */
+  getImageFileName() {
+    if (this.isAlive()) {
+      return `${this.species}.png`
+    } else {
+      return `${this.species}-Dead.png`
+    }
   }
 
   /*
@@ -300,8 +320,7 @@ class Pokemon {
     Returns true if pokemon evolved, false otherwise
   */
   updateAttributesForNewLevel() {
-    var evolved = this.evolveIfNecessary()
-    
+    var evolved = this.evolveIfNecessary()  
     this.updateMaxHP()
     this.updateAP()
     this.refillHP()
@@ -318,18 +337,18 @@ class Pokemon {
     var evolved = false
     
     if (this.level <= 3) {
-      if (this.formNumber != 1) {
-        this.evolveToForm(1)
+      if (this.formNumber != 0) {
+        this.evolveToForm(0)
         evolved = false
       }
     } else if (this.level > 3 && this.level < 7) {
-      if (this.formNumber != 2) {
-        this.evolveToForm(2)
+      if (this.formNumber != 1) {
+        this.evolveToForm(1)
         evolved = true
       }
     } else if (this.level >= 7) {
-      if (this.formNumber != 3) {
-        this.evolveToForm(3)
+      if (this.formNumber != 2) {
+        this.evolveToForm(2)
         evolved = true
       }
     }

@@ -16,7 +16,7 @@ class GUI {
     enemyGUI.on(`click`, `.enemy`, handlePlayerChoosesTarget)
     var enemy = $(`.enemy`)
     for (var i=0; i < this.battle.enemy.pokemon.length; i++) {
-      this.updateStats(
+      this.updatePokemon(
         enemy.clone(), this.battle.enemy.pokemon[i]
       ).removeClass(`hidden`).addClass(`visible`).attr(`value`, i).appendTo(enemyGUI)
     }
@@ -26,14 +26,14 @@ class GUI {
     var gui = this
     $(`.enemy.visible`).each(function() {
       var index = parseInt($(this).attr(`value`))
-      gui.updateStats($(this), gui.battle.enemy.pokemon[index])
+      gui.updatePokemon($(this), gui.battle.enemy.pokemon[index])
     })
   }
 
   setupPlayerGUI() {
     $(`#playerName`).text(this.battle.player.name)
     var playerTable = $(`#playerGUI`)
-    this.updateStats(playerTable, this.battle.player.pokemon)
+    this.updatePokemon(playerTable, this.battle.player.pokemon)
     this.setupAttacksMenu()
     this.updateAttacksMenu()
     this.updateItemsMenu()
@@ -42,7 +42,7 @@ class GUI {
 
   updatePlayerGUI() {
     var playerTable = $(`#playerGUI`)
-    this.updateStats(playerTable, this.battle.player.pokemon)
+    this.updatePokemon(playerTable, this.battle.player.pokemon)
   }
 
   setupGameControlButtons() {
@@ -71,8 +71,8 @@ class GUI {
     }
   }
 
-  updateStats(element, pokemon) {
-    element.find(`img`).attr(`src`, `images/${pokemon.species}.png`)
+  updatePokemon(element, pokemon) {
+    element.find(`img`).attr(`src`, `images/${pokemon.getImageFileName()}`)
     element.find(`.species`).text(pokemon.species)
     element.find(`.element`).text(pokemon.element)
     element.find(`.HP`).text(pokemon.HP)

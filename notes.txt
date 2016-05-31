@@ -11,7 +11,7 @@ Next tasks:
   - Battle.js
     - Enemies dying
       - Cannot attack if dead
-  - Fix attack animation
+  x Fix attack animation
   - Print out whether attack hit or missed
   - Attacks should do more damage
   - Pokemon.js
@@ -33,12 +33,6 @@ Next tasks:
     - With comments spec'ing out each method
     - Commented out
 
-  - Adding Easier Functionality to Work On:
-    - Acccepting user name
-    - Choosing starting pokemon
-    - Accepting enemy name
-    - Generating random enemy name
-    - 
 GUI Improvements:
   - Add trainers to UI
   - health bars
@@ -51,15 +45,6 @@ GUI Improvements:
   - add logo*
   - style buttons
 
-Structure the curriculum in terms of milestones:
-  - Milestone 1: all game logic is implemented for them except basic object attributes / messages that will print to the GUI
-    - trainer name
-    - battleStart message
-    - battleOver message, etc.
-  - Milestone 2:
-  - Creating and populating the game with objects
-    - Creating trainers
-    - Creating pokemon
 
 - Write unit tests
 - Implement items

@@ -1,4 +1,4 @@
-Course Strategy:
+- Course Strategy:
 Students start with an application framework that creates an empty UI for a Pokemon game. But by writing code they'll get to bring the game to life.
 
 Students start by writing high-level logic using the Pokemon/Battle classes as libraries, and eventually implement the Pokemon/Battle classes themselves.
@@ -8,18 +8,21 @@ Battle extends BasePokemon
 
 For each pokemon method, unit tests check to see if the method was written by the student or by us. Points are only awarder if the method was written by the student.
 
-Performance Objectives:
-- read and understand code (e.g. trace code, determine output)
-- read and understand pseudocode
-- write code after seeing similar code example
-- write code without seeing similar code example
-- modify code to perform a specific task
-- write code after being given the pseudocode
-- write the pseudocode given a spec
-- convert code to pseudocode
 
-Curriculum Order:
+- Organized exercises/concepts into clusters that can be reordered. Then let students choose what order we cover the concepts within each cluster.
 
+
+- Differenet Types of Performance Objectives:
+  - read and understand code (e.g. trace code, determine output)
+  - read and understand pseudocode
+  - write code after seeing similar code example
+  - write code without seeing similar code example
+  - modify code to perform a specific task
+  - write code after being given the pseudocode
+  - write the pseudocode given a spec
+  - convert code to pseudocode
+
+- Curriculum Order:
 - Intro to the Pokemon World and its Rules
 - Intro to the Codebase
   - Writing code that shows up on the UI
@@ -52,5 +55,32 @@ Curriculum Order:
   - methods that require array iteration
     - searching
     - summing
+    - filtering
     - finding max/min
     - sorting
+
+Structure the curriculum in terms of milestones:
+  - Milestone 1: all game logic is implemented for them except basic object attributes / messages that will print to the GUI
+    - trainer name
+    - battle state messages
+      - battleStart message
+      - battleOver message, etc.
+    - attackResult message (uses parameters)
+      - hitOrMissedMessage (uses a conditional)
+      - attackDetailsMessage (param with properties)
+    - print attackAttributes for GUI
+    - player trainer label
+    - enemy trainer label
+    - print
+  - Milestone 2:
+  - Creating and populating the game with objects
+    - Creating trainers
+    - Creating pokemon
+    
+  - Adding Easier Functionality to Work On:
+    - Printing UI Messages:
+    - Acccepting user name
+    - Choosing starting pokemon
+    - Accepting enemy name
+    - Generating random enemy name
+    - 
