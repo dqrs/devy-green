@@ -72,7 +72,7 @@ class GUI {
   }
 
   updatePokemon(element, pokemon) {
-    element.find(`img`).attr(`src`, `images/${pokemon.getImageFileName()}`)
+    element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
     element.find(`.species`).text(pokemon.species)
     element.find(`.element`).text(pokemon.element)
     element.find(`.HP`).text(pokemon.HP)

@@ -1,7 +1,7 @@
 var pokedex = {
   'Charmander': {
     species: 'Charmander',
-    element: 'fire',
+    element: 'Fire',
     baseHP: 30,
     baseAP: 25,
     attacks: {
@@ -11,7 +11,7 @@ var pokedex = {
   },
   'Charmeleon': {
     species: 'Charmeleon',
-    element: 'fire',
+    element: 'Fire',
     baseHP: 50,
     baseAP: 45,
     attacks: {
@@ -22,7 +22,7 @@ var pokedex = {
   },
   'Charizard': {
     species: 'Charizard',
-    element: 'fire',
+    element: 'Fire',
     baseHP: 70,
     baseAP: 65,
     attacks: {
@@ -34,7 +34,7 @@ var pokedex = {
   },
   'Bulbasaur': {
     species: 'Bulbasaur',
-    element: 'plant',
+    element: 'Plant',
     baseHP: 35,
     baseAP: 20,
     attacks: {
@@ -44,7 +44,7 @@ var pokedex = {
   },
   'Ivysaur': {
     species: 'Ivysaur',
-    element: 'plant',
+    element: 'Plant',
     baseHP: 60,
     baseAP: 50,
     attacks: {
@@ -55,7 +55,7 @@ var pokedex = {
   },
   'Venusaur': {
     species: 'Venusaur',
-    element: 'plant',
+    element: 'Plant',
     baseHP: 80,
     baseAP: 60,
     attacks: {
@@ -68,7 +68,7 @@ var pokedex = {
   },
   'Squirtle': {
     species: 'Squirtle',
-    element: 'water',
+    element: 'Water',
     baseHP: 35,
     baseAP: 25,
     attacks: {
@@ -78,7 +78,7 @@ var pokedex = {
   },
   'War Tortle': {
     species: 'War Tortle',
-    element: 'water',
+    element: 'Water',
     baseHP: 55,
     baseAP: 45,
     attacks: {
@@ -89,7 +89,7 @@ var pokedex = {
   },
   'Blastoise': {
     species: 'Blastoise',
-    element: 'water',
+    element: 'Water',
     baseHP: 72,
     baseAP: 75,
     attacks: {

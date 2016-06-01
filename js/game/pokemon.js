@@ -83,7 +83,7 @@ class Pokemon {
         'Blastoise.png' if it is alive
         and 'Blastoise-Dead.png' if it is dead.
   */
-  getImageFileName() {
+  imageFileName() {
     if (this.isAlive()) {
       return `${this.species}.png`
     } else {
@@ -116,9 +116,9 @@ class Pokemon {
     calcElementMultiplier(...) calculates and returns the damage multiplier based on attacker's element and target's element.
     
     Element Relationships:
-    'fire'  overpowers 'plant'
-    'plant' overpowers 'water'
-    'water' overpowers 'fire'
+    'Fire'  overpowers 'Plant'
+    'Plant' overpowers 'Water'
+    'Water' overpowers 'Fire'
     
     If the attacker's element overpowers the target's element,
     then we return a multipler of 1.5 ('EXTRA_DAMAGE').
@@ -130,13 +130,13 @@ class Pokemon {
     we return a multiplier of 1.0 (NORMAL_DAMAGE).
 
     For example:
-      If the attacker is 'water' and the target is 'fire',
+      If the attacker is 'Water' and the target is 'Fire',
       the multiplier will be 1.5 (3/2)
-      because 'water' overpowers 'fire', 
+      because 'Water' overpowers 'Fire', 
 
-      But if the attacker is 'fire' and the target is 'water',
+      But if the attacker is 'Fire' and the target is 'Water',
       the multiplier will be 0.67 (2/3)
-      because 'fire' is overpowered by 'water.' 
+      because 'Fire' is overpowered by 'Water.' 
   */
   calcElementMultiplier(target) {
     var attackerElement = this.element
@@ -149,31 +149,31 @@ class Pokemon {
     const NORMAL_DAMAGE  = 1.0
     const REDUCED_DAMAGE = 0.67
 
-    if (attackerElement === "fire") {
+    if (attackerElement === "Fire") {
 
-      if (targetElement === "water") {
+      if (targetElement === "Water") {
         multiplier = REDUCED_DAMAGE
-      } else if (targetElement === "plant") {
+      } else if (targetElement === "Plant") {
         multiplier = EXTRA_DAMAGE
       } else {
         multiplier = NORMAL_DAMAGE
       }
 
-    } else if (attackerElement === "water") {
+    } else if (attackerElement === "Water") {
 
-      if (targetElement === "plant") {
+      if (targetElement === "Plant") {
         multiplier = REDUCED_DAMAGE
-      } else if (targetElement === "fire") {
+      } else if (targetElement === "Fire") {
         multiplier = EXTRA_DAMAGE
       } else {
         multiplier = NORMAL_DAMAGE
       }
 
-    } else if (attackerElement === "plant") {
+    } else if (attackerElement === "Plant") {
 
-      if (targetElement === "fire") {
+      if (targetElement === "Fire") {
         multiplier = REDUCED_DAMAGE
-      } else if (targetElement === "water") {
+      } else if (targetElement === "Water") {
         multiplier = EXTRA_DAMAGE
       } else {
         multiplier = NORMAL_DAMAGE

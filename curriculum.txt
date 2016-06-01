@@ -12,7 +12,7 @@ For each pokemon method, unit tests check to see if the method was written by th
 - Organized exercises/concepts into clusters that can be reordered. Then let students choose what order we cover the concepts within each cluster.
 
 
-- Differenet Types of Performance Objectives:
+- Different Types of Performance Objectives:
   - read and understand code (e.g. trace code, determine output)
   - read and understand pseudocode
   - write code after seeing similar code example
@@ -24,30 +24,45 @@ For each pokemon method, unit tests check to see if the method was written by th
 
 - Curriculum Order:
 - Intro to the Pokemon World and its Rules
+  - Demo fully-working version of the game
+- Intro to the Dev Environement
+  - Files
+  - Where they write their code
+  - Where they preview/run in it
 - Intro to the Codebase
   - Writing code that shows up on the UI
-    - Generating messages
+    - Generating messages in Battle.js
 - Intro to objects
   - intro to objects and object syntax
+    - defining what objects are
+    - how to use them
+      - trainer as example
+      - Editing attributes of the trainers (preview of objects)
+      - battle.setupPlayer() and battle.setupEnemy()
   - using/reading objects
+    - pokedex as example
+    - attackedex as example
   - instantiating plain objects
+    - creating the pokemon and trainer in Battle.js
 - Intro to classes
   - defining what a class is
   - instantiating objects from pre-written classes
   - defining your own classes
+  - calling methods that you've written (using browser console)
 - writing methods for your classes
   - 'generating messages' revisited, this time using:
+      - the 'this' keyword
       - method parameters
       - instance variables
       - properties of instance variables
-  - methods that use other predefined methods in simple ways
   - methods that calculate and return values
+  - methods that use other predefined methods in simple ways
   - methods that set/update object state
   - methods with conditionals
   - more complex methods
     - e.g.: conditionals + calculation + calling other methods
 - arrays
-  - selecting an element
+  - accessing/reading a specific element
   - setting an element
   - adding an element
   - removing an element
@@ -59,20 +74,17 @@ For each pokemon method, unit tests check to see if the method was written by th
     - finding max/min
     - sorting
 
-Structure the curriculum in terms of milestones:
-  - Milestone 1: all game logic is implemented for them except basic object attributes / messages that will print to the GUI
-    - trainer name
+Structure the curriculum in terms of phases/levels. For each level, the students are implementing more and more of the game logic.
+
+  - Level 1: all game logic is implemented for them except basic object attributes and messages that will print to the GUI
+    - trainer attributes (player and enemy)
     - battle state messages
       - battleStart message
       - battleOver message, etc.
     - attackResult message (uses parameters)
       - hitOrMissedMessage (uses a conditional)
       - attackDetailsMessage (param with properties)
-    - print attackAttributes for GUI
-    - player trainer label
-    - enemy trainer label
-    - print
-  - Milestone 2:
+  - Level 2:
   - Creating and populating the game with objects
     - Creating trainers
     - Creating pokemon
@@ -84,3 +96,15 @@ Structure the curriculum in terms of milestones:
     - Accepting enemy name
     - Generating random enemy name
     - 
+
+Lesson Plan Outline:
+
+- introduce new feature to implement
+- present concepts needded to implement features 
+  -  exercises, 
+  - examples, 
+  - drills 
+- use concepts: to implement feature in project:
+  - as a class, write high-level pseudo code (plan)
+  - unit tests and run game to know when theyre done
+

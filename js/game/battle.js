@@ -2,16 +2,16 @@ class Battle {
 
   /*
     setupPlayer(...) creates a new Trainer object based
-    on the player's choice of starting character. Then
-    it saves the trainer object as the battle's 'player' instance variable.
+    on the player's choice of name and starting Pokemon. Then
+    it saves the trainer as the battle's 'player' instance variable.
     
-    Note: The player chooses which pokemon to start with.
+    Note: The player chooses which Pokemon to start with.
     Options are 'Bulbasaur', 'Charmander', and 'Squirtle.'
   */
   setupPlayer(playerName, speciesChosen) {
-    // initialize player's pokemon
+    // initialize player's Pokemon
     var playerPokemon = new Pokemon({
-      XP: 450,
+      XP: 420,
       family: familydex[speciesChosen],
       owner: 'player'
     })
@@ -35,8 +35,53 @@ class Battle {
     this.enemy.pokemon = this.createEnemyPokemon(3)
   }
 
+  /*
+    Document..
+    Currently uses createRandomEnemies
+    Alternatives:
+      - create random enemies
+      - create unique enemies
+      - create duplicate enemies
+      - create enemies with same element
+      - create weak enemies
+      - create powerful enemies
+  */
+  createEnemyPokemon(num) {
+    var pokemon = this.createThreeSpecificPokemon()
+    this.assignPokemonToEnemy(pokemon)
+    this.assignPokemonIDNumbers(pokemon)
+    return pokemon
+  }
 
-  /////////Battle Messages///////////////////////////////
+  /*
+    Alternative strategy for createEnemies()
+    Simplest version. Creates the three enemies specifically
+    written here by the programmer. Not automatic at all.
+  */
+  createThreeSpecificPokemon() {
+    var enemySquirtle = new Pokemon({
+      XP: 200,
+      family: familydex['Squirtle']
+    })
+    
+    var enemyCharmander = new Pokemon({
+      XP: 200,
+      family: familydex['Charmander']
+    })
+    
+    var enemyBulbasaur = new Pokemon({
+      XP: 200,
+      family: familydex['Bulbasaur']
+    })
+
+    var pokemonArray = []
+    pokemonArray.push(enemySquirtle)
+    pokemonArray.push(enemyCharmander)
+    pokemonArray.push(enemyBulbasaur)
+
+    return pokemonArray
+  }
+
   /*
     Todo: Document
   */
@@ -110,7 +155,7 @@ class Battle {
   */
   attackResultMessage(attackResult) {
     var msg = this.hitOrMissedMessage(attackResult)
-    msg    += this.attackDetailsMessage(attackResult)
+    msg += this.attackDetailsMessage(attackResult)
 
     return msg
   }
@@ -118,15 +163,14 @@ class Battle {
   /*
     Returns a string indicating whether the attack hit or missed
     its target.
+    
   */
   hitOrMissedMessage(attackResult) {
-    var msg = ``
     if (attackResult.hit) {
-      msg = `<p>Attack <b>hit</b>!!</p>`
+      return `<p>Attack <b>hit</b>!!</p>`
     } else {
-      msg = `<p>Attack <b>missed</b>!!</p>`
+      return `<p>Attack <b>missed</b>!!</p>`
     }
-    return msg
   }
 
   attackDetailsMessage(attackResult) {
@@ -139,18 +183,11 @@ class Battle {
     return msg
   }
 
-  /*
-    Takes in a string 'msg' and adds a new line to it using the HTML <br /> tag.
-  */
-  addNewLine(msg) {
-    return msg += `<br />`
-  }
-
   /////////End Battle Messages////////////////////////////
   
   /*
     updateStats() is called if the player defeats all the enemies.
-    All it does it call the updateStats() method of the player's pokemon, passing in the enemies from this battle.
+    All it does it call the updateStats() method of the player's Pokemon, passing in the enemies from this battle.
 
     Todo: rename these methods. make them use same terms and make them shorter
   */
@@ -162,8 +199,8 @@ class Battle {
     battleIsOver() returns true if the battle has ended
     ans false if it hasn't.
     
-    The battle is over if the player's pokemon is dead
-    (has 0 HP) or if all of the enemy's pokemon are dead.
+    The battle is over if the player's Pokemon is dead
+    (has 0 HP) or if all of the enemy's Pokemon are dead.
   */
   battleIsOver() {
     if (this.player.pokemon.HP == 0) {
@@ -180,13 +217,13 @@ class Battle {
   /*
     checkIfPlayerWonBattle() returns true if the player won the battle. Otherwise, it returns false.
   */
-  checkIfPlayerWonBattle() {
-    if (this.battleIsOver() && this.player.pokemon.HP > 0) {
-      return true
-    } else {
-      return false
-    }
-  }
+  // checkIfPlayerWonBattle() {
+  //   if (this.battleIsOver() && this.player.pokemon.HP > 0) {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
 
   /*
     Todo: Document
@@ -253,8 +290,8 @@ class Battle {
   }
 
   /*
-    checkIfAttackHit(...) returns a boolean value (true or false) 
-    indicating whether the attack hit its target or not.
+    determineIfAttackHitOrMissed(...) returns a boolean value
+    (true or false) indicating whether the attack hit its target or not.
     Returns true if the attack hit and false if it missed.
   */
   determineIfAttackHitOrMissed(attack) {
@@ -265,24 +302,6 @@ class Battle {
     } else {
       return false
     }
-  }
-
-  /*
-    Document..
-    Currently uses createRandomEnemies
-    Alternatives:
-      - create random enemies
-      - create unique enemies
-      - create duplicate enemies
-      - create enemies with same element
-      - create weak enemies
-      - create powerful enemies
-  */
-  createEnemyPokemon(num) {
-    var pokemon = this.createThreeSpecificPokemon()
-    this.assignPokemonToEnemy(pokemon)
-    this.assignPokemonIDNumbers(pokemon)
-    return pokemon
   }
 
   /*
@@ -301,34 +320,6 @@ class Battle {
     for (var i=0; i < pokemonArray.length; i++) {
       pokemonArray[i].id = i
     }
-  }
-  /*
-    Alternative strategy for createEnemies()
-    Simplest version. Creates the three enemies specifically
-    written here by the programmer. Not automatic at all.
-  */
-  createThreeSpecificPokemon() {
-    var enemySquirtle = new Pokemon({
-      XP: 200,
-      family: familydex['Squirtle']
-    })
-    
-    var enemyCharmander = new Pokemon({
-      XP: 200,
-      family: familydex['Charmander']
-    })
-    
-    var enemyBulbasaur = new Pokemon({
-      XP: 200,
-      family: familydex['Bulbasaur']
-    })
-
-    var pokemonArray = []
-    pokemonArray.push(enemySquirtle)
-    pokemonArray.push(enemyCharmander)
-    pokemonArray.push(enemyBulbasaur)
-
-    return pokemonArray
   }
 
   /*

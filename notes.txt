@@ -1,26 +1,52 @@
 DEVY GREEEN
 
 =================================
-Left Off:
-  - Just added enemy trainer. Debugging
-  - Print out whether attack hit or missed
 
+Curriculum Notes:
+  - Flesh out student exercises
+  - Create additional exercises/explanations to explain concepts in more depth
 
 Next tasks:
-- Finish implementation
-  - Battle.js
-    - Enemies dying
-      - Cannot attack if dead
-  x Fix attack animation
-  - Print out whether attack hit or missed
-  - Attacks should do more damage
-  - Pokemon.js
-    x Finish constructor/initialization
-    - Finish debugging
-      - Finish documenting
+*****  - Add trainers to UI
+  - Allow students to modify the trainer's attributes
+    - static attributes
+    - calculated attributes
+  - Easier exercises for students to add:
+    - Trainer attributes
+    - Battle state methods
+    - Add more battle state methods?
 
-- Flesh out student exercises
-- Create additional exercises/explanations to explain concepts in more depth
+Idea:
+  - Use the project as a context for learning to give concepts more meaning. Then follow up the feature implementation with an isolated exercise/quiz that tests the concept outside the project
+  - project is great opportunity to give them experience reading code, comments, spec
+  - follow up with exercises outside of project
+
+
+GUI Improvements:
+  - health bars
+  - Add sound effects 
+  - hide/disable buttons when not usable
+  - remove style attr after animating pokemon to fix abs pos
+  - set continue button as default focus so hitting enter key works
+  - make entire message area clickable to continue
+  - choose fonts
+  - add logo*
+  - style buttons
+
+
+- Write unit tests
+- Let player have multiple pokemon
+
+Curriculum Tasks:
+  - Decide on order of concepts
+  - Create multiple features that require same concept
+  - Label code as isolated exercise or project
+  - Write isolated exercise code next to project version
+Note:
+  - gui should display pokemon's element
+  - special animation when evolving?
+  - look into pokemon sprites online...
+
 
  -  Note: See hand-written notes re base/complete classes
   - Setup Base Classes
@@ -32,51 +58,6 @@ Next tasks:
     - Empty method bodies
     - With comments spec'ing out each method
     - Commented out
-
-GUI Improvements:
-  - Add trainers to UI
-  - health bars
-  - hide/disable buttons when not usable
-  - remove style attr after animating pokemon to fix abs pos
-  - set continue button as default focus so hitting enter key works
-  - make entire message area clickable to continue
-  - animate printing of messages in message area
-  - choose fonts
-  - add logo*
-  - style buttons
-
-
-- Write unit tests
-- Implement items
-- Add Enemy Trainer
-  - enemy trainer has enemy pokemon
-- Let player have multiple pokemon
-
-
-Note:
-  - gui should display pokemon's element
-  - special animation when evolving?
-  - look into pokemon sprites online...
-
-
-
-Question to resolve:
-  - How do we keep the pokemon class simple at first, while still
-  providing a solid scaffolding for all future features we want to implement?
-    - multiple versions
-    - in-class versions exercises that build toward the impl.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ========================================
@@ -98,9 +79,6 @@ Medium:
 - Randomly spawn enemies for each battle
 
 Hard:
-- implement items
-- link into zork world / adventure mode
-
   - randomly trigger battle
   - enter/exit combat mode
   - health
@@ -112,19 +90,6 @@ Hard:
   - gain experience points
   - items to pickup: first aid kit, new weapon/attack
 
-  classes:
-  item
-  weapon
-  character/entity/ 
-
-Implementation Notes:
-- improve UI, animations
-
-Curriculum Tasks:
-  - Decide on order of concepts
-  - Create multiple features that require same concept
-  - Label code as isolated exercise or project
-  - Write isolated exercise code next to project version
 
 Platform Tasks:
   - Confirm cloud9
@@ -141,14 +106,3 @@ Ideas:
 
 =====================================
 Curriculum:
-Lesson Plan Outline:
-
-- introduce new feature to implement
-- present concepts needded to implement features 
-  -  exercises, 
-  - examples, 
-  - drills 
-- use concepts: to implement feature in project:
-  - as a class, write high-level pseudo code (plan)
-  - unit tests and run game to know when theyre done
-
