@@ -6,9 +6,71 @@ class GUI {
     this.messages = []
   }  
 
+  getEnemy() {
+    if (this.battle.enemy) {
+      return this.battle.enemy
+    } else {
+      return {}
+    }
+  }
+
+  getEnemyPokemon() {
+    if (this.getEnemy().pokemon) {
+      return this.battle.enemy.pokemon
+    } else {
+      return []
+    }
+  }
+
+  getPlayer() {
+    if (this.battle.player) {
+      return this.battle.player
+    } else {
+      return {}
+    }
+  }
+
+  getPlayerPokemon() {
+    if (this.getPlayer().pokemon) {
+      return this.battle.player.pokemon
+    } else {
+      return []
+    }
+  }
+
   setup() {
-    this.setupPlayerGUI()
     this.setupEnemyGUI()
+    this.setupPlayerGUI()
+  }
+
+
+  setupEnemyGUI() {
+    this.setupEnemyTrainer()
+    this.setupEnemyPokemon()
+  }
+
+  setupEnemyTrainer() {
+    var trainerModule = $(`#enemyGUI .trainerModule`)
+    this.updateTrainer(trainerModule, this.getEnemy())
+  }
+
+  setupEnemyPokemon() {
+    var enemyGUI = $(`#enemyGUI`)
+    enemyGUI.on(`click`, `.pokemonModule.enemy`, handlePlayerChoosesTarget)
+    var enemyModule = $(`.pokemonModule.enemy`)
+    for (var i=0; i < this.getEnemyPokemon().length; i++) {
+      this.updatePokemon(
+        enemyModule.clone(), this.getEnemyPokemon()[i]
+      ).removeClass(`hidden`).addClass(`visible`).attr(`value`, i).appendTo(enemyGUI)
+    }
+  }
+
+  updateEnemyGUI() {
+    var gui = this
+    $(`.enemy.visible`).each(function() {
+      var index = parseInt($(this).attr(`value`))
+      gui.updatePokemon($(this), gui.getEnemyPokemon()[index])
+    })
   }
 
   makeEnemiesSelectable() {
@@ -19,43 +81,16 @@ class GUI {
     $('.pokemonModule.enemy.visible').removeClass('enemyHoverable')
   }
 
-  setupEnemyGUI() {
-    this.setupEnemyTrainer()
-    this.setupEnemyPokemon()
-  }
-
-  setupEnemyTrainer() {
-    var trainerModule = $(`#enemyGUI .trainerModule`)
-    this.updateTrainer(trainerModule, this.battle.enemy)
-  }
-
-  setupEnemyPokemon() {
-    var enemyGUI = $(`#enemyGUI`)
-    enemyGUI.on(`click`, `.pokemonModule.enemy`, handlePlayerChoosesTarget)
-    var enemyModule = $(`.pokemonModule.enemy`)
-    for (var i=0; i < this.battle.enemy.pokemon.length; i++) {
-      this.updatePokemon(
-        enemyModule.clone(), this.battle.enemy.pokemon[i]
-      ).removeClass(`hidden`).addClass(`visible`).attr(`value`, i).appendTo(enemyGUI)
-    }
-  }
-
-  updateEnemyGUI() {
-    var gui = this
-    $(`.enemy.visible`).each(function() {
-      var index = parseInt($(this).attr(`value`))
-      gui.updatePokemon($(this), gui.battle.enemy.pokemon[index])
-    })
-  }
-
   updatePokemon(element, pokemon) {
-    element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
-    element.find(`.species`).text(pokemon.species)
-    element.find(`.element`).text(pokemon.element)
-    element.find(`.HP`).text(pokemon.HP)
-    element.find(`.maxHP`).text(pokemon.maxHP)
-    element.find(`.XP`).text(pokemon.XP)
-    element.find(`.level`).text(pokemon.level)
+    if (pokemon) {
+      element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
+      element.find(`.species`).text(pokemon.species)
+      element.find(`.element`).text(pokemon.element)
+      element.find(`.HP`).text(pokemon.HP)
+      element.find(`.maxHP`).text(pokemon.maxHP)
+      element.find(`.XP`).text(pokemon.XP)
+      element.find(`.level`).text(pokemon.level)
+    }
     return element
   }
 
@@ -71,10 +106,10 @@ class GUI {
 
   setupPlayerGUI() {
     var trainerModule = $(`#playerGUI .trainerModule`)
-    this.updateTrainer(trainerModule, this.battle.player)
+    this.updateTrainer(trainerModule, this.getPlayer())
 
     var playerPokemonModule = $(`#playerGUI .pokemonModule`)
-    this.updatePokemon(playerPokemonModule, this.battle.player.pokemon)
+    this.updatePokemon(playerPokemonModule, this.getPlayerPokemon())
     
     this.setupAttacksMenu()
     this.updateAttacksMenu()
@@ -84,9 +119,9 @@ class GUI {
 
   updatePlayerGUI() {
     var trainerModule = $(`#playerGUI .trainerModule`)
-    this.updateTrainer(trainerModule, this.battle.player)
+    this.updateTrainer(trainerModule, this.getPlayer())
     var pokemonModule = $(`#playerGUI .pokemonModule`)
-    this.updatePokemon(pokemonModule, this.battle.player.pokemon)
+    this.updatePokemon(pokemonModule, this.getPlayerPokemon())
   }
 
 
@@ -104,7 +139,7 @@ class GUI {
 
   updateAttacksMenu() {
     var attacksMenu = $(`#attacksMenu`)
-    var attacks = toArray(this.battle.player.pokemon.attacks)
+    var attacks = toArray(this.getPlayerPokemon().attacks)
     for (var i=0; i < attacks.length; i++) {
       var attack = attacks[i]
       attacksMenu.append(
