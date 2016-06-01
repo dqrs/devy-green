@@ -23,7 +23,7 @@ class Pokemon {
   */
   constructor(options) {
     this.owner = options.owner
-    this.family = options.family
+    this.family = familydex[options.family]
     this.XP = options.XP
 
     this.formNumber = -1

@@ -91,8 +91,9 @@ class GUI {
 
 
   setupGameControlButtons() {
+    $(`#messageGUI`).click(handleContinue)
     $(`button#continue`).click(handleContinue)
-    $(`button#quit`).click(handleQuit) 
+    $(`button#quit`).click(handleQuit)
   }
 
   setupAttacksMenu() {

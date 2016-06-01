@@ -28,10 +28,21 @@ class Trainer {
     return "Implement this"
   }
 
-  fullName() {
+  getFullName() {
+  }
+
+  getReverseName() {
+  }
+
+  getWeakestElement() {
 
   }
 
+  getFirstNameLastInitial() {
+  }
+
+  getFirstInitialLastName() {
+  }
 }
 
 // if (item instanceof FirstAidKit) {

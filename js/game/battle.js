@@ -25,7 +25,7 @@ class Battle {
     // initialize player's Pokemon
     var playerPokemon = new Pokemon({
       XP: 420,
-      family: familydex['Bulbasaur'],
+      family: 'Bulbasaur',
       owner: 'player'
     })
 
@@ -72,17 +72,17 @@ class Battle {
   createThreeSpecificPokemon() {
     var enemySquirtle = new Pokemon({
       XP: 200,
-      family: familydex['Squirtle']
+      family: 'Squirtle'
     })
     
     var enemyCharmander = new Pokemon({
       XP: 200,
-      family: familydex['Charmander']
+      family: 'Charmander'
     })
     
     var enemyBulbasaur = new Pokemon({
       XP: 200,
-      family: familydex['Bulbasaur']
+      family: 'Bulbasaur'
     })
 
     var pokemonArray = []
@@ -349,7 +349,7 @@ class Battle {
       var enemy = new Pokemon({
         owner: 'enemy',
         XP: 50 + Math.random() * 100,
-        family: familydexArray[randomIndex]
+        family: familydexArray[randomIndex].name
       })
       randomEnemies.push(enemy)
     }
