@@ -72,12 +72,15 @@ function playerChoosesAttackState(event, from, to, msg) {
 }
 
 function playerChoosesTargetState(event, from, to, msg) {
+  gui.makeEnemiesSelectable()
   gui.setMessage(battle.attackChosenMessage(gui.action.attackName)) 
   gui.appendMessage(battle.chooseTargetMessage()) 
   gui.typeMessages()
 }
 
 function playerUsesAttackState(event, from, to, msg) {
+  gui.makeEnemiesUnselectable()
+
   // execute the attack in-game
   var attackResult = battle.playerAttacksEnemy(gui.action)
   

@@ -1,5 +1,9 @@
 class Battle {
 
+  constructor() {
+    this.setupPlayer()
+    this.setupEnemy()
+  }
   /*
     setupPlayer(...) creates a new Trainer object based
     on the player's choice of name and starting Pokemon. Then
@@ -8,20 +12,24 @@ class Battle {
     Note: The player chooses which Pokemon to start with.
     Options are 'Bulbasaur', 'Charmander', and 'Squirtle.'
   */
-  setupPlayer(playerName, speciesChosen) {
-    // initialize player's Pokemon
-    var playerPokemon = new Pokemon({
-      XP: 420,
-      family: familydex[speciesChosen],
-      owner: 'player'
-    })
+  setupPlayer() {
 
     // initialize player
     this.player = new Trainer({
-      name: playerName,
-      pokemon: playerPokemon,
-      items: []
+      name: 'Misty Trainer',
+      age: 14,
+      favoriteElement: "Water",
+      slogan: "Never give up! Never surrender!"
     })
+    
+    // initialize player's Pokemon
+    var playerPokemon = new Pokemon({
+      XP: 420,
+      family: familydex['Bulbasaur'],
+      owner: 'player'
+    })
+
+    this.player.pokemon = playerPokemon
   }
 
   /*
@@ -29,7 +37,10 @@ class Battle {
   */
   setupEnemy(enemyName) {
     this.enemy = new Trainer({
-      name: enemyName
+      name: 'Ash Ketchum',
+      age: 13,
+      favoriteElement: "Plant",
+      slogan: "Gotta catch 'em all!"
     })
 
     this.enemy.pokemon = this.createEnemyPokemon(3)

@@ -30,8 +30,4 @@ launchGame()
 function setupBattle() {
   // initialize enemies (global variable)
   battle = new Battle()
-
-  // todo: let the player pick this
-  battle.setupPlayer('Gerardo', 'Bulbasaur')
-  battle.setupEnemy('Ash')
 }

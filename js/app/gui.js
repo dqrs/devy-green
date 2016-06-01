@@ -11,13 +11,31 @@ class GUI {
     this.setupEnemyGUI()
   }
 
+  makeEnemiesSelectable() {
+    $('.pokemonModule.enemy.visible').addClass('enemyHoverable')
+  }
+
+  makeEnemiesUnselectable() {
+    $('.pokemonModule.enemy.visible').removeClass('enemyHoverable')
+  }
+
   setupEnemyGUI() {
+    this.setupEnemyTrainer()
+    this.setupEnemyPokemon()
+  }
+
+  setupEnemyTrainer() {
+    var trainerModule = $(`#enemyGUI .trainerModule`)
+    this.updateTrainer(trainerModule, this.battle.enemy)
+  }
+
+  setupEnemyPokemon() {
     var enemyGUI = $(`#enemyGUI`)
-    enemyGUI.on(`click`, `.enemy`, handlePlayerChoosesTarget)
-    var enemy = $(`.enemy`)
+    enemyGUI.on(`click`, `.pokemonModule.enemy`, handlePlayerChoosesTarget)
+    var enemyModule = $(`.pokemonModule.enemy`)
     for (var i=0; i < this.battle.enemy.pokemon.length; i++) {
       this.updatePokemon(
-        enemy.clone(), this.battle.enemy.pokemon[i]
+        enemyModule.clone(), this.battle.enemy.pokemon[i]
       ).removeClass(`hidden`).addClass(`visible`).attr(`value`, i).appendTo(enemyGUI)
     }
   }
@@ -30,10 +48,34 @@ class GUI {
     })
   }
 
+  updatePokemon(element, pokemon) {
+    element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
+    element.find(`.species`).text(pokemon.species)
+    element.find(`.element`).text(pokemon.element)
+    element.find(`.HP`).text(pokemon.HP)
+    element.find(`.maxHP`).text(pokemon.maxHP)
+    element.find(`.XP`).text(pokemon.XP)
+    element.find(`.level`).text(pokemon.level)
+    return element
+  }
+
+  updateTrainer(element, trainer) {
+    element.find(`img`).attr(`src`, `images/${trainer.imageFileName()}`)
+    element.find(`.name`).text(trainer.name)
+    element.find(`.age`).text(trainer.age)
+    element.find(`.league`).text(trainer.getLeague())
+    element.find(`.favoriteElement`).text(trainer.favoriteElement)
+    element.find(`.slogan`).text(`"${trainer.slogan}"`)
+    return element
+  }
+
   setupPlayerGUI() {
-    $(`#playerName`).text(this.battle.player.name)
-    var playerTable = $(`#playerGUI`)
-    this.updatePokemon(playerTable, this.battle.player.pokemon)
+    var trainerModule = $(`#playerGUI .trainerModule`)
+    this.updateTrainer(trainerModule, this.battle.player)
+
+    var playerPokemonModule = $(`#playerGUI .pokemonModule`)
+    this.updatePokemon(playerPokemonModule, this.battle.player.pokemon)
+    
     this.setupAttacksMenu()
     this.updateAttacksMenu()
     this.updateItemsMenu()
@@ -41,9 +83,12 @@ class GUI {
   }
 
   updatePlayerGUI() {
-    var playerTable = $(`#playerGUI`)
-    this.updatePokemon(playerTable, this.battle.player.pokemon)
+    var trainerModule = $(`#playerGUI .trainerModule`)
+    this.updateTrainer(trainerModule, this.battle.player)
+    var pokemonModule = $(`#playerGUI .pokemonModule`)
+    this.updatePokemon(pokemonModule, this.battle.player.pokemon)
   }
+
 
   setupGameControlButtons() {
     $(`button#continue`).click(handleContinue)
@@ -71,16 +116,6 @@ class GUI {
     }
   }
 
-  updatePokemon(element, pokemon) {
-    element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
-    element.find(`.species`).text(pokemon.species)
-    element.find(`.element`).text(pokemon.element)
-    element.find(`.HP`).text(pokemon.HP)
-    element.find(`.maxHP`).text(pokemon.maxHP)
-    element.find(`.XP`).text(pokemon.XP)
-    element.find(`.level`).text(pokemon.level)
-    return element
-  }
   
   updateItemsMenu() {
     // Todo
@@ -138,12 +173,12 @@ class GUI {
     // based on the attackResult object
     if (attackResult.attacker.owner === `player`) {
       var enemyIndex = this.battle.locateEnemyPokemon(attackResult.target)
-      var attackTarget = $(`.enemy[value="${enemyIndex}"]`)
-      var attacker = $(`.playerImage`)
+      var attackTarget = $(`.pokemonModule.enemy[value="${enemyIndex}"]`)
+      var attacker = $(`#playerGUI .pokemonImage`)
     } else { // enemy is attacking player
       var enemyIndex = this.battle.locateEnemyPokemon(attackResult.attacker)
-      var attackTarget = $(`#playerPokemon`)
-      var attacker = $(`.enemy[value="${enemyIndex}"] .enemyImage`)
+      var attackTarget = $(`#playerGUI .pokemonModule`)
+      var attacker = $(`.pokemonModule.enemy[value="${enemyIndex}"] .enemyImage`)
     }
     attackTarget.addClass(`attackTarget`)
 

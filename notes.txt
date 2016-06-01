@@ -1,37 +1,36 @@
-DEVY GREEEN
-
-=================================
+DEVY GREEEN:
 
 Curriculum Notes:
   - Flesh out student exercises
   - Create additional exercises/explanations to explain concepts in more depth
-
-Next tasks:
-*****  - Add trainers to UI
-  - Allow students to modify the trainer's attributes
-    - static attributes
-    - calculated attributes
   - Easier exercises for students to add:
     - Trainer attributes
     - Battle state methods
     - Add more battle state methods?
 
-Idea:
   - Use the project as a context for learning to give concepts more meaning. Then follow up the feature implementation with an isolated exercise/quiz that tests the concept outside the project
   - project is great opportunity to give them experience reading code, comments, spec
   - follow up with exercises outside of project
 
-
+====================================================
+Next tasks:
+  X Add trainers to UI
+  X Allow students to modify the trainer's attributes
+    X static attributes
+    - calculated attributes
+      - Full Name
+      - League
+  
 GUI Improvements:
-  - health bars
-  - Add sound effects 
+  - choose fonts
+  - style buttons
   - hide/disable buttons when not usable
   - remove style attr after animating pokemon to fix abs pos
   - set continue button as default focus so hitting enter key works
+  - health bars
+  - Add sound effects 
   - make entire message area clickable to continue
-  - choose fonts
   - add logo*
-  - style buttons
 
 
 - Write unit tests

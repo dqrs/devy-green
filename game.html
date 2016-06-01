@@ -30,13 +30,39 @@
 
 <body>
   <div id="arena">
+    
     <div id="enemyGUI">
-      <h3>Enemies</h3>
-      <div class="pokemon enemy hidden">
-        <div class="imageWrapper">
-          <img class="enemyImage" src="images/Blastoise.png" alt="text">
-        </div>
-        <table class="enemyTable">
+    
+      <h3>Enemy</h3>
+      
+      <div class="trainerModule">
+        
+        <div class="trainerImageWrapper">
+          <img class="trainerImage" src="***" alt="text">
+        </div> <!-- end .trainerImageWrapper -->
+
+        <table class="trainerTable enemy">
+          <tr><th>Name</th></tr>
+          <tr><td class="name">***</td></tr>
+          <tr><th>Age</th></tr>
+          <tr><td class="age">***</td></tr>
+          <tr><th>League</th></tr>
+          <tr><td class="league">***</td></tr>
+          <tr><th >Favorite Element</th></tr>
+          <tr><td class="favoriteElement">***</td></tr>
+          <tr><th>Slogan</th></tr>
+          <tr><td class="slogan">***</td></tr>
+        </table>
+
+      </div> <!-- end .trainerModule -->
+
+      <div class="pokemonModule enemy hidden">
+        
+        <div class="pokemonImageWrapper">
+          <img class="pokemonImage enemyImage" src="images/Blastoise.png" alt="text">
+        </div><!-- end .pokemonImageWrapper -->
+        
+        <table class="pokemonTable enemyTable">
           <tr>
             <th>Species</th><td class="species">***</td>
           </tr>
@@ -53,17 +79,44 @@
           <tr><th>XP</th><td class="XP">***</td></tr>
           <tr><th>Level</th><td class="level">***</td></tr>
         </table>
-      </div>
-    </div>
+
+      </div> <!-- end .pokemonModule -->
+
+    </div> <!-- end #enemyGUI -->
+    
     <div id="messageGUI">
-    </div>
+    </div> <!-- end #messageGUI -->
+    
     <div id="playerGUI">
-      <h3>Player (<span id="playerName"></span>)</h3>
-      <div class="pokemon" id="playerPokemon">
-        <div class="imageWrapper">
-          <img class="playerImage" src="images/Charmeleon.png" alt="text">
-        </div>
-        <table id="playerStats">
+      <h3>Player</h3>
+      
+      <div class="trainerModule">
+        <div class="trainerImageWrapper">
+          <img class="trainerImage" src="***" alt="text">
+        </div> <!-- end .trainerImageWrapper -->
+
+        <table class="trainerTable player">
+          <tr><th>Name</th></tr>
+          <tr><td class="name">***</td></tr>
+          <tr><th>Age</th></tr>
+          <tr><td class="age">***</td></tr>
+          <tr><th>League</th></tr>
+          <tr><td class="league">***</td></tr>
+          <tr><th >Favorite Element</th></tr>
+          <tr><td class="favoriteElement">***</td></tr>
+          <tr><th>Slogan</th></tr>
+          <tr><td class="slogan">***</td></tr>
+        </table>
+
+      </div> <!-- end .trainerModule .player -->
+
+      <div class="pokemonModule" id="playerPokemon">
+        
+        <div class="pokemonImageWrapper">
+          <img class="playerPokemonImage pokemonImage" src="images/Charmeleon.png" alt="text">
+        </div> <!-- end .pokemonImageWrapper -->
+
+        <table class="pokemonTable player">
           <tr>
           <th>Species</th><td class="species">***</td>
           </tr>
@@ -80,17 +133,23 @@
           <tr><th>XP</th><td class="XP">***</td></tr>
           <tr><th>Level</th><td class="level">***</td></tr>
         </table>
-      </div>
+
+      </div> <!-- end .pokemonModule -->
+      
       <ul id="attacksMenu">
         <li><b>Attacks</b></li>
-      </ul>
-      <ul id="attacksMenu">
+      </ul> <!-- end #attacksMenu -->
+
+      <ul id="controlMenu">
         <li><b>Game Control</b></li>
         <button id="continue">continue</button>
         <button id="quit">quit</button>
-      </ul>
-    </div>
-  </div>
+      </ul> <!-- end #controlMenu -->
+
+    </div> <!-- end #playerGUI -->
+
+  </div> <!-- end #arena -->
+
 </body>
 
 </html>
