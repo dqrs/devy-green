@@ -165,21 +165,44 @@ Apps:
 - Battle
 
 
+=================================
+New UI Concept for Trainer Studio
 
+Clickable buttons that execute method calls
+- e.g.: trainer.saySlogan()
+- method executes
+- method returns its value in place (& void funcs return nothing)
+- the result is then marked correct or incorrect
+- the result can then be reset or kept
 
+- preferences object
+  - pre-execute all methods
+  - pre-execute basic stats
+  - pre-execute money methods
+  - etc.
 
+========================
 
+New Trainer attributes:
 
+- position: x, y
+  - moveLeft(num)
+  - moveUp(num)
+  - move(x, y)
+- TTS 
+  - sayX() vs displayX()
+  - setVoice()
+  - 
+============
 
-
-
-
-
-
-
-
-
-
+Notes from Meeting with Dave:
+- Concepts should be reinforeced as they're progressed
+- Return/review concepts from previous lesson
+- Insert outside exercises where necessary
+- Decide on performance objective at each point in the curric
+- Syntax exercises
+- Syntax cheat sheet
+- Fill-in-the-blank methods
 
 
 

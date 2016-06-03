@@ -1,7 +1,7 @@
 class Trainer {
   
   /*
-    Static Attributes:
+    // Static Attributes:
     firstName
     lastName
     age
@@ -9,13 +9,12 @@ class Trainer {
     favoriteColor
     favoriteELement
 
-    // State/Vitals:
+    // Dynamic Attributes (State/Vitals):
+    money
     happiness
     intelligence
     energy
-    health
     confidence
-    money
 
     // void functions
     sayHi()
@@ -30,12 +29,13 @@ class Trainer {
     getFirstInitialLastName()
     getImageFileName()
     
-    // conditionals threshold functions
+    // conditionals - threshold functions
     getConfidenceDescription()
     getHappinessDescription()
     getIntelligenceDescription()
     getLeague()
-    // conditionals other
+    
+    // conditionals - other
     getWeakestElement()
 
     // calculations
