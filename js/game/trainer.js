@@ -1,5 +1,69 @@
 class Trainer {
   
+  /*
+    Static Attributes:
+    firstName
+    lastName
+    age
+    slogan
+    favoriteColor
+    favoriteELement
+
+    // State/Vitals:
+    happiness
+    intelligence
+    energy
+    health
+    confidence
+    money
+
+    // void functions
+    sayHi()
+    sayMotto()
+    say(message)
+
+    // string interpolation
+    getFullName()
+    getReverseName()
+    getDoubleName()
+    getFirstNameLastInitial()
+    getFirstInitialLastName()
+    getImageFileName()
+    
+    // conditionals threshold functions
+    getConfidenceDescription()
+    getHappinessDescription()
+    getIntelligenceDescription()
+    getLeague()
+    // conditionals other
+    getWeakestElement()
+
+    // calculations
+    getAgeInMonths()
+    getAgeInDays()
+    getAgeInWeeks()
+    getAgeInMinutes()
+    getAgeInSeconds()
+
+    // Methods that update a single instance variable
+    setCoins(num)
+    lose10Coins()
+    gain10Coins()
+    loseCoins(num)
+    gainCoins(num)
+
+    // Methods that update multiple instance variables
+    work()
+    rest()
+    exercise()
+    watchTV()
+    readBook()
+    takeCompliment()
+    takeInsult()
+
+    giveCompliment()
+    
+  */
   constructor(options) {
     this.name = options.name,
     this.age = options.age,
@@ -20,7 +84,7 @@ class Trainer {
         'Blastoise.png' if it is alive
         and 'Blastoise-Dead.png' if it is dead.
   */
-  imageFileName() {
+  getImageFileName() {
     return `${this.name}.png`
   }
 
@@ -44,12 +108,3 @@ class Trainer {
   getFirstInitialLastName() {
   }
 }
-
-// if (item instanceof FirstAidKit) {
-//   this.useFirstAidKit()
-// } else if (item instanceof AttackPickup) {
-//   this.useAttack()
-// } else if (item instanceof Trap) {
-//   this.useTrap()
-// }
-// etc ..

@@ -1,0 +1,201 @@
+DEVY GREEEN:
+
+====================================================
+Next tasks:
+
+- Implement
+  - calculated attributes
+    - Full Name
+    - League
+    - Weak Element
+    - Favorite Color (changes background)
+
+GUI Improvements:
+  - choose fonts
+  - style buttons
+  - hide/disable buttons when not usable
+  - remove style attr after animating pokemon to fix abs pos
+  - set continue button as default focus so hitting enter key works
+  - health bars
+  - Add sound effects 
+  - add logo
+
+- Write unit tests
+- Let player have multiple pokemon
+
+=================================
+
+
+==============================================
+Curriculum Tasks:
+  - Figure out medium for structuring curriculum
+    - tags
+    - link to code
+    - visual
+    - easy to reorder
+    - allow for bookkeeping of revisiting concepts
+    - Structure curriculum as graph / FSM?
+    - possibilities
+        - Github issues:
+          - Structure around milestones
+          - Order features with issue numbers / note parallel features
+          - Tag functions with performance objective
+      - commoncurriculum.com
+      - mindjet
+      - text
+      - graphviz
+      - custom software
+      - fsm, dependency graph
+  - Create concept checks / assessments / follow-up exercises
+  - Decide on order of concepts
+    - order functions in code based on curriculum order
+    - revisit names of all functions for clarity
+  - Create multiple features that require same concept
+  - Label code as isolated exercise or project
+  - Write isolated exercise code next to project version
+
+Curriculum Notes:
+  - Flesh out student exercises
+  - Create additional exercises/explanations to explain concepts in more depth
+  - Easier exercises for students to add:
+    - Trainer attributes
+    - Battle state methods
+    - Add more battle state methods?
+Note:
+  - special animation when evolving?
+  - look into pokemon sprites online...
+
+ -  Note: See hand-written notes re base/complete classes
+  - Setup Base Classes
+    - PokemonBase
+    - BattleBase
+    - TrainerBase
+
+  - Setup Student Classes
+    - Empty method bodies
+    - With comments spec'ing out each method
+    - Commented out
+
+========================================
+
+Platform Tasks:
+  - Decide on cloud9 vs HyperDev vs ...
+  - Decide on unit testing framework
+    - simple to run
+    - pretty output
+  - Set up script for students to run
+  - Write unit Tests
+  - Settle on mechanism for student code inside of game engine
+  - Look into: persistence/saving game state
+
+Ideas:
+- Allow students to create their own pokemon classes
+
+
+
+===============================================
+The Multiple Screens Idea:
+
+To make the learning curve less steep, we break up the game into
+multiple screens/apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
+Trainer Studio, then Pokemon Studio, then Battle
+
+Apps:
+- Trainer Studio
+  - GUI starts out empty, instructs students to fill in each piece
+    - trainer details
+    - app details
+    - buttons
+  - Review of functions, basic data types, and returning data
+    - GUI has 'app details' slots that need to be filled in
+      - app name
+      - app credits
+      - app version
+      - app year
+      - app complete
+    - Create app Details as individual functions
+    - Call functions in browser console
+  - Intro to ordinary objects
+    - motivation: we want to define something that has multiple attributes
+    - Return App Details as a single object
+    - 
+    - review of the data types we've used so far, but we realize none of them will work
+      - numbers
+      - strings
+      - booleans
+      - arrays (?)
+    - Objects defined as a collection of related data
+    - Create the trainer first as an ordinary object (i.e. not a class)
+    - Get stats table working
+      - stats table displays static attributes 
+        (i.e. not computed by a method)
+    
+  - Intro to classes
+    - Motivation: Now we want our trainer to DO something when we click on various buttons. But it can't because it's just data. So we introduce classes as objects that not only have data but also have methods.
+  - GUI:
+    - buttons to trigger predefined functions
+    - command prompt to accept code to execute
+    - log area to show output
+  - concepts used in methods:
+    - constructors and setting instance variables (requires 'this')
+    - executing statements without returning anything
+    - executing outside functions within a method
+        - sayHi()
+    - executing statements and returning something
+      - getTime()
+    - using a parameter passed into the function
+      - say(message)
+    - using local variables within the method
+    - reading instance variables (requires 'this')
+      - sayMotto()
+      - imageFileName()
+    - incrementing/updating instance variables (requires 'this')
+    - calculating values in functions
+    - calling other methods within a method (requires 'this')
+    - more complex methods
+      - e.g.: conditionals + calculation + calling other methods
+
+- Pokemon Studio
+  - Concepts:
+    - more practice with objects, state etc
+    - arrays,
+      - selecting attacks
+      - max, min, etc.
+    - trainer object using pokemon object?
+- Battle
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

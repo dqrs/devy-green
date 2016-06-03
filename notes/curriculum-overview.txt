@@ -8,8 +8,12 @@ Battle extends BasePokemon
 
 For each pokemon method, unit tests check to see if the method was written by the student or by us. Points are only awarder if the method was written by the student.
 
+- Use the project as a context for learning to give concepts more meaning. Then follow up the feature implementation with an isolated exercise/quiz that tests the concept outside the project
+- project is great opportunity to give them experience reading code, comments, spec
+- follow up with exercises outside of project
 
 - Organized exercises/concepts into clusters that can be reordered. Then let students choose what order we cover the concepts within each cluster.
+
 
 
 - Different Types of Performance Objectives:

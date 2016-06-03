@@ -24,7 +24,7 @@ class Battle {
     
     // initialize player's Pokemon
     var playerPokemon = new Pokemon({
-      XP: 420,
+      XP: 450,
       family: 'Bulbasaur',
       owner: 'player'
     })
