@@ -83,7 +83,7 @@ class Pokemon {
         'Blastoise.png' if it is alive
         and 'Blastoise-Dead.png' if it is dead.
   */
-  imageFileName() {
+  getImageFileName() {
     if (this.isAlive()) {
       return `${this.species}.png`
     } else {

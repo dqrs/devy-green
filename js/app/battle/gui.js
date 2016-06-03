@@ -83,7 +83,7 @@ class GUI {
 
   updatePokemon(element, pokemon) {
     if (pokemon) {
-      element.find(`img`).attr(`src`, `images/${pokemon.imageFileName()}`)
+      element.find(`img`).attr(`src`, `images/${pokemon.getImageFileName()}`)
       element.find(`.species`).text(pokemon.species)
       element.find(`.element`).text(pokemon.element)
       element.find(`.HP`).text(pokemon.HP)
@@ -95,7 +95,7 @@ class GUI {
   }
 
   updateTrainer(element, trainer) {
-    element.find(`img`).attr(`src`, `images/${trainer.imageFileName()}`)
+    element.find(`img`).attr(`src`, `images/${trainer.getImageFileName()}`)
     element.find(`.name`).text(trainer.name)
     element.find(`.age`).text(trainer.age)
     element.find(`.league`).text(trainer.getLeague())
