@@ -1,8 +1,13 @@
+.hidden {
+  display: none;
+}
+
 .trainerImageWrapper {
-  /*height: 240px;*/
+  height: 200px;
   /*width: 120px;*/
   /*margin-right: 15px;*/
   width: 100%;
+  overflow: hidden;
 }
 
 .trainerImage {
@@ -29,3 +34,11 @@
 .col-xs-5 {
   border: 1px solid #aaf;
 }*/
+
+label {
+  font-size: 13px;
+}
+
+label.current-stats {
+  width: 80px;
+}

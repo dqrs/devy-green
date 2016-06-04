@@ -31,24 +31,26 @@ function getApp() {
 // --> insert exercise
 
 // Version 1 (With plain objects)
-function getTrainer() {
-  var trainer = {
-    name: "***",
-    age: 14,
-    motto: "Gott catch 'em all",
-    favoriteElement: "Fire"
-  }
+// function getTrainer() {
+//   var trainer = {
+//     name: "***",
+//     age: 14,
+//     motto: "Gott catch 'em all",
+//     favoriteElement: "Fire"
+//   }
 
-  return trainer
-}
+//   return trainer
+// }
 
 // Version 2 (With Classes)
 function getTrainer() {
   var trainer = new Trainer({
-    name: "Ash",
+    firstName: "Ash",
+    lastName: "Ketchum",
     age: 14,
-    motto: "Gott catch 'em all",
-    favoriteElement: "Fire"
+    slogan: "Gotta catch 'em all",
+    favoriteElement: "Fire",
+    favoriteColor: "red"
   })
 
   return trainer

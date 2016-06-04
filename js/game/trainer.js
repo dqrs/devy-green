@@ -16,10 +16,6 @@ class Trainer {
     energy
     confidence
 
-    // void functions
-    sayHi()
-    sayMotto()
-    say(message)
 
     // string interpolation
     getFullName()
@@ -45,12 +41,21 @@ class Trainer {
     getAgeInMinutes()
     getAgeInSeconds()
 
+    // void functions
+    printHi()
+    printSlogan()
+    print(message)
+    sayHi()
+    saySlogan()
+    say(message)
+    
     // Methods that update a single instance variable
     setCoins(num)
     lose10Coins()
     gain10Coins()
     loseCoins(num)
     gainCoins(num)
+
 
     // Methods that update multiple instance variables
     work()
@@ -65,10 +70,12 @@ class Trainer {
     
   */
   constructor(options) {
-    this.name = options.name,
+    this.firstName = options.firstName,
+    this.lastName = options.lastName,
     this.age = options.age,
     this.league = options.league,
     this.favoriteElement = options.favoriteElement,
+    this.favoriteColor = options.favoriteColor,
     this.slogan = options.slogan
   }
 

@@ -1,104 +1,48 @@
 DEVY GREEEN:
-
-====================================================
-Next tasks:
-
-- Implement
-  - calculated attributes
-    - Full Name
-    - League
-    - Weak Element
-    - Favorite Color (changes background)
-
-GUI Improvements:
-  - choose fonts
-  - style buttons
-  - hide/disable buttons when not usable
-  - remove style attr after animating pokemon to fix abs pos
-  - set continue button as default focus so hitting enter key works
-  - health bars
-  - Add sound effects 
-  - add logo
-
-- Write unit tests
-- Let player have multiple pokemon
-
-=================================
-
-
-==============================================
-Curriculum Tasks:
-  - Figure out medium for structuring curriculum
-    - tags
-    - link to code
-    - visual
-    - easy to reorder
-    - allow for bookkeeping of revisiting concepts
-    - Structure curriculum as graph / FSM?
-    - possibilities
-        - Github issues:
-          - Structure around milestones
-          - Order features with issue numbers / note parallel features
-          - Tag functions with performance objective
-      - commoncurriculum.com
-      - mindjet
-      - text
-      - graphviz
-      - custom software
-      - fsm, dependency graph
-  - Create concept checks / assessments / follow-up exercises
-  - Decide on order of concepts
-    - order functions in code based on curriculum order
-    - revisit names of all functions for clarity
-  - Create multiple features that require same concept
-  - Label code as isolated exercise or project
-  - Write isolated exercise code next to project version
-
-Curriculum Notes:
-  - Flesh out student exercises
-  - Create additional exercises/explanations to explain concepts in more depth
-  - Easier exercises for students to add:
-    - Trainer attributes
-    - Battle state methods
-    - Add more battle state methods?
-Note:
-  - special animation when evolving?
-  - look into pokemon sprites online...
-
- -  Note: See hand-written notes re base/complete classes
-  - Setup Base Classes
-    - PokemonBase
-    - BattleBase
-    - TrainerBase
-
-  - Setup Student Classes
-    - Empty method bodies
-    - With comments spec'ing out each method
-    - Commented out
-
-========================================
-
-Platform Tasks:
-  - Decide on cloud9 vs HyperDev vs ...
-  - Decide on unit testing framework
-    - simple to run
-    - pretty output
-  - Set up script for students to run
-  - Write unit Tests
-  - Settle on mechanism for student code inside of game engine
-  - Look into: persistence/saving game state
-
-Ideas:
-- Allow students to create their own pokemon classes
-
-
-
 ===============================================
 The Multiple Screens Idea:
 
 To make the learning curve less steep, we break up the game into
 multiple screens/apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
 Trainer Studio, then Pokemon Studio, then Battle
+
+Trainer Studio Implementation Tasks:
+  - order curriculum
+  - implement all functions
+  - get all functions on the UI
+  - If attribute is undefined, its button should be disabled
+  - Button should glow while its method is running
+  - create gui libary for students
+    - gui.say()
+    - gui.displayIcon()
+    - gui.print()
+  - App buttons / functions
+  - Set up testing system
+    - create an clone object with all of the same static attributes as
+      the student's, but it runs our methods instead
+    - how to test void functions?
+    - how to test funcs that modify multiple attributes
+  - set modes feature
+    - modes
+      - debug (button to press)
+      - test (same as debug mode except already run)
+      - display (nice display mode for final game)
+      - hide
+    - Add mode switch to panel
+    - consume preferences object to
+      - choose mode for each panel
+      - choose global mode
+      - hide
+  - Set Panel Color based on completion state
+    - Gray - None defined yet
+    - Yello - At least one working
+    - Green - once all properties in a panel work correctly
+  - Grade Report feature
+    - Run/test/display all buttons
+    - Provide a grade report as an overlay
+      - Number of tests passed out of total
+  - set up grid & positioning
+
 
 Apps:
 - Trainer Studio
@@ -219,6 +163,100 @@ Notes from Meeting with Dave:
 
 
 
+
+
+
+
+====================================================
+Next tasks:
+
+- Implement
+  - calculated attributes
+    - Full Name
+    - League
+    - Weak Element
+    - Favorite Color (changes background)
+
+GUI Improvements:
+  - choose fonts
+  - style buttons
+  - hide/disable buttons when not usable
+  - remove style attr after animating pokemon to fix abs pos
+  - set continue button as default focus so hitting enter key works
+  - health bars
+  - Add sound effects 
+  - add logo
+
+- Write unit tests
+- Let player have multiple pokemon
+
+=================================
+
+
+==============================================
+Curriculum Tasks:
+  - Figure out medium for structuring curriculum
+    - tags
+    - link to code
+    - visual
+    - easy to reorder
+    - allow for bookkeeping of revisiting concepts
+    - Structure curriculum as graph / FSM?
+    - possibilities
+        - Github issues:
+          - Structure around milestones
+          - Order features with issue numbers / note parallel features
+          - Tag functions with performance objective
+      - commoncurriculum.com
+      - mindjet
+      - text
+      - graphviz
+      - custom software
+      - fsm, dependency graph
+  - Create concept checks / assessments / follow-up exercises
+  - Decide on order of concepts
+    - order functions in code based on curriculum order
+    - revisit names of all functions for clarity
+  - Create multiple features that require same concept
+  - Label code as isolated exercise or project
+  - Write isolated exercise code next to project version
+
+Curriculum Notes:
+  - Flesh out student exercises
+  - Create additional exercises/explanations to explain concepts in more depth
+  - Easier exercises for students to add:
+    - Trainer attributes
+    - Battle state methods
+    - Add more battle state methods?
+Note:
+  - special animation when evolving?
+  - look into pokemon sprites online...
+
+ -  Note: See hand-written notes re base/complete classes
+  - Setup Base Classes
+    - PokemonBase
+    - BattleBase
+    - TrainerBase
+
+  - Setup Student Classes
+    - Empty method bodies
+    - With comments spec'ing out each method
+    - Commented out
+
+========================================
+
+Platform Tasks:
+  - Decide on cloud9 vs HyperDev vs ...
+  - Decide on unit testing framework
+    - simple to run
+    - pretty output
+  - Set up script for students to run
+  - Write unit Tests
+  - Settle on mechanism for student code inside of game engine
+  - Look into: persistence/saving game state
+
+Ideas:
+- Allow students to create their own pokemon classes
 
 
 
