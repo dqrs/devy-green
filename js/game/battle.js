@@ -16,10 +16,12 @@ class Battle {
 
     // initialize player
     this.player = new Trainer({
-      name: 'Misty Trainer',
+      firstName: 'Misty',
+      lastName: 'Trainer',
       age: 14,
       favoriteElement: "Water",
-      slogan: "Never give up! Never surrender!"
+      slogan: "Never give up! Never surrender!",
+      favoriteColor: "red"
     })
     
     // initialize player's Pokemon
@@ -37,9 +39,11 @@ class Battle {
   */
   setupEnemy(enemyName) {
     this.enemy = new Trainer({
-      name: 'Ash Ketchum',
+      firstName: 'Ash',
+      lastName: 'Ketchum',
       age: 13,
       favoriteElement: "Plant",
+      favoriteColor: "Green",
       slogan: "Gotta catch 'em all!"
     })
 

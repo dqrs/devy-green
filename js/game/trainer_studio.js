@@ -27,7 +27,7 @@ function getApp() {
     complete: false
   }
 }
-
+ 
 // --> insert exercise
 
 // Version 1 (With plain objects)

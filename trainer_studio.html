@@ -17,6 +17,7 @@
   <script src="js/game/trainer_studio.js"></script>
 
   <!-- application code (not to be edited by students) -->
+  <script src="js/app/trainer_studio/trainer_reference.js"></script>
   <script src="js/app/trainer_studio/app.js"></script>
 
 </head>
@@ -151,43 +152,119 @@
         <div class="panel panel-default">
 
           <div class="panel-heading">
-            <h3 class="panel-title">Advanced Information</h3>
+            <h3 class="panel-title">Name</h3>
           </div>
 
           <div class="panel-body">
           
             <div class="form-group">
-              <label class="control-label" for="inputGroupSuccess1">Energy</label>
+              <label class="control-label" for="inputGroupSuccess1">Full Name</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">trainer.energy</button>
+                <button type="button" class="btn btn-primary btn-sm">trainer.getFullName()</button>
               </div>
-            </div>
-            
-            <div class="form-group has-success has-feedback">
-              <label class="control-label" for="inputGroupSuccess1">trainer.happiness</label>
-              <input type="text" class="form-control input-sm" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" value="&quot;Ketchum&quot;">
-              <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-            </div>
-
-            <div class="form-group has-warning has-feedback">
-              <label class="control-label" for="inputGroupSuccess1">trainer.confidence</label>
-              <input type="text" class="form-control input-sm" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" value="">
-              <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-            </div>
-
-            <div class="form-group has-error has-feedback">
-              <label class="control-label" for="inputGroupSuccess1">trainer.intelligence</label>
-              <input type="text" class="form-control input-sm" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status" value="&quot;Pikachu&quot;">
-              <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="inputGroupSuccess1">Money</label>
+              <label class="control-label" for="inputGroupSuccess1">Reverse Name</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">trainer.money</button>
+                <button type="button" class="btn btn-primary btn-sm">trainer.getReverseName()</button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Double Full Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getDoubleFullName()</button>
               </div>
             </div>
 
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Double Reverse Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getDoubleReverseName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Image File Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getImageFileName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">First Name Last Initial</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getFirstNameLastInitial()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Last Name First Initial</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getLastNameFirstInitial()</button>
+              </div>
+            </div>
+          </div> <!-- end .panel-body -->
+
+        </div> <!-- end .panel #name-->
+
+        <div class="panel panel-default">
+
+          <div class="panel-heading">
+            <h3 class="panel-title">Age</h3>
+          </div>
+
+          <div class="panel-body">
+          
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Full Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getFullName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Reverse Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getReverseName()</button>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Double Full Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getDoubleFullName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Double Reverse Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getDoubleReverseName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Image File Name</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getImageFileName()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">First Name Last Initial</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getFirstNameLastInitial()</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="inputGroupSuccess1">Last Name First Initial</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-primary btn-sm">trainer.getLastNameFirstInitial()</button>
+              </div>
+            </div>
           </div> <!-- end .panel-body -->
 
         </div> <!-- end .panel -->
@@ -219,7 +296,7 @@
             <div class="form-group">
               <label class="control-label" for="inputGroupSuccess1">Write</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">trainer.write()</button>
+                <button type="button" class="btn btn-primary btn-sm">trainer.write(...)</button>
               </div>
             </div>
             <div class="form-group">
@@ -237,7 +314,7 @@
             <div class="form-group">
               <label class="control-label" for="inputGroupSuccess1">Say Anything</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">trainer.say("...")</button>
+                <button type="button" class="btn btn-primary btn-sm">trainer.say(...)</button>
               </div>
             </div>
 
@@ -309,7 +386,7 @@
     </div> <!-- end #main -->
   
     <footer class="row">
-      <div clas="col-xs-6">
+      <div class="col-xs-offset-5 col-xs-6">
         <p>&copy; 2016 Nathan Student</p>
       </div>
     </footer> <!-- end footer -->
@@ -328,6 +405,8 @@
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
   </div>
 
+  <div id="chatBubble">
+  </div>
 </body>
 
 </html>

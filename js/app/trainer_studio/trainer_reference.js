@@ -1,4 +1,4 @@
-class Trainer {
+class TrainerReference {
   
   /*
     // Static Attributes:
@@ -69,13 +69,26 @@ class Trainer {
     
   */
   constructor(options) {
-    // this.firstName = options.firstName,
-    // this.lastName = options.lastName,
-    // this.age = options.age,
-    // this.favoriteElement = options.favoriteElement,
-    // this.favoriteColor = options.favoriteColor,
-    // this.slogan = options.slogan
+    this.firstName = options.firstName,
+    this.lastName = options.lastName,
+    this.age = options.age,
+    this.favoriteElement = options.favoriteElement,
+    this.favoriteColor = options.favoriteColor,
+    this.slogan = options.slogan
   }
+
+
+  /*
+    Might not need this... could use constructor
+  */
+  // copyStaticAttributes(otherTrainer) {
+  //   this.firstName = otherTrainer.firstName,
+  //   this.lastName = otherTrainer.lastName,
+  //   this.age = otherTrainer.age,
+  //   this.favoriteElement = otherTrainer.favoriteElement,
+  //   this.favoriteColor = otherTrainer.favoriteColor,
+  //   this.slogan = otherTrainer.slogan
+  // }
 
   /*
     Returns the name of the Pokemon's image file.
@@ -89,49 +102,66 @@ class Trainer {
         'Blastoise.png' if it is alive
         and 'Blastoise-Dead.png' if it is dead.
   */
-  // getImageFileName() {
-  //   return `${this.firstName} ${this.lastName}.png`
-  // }
+  getImageFileName() {
+    return this.getFullName() + '.png'
+  }
 
-  // getLeague() {
-  //   // return "Implement this"
-  // }
 
-  // getFullName() {
-  //   // return "Ash Ketchum 2"
-  // }
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
 
-  // getReverseName() {
-  //   return 4
-  // }
+  getReverseName() {
+    return `${this.lastName}, ${this.firstName}`
+  }
 
-  // getWeakestElement() {
+  getDoubleFullName() {
+    return `${this.firstName} ${this.firstName} ` +
+     `${this.lastName} ${this.lastName}`
+  }
 
-  // }
+  getFirstNameLastInitial() {
+  }
 
-  // getFirstNameLastInitial() {
-  // }
+  getFirstInitialLastName() {
+  }
+  
+  getElementWeakestAgainst() {
 
-  // getFirstInitialLastName() {
-  // }
+  }
 
-  // writeHi() {
-  //   chatBubble("Hi")
-  // }
+  getElementStrongestAgainst() {
 
-  // writeSlogan() {
-  //   chatBubble(this.slogan)
-  // }
+  }
 
-  // sayHi() {
-  //   tts("Hi!")
-  // }
+  getAgeDescription() {
+    var description = ''
+    if (this.age < 10) {
+      description = 'kid'
+    } else if (this.age < 13) {
+      description = 'pre-teen'
+    } else if (this.age < 20) {
+      description = 'teenager'
+    } else {
+      description = 'adult'
+    }
+    return description
+  }
 
-  // saySlogan() {
-  //   tts(this.slogan)
-  // }
+  writeHi() {
+    // chatBubble("Hi")
+  }
 
-  // say(message) {
-  //   tts(message)
-  // }
+  writeSlogan() {
+
+  }
+
+  sayHi() {
+
+  }
+  
+  saySlogan() {
+    // speak(this.slogan)
+  }
+
 }

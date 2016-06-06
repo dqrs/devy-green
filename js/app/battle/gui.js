@@ -96,7 +96,7 @@ class GUI {
 
   updateTrainer(element, trainer) {
     element.find(`img`).attr(`src`, `images/${trainer.getImageFileName()}`)
-    element.find(`.name`).text(trainer.name)
+    element.find(`.name`).text(`${trainer.firstName} ${trainer.lastName}`)
     element.find(`.age`).text(trainer.age)
     element.find(`.league`).text(trainer.getLeague())
     element.find(`.favoriteElement`).text(trainer.favoriteElement)

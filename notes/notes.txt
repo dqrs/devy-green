@@ -3,7 +3,7 @@ DEVY GREEEN:
 The Multiple Screens Idea:
 
 To make the learning curve less steep, we break up the game into
-multiple screens/apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
+a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
 Trainer Studio, then Pokemon Studio, then Battle
 
 Trainer Studio Implementation Tasks:
@@ -16,10 +16,8 @@ Trainer Studio Implementation Tasks:
     - gui.say()
     - gui.displayIcon()
     - gui.print()
-  - App buttons / functions
   - Set up testing system
-    - create an clone object with all of the same static attributes as
-      the student's, but it runs our methods instead
+    - create an clone object with all of the same static attributes as the student's, but it runs our methods instead
     - how to test void functions?
     - how to test funcs that modify multiple attributes
   - set modes feature
@@ -35,7 +33,7 @@ Trainer Studio Implementation Tasks:
       - hide
   - Set Panel Color based on completion state
     - Gray - None defined yet
-    - Yello - At least one working
+    - Yellow - At least one working
     - Green - once all properties in a panel work correctly
   - Grade Report feature
     - Run/test/display all buttons
@@ -62,7 +60,6 @@ Apps:
   - Intro to ordinary objects
     - motivation: we want to define something that has multiple attributes
     - Return App Details as a single object
-    - 
     - review of the data types we've used so far, but we realize none of them will work
       - numbers
       - strings
