@@ -6,21 +6,15 @@ function init() {
   $(`#chatBubble`).click(removeChatBubble)
   
   $(`button`).each(setupButton)
-  $('.minimize').click(toggleModule)
+  $('.minimize').click(togglePanelMinimization)
+  $('.activate').click(togglePanelDisplayMode)
+
   setupTooltip()
-}
-
-function toggleModule() {
-  var element = $(this)
-  var minimized = element.hasClass('glyphicon-collapse-up')
-
-  if (minimized) {
-    $(this).parent().parent().find('.panel-body').removeClass('hidden')
-    $(this).addClass('glyphicon-collapse-down').removeClass('glyphicon-collapse-up')
-  } else {
-    $(this).parent().parent().find('.panel-body').addClass('hidden')
-    $(this).addClass('glyphicon-collapse-up').removeClass('glyphicon-collapse-down')
-  }
+  setupStatBar('energy')
+  setupStatBar('confidence')
+  setupStatBar('happiness')
+  setupStatBar('intelligence')
+  setupStatBar('strength')
 }
 
 $(document).ready(init)
@@ -48,6 +42,46 @@ function getSourceCode() {
 // function getSourceCodeFromInput() {
 //   return "THIS WORKS"
 // }
+
+function togglePanelMinimization() {
+  var element = $(this)
+  var minimized = element.hasClass('glyphicon-collapse-up')
+
+  if (minimized) {
+    $(this).parent().parent().find('.panel-body').removeClass('hidden')
+    $(this).addClass('glyphicon-collapse-down').removeClass('glyphicon-collapse-up')
+  } else {
+    $(this).parent().parent().find('.panel-body').addClass('hidden')
+    $(this).addClass('glyphicon-collapse-up').removeClass('glyphicon-collapse-down')
+  }
+}
+
+function togglePanelDisplayMode() {
+  var icon = $(this)
+  var panel = icon.parent().parent()
+  var activePanelBody = panel.find('.panel-body.active')
+  var hiddenPanelBody = panel.find('.panel-body.hidden')
+  activePanelBody.removeClass('active').addClass('hidden')
+  hiddenPanelBody.removeClass('hidden').addClass('active')
+
+  icon.toggleClass('glyphicon-flash').toggleClass('glyphicon-cog enabled')
+}
+
+var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
+
+function setupStatBar(property) {
+  var value = t[property]
+  var template = $(`.statBar.hidden`).clone().removeClass('hidden')
+  template.attr('id', property)
+  template.find('label').text(property)
+  template.find('.progress-bar').css({
+    width: `${value}%`,
+    backgroundColor: colors.pop()
+  })
+  template.find('.bar-reading').text(`${value}/100`)
+  $('#current-state .panel-body.display').append(template)
+}
+
 
 function setupButton() {
   var button = $(this)

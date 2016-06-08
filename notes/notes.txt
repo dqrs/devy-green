@@ -7,10 +7,12 @@ a series of apps. Start with a demo of the full battle, showing the students wha
 Trainer Studio, then Pokemon Studio, then Battle
 
 Trainer Studio Implementation Tasks:
-  - minimize modules with button press
+  x minimize modules with button press
   - display mode for:
+    X current state
     - basic info
-    - current state
+      --> implement tables
+      --> make sure activate button works
 
   - order curriculum
   - implement all functions

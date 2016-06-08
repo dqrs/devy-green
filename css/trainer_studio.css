@@ -71,8 +71,7 @@ button, input, a {
 }
 
 .ui-tooltip h5 {
-  color: green;
-  font-weight: bold
+  color: #aaa;
 }
 
 .panel-title {
@@ -87,46 +86,51 @@ small {
   color: #777;
 }
 
-label[disabled] {
-  color: #444; 
-}
 
 .function {
   color: #0d0;
 }
 
-label.function {
-  color: orange;
+label {
+  color: white;
 }
 
+/*label[disabled] {
+  color: #444; 
+}
+label.function {
+  color: #19f;
+}
+label.attribute {
+  color: yellow;
+}
+*/
 button.function {
- background-color: orange; 
+ background-color: #19f; 
  color: black;
 }
 
 button.function:hover {
   color: black;
-  background-color: orange;
+  background-color: #5cf;
   text-decoration: underline;
 }
 
-label.attribute {
-  color: yellow;
-}
 
 button.attribute {
-  background-color: yellow;
+  background-color: orange;
+  /*background-color: #f4ff00;*/
   color: black;
 }
 
 button.attribute:hover {
-  background-color: yellow;
+  background-color: #ffbb22;
   color: black;
   text-decoration: underline;
 }
 
 body {
-  /*background-color: v*/
+  color: white;
 }
 
 .panel-heading h3 {
@@ -141,9 +145,60 @@ body {
   color: #777;
   position: absolute;
   top: 10px;
-  right: 7px;
+}
+
+.panel-heading .minimize {
+  right: 5px;
+}
+
+.panel-heading .activate {
+  right: 24px;
+}
+
+.panel-heading .activate.enabled {
+  color: #a2a400;
+}
+
+.panel-heading .activate.enabled:hover {
+  color: #f2f400;
+}
+
+.panel-heading .activate.enabled:active {
+  color: #929400;
+}
+
+.panel-heading .glyphicon:active {
+  color: #111;
 }
 
 .panel-heading .glyphicon:hover {
   color: #aaa;
 }
+
+.control-label {
+  color: white;
+}
+
+
+.form-group.has-success label {
+  color: white;
+}
+
+.progress {
+  position: relative;
+}
+
+.bar-reading {
+  font-size: 13px;
+  font-weight: bold;
+  color: black;
+  position: absolute;
+  top: 2px;
+  left: 70px;
+}
+
+.thumbnail {
+  border-color: #444
+}
+
+/*.panel-title {}*/
