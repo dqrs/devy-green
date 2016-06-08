@@ -1,33 +1,94 @@
-var trainer = getTrainer()
-var trainerReference = new TrainerReference(getTrainer())
+// var trainer = getTrainer()
+var t = new TrainerReference(getTrainer())
+var tReference = new TrainerReference(getTrainer())
 
 function init() {
-  disableUndefinedButtons()
-  $("button").click(function(event) {
+  $(`#chatBubble`).click(removeChatBubble)
+  
+  $(`button`).each(setupButton)
+  $('.minimize').click(toggleModule)
+  setupTooltip()
+}
+
+function toggleModule() {
+  var element = $(this)
+  var minimized = element.hasClass('glyphicon-collapse-up')
+
+  if (minimized) {
+    $(this).parent().parent().find('.panel-body').removeClass('hidden')
+    $(this).addClass('glyphicon-collapse-down').removeClass('glyphicon-collapse-up')
+  } else {
+    $(this).parent().parent().find('.panel-body').addClass('hidden')
+    $(this).addClass('glyphicon-collapse-up').removeClass('glyphicon-collapse-down')
+  }
+}
+
+$(document).ready(init)
+
+function setupTooltip() {
+  $(document).tooltip({
+    content: getSourceCode,
+    items: 'button.function'
+  })
+}
+
+function getSourceCode() {
+  var element = $(this)
+
+  // if (element.is('button')) {
+    var property = getPropertyFromButton(element)
+    var tooltipText = `<h5>Source Code:</h5>`
+    var source = t[property].toString()
+    tooltipText += `<pre><code>${source}</code></pre>`
+  // }
+
+  return tooltipText
+}
+
+// function getSourceCodeFromInput() {
+//   return "THIS WORKS"
+// }
+
+function setupButton() {
+  var button = $(this)
+
+  button.click(function(event) {
     evaluateButton(event)
   })
-  $(`#chatBubble`).click(removeChatBubble)
-  tts("Welcome!")  
+
+  // get property name
+  var property = getPropertyFromButton(button)
+
+  if (typeof t[property] === 'undefined') {
+
+    button.removeClass('btn-primary')
+    button.attr('disabled', 'disabled')
+    button.parent().parent().find('label').attr('disabled', 'disabled')
+
+  } else if (typeof t[property] === 'function') {
+
+    button.addClass('function')
+    button.parent().parent().find('label').addClass('function')
+
+  } else {
+
+    button.addClass('attribute')
+    button.parent().parent().find('label').addClass('attribute')
+
+  }
 }
 
-function disableUndefinedButtons() {
-  var buttons = $('button')
-  buttons.each(function() {
-    var button = $(this)
+function getPropertyFromButton(button) {
+  // get property name
+  var property = button.text().split(".")[1]
 
-    // get property name
-    var property = button.text().split(".")[1]
+  // remove args if it's a method call
+  var argsRegEx = /\(.*\)/
+  property = property.replace(argsRegEx,'')
 
-    // remove args if it's a method call
-    var argsRegEx = /\(.*\)/
-    property = property.replace(argsRegEx,'')
-
-    if (typeof trainer[property] === 'undefined') {
-      button.removeClass('btn-primary')
-      button.attr('disabled', 'disabled')
-    }
-  })
+  return property
 }
+
 
 function evaluateButton(event) {
   var button = $(event.target)
@@ -60,7 +121,7 @@ function testCode(code) {
   var result = {}
   var reference = {}
   try {
-    reference.returnValue = eval('trainerReference.' + methodCall)
+    reference.returnValue = eval('tReference.' + methodCall)
   } catch (err) {
     reference.returnValue = err.message
   }
@@ -96,7 +157,6 @@ function formatReturnValue(val) {
 
 // }
 
-$(document).ready(init)
 
 function chatBubble(msg) {
   $('#chatBubble').empty()
@@ -119,7 +179,7 @@ function tts(msg) {
   var voices = window.speechSynthesis.getVoices();
   utterance.voice = voices[3];
   utterance.text = msg;
-  // utterance.voice = voices[trainer.voice];
+  // utterance.voice = voices[t.voice];
   // utterance.voiceURI = 'native';
   // utterance.volume = 1; // 0 to 1
   // utterance.rate = 0.5; // 0.1 to 10

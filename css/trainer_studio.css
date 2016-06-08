@@ -53,3 +53,97 @@ label.current-stats {
   font-style: italic;
   padding: 10px;
 }
+
+button, input, a {
+  font-family: monospace;
+  font-weight: bold !important;
+}
+
+.ui-tooltip {
+  background-color: black;
+  max-width: 1000px;
+}
+
+.ui-tooltip pre {
+  color: black;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.ui-tooltip h5 {
+  color: green;
+  font-weight: bold
+}
+
+.panel-title {
+  color: #666;
+}
+
+small {
+  color: #666 !important; 
+}
+
+.btn[disabled] {
+  color: #777;
+}
+
+label[disabled] {
+  color: #444; 
+}
+
+.function {
+  color: #0d0;
+}
+
+label.function {
+  color: orange;
+}
+
+button.function {
+ background-color: orange; 
+ color: black;
+}
+
+button.function:hover {
+  color: black;
+  background-color: orange;
+  text-decoration: underline;
+}
+
+label.attribute {
+  color: yellow;
+}
+
+button.attribute {
+  background-color: yellow;
+  color: black;
+}
+
+button.attribute:hover {
+  background-color: yellow;
+  color: black;
+  text-decoration: underline;
+}
+
+body {
+  /*background-color: v*/
+}
+
+.panel-heading h3 {
+  /*float: left;*/
+}
+
+.panel-heading {
+  position: relative;
+}
+
+.panel-heading .glyphicon {
+  color: #777;
+  position: absolute;
+  top: 10px;
+  right: 7px;
+}
+
+.panel-heading .glyphicon:hover {
+  color: #aaa;
+}

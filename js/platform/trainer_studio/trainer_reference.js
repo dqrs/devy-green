@@ -69,14 +69,18 @@ class TrainerReference {
     
   */
   constructor(options) {
-    this.firstName = options.firstName,
-    this.lastName = options.lastName,
-    this.age = options.age,
-    this.favoriteElement = options.favoriteElement,
-    this.favoriteColor = options.favoriteColor,
+    this.firstName = options.firstName
+    this.lastName = options.lastName
+    this.age = options.age
+    this.favoriteElement = options.favoriteElement
+    this.favoriteColor = options.favoriteColor
     this.slogan = options.slogan
+    this.energy = options.energy
+    this.happiness = options.happiness
+    this.confidence = options.confidence
+    this.intelligence = options.intelligence
+    this.strength = options.strength
   }
-
 
   /*
     Might not need this... could use constructor
@@ -121,10 +125,12 @@ class TrainerReference {
   }
 
   getFirstNameLastInitial() {
+    return `${this.firstName} ${this.lastName[0]}.`
   }
 
   getFirstInitialLastName() {
-  }
+    return `${this.firstName[0]}. ${this.lastName}`
+  }  
   
   getElementWeakestAgainst() {
 
@@ -149,19 +155,19 @@ class TrainerReference {
   }
 
   writeHi() {
-    // chatBubble("Hi")
+    chatBubble("Hi")
   }
 
   writeSlogan() {
-
+    chatBubble(this.slogan)
   }
 
   sayHi() {
-
+    tts("Hi!")
   }
   
   saySlogan() {
-    // speak(this.slogan)
+    tts(this.slogan)
   }
 
 }

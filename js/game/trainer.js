@@ -19,7 +19,8 @@ class Trainer {
     // string interpolation
     getFullName()
     getReverseName()
-    getDoubleName()
+    getDoubleFullName()
+    getDoubleReverseName()
     getFirstNameLastInitial()
     getFirstInitialLastName()
     getImageFileName()
@@ -69,12 +70,17 @@ class Trainer {
     
   */
   constructor(options) {
-    // this.firstName = options.firstName,
-    // this.lastName = options.lastName,
-    // this.age = options.age,
-    // this.favoriteElement = options.favoriteElement,
-    // this.favoriteColor = options.favoriteColor,
-    // this.slogan = options.slogan
+    this.firstName = options.firstName
+    this.lastName = options.lastName
+    this.age = options.age
+    this.favoriteElement = options.favoriteElement
+    this.favoriteColor = options.favoriteColor
+    this.slogan = options.slogan
+    this.energy = options.energy
+    this.happiness = options.happiness
+    this.confidence = options.confidence
+    this.intelligence = options.intelligence
+    this.strength = options.strength
   }
 
   /*
@@ -97,39 +103,46 @@ class Trainer {
   //   // return "Implement this"
   // }
 
-  // getFullName() {
-  //   // return "Ash Ketchum 2"
-  // }
+  getFullName() {
+    return this.firstName + this.lastName
+  }
 
-  // getReverseName() {
-  //   return 4
-  // }
+  getReverseName() {
+    return `${this.lastName}, ${this.firstName}`
+  }
+
+  getDoubleFullName() {
+    return `${this.firstName} ${this.firstName} ${this.lastName} ${this.lastName}`
+  }
+
 
   // getWeakestElement() {
 
   // }
 
-  // getFirstNameLastInitial() {
-  // }
+  getFirstNameLastInitial() {
+    return `${this.firstName} ${this.lastName[0]}.`
+  }
 
-  // getFirstInitialLastName() {
-  // }
+  getFirstInitialLastName() {
+    return `${this.firstName[0]}. ${this.lastName}`
+  }
 
-  // writeHi() {
-  //   chatBubble("Hi")
-  // }
+  writeHi() {
+    chatBubble("Hi")
+  }
 
-  // writeSlogan() {
-  //   chatBubble(this.slogan)
-  // }
+  writeSlogan() {
+    chatBubble(this.slogan)
+  }
 
-  // sayHi() {
-  //   tts("Hi!")
-  // }
+  sayHi() {
+    tts("Hi!")
+  }
 
-  // saySlogan() {
-  //   tts(this.slogan)
-  // }
+  saySlogan() {
+    tts(this.slogan)
+  }
 
   // say(message) {
   //   tts(message)

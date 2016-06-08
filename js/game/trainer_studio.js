@@ -27,7 +27,7 @@ function getApp() {
     complete: false
   }
 }
- 
+
 // --> insert exercise
 
 // Version 1 (With plain objects)
@@ -44,14 +44,19 @@ function getApp() {
 
 // Version 2 (With Classes)
 function getTrainer() {
-  var trainer = new Trainer({
+  var t = new Trainer({
     firstName: "Ash",
     lastName: "Ketchum",
     age: 14,
     slogan: "Gotta catch 'em all",
     favoriteElement: "Fire",
-    favoriteColor: "red"
+    favoriteColor: "red",
+    energy: 75,
+    happiness: 40,
+    confidence: 90,
+    intelligence: 60,
+    strength: 80
   })
 
-  return trainer
+  return t
 }

@@ -7,17 +7,22 @@ a series of apps. Start with a demo of the full battle, showing the students wha
 Trainer Studio, then Pokemon Studio, then Battle
 
 Trainer Studio Implementation Tasks:
+  - minimize modules with button press
+  - display mode for:
+    - basic info
+    - current state
+
   - order curriculum
   - implement all functions
   - get all functions on the UI
-  - If attribute is undefined, its button should be disabled
+  x If attribute is undefined, its button should be disabled
   - Button should glow while its method is running
   - create gui libary for students
-    - gui.say()
+    x gui.say()
     - gui.displayIcon()
-    - gui.print()
+    x- gui.print()
   - Set up testing system
-    - create an clone object with all of the same static attributes as the student's, but it runs our methods instead
+    x create an clone object with all of the same static attributes as the student's, but it runs our methods instead
     - how to test void functions?
     - how to test funcs that modify multiple attributes
   - set modes feature
