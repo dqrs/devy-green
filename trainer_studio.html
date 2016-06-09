@@ -9,6 +9,7 @@
   <link href="css/trainer_studio.css" rel="stylesheet" type="text/css" />
   
   <!-- external libraries -->
+  <script src="js/lib/lockr.js"></script>
   <script src="js/lib/jquery-2.2.4.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
   <script src="js/lib/jquery-ui.js"></script>
@@ -20,6 +21,7 @@
   <script src="js/game/trainer_studio.js"></script>
 
   <!-- platform code (not to be edited by students) -->
+  <script src="js/platform/trainer_studio/panels.js"></script>
   <script src="js/platform/trainer_studio/trainer_reference.js"></script>
   <script src="js/platform/trainer_studio/trainer_studio_platform.js"></script>
 
@@ -31,16 +33,19 @@
     
     <div class="row" id="header">
 
-      <div class="col-xs-10">
+      <div class="col-xs-9">
         <h1>
-          Trainer Studio
-          <small>v1.0</small>
-          <small>By Nathan Student</small>
+          <!-- <code>&lt;App Name&gt;</code> -->
+          <code class="correct">getAppName()</code>
+          <!-- <small><code>&lt;App Version&gt;</code></small> -->
+          <small><code class="incorrect">getAppVersio()</code></small>
+          <small>By</small>
+          <small><code>&lt;App Author&gt;</code></small>
         </h1>
       </div>
 
-      <div class="col-xs-2">
-        <h1><em><small>In Progress</small></em></h1>
+      <div class="col-xs-3">
+        <h1><small><!-- In Progress --><code>&lt;App Status&gt;</code></small><!--  --></h1>
       </div>
 
     </div> <!-- end #header -->
@@ -48,8 +53,8 @@
     <div class="row" id="main">
       
       <div class="col-xs-5"> <!-- first col -->
-        <div class="trainerImageWrapper thumbnail">
-            <img class="trainerImage" src="images/Ash Ketchum.png" alt="text">
+        <div class="trainer-image-wrapper thumbnail">
+            <img class="trainer-image" src="images/Ash Ketchum.png" alt="text">
         </div> <!-- end .trainerImageWrapper -->
 
         <div class="row">
@@ -128,7 +133,7 @@
             <script class="panel-data hidden">
               var panel = {
                 title: "Basic Information",
-                buttons: [
+                features: [
                   {
                     // generate this label: "Func #1", 
                     code: "t.func(args)",
@@ -169,42 +174,42 @@
               <div class="panel-body debug active">
               
                 <div class="form-group">
-                  <label class="control-label">Energy</label><!--  -->
+                  <label class="control-label">Energy  <span class="glyphicon glyphicon-info-sign"></span></label><!--  -->
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.energy</button>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label">Happiness</label>
+                  <label class="control-label">Happiness  <span class="glyphicon glyphicon-info-sign"></span></label></label>
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.happiness</button>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label">Confidence</label>
+                  <label class="control-label">Confidence  <span class="glyphicon glyphicon-info-sign"></span></label></label>
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.confidence</button>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label">Intelligence</label>
+                  <label class="control-label">Intelligence  <span class="glyphicon glyphicon-info-sign"></span></label></label>
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.intelligence</button>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="control-label">Strength</label>
+                  <label class="control-label">Strength  <span class="glyphicon glyphicon-info-sign"></span></label></label>
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.strength</button>
                   </div>
                 </div>
             
                 <div class="form-group">
-                  <label class="control-label">Coins</label>
+                  <label class="control-label">Coins  <span class="glyphicon glyphicon-info-sign"></span></label></label>
                   <div class="input-group">
                     <button type="button" class="btn btn-sm">t.coins</button>
                   </div>
@@ -247,8 +252,8 @@
                   <button type="button" class="btn btn-sm">t.y</button>
                 </div>
               </div>
-              <div id="gridModule">
-                <img src="images/grid.gif" alt="grid" id="gridImage">
+              <div id="grid-module">
+                <img src="images/grid.gif" alt="grid" id="grid-image">
               </div>
             </div> <!-- end panel body -->
           </div> <!-- end panel -->
@@ -266,52 +271,115 @@
 
           <div class="panel-body">
           
-            <div class="form-group">
-              <label class="control-label">Full Name</label>
-              <div class="input-group">
-                <button type="button" title="This is a test!" class="btn btn-primary btn-sm">t.getFullName()</button>
-              </div>
-            </div>
+            <div class="form-group feature-module">
+              
+              <label class="control-label">Full Name <span class="glyphicon glyphicon-play"></span></label>
+              
+              <div class="row code-module code-entry">              
+                <div class="code-input">
+                  <input type="text" class="form-control input-sm" placeholder="Enter code...">
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-save"></span>  Save</button>
+                </div>
+              </div><!-- end code-module -->
+
+              <div class="row code-module code-entry hidden">              
+                <div class="code-input">
+                  <input type="text" class="form-control input-sm" placeholder="Enter code...">
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-save"></span>  Save</button>
+                </div>
+              </div><!-- end code-module -->
+
+              <!-- code-button -->
+              <div class="row code-module code-button correct hidden">              
+                <div class="code-input">
+                  <button type="button" class="btn btn-sm btn-code correct-call">........</button>
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-right"></span>  Run</button>
+                </div>
+              </div><!-- end code-module -->
+
+              <!-- code-button -->
+              <div class="row code-module code-button incorrect hidden">              
+                <div class="code-input">
+                  <button type="button" class="btn btn-sm btn-code incorrect-call">........</button>
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-left"></span>  Back</button>
+                </div>
+              </div><!-- end code-module -->
+
+              <!-- code-button -->
+              <div class="row code-module return-val-viewer correct hidden ">              
+                <div class="code-input">
+                  <button type="button" class="btn btn-sm btn-code correct-val">"Ash Ash Ketchum Ketchum"  <span class="glyphicon glyphicon-ok"></span></button>
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+                </div>
+              </div><!-- end code-module -->
+
+              <!-- return-val-viewer -->
+              <div class="row code-module return-val-viewer incorrect hidden">              
+                <div class="code-input">
+                  <button type="button" class="btn btn-sm btn-code incorrect-val">"Ash Ash Ketchum Ketchum"  <span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+              
+                <div class="code-action-module">
+                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+                </div>
+              </div><!-- end code-module -->
+
+            </div> <!-- end form-group -->
 
             <div class="form-group">
-              <label class="control-label">Reverse Name</label>
+              <label class="control-label">Reverse Name  <span class="glyphicon glyphicon-play"></span></label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getReverseName()</button>
+                <button type="button" class="btn btn-sm">t.getReverseName()</button>
               </div>
             </div>
             
             <div class="form-group">
-              <label class="control-label">Double Full Name</label>
+              <label class="control-label">Double Full Name  <span class="glyphicon glyphicon-play"></span></label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getDoubleFullName()</button>
+                <button type="button" class="btn btn-sm">t.getDoubleFullName()</button>
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label">Double Reverse Name</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getDoubleReverseName()</button>
+                <button type="button" class="btn btn-sm">t.getDoubleReverseName()</button>
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label">Image File Name</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getImageFileName()</button>
+                <button type="button" class="btn btn-sm">t.getImageFileName()</button>
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label">First Name Last Initial</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getFirstNameLastInitial()</button>
+                <button type="button" class="btn btn-sm">t.getFirstNameLastInitial()</button>
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label">Last Name First Initial</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.getFirstInitialLastName()</button>
+                <button type="button" class="btn btn-sm">t.getFirstInitialLastName()</button>
               </div>
             </div>
 
@@ -340,7 +408,7 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Stark</td>
+                            <td>playk</td>
                             <td>Direwolf</td>
                             <td>Winterfell</td>
                         </tr>
@@ -400,39 +468,45 @@
           <div class="panel-body">
           
             <div class="form-group">
-              <label class="control-label">Write Hi</label>
+            <label class="control-label">Earn Coins</label><br />
+            <code>&lt;Code to Earn Coins&gt;</code>
+              <!-- <label class="control-label">Write Hi</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.writeHi()</button>
-              </div>
+                <button type="button" class="btn btn-sm">t.writeHi()</button>
+              </div> -->
             </div>
             <div class="form-group">
-              <label class="control-label">Write Slogan</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.writeSlogan()</button>
-              </div>
+              <code>&lt;Write Slogan&gt;</code>
+            </div>
+            <div class="form-group">
+            <code>Eat Food...</code>
+              <!-- <code>&lt;Write Anything&gt;</code> -->
+            </div>
+            <div class="form-group">
+              <code class="correct">trainer.eatFood()</code>
             </div>
             <div class="form-group">
               <label class="control-label">Write</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.write(...)</button>
+                <button type="button" class="btn btn-sm">t.write(...)</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Say Hi</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.sayHi()</button>
+                <button type="button" class="btn btn-sm">t.sayHi()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Say Slogan</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.saySlogan()</button>
+                <button type="button" class="btn btn-sm">t.saySlogan()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Say Anything</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.say(...)</button>
+                <button type="button" class="btn btn-sm">t.say(...)</button>
               </div>
             </div>
 
@@ -452,43 +526,43 @@
             <div class="form-group">
               <label class="control-label">Work</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.work()</button>
+                <button type="button" class="btn btn-sm">t.work()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Rest</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.rest()</button>
+                <button type="button" class="btn btn-sm">t.rest()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Exercise</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.exercise()</button>
+                <button type="button" class="btn btn-sm">t.exercise()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Watch TV</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.watchTV()</button>
+                <button type="button" class="btn btn-sm">t.watchTV()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Read Book</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.readBook()</button>
+                <button type="button" class="btn btn-sm">t.readBook()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Take Compliment</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.takeCompiment()</button>
+                <button type="button" class="btn btn-sm">t.takeCompiment()</button>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">Take Insult</label>
               <div class="input-group">
-                <button type="button" class="btn btn-primary btn-sm">t.takeInsult()</button>
+                <button type="button" class="btn btn-sm">t.takeInsult()</button>
               </div>
             </div>
           </div> <!-- end .panel-body -->

@@ -5,7 +5,7 @@ var tReference = new TrainerReference(getTrainer())
 function init() {
   $(`#chatBubble`).click(removeChatBubble)
   
-  $(`button`).each(setupButton)
+  // $(`button`).each(setupButton)
   $('.minimize').click(togglePanelMinimization)
   $('.activate').click(togglePanelDisplayMode)
 
@@ -15,6 +15,10 @@ function init() {
   setupStatBar('happiness')
   setupStatBar('intelligence')
   setupStatBar('strength')
+
+  $('.btn-action').click(actionButtonClicked)
+
+  // localStorage.userName = "Ash Ketchum"
 }
 
 $(document).ready(init)
@@ -86,6 +90,8 @@ function setupStatBar(property) {
 function setupButton() {
   var button = $(this)
 
+  if (button.hasClass('notCode')) { return }
+
   button.click(function(event) {
     evaluateButton(event)
   })
@@ -124,29 +130,158 @@ function getPropertyFromButton(button) {
 }
 
 
-function evaluateButton(event) {
-  var button = $(event.target)
-  var code = button.text()
+// function evaluateButton(event) {
+//   var button = $(event.target)
+//   var code = button.text()
 
-  var testResult = testCode(code)
+//   var testResult = testCode(code)
 
-  var templateClass
-  if (testResult.status === "correct") {
-    templateClass = 'correctResultTemplate'
+//   var templateClass
+//   if (testResult.status === "correct") {
+//     templateClass = 'correctResultTemplate'
+//   } else {
+//     templateClass = 'errorResultTemplate'
+//   }
+
+//   var template = $("."+templateClass).first().clone()
+//   template.removeClass(templateClass)
+//   template.removeClass('hidden')
+
+//   var formatted = formatReturnValue(testResult.returnValue)
+
+//   template.find('label').text(code)
+//   template.find('input').attr('value', formatted)
+
+//   button.parent().parent().replaceWith(template)
+// }
+
+
+// function fillTemplate(template, code, result) {
+
+// }
+
+
+function chatBubble(msg) {
+  $('#chatBubble').empty()
+  $('#chatBubble').css({left: '150px'})
+  $('#chatBubble').append('<div class="newMessage"></div>')
+
+  $('.newMessage').typed({
+    strings: [`"${msg}"`],
+    typeSpeed: 5,
+    showCursor: false
+  })
+}
+
+function removeChatBubble() {
+  $('#chatBubble').empty().css({left: '-500px'})
+}
+
+function tts(msg) {
+  var utterance = new SpeechSynthesisUtterance();
+  var voices = window.speechSynthesis.getVoices();
+  utterance.voice = voices[3];
+  utterance.text = msg;
+  // utterance.voice = voices[t.voice];
+  // utterance.voiceURI = 'native';
+  // utterance.volume = 1; // 0 to 1
+  // utterance.rate = 0.5; // 0.1 to 10
+  // utterance.pitch = 1; //0 to 2
+  // utterance.lang = 'en-US';
+
+  // utterance.onend = function(e) {
+  //   console.log('Finished in ' + event.elapsedTime + ' seconds.');
+  // };
+  window.speechSynthesis.speak(utterance);
+}
+
+
+/*
+  placeholder --> 
+  codeEntry -->
+  codeButton -->
+  returnValueViewer -->
+  displayMode
+*/
+function nextDisplayMode() {
+  var elt = $(this)
+  if (elt.hasClass('placeholder')) {
+    elt.replaceWith($('.code-entry.hidden'))
+  } else if (elt.hasClass('code-entry')) {
+    elt.replaceWith($('.code-button.hidden'))
+  }  else if (elt.hasClass('code-button')) {
+    elt.replaceWith($('.return-value-viewer.hidden'))
+  }  else if (elt.hasClass('return-value-viewer')) {
+    elt.replaceWith($('.displayMode.hidden'))
+  }  else if (elt.hasClass('displayMode')) {
+    elt.replaceWith($('.placeholder.hidden'))
   } else {
-    templateClass = 'errorResultTemplate'
+    alert('unrecognized state!')
+  }
+}
+
+
+
+function actionButtonClicked() {
+  var button = $(this)
+  var codeModule = button.parent().parent()
+  var newModule
+  
+  if (codeModule.is('.code-entry')) {
+    // get code from text input
+    var expression = codeModule.find('input').val()
+    // check if it matches the expected
+    if (expression === 't.getFullName()') {
+      // if matches, render code button correct 
+      newModule = $('.code-button.correct.hidden').clone()
+      newModule.removeClass('hidden')
+      newModule.find('.code-input button').text(expression)
+      codeModule.replaceWith(newModule)      
+    } else {
+      // else, render code button incorrect 
+      newModule = $('.code-button.incorrect.hidden').clone()
+      newModule.removeClass('hidden')
+      newModule.find('.code-input button').text(expression)
+      codeModule.replaceWith(newModule)
+    }
+  } else if (codeModule.is('.code-button.correct')) {
+    
+    // get code from text input
+    var expression = codeModule.find('.code-input button').text()
+    var testResult = testCode(expression)
+
+    newModule = $(
+      ".return-val-viewer.hidden." + testResult.status
+    ).clone()
+    newModule.removeClass('hidden')
+
+    var formattedVal = formatReturnValue(testResult.returnValue)
+
+    // newModule.find('label').text(code)
+    newModule.find('.code-input button').text(formattedVal)
+    newModule.find('.code-action-module button').attr('expression', expression)
+
+    codeModule.replaceWith(newModule)    
+  } else if (codeModule.is('.code-button.incorrect')) {
+  
+    // Start over, just display text input and buttons    
+    newModule = $(".code-entry.hidden").clone()
+    newModule.removeClass('hidden')
+    codeModule.replaceWith(newModule)    
+  } else if (codeModule.is('.return-val-viewer')) {
+    // reset was clicked, 
+    // so we want to re-display the code button
+    var expression = button.attr('expression')
+
+    newModule = $(".code-button.hidden.correct").clone()
+    newModule.removeClass('hidden')
+
+    // newModule.find('label').text(code)
+    newModule.find('.code-input button').text(button.attr('expression'))
+    codeModule.replaceWith(newModule)
   }
 
-  var template = $("."+templateClass).first().clone()
-  template.removeClass(templateClass)
-  template.removeClass('hidden')
-
-  var formatted = formatReturnValue(testResult.returnValue)
-
-  template.find('label').text(code)
-  template.find('input').attr('value', formatted)
-
-  button.parent().parent().replaceWith(template)
+  newModule.find('.btn-action').click(actionButtonClicked)
 }
 
 function testCode(code) {
@@ -187,43 +322,33 @@ function formatReturnValue(val) {
   return formattedVal
 }
 
-// function fillTemplate(template, code, result) {
-
-// }
 
 
-function chatBubble(msg) {
-  $('#chatBubble').empty()
-  $('#chatBubble').css({left: '150px'})
-  $('#chatBubble').append('<div class="newMessage"></div>')
 
-  $('.newMessage').typed({
-    strings: [`"${msg}"`],
-    typeSpeed: 5,
-    showCursor: false
-  })
-}
 
-function removeChatBubble() {
-  $('#chatBubble').empty().css({left: '-500px'})
-}
 
-function tts(msg) {
-  var utterance = new SpeechSynthesisUtterance();
-  var voices = window.speechSynthesis.getVoices();
-  utterance.voice = voices[3];
-  utterance.text = msg;
-  // utterance.voice = voices[t.voice];
-  // utterance.voiceURI = 'native';
-  // utterance.volume = 1; // 0 to 1
-  // utterance.rate = 0.5; // 0.1 to 10
-  // utterance.pitch = 1; //0 to 2
-  // utterance.lang = 'en-US';
 
-  // utterance.onend = function(e) {
-  //   console.log('Finished in ' + event.elapsedTime + ' seconds.');
-  // };
-  window.speechSynthesis.speak(utterance);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
