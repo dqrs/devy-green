@@ -70,33 +70,6 @@
           </div>
 
         </div>
-
-        <!-- <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Position</h3>
-            <span class="minimize glyphicon glyphicon-collapse-down"></span>
-          </div>
-
-          <div class="panel-body">
-
-            <div class="form-group">
-              <label class="control-label">X Position</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.x</button>
-              </div>
-            </div>
-        
-            <div class="form-group">
-              <label class="control-label">Y Position</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.y</button>
-              </div>
-            </div>
-            <div id="grid-module">
-              <img src="images/grid.gif" alt="grid" id="grid-image">
-            </div>
-          </div>
-        </div> -->
           
       </div> <!-- end #column1 -->
 
@@ -105,8 +78,8 @@
         <div class="replace-with-panel" id="name">
         </div>
 
-        <!-- <div class="replace-with-panel" id="age">
-        </div> -->
+        <div class="replace-with-panel" id="age">
+        </div>
           
       </div> <!-- end #column2 -->
 
@@ -118,13 +91,13 @@
         <div class="replace-with-panel" id="activities">
         </div>
         
-      </div> <!-- end #column4 -->
+      </div> <!-- end #column3 -->
 
     </div> <!-- end #main -->
   
     <footer class="row">
       <div class="col-xs-offset-5 col-xs-6">
-        <p>&copy; 2016 Nathan Student</p>
+        <p>&copy; 2016 <code>&lt;App Author&gt;</code></p>
       </div>
     </footer> <!-- end footer -->
 
@@ -153,7 +126,7 @@
 
       <div class="panel-heading">
         <h4 class="panel-title">-------</h4>
-        <span class="activate glyphicon glyphicon glyphicon-flash"></span>
+        <span class="activate glyphicon glyphicon glyphicon-flash" displayMode="display"></span>
         <span class="minimize glyphicon glyphicon-collapse-down"></span>
       </div>
 
@@ -242,21 +215,22 @@
     </div>
     <!-- end return-val-viewer.incorrect template -->
 
-    <div class="panel-body display">
-      <table class="table table-striped table-hover ">
-        <tr>
-          <td>First Name</td>
-          <th>Ash</th>
-        </tr>
-        <tr>
-          <td>Last Name</td>
-          <th>Ketchum</th>
-        </tr>
-      </table>
-    </div>
+    <!-- table template-->
+    <table class="table table-template display">
+    </table>
+    <!-- end table template-->
+
+    <!-- table row template-->
+    <table>
+      <tr>
+        <th class="label">---------</th>
+        <td class="value">---------</td>
+      </tr>
+    </table>
+    <!-- end table row -->
 
     <!-- bar display template -->
-    <div class="statBar">
+    <div class="stat-bar">
       <label class="control-label">------</label>
       <div class="progress">
         <div class="progress-bar progress-bar-success" role="progressbar">
@@ -271,3 +245,29 @@
 </body>
 
 </html>
+<!-- <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Position</h3>
+            <span class="minimize glyphicon glyphicon-collapse-down"></span>
+          </div>
+
+          <div class="panel-body">
+
+            <div class="form-group">
+              <label class="control-label">X Position</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-sm">t.x</button>
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label class="control-label">Y Position</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-sm">t.y</button>
+              </div>
+            </div>
+            <div id="grid-module">
+              <img src="images/grid.gif" alt="grid" id="grid-image">
+            </div>
+          </div>
+        </div> -->

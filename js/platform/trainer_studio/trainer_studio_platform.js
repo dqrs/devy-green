@@ -11,20 +11,11 @@ function init() {
     constructPanel(this)
   });
 
-  // $(`button`).each(setupButton)
-  $('.minimize').click(togglePanelMinimization)
-  $('.activate').click(togglePanelDisplayMode)
+  $('body').on(`click`, `.minimize`, togglePanelMinimization)
+  $('body').on(`click`, `.activate`, activateDisplayMode)
+  $('body').on('click', '.btn-action', actionButtonClicked)
 
   setupTooltip()
-  // setupStatBar('energy')
-  // setupStatBar('confidence')
-  // setupStatBar('happiness')
-  // setupStatBar('intelligence')
-  // setupStatBar('strength')
-
-  $('.btn-action').click(actionButtonClicked)
-
-  // localStorage.userName = "Ash Ketchum"
 }
 
 $(document).ready(init)
@@ -32,44 +23,136 @@ $(document).ready(init)
 function setupTooltip() {
   $(document).tooltip({
     content: getSourceCode,
-    items: 'button.function'
+    items: 'button.correct-call,button.correct-val'
   })
 }
 
-function constructPanel(_div) {
+function activateDisplayMode() {
+  // get id of the parent panel of this button
+  var icon = $(this)
+  var currentPanel = icon.parent().parent()
+
+  // re-construct panel body from json, using the specified mode
+  // replace current panel body new panel body 
+  // var oldPanel = panel.find('.panel-b')
+  constructPanel(currentPanel, icon.attr('displayMode'))
+}
+
+function constructPanel(_div, _mode) {
   // start at div marked as panel root
   var div = $(_div)
-  var data = panels[div.attr('id')]  
+  var panelData = panels[div.attr('id')]  
   var panel = $('#templates .panel').first().clone()
+  panel.attr('id', div.attr('id'))
+
+  var mode = _mode || panelData.mode
+  var displayType = panelData.displayType
+  panel.addClass(mode)
+  panel.addClass(displayType)
+  var table
 
   // panel head
-  panel.find('.panel-title').text(data['title'])
+  panel.find('.panel-title').text(panelData['title'])
 
   // panel body
   var body = panel.find('.panel-body')
 
-  // for each feature
-  for (var i=0; i < data['features'].length; i++) {
-    var feature = data['features'][i]
-    var featureModule = $('#templates .feature-module').clone().attr('expected-expression', feature.expression)
+  if (mode === "display") {
+    panel.find('.activate').attr('displayMode', 'debug').toggleClass('glyphicon-flash').toggleClass('glyphicon-cog')
+  }
 
-    // label
-    var label = $('#templates .label-' + feature.type).clone()
-    label.find('.label-text').text(
-      convertCodeToEnglish(feature.expression)
-    )
-    featureModule.append(label)
-    
-    // start with code-entry
-    var codeEntryModule = $('#templates .code-entry').clone()
-    featureModule.append(codeEntryModule)
-    body.append(featureModule)
+  if (mode === "display" && displayType === "tableType") {
+    table = $('#templates .table-template').clone()
+    table.appendTo(body)
   }
   
+  // for each feature, construct appropriate featureModule
+  for (var i=0; i < panelData['features'].length; i++) {
+    var featureModule
+    var featureData = panelData['features'][i]
+
+    if (mode === "debug") {
+      featureModule = constructDebugFeatureModule(featureData)
+      body.append(featureModule)
+    } else if (displayType === "tableType") {
+      featureModule = constructTableFeatureModule(featureData)
+      table.append(featureModule)
+    } else if (displayType === "barType") {
+      featureModule = constructBarFeatureModule(featureData)
+      body.append(featureModule)
+    } else {
+      alert('unrecognized display type')
+    }
+
+  }
 
   // event handlers?
   // debug mode vs etc.
   div.replaceWith(panel)
+}
+
+function constructDebugFeatureModule(featureData) {
+  var featureModule = $('#templates .feature-module').clone().attr('expected-expression', featureData.expression)
+
+  // label
+  var label = $('#templates .label-' + featureData.type).clone()
+  label.find('.label-text').text(
+    convertCodeToEnglish(featureData.expression)
+  )
+  featureModule.append(label)
+  
+  // start with code-entry
+  var codeEntryModule = $('#templates .code-entry').clone()
+  featureModule.append(codeEntryModule)
+
+  return featureModule
+}
+
+function constructTableFeatureModule(featureData) {
+  var trTemplate = $('#templates tr').clone()
+  trTemplate.find('.label').text(
+    convertCodeToEnglish(featureData.expression)
+  )
+  trTemplate.find('.value').text(
+    eval(featureData.expression)
+  )
+  return trTemplate
+}
+
+
+// function setupStatBar(property) {
+//   var value = t[property]
+//   var template = $(`#templates .stat-bar`).clone()
+//   template.attr('id', property)
+//   template.find('label').text(property)
+//   template.find('.progress-bar').css({
+//     width: `${value}%`,
+//     backgroundColor: colors.pop()
+//   })
+//   template.find('.bar-reading').text(`${value}/100`)
+//   $('#current-state .panel-body.display').append(template)
+// }
+
+
+var colorIndex = 0
+var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
+
+function constructBarFeatureModule(featureData) {
+  var value = eval(featureData.expression)
+  var template = $(`#templates .stat-bar`).clone()
+
+  template.attr('id', featureData.expression)
+  template.find('label').text(
+    convertCodeToEnglish(featureData.expression)
+  )
+  colorIndex = ++colorIndex % colors.length
+  template.find('.progress-bar').css({
+    width: `${value}%`,
+    backgroundColor: colors[colorIndex]
+  })
+  template.find('.bar-reading').text(`${value}/100`)
+  
+  return template
 }
 
 function convertCodeToEnglish(text) {
@@ -102,31 +185,16 @@ function togglePanelMinimization() {
   }
 }
 
-function togglePanelDisplayMode() {
-  var icon = $(this)
-  var panel = icon.parent().parent()
-  var activePanelBody = panel.find('.panel-body.active')
-  var hiddenPanelBody = panel.find('.panel-body.hidden')
-  activePanelBody.removeClass('active').addClass('hidden')
-  hiddenPanelBody.removeClass('hidden').addClass('active')
+// function togglePanelDisplayMode() {
+//   var icon = $(this)
+//   var panel = icon.parent().parent()
+//   var activePanelBody = panel.find('.panel-body.active')
+//   var hiddenPanelBody = panel.find('.panel-body.hidden')
+//   activePanelBody.removeClass('active').addClass('hidden')
+//   hiddenPanelBody.removeClass('hidden').addClass('active')
 
-  icon.toggleClass('glyphicon-flash').toggleClass('glyphicon-cog enabled')
-}
-
-var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
-
-function setupStatBar(property) {
-  var value = t[property]
-  var template = $(`#templates .statBar`).clone()
-  template.attr('id', property)
-  template.find('label').text(property)
-  template.find('.progress-bar').css({
-    width: `${value}%`,
-    backgroundColor: colors.pop()
-  })
-  template.find('.bar-reading').text(`${value}/100`)
-  $('#current-state .panel-body.display').append(template)
-}
+//   icon.toggleClass('glyphicon-flash').toggleClass('glyphicon-cog enabled')
+// }
 
 
 function setupButton() {
@@ -333,7 +401,7 @@ function formatReturnValue(val) {
   if (typeof val === 'string') {
     formattedVal = `"${val}"`
   } else if (typeof val === 'undefined') {
-    formattedVal = ''
+    formattedVal = '(void)'
   } else {
     formattedVal = val
   }

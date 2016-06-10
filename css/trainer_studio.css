@@ -56,6 +56,7 @@ label.current-stats {
   font-size: 16px;
   font-style: italic;
   padding: 10px;
+  color: red;
 }
 
 button, input, a {
@@ -224,6 +225,10 @@ body {
   width: 260px;
 }
 
+.col-xs-3 .code-input {
+  width: 165px;
+}
+
 .col-xs-5 .col-xs-6 .code-input {
   width: 115px;
 }
@@ -342,3 +347,54 @@ h1 small .code-icon {
 input:focus::-webkit-input-placeholder {
   color: transparent !important;
 }
+
+table.display {
+  font-family: arial;
+  color: white;
+  /*background-color: /#333;*/
+  margin-left: -15px;
+  margin-right: -16px;
+  /*border: 1px solid #666;*/
+}
+
+table.display th{
+  font-size: 12px;
+  color: #888;
+  font-weight: normal;
+}
+
+table.display td {
+  font-size: 14px;
+  color: #bbb;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+ background-color: #2d2d2d;
+}
+
+.panel.display, .panel.display h4 {
+  font-family: arial;
+  font-variant: small-caps;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
