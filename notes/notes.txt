@@ -6,8 +6,13 @@ To make the learning curve less steep, we break up the game into
 a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
 Trainer Studio, then Pokemon Studio, then Battle
 
-Trainer Studio Implementation Tasks:
   x minimize modules with button press
+
+Trainer Studio Implementation Tasks:
+  - Fix setupStatBar / display mode
+  - Chat Bubble
+  - Handle rendering/displaying void functions
+
   - display mode for:
     X current state
     - basic info

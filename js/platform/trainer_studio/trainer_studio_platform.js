@@ -5,16 +5,22 @@ var tReference = new TrainerReference(getTrainer())
 function init() {
   $(`#chatBubble`).click(removeChatBubble)
   
+
+
+  $('.replace-with-panel').each(function() {
+    constructPanel(this)
+  });
+
   // $(`button`).each(setupButton)
   $('.minimize').click(togglePanelMinimization)
   $('.activate').click(togglePanelDisplayMode)
 
   setupTooltip()
-  setupStatBar('energy')
-  setupStatBar('confidence')
-  setupStatBar('happiness')
-  setupStatBar('intelligence')
-  setupStatBar('strength')
+  // setupStatBar('energy')
+  // setupStatBar('confidence')
+  // setupStatBar('happiness')
+  // setupStatBar('intelligence')
+  // setupStatBar('strength')
 
   $('.btn-action').click(actionButtonClicked)
 
@@ -30,6 +36,46 @@ function setupTooltip() {
   })
 }
 
+function constructPanel(_div) {
+  // start at div marked as panel root
+  var div = $(_div)
+  var data = panels[div.attr('id')]  
+  var panel = $('#templates .panel').first().clone()
+
+  // panel head
+  panel.find('.panel-title').text(data['title'])
+
+  // panel body
+  var body = panel.find('.panel-body')
+
+  // for each feature
+  for (var i=0; i < data['features'].length; i++) {
+    var feature = data['features'][i]
+    var featureModule = $('#templates .feature-module').clone().attr('expected-expression', feature.expression)
+
+    // label
+    var label = $('#templates .label-' + feature.type).clone()
+    label.find('.label-text').text(
+      convertCodeToEnglish(feature.expression)
+    )
+    featureModule.append(label)
+    
+    // start with code-entry
+    var codeEntryModule = $('#templates .code-entry').clone()
+    featureModule.append(codeEntryModule)
+    body.append(featureModule)
+  }
+  
+
+  // event handlers?
+  // debug mode vs etc.
+  div.replaceWith(panel)
+}
+
+function convertCodeToEnglish(text) {
+  return camelToTitleCase(getPropertyFromExpression(text))
+}
+
 function getSourceCode() {
   var element = $(this)
 
@@ -42,10 +88,6 @@ function getSourceCode() {
 
   return tooltipText
 }
-
-// function getSourceCodeFromInput() {
-//   return "THIS WORKS"
-// }
 
 function togglePanelMinimization() {
   var element = $(this)
@@ -75,7 +117,7 @@ var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 
 function setupStatBar(property) {
   var value = t[property]
-  var template = $(`.statBar.hidden`).clone().removeClass('hidden')
+  var template = $(`#templates .statBar`).clone()
   template.attr('id', property)
   template.find('label').text(property)
   template.find('.progress-bar').css({
@@ -119,16 +161,20 @@ function setupButton() {
 }
 
 function getPropertyFromButton(button) {
-  // get property name
-  var property = button.text().split(".")[1]
-
-  // remove args if it's a method call
-  var argsRegEx = /\(.*\)/
-  property = property.replace(argsRegEx,'')
-
-  return property
+  return getPropertyFromExpression(button.text())
 }
 
+function getPropertyFromExpression(text) {
+  // get property name if called on obj
+  if (text.split(".").length == 2) {
+    text = text.split(".")[1]
+  }
+  // remove args if it's a method call
+  var argsRegEx = /\(.*\)/
+  text = text.replace(argsRegEx,'')
+  
+  return text
+}
 
 // function evaluateButton(event) {
 //   var button = $(event.target)
@@ -195,52 +241,26 @@ function tts(msg) {
   window.speechSynthesis.speak(utterance);
 }
 
-
-/*
-  placeholder --> 
-  codeEntry -->
-  codeButton -->
-  returnValueViewer -->
-  displayMode
-*/
-function nextDisplayMode() {
-  var elt = $(this)
-  if (elt.hasClass('placeholder')) {
-    elt.replaceWith($('.code-entry.hidden'))
-  } else if (elt.hasClass('code-entry')) {
-    elt.replaceWith($('.code-button.hidden'))
-  }  else if (elt.hasClass('code-button')) {
-    elt.replaceWith($('.return-value-viewer.hidden'))
-  }  else if (elt.hasClass('return-value-viewer')) {
-    elt.replaceWith($('.displayMode.hidden'))
-  }  else if (elt.hasClass('displayMode')) {
-    elt.replaceWith($('.placeholder.hidden'))
-  } else {
-    alert('unrecognized state!')
-  }
-}
-
-
-
 function actionButtonClicked() {
+  var newModule
   var button = $(this)
   var codeModule = button.parent().parent()
-  var newModule
+  var featureModule = codeModule.parent()
+  var panel = button.parent().parent().parent().parent()
   
   if (codeModule.is('.code-entry')) {
     // get code from text input
     var expression = codeModule.find('input').val()
+    var expectedExpression = featureModule.attr('expected-expression')
     // check if it matches the expected
-    if (expression === 't.getFullName()') {
+    if (expression === expectedExpression) {
       // if matches, render code button correct 
-      newModule = $('.code-button.correct.hidden').clone()
-      newModule.removeClass('hidden')
+      newModule = $('#templates .code-button.correct').clone()
       newModule.find('.code-input button').text(expression)
       codeModule.replaceWith(newModule)      
     } else {
       // else, render code button incorrect 
-      newModule = $('.code-button.incorrect.hidden').clone()
-      newModule.removeClass('hidden')
+      newModule = $('#templates .code-button.incorrect').clone()
       newModule.find('.code-input button').text(expression)
       codeModule.replaceWith(newModule)
     }
@@ -251,9 +271,8 @@ function actionButtonClicked() {
     var testResult = testCode(expression)
 
     newModule = $(
-      ".return-val-viewer.hidden." + testResult.status
+      "#templates .return-val-viewer." + testResult.status
     ).clone()
-    newModule.removeClass('hidden')
 
     var formattedVal = formatReturnValue(testResult.returnValue)
 
@@ -264,19 +283,18 @@ function actionButtonClicked() {
     codeModule.replaceWith(newModule)    
   } else if (codeModule.is('.code-button.incorrect')) {
   
-    // Start over, just display text input and buttons    
-    newModule = $(".code-entry.hidden").clone()
-    newModule.removeClass('hidden')
+    // Start over, just display text input and buttons
+    var expression = codeModule.find('.code-input button').text()
+    newModule = $("#templates .code-entry").clone()
+    newModule.find('input').val(expression)
+    
     codeModule.replaceWith(newModule)    
   } else if (codeModule.is('.return-val-viewer')) {
     // reset was clicked, 
     // so we want to re-display the code button
     var expression = button.attr('expression')
+    newModule = $("#templates .code-button.correct").clone()
 
-    newModule = $(".code-button.hidden.correct").clone()
-    newModule.removeClass('hidden')
-
-    // newModule.find('label').text(code)
     newModule.find('.code-input button').text(button.attr('expression'))
     codeModule.replaceWith(newModule)
   }
@@ -322,7 +340,10 @@ function formatReturnValue(val) {
   return formattedVal
 }
 
-
+function camelToTitleCase(text) {
+  var result = text.replace(/([A-Z])/g, " $1" )
+  return result.charAt(0).toUpperCase() + result.slice(1);
+}
 
 
 

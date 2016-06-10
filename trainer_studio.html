@@ -35,10 +35,10 @@
 
       <div class="col-xs-9">
         <h1>
-          <!-- <code>&lt;App Name&gt;</code> -->
-          <code class="correct">getAppName()</code>
-          <!-- <small><code>&lt;App Version&gt;</code></small> -->
-          <small><code class="incorrect">getAppVersio()</code></small>
+          <code>&lt;App Name&gt;</code>
+          <!-- <button type="button" class="btn btn-sm btn-code correct-call">getAppName()</button> -->
+          <small><code>&lt;App Version&gt;</code></small>
+          <!-- <small><code class="incorrect">getAppVersio()</code></small> -->
           <small>By</small>
           <small><code>&lt;App Author&gt;</code></small>
         </h1>
@@ -58,517 +58,66 @@
         </div> <!-- end .trainerImageWrapper -->
 
         <div class="row">
-          <div class="col-xs-6">
-            <div class="panel panel-default" id="basic-info">
-
-              <div class="panel-heading">
-                <h4 class="panel-title">Basic Information</h4>
-                <span class="activate glyphicon glyphicon glyphicon-flash"></span>
-                <span class="minimize glyphicon glyphicon-collapse-down"></span>
-              </div>
-
-              <div class="panel-body debug">
-              
-                <div class="form-group">
-                  <label class="control-label">First Name</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.firstName</button>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label class="control-label">Last Name</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.lastName</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Favorite Element</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.favoriteElement</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Age</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.age</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Favorite Color</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.favoriteColor</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Slogan</label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.slogan</button>
-                  </div>
-                </div>
-
-              </div> <!-- end .panel-body.debug -->
-              <div class="panel-body display hidden">
-                <table class="table table-striped table-hover ">
-                  <tr>
-                    <td>First Name</td>
-                    <th>Ash</th>
-                  </tr>
-                  <tr>
-                    <td>Last Name</td>
-                    <th>Ketchum</th>
-                  </tr>
-                </table>
-              </div>
-
-            </div> <!-- end .panel #basic-information -->
-          </div> <!-- end basic info col -->
-
-          <div class="col-xs-6">
-
-            <script class="panel-data hidden">
-              var panel = {
-                title: "Basic Information",
-                features: [
-                  {
-                    // generate this label: "Func #1", 
-                    code: "t.func(args)",
-                    hasReturnValue: true|false,
-                    displayType: 'table|bars|'
-                  },
-                  {
-                    // generate this label: "Prop #2", 
-                    code: "t.property",
-                    hasReturnValue: true|false,
-                    displayType: 'table|bars|image|color'
-                  },
-                ]
-              }
-                
-            </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="panel panel-default" id="current-state">
-
-              <div class="panel-heading">
-                <h3 class="panel-title">Current State</h3>
-                <span class="enabled activate glyphicon glyphicon glyphicon-flash"></span>
-                <span class="minimize glyphicon glyphicon-collapse-down"></span>
-              </div>
-
-              <div class="panel-body debug active">
-              
-                <div class="form-group">
-                  <label class="control-label">Energy  <span class="glyphicon glyphicon-info-sign"></span></label><!--  -->
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.energy</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Happiness  <span class="glyphicon glyphicon-info-sign"></span></label></label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.happiness</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Confidence  <span class="glyphicon glyphicon-info-sign"></span></label></label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.confidence</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Intelligence  <span class="glyphicon glyphicon-info-sign"></span></label></label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.intelligence</button>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="control-label">Strength  <span class="glyphicon glyphicon-info-sign"></span></label></label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.strength</button>
-                  </div>
-                </div>
-            
-                <div class="form-group">
-                  <label class="control-label">Coins  <span class="glyphicon glyphicon-info-sign"></span></label></label>
-                  <div class="input-group">
-                    <button type="button" class="btn btn-sm">t.coins</button>
-                  </div>
-                </div>
-
-              </div> <!-- end .panel-body -->
-              <div class="panel-body display hidden">
-                
-                <div class="statBar hidden">
-                  <label class="control-label">Energy</label>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar">
-                  </div>
-                  <span class="bar-reading"></span>
-                  </div>
-                </div>
-              </div> <!-- end panel-body -->
-            </div> <!-- end .panel #vitals -->
-          </div> <!-- end col -->
-          </div> <!-- end row -->
           
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Position</h3>
-              <span class="minimize glyphicon glyphicon-collapse-down"></span>
+          <div class="col-xs-6">
+            <div class="replace-with-panel" id="basic-info">
             </div>
+          </div>
 
-            <div class="panel-body">
+          <div class="col-xs-6">
+            <div class="replace-with-panel" id="current-state">
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label class="control-label">X Position</label>
-                <div class="input-group">
-                  <button type="button" class="btn btn-sm">t.x</button>
-                </div>
+        </div>
+
+        <!-- <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Position</h3>
+            <span class="minimize glyphicon glyphicon-collapse-down"></span>
+          </div>
+
+          <div class="panel-body">
+
+            <div class="form-group">
+              <label class="control-label">X Position</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-sm">t.x</button>
               </div>
-          
-              <div class="form-group">
-                <label class="control-label">Y Position</label>
-                <div class="input-group">
-                  <button type="button" class="btn btn-sm">t.y</button>
-                </div>
+            </div>
+        
+            <div class="form-group">
+              <label class="control-label">Y Position</label>
+              <div class="input-group">
+                <button type="button" class="btn btn-sm">t.y</button>
               </div>
-              <div id="grid-module">
-                <img src="images/grid.gif" alt="grid" id="grid-image">
-              </div>
-            </div> <!-- end panel body -->
-          </div> <!-- end panel -->
+            </div>
+            <div id="grid-module">
+              <img src="images/grid.gif" alt="grid" id="grid-image">
+            </div>
+          </div>
+        </div> -->
           
       </div> <!-- end #column1 -->
 
       <div class="col-xs-4" id="column2">
 
-        <div class="panel panel-default">
+        <div class="replace-with-panel" id="name">
+        </div>
 
-          <div class="panel-heading">
-            <h3 class="panel-title">Name</h3>
-            <span class="minimize glyphicon glyphicon-collapse-down"></span>
-          </div>
-
-          <div class="panel-body">
+        <!-- <div class="replace-with-panel" id="age">
+        </div> -->
           
-            <div class="form-group feature-module">
-              
-              <label class="control-label">Full Name <span class="glyphicon glyphicon-play"></span></label>
-              
-              <div class="row code-module code-entry">              
-                <div class="code-input">
-                  <input type="text" class="form-control input-sm" placeholder="Enter code...">
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-save"></span>  Save</button>
-                </div>
-              </div><!-- end code-module -->
-
-              <div class="row code-module code-entry hidden">              
-                <div class="code-input">
-                  <input type="text" class="form-control input-sm" placeholder="Enter code...">
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-save"></span>  Save</button>
-                </div>
-              </div><!-- end code-module -->
-
-              <!-- code-button -->
-              <div class="row code-module code-button correct hidden">              
-                <div class="code-input">
-                  <button type="button" class="btn btn-sm btn-code correct-call">........</button>
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-right"></span>  Run</button>
-                </div>
-              </div><!-- end code-module -->
-
-              <!-- code-button -->
-              <div class="row code-module code-button incorrect hidden">              
-                <div class="code-input">
-                  <button type="button" class="btn btn-sm btn-code incorrect-call">........</button>
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-left"></span>  Back</button>
-                </div>
-              </div><!-- end code-module -->
-
-              <!-- code-button -->
-              <div class="row code-module return-val-viewer correct hidden ">              
-                <div class="code-input">
-                  <button type="button" class="btn btn-sm btn-code correct-val">"Ash Ash Ketchum Ketchum"  <span class="glyphicon glyphicon-ok"></span></button>
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
-                </div>
-              </div><!-- end code-module -->
-
-              <!-- return-val-viewer -->
-              <div class="row code-module return-val-viewer incorrect hidden">              
-                <div class="code-input">
-                  <button type="button" class="btn btn-sm btn-code incorrect-val">"Ash Ash Ketchum Ketchum"  <span class="glyphicon glyphicon-remove"></span></button>
-                </div>
-              
-                <div class="code-action-module">
-                  <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
-                </div>
-              </div><!-- end code-module -->
-
-            </div> <!-- end form-group -->
-
-            <div class="form-group">
-              <label class="control-label">Reverse Name  <span class="glyphicon glyphicon-play"></span></label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getReverseName()</button>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label class="control-label">Double Full Name  <span class="glyphicon glyphicon-play"></span></label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getDoubleFullName()</button>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label">Double Reverse Name</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getDoubleReverseName()</button>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label">Image File Name</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getImageFileName()</button>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label">First Name Last Initial</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getFirstNameLastInitial()</button>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="control-label">Last Name First Initial</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.getFirstInitialLastName()</button>
-              </div>
-            </div>
-
-          </div> <!-- end .panel-body -->
-
-        </div> <!-- end .panel #name-->
-
-        <div class="panel panel-default">
-
-          <div class="panel-heading">
-            <h3 class="panel-title">Age</h3>
-            <span class="minimize glyphicon glyphicon-collapse-down"></span>
-          </div>
-
-          <div class="panel-body">
-          
-            <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>House</th>
-                            <th>Sigil</th>
-                            <th>Seat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>playk</td>
-                            <td>Direwolf</td>
-                            <td>Winterfell</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Lannister</td>
-                            <td>Lion</td>
-                            <td>Casterly Rock</td>
-                        </tr>
-                        <tr class="info">
-                            <td>3</td>
-                            <td>Baratheon</td>
-                            <td>Stag</td>
-                            <td>Storm's End</td>
-                        </tr>
-                        <tr class="success">
-                            <td>4</td>
-                            <td>Targaryen</td>
-                            <td>3-headed Dragon</td>
-                            <td>Slaver's Bay</td>
-                        </tr>
-                        <tr class="danger">
-                            <td>5</td>
-                            <td>Martell</td>
-                            <td>Sun pierced by a spear</td>
-                            <td>Sunspear</td>
-                        </tr>
-                        <tr class="warning">
-                            <td>6</td>
-                            <td>Tully</td>
-                            <td>Trout</td>
-                            <td>Riverrun</td>
-                        </tr>
-                        <tr class="active">
-                            <td>7</td>
-                            <td>Bolton</td>
-                            <td>Red flayed man</td>
-                            <td>Dreadfort / Winterfell</td>
-                        </tr>
-                    </tbody>
-                </table>
-          </div> <!-- end .panel-body -->
-
-        </div> <!-- end .panel -->
-
       </div> <!-- end #column2 -->
 
       <div class="col-xs-3" id="column3">
         
-        <div class="panel panel-default">
-
-          <div class="panel-heading">
-            <h3 class="panel-title">Communicate</h3>
-            <span class="minimize glyphicon glyphicon-collapse-down"></span>
-          </div>
-
-          <div class="panel-body">
-          
-            <div class="form-group">
-            <label class="control-label">Earn Coins</label><br />
-            <code>&lt;Code to Earn Coins&gt;</code>
-              <!-- <label class="control-label">Write Hi</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.writeHi()</button>
-              </div> -->
-            </div>
-            <div class="form-group">
-              <code>&lt;Write Slogan&gt;</code>
-            </div>
-            <div class="form-group">
-            <code>Eat Food...</code>
-              <!-- <code>&lt;Write Anything&gt;</code> -->
-            </div>
-            <div class="form-group">
-              <code class="correct">trainer.eatFood()</code>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Write</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.write(...)</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Say Hi</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.sayHi()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Say Slogan</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.saySlogan()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Say Anything</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.say(...)</button>
-              </div>
-            </div>
-
-          </div> <!-- end .panel-body -->
-
-        </div> <!-- end .panel #communicate -->
-
-        <div class="panel panel-default">
-
-          <div class="panel-heading">
-            <h3 class="panel-title">Activities</h3>
-            <span class="minimize glyphicon glyphicon-collapse-down"></span>
-          </div>
-
-          <div class="panel-body">
-          
-            <div class="form-group">
-              <label class="control-label">Work</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.work()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Rest</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.rest()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Exercise</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.exercise()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Watch TV</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.watchTV()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Read Book</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.readBook()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Take Compliment</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.takeCompiment()</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Take Insult</label>
-              <div class="input-group">
-                <button type="button" class="btn btn-sm">t.takeInsult()</button>
-              </div>
-            </div>
-          </div> <!-- end .panel-body -->
-
-        </div> <!-- end .panel #advanced-info -->        
- 
+        <div class="replace-with-panel" id="communicate">
+        </div>
+        
+        <div class="replace-with-panel" id="activities">
+        </div>
+        
       </div> <!-- end #column4 -->
 
     </div> <!-- end #main -->
@@ -595,6 +144,130 @@
 
   <div id="chatBubble">
   </div>
+
+
+  <div id="templates" class="hidden">
+
+    <!-- panel template -->
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h4 class="panel-title">-------</h4>
+        <span class="activate glyphicon glyphicon glyphicon-flash"></span>
+        <span class="minimize glyphicon glyphicon-collapse-down"></span>
+      </div>
+
+      <div class="panel-body">
+      </div> <!-- end .panel-body -->
+
+    </div> <!-- end .panel #name-->
+    <!-- end panel template -->
+
+    <!-- feature-module template -->
+    <div class="form-group feature-module">
+    </div>
+    <!-- end feature-module template -->
+
+    <!-- start label templates -->
+    <label class="control-label label-variable"><span class="glyphicon glyphicon-info-sign"></span>  <span class="label-text">-------</span></label> 
+
+    <label class="control-label label-method"><span class="glyphicon glyphicon-play"></span>  <span class="label-text">-------</span></label> 
+    <!-- end label templates -->
+
+    <!-- start code-module templates -->
+
+    <!-- code-entry template -->
+    <div class="row code-module code-entry">              
+
+      <div class="code-input">
+        <input type="text" class="form-control input-sm" placeholder="Enter code...">
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-save"></span>  Save</button>
+      </div>
+
+    </div>
+    <!-- end code-entry code-module -->
+
+    <!-- code-button.correct template -->
+    <div class="row code-module code-button correct">              
+      <div class="code-input">
+        <button type="button" class="btn btn-sm btn-code correct-call">........</button>
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-right"></span>  Run</button>
+      </div>
+
+    </div>
+    <!-- end code-button.correct template -->
+
+    <!-- code-button.incorrect template -->
+    <div class="row code-module code-button incorrect">              
+      <div class="code-input">
+        <button type="button" class="btn btn-sm btn-code incorrect-call">........</button>
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-arrow-left"></span>  Back</button>
+      </div>
+
+    </div>
+    <!-- end code-button.incorrect template -->
+
+    <!-- .return-val-viewer.correct template -->
+    <div class="row code-module return-val-viewer correct ">              
+      <div class="code-input">
+        <button type="button" class="btn btn-sm btn-code correct-val">-------  <span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+      </div>
+
+    </div>
+    <!-- end return-val-viewer.correct template -->
+
+    <!-- end return-val-viewer.incorrect template -->
+    <div class="row code-module return-val-viewer incorrect">              
+      <div class="code-input">
+        <button type="button" class="btn btn-sm btn-code incorrect-val">---------  <span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+      </div>
+
+    </div>
+    <!-- end return-val-viewer.incorrect template -->
+
+    <div class="panel-body display">
+      <table class="table table-striped table-hover ">
+        <tr>
+          <td>First Name</td>
+          <th>Ash</th>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <th>Ketchum</th>
+        </tr>
+      </table>
+    </div>
+
+    <!-- bar display template -->
+    <div class="statBar">
+      <label class="control-label">------</label>
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" role="progressbar">
+      </div>
+      <span class="bar-reading"></span>
+      </div>
+    </div>
+    <!-- end bar display template -->
+
+  </div> <!-- end templates -->
+
 </body>
 
 </html>

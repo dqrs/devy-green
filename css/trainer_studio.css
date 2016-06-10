@@ -2,6 +2,10 @@
   display: none;
 }
 
+#main {
+  margin-top: 10px;
+}
+
 .trainer-image-wrapper {
   height: 200px;
   /*width: 120px;*/
@@ -212,19 +216,30 @@ body {
 }*/
 
 .code-input {
-  width: 260px;
   float: left;
   margin-left: 10px;
 }
 
+.col-xs-4 .code-input {
+  width: 260px;
+}
+
+.col-xs-5 .col-xs-6 .code-input {
+  width: 115px;
+}
+
 .code-action-module {
-  width: 50px;
+  width: 70px;
   margin-left: 5px;
   float: left;
 }
 
 .btn {
   color: black;
+}
+
+h1 .btn-code {
+  width: 300px;
 }
 
 .btn-action {
