@@ -31,7 +31,7 @@ class TrainerReference {
     getLeague()
     
     // conditionals - other
-    getWeakestElement()
+    getElementWeakestAgainst()
 
     // calculations
     getAgeInMonths()
@@ -133,11 +133,27 @@ class TrainerReference {
   }  
   
   getElementWeakestAgainst() {
-
+    if (this.favoriteElement === 'Water') {
+      return 'Plant'
+    } else if (this.favoriteElement === 'Fire') {
+      return 'Water'
+    } else if (this.favoriteElement === 'Plant') {
+      return 'Fire'
+    } else {
+      return 'Error! Element not recognized'
+    }
   }
 
   getElementStrongestAgainst() {
-
+    if (this.favoriteElement === 'Water') {
+      return 'Fire'
+    } else if (this.favoriteElement === 'Fire') {
+      return 'Plant'
+    } else if (this.favoriteElement === 'Plant') {
+      return 'Water'
+    } else {
+      return 'Error! Element not recognized'
+    }
   }
 
   getAgeDescription() {
@@ -150,6 +166,34 @@ class TrainerReference {
       description = 'teenager'
     } else {
       description = 'adult'
+    }
+    return description
+  }
+
+  getHappinessDescription() {
+    var description = ''
+    if (this.happiness <= 20) {
+      description = 'very sad'
+    } else if (this.happiness <= 40) {
+      description = 'sad'
+    } else if (this.happiness <= 60) {
+      description = 'neutral'
+    } else if (this.happiness <= 80) {
+      description = 'happy'
+    } else if (this.happiness <= 100) {
+      description = 'very happy'
+    }
+    return description
+  }
+
+  getConfidenceDescription() {
+    var description = ''
+    if (this.confidence <= 34) {
+      description = 'not confident'
+    } else if (this.confidence <= 67) {
+      description = 'modestly confident'
+    } else if (this.confidence <= 100) {
+      description = 'very confident'
     }
     return description
   }
@@ -168,6 +212,30 @@ class TrainerReference {
   
   saySlogan() {
     tts(this.slogan)
+  }
+
+  getAgeInMonths() {
+    return this.age * 12
+  }
+
+  getAgeInWeeks() {
+    return this.age * 52
+  }
+
+  getAgeInDays() {
+    return this.age * 365
+  }
+
+  getAgeInHours() {
+    return getAgeInDays() * 24
+  }
+
+  getAgeInMinutes() {
+    return getAgeInHours() * 60
+  }
+  
+  getAgeInSeconds() {
+    return getAgeInHours() * 60
   }
 
 }
