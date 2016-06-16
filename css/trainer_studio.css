@@ -1,7 +1,12 @@
-.hidden {
-  display: none;
+.glyphicon {
+  /* Bootstrap icon fix */
+  font-family:'Glyphicons Halflings' !important;
 }
 
+/*.hidden {
+  display: none;
+}
+*/
 #main {
   margin-top: 10px;
 }
@@ -22,22 +27,6 @@
 #grid-image {
   width: 100%;
 }
-
-/*.row {
-  border: 1px solid #aaf;
-}*/
-
-/*.col-xs-3 {
-  border: 1px solid #aaf;
-}
-
-.col-xs-4 {
-  border: 1px solid #aaf;
-}
-
-.col-xs-5 {
-  border: 1px solid #aaf;
-}*/
 
 label {
   font-size: 13px;
@@ -90,7 +79,6 @@ small {
 .btn[disabled] {
   color: #777;
 }
-
 
 .function {
   color: #0d0;
@@ -378,7 +366,9 @@ tbody tr:nth-child(even) {
   font-variant: small-caps;
 }
 
-
+.btn-code {
+  height: 30px;
+}
 
 
 

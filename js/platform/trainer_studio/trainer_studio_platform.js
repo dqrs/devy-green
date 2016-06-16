@@ -1,16 +1,19 @@
 // Global vars
-var db
-var user
-var token
-var loginResult
-var _error
-var _snapshot
-var t
-var tReference
+t = false
+tReference = false
+
+db = false
+user = false
+token = false
+
+uiSetup = false
+// var lastModuleChanged
 //
 
+initApp() // App Entry Point
+
 function initApp() {
-  // Display loading icon?
+  // Todo: Display loading icon?
 
   // Import student's Trainer and reference Trainer 
   t = getTrainer()
@@ -37,38 +40,44 @@ function initApp() {
     handleLoginSuccess).catch(handleLoginError)
 }
 
-initApp()
-
 function handleLoginSuccess(result) {
-  loginResult = result
-  // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+  // Use token to access the GitHub API.
   token = result.credential.accessToken;
   // The signed-in user info.
   user = result.user;
 
-  db.ref(`users`).once(`value`).then(function(snapshot) {
-    // if user doesn't already exist in db, 
-    // then initialize the new user with base data
-    if (!snapshot.hasChild(user.uid)) {
-      initializeNewUser(user)
-    }
-
-    // store global reference to course data in user
-    // then set up the UI with course data
-    db.ref('courses/' + user.uid).once('value').then(function (snapshot) {
-      user.course = snapshot.val()
-      setupUI()
-    })    
-  });
+  db.ref(`users`).once(`value`).then(initUser)
 }
 
-function initializeNewUser(user) {
+function initUser(usersSnapShot) {
+  // clearUserData() // remove eventually (just for debugging)
+  
+  // if user doesn't already exist in db, 
+  // then initialize the new user with base data
+  if (!usersSnapShot.hasChild(user.uid)) {
+    // alert("Initializing new user")
+    setupNewUser()
+  }
+
+  // store global reference to course data in user
+  // then set up the UI with course data
+  db.ref('courses/' + user.uid).on('value', function (courseSnapshot) {
+    user.course = courseSnapshot.val()
+    if (!uiSetup) {
+      setupUI()
+      uiSetup = true
+    }
+  })
+}
+
+function setupNewUser() {
   var userData = {}
   userData.name = user.displayName
   db.ref('users/' + user.uid).set(userData)
   
-  var userPanels = basePanels
-  db.ref('courses/' + user.uid + '/panels').set(userPanels)
+  // alert("About to set up new user")
+  // alert("basePanels['basic-info'].prereqs: " + basePanels['basic-info'].prereqs)
+  db.ref('courses/' + user.uid + '/panels').set(basePanels)
 }
 
 function handleLoginError(error) {
@@ -88,15 +97,32 @@ function handleLoginError(error) {
 
 function setupUI() {
   $(`body`).on(`click`, `.minimize`,   togglePanelMinimization)
-  $(`body`).on(`click`, `.activate`,   activateDisplayMode)
+  $(`body`).on(`click`, `.activate`,   activatePanelMode)
   $(`body`).on(`click`, `.btn-action`, actionButtonClicked)
   $(`body`).on(`click`, `#chatBubble`, removeChatBubble)
+  $(`body`).on(`keyup`, `.input-sm`,   handleKeyPress) 
+  $(`body`).on(`click`, `#clear-data`, clearUserData) 
+  // $(document).on(`keyup`, handleKeyPress) 
 
   $('.replace-with-panel').each(function() {
-    constructPanel(this)
+    createPanel(this)
   });
 
   setupTooltip()
+
+  // Trigger submit on enter keypress
+}
+
+function handleKeyPress(e) {
+  if (e.keyCode == 13) {
+    triggerActionButtonOnEnter()
+  } else if (e.keyCode == 27) {
+    alert("Escape pressed!")
+  }
+}
+
+function triggerActionButtonOnEnter() {
+  $(':focus').parent().parent().find('.btn-action').click()
 }
 
 function setupTooltip() {
@@ -106,160 +132,77 @@ function setupTooltip() {
   })
 }
 
-function constructPanel(_div, _mode) {
-  // start at div marked as panel root
-  var div = $(_div)
-  var panelData = user.course.panels[div.attr('id')]  
+function actionButtonClicked() {
+  var newModule
+  var button = $(this)
+  var codeModule = button.parent().parent()
+  var featureModule = codeModule.parent()
+  var index = featureModule.attr('index')
+  var panel = button.parent().parent().parent().parent().parent()
+  var panelId = panel.attr('id')
 
-  // minimized = user.panels[panel].minimized
+  if (codeModule.is('.code-entry')) {
 
-  var panel = $('#templates .panel').first().clone()
-  panel.attr('id', div.attr('id'))
+    var entry = codeModule.find('input').val()    
+    var expected = featureModule.attr('expected-expression')
+    var status = (entry === expected) ? "entered correct" : "entered incorrect"    
+    saveEntryToDB(entry, status, panelId, index)
+    
+    // create code viewer module
+    newModule = createCodeViewerModule(entry, expected)
 
-  var mode = _mode || panelData.mode
-  var displayType = panelData.displayType
-  panel.addClass(mode)
-  panel.addClass(displayType)
-  var table
+  } else if (codeModule.is('.code-button.correct')) {
+    
+    var entry = codeModule.find('.code-input button').text()
+    newModule = createReturnValViewerModule(entry, panelId, index)
 
-  // panel head
-  panel.find('.panel-title').text(panelData['title'])
+    // check to see if this completes the panel
+    var panel = user.course.panels[panelId]
+    if (!panel.complete && panelIsComplete(panel)) {
+      
+      alert(`${panel.title} completed!`)
+      
+      // check for newly unlocked panels and re-render UI 
+      var postReqs = getPostReqsOfPanel(panelId)
+      // alert(`postReqs: ${JSON.stringify(postReqs)}`)
 
-  // panel body
-  var body = panel.find('.panel-body')
-
-  if (mode === "display") {
-    panel.find('.activate').attr('displayMode', 'debug').toggleClass('glyphicon-flash').toggleClass('glyphicon-cog')
-  }
-
-  if (mode === "display" && displayType === "tableType") {
-    table = $('#templates .table-template').clone()
-    table.appendTo(body)
-  }
-  
-  // for each feature, construct appropriate featureModule
-  for (var i=0; i < panelData['features'].length; i++) {
-    var featureModule
-    var featureData = panelData['features'][i]
-
-    if (mode === "debug") {
-      featureModule = constructDebugFeatureModule(featureData)
-      body.append(featureModule)
-    } else if (displayType === "tableType") {
-      featureModule = constructTableFeatureModule(featureData)
-      table.append(featureModule)
-    } else if (displayType === "barType") {
-      featureModule = constructBarFeatureModule(featureData)
-      body.append(featureModule)
-    } else {
-      alert('unrecognized display type')
+      for (var i=0; i < postReqs.length; i++) {
+        createPanel($(`#${postReqs[i]}`))
+      }
     }
 
-    featureModule.attr('index', i)
-  }
+  } else if (codeModule.is('.code-button.incorrect')) {
+  
+    // Start over, just display text input and buttons
+    var entry = codeModule.find('.code-input button').text()
+    newModule = createCodeEntryModule(entry)
 
-  if (panelData.minimized == true) {
-    minimizePanel(panel)
-  }
+    // clear entry from db
+    saveEntryToDB('', 'empty', panelId, index)
 
-  div.replaceWith(panel)
+  } else if (codeModule.is('.return-val-viewer')) {
+    
+    // user has asked to reset this feature
+    // so we want to re-display the code button
+    var entry = button.attr('expression')
+    var status = "entered correct"
+    saveEntryToDB(null, status, panelId, index)
+    newModule = createCodeViewerModule(entry, entry)
+  }
+  
+  if (newModule) {
+    codeModule.replaceWith(newModule)
+    // lastModuleChanged = newModule
+  }
 }
 
-function activateDisplayMode() {
+function activatePanelMode() {
   // get id of the parent panel of this button
   var icon = $(this)
   var currentPanel = icon.parent().parent()
 
-  // re-construct panel body from json, using the specified mode
-  constructPanel(currentPanel, icon.attr('displayMode'))
-}
-
-function constructDebugFeatureModule(featureData) {
-  var featureModule = $('#templates .feature-module').clone().attr('expected-expression', featureData.expectedExpression)
-
-  // label
-  var label = $('#templates .label-' + featureData.type).clone()
-  label.find('.label-text').text(
-    convertCodeToEnglish(featureData.expectedExpression)
-  )
-  featureModule.append(label)
-  
-  var debugModule
-  if (featureData.status === 'empty') {
-    createCodeEntryModule()
-  } else if (
-    featureData.status.split(" ")[1] === 'entry') { 
-    debugModule = createCodeViewerModule(
-      featureData.entry, featureData.expectedExpression
-    )
-  } else if (featureData.status === 'executed') {
-    debugModule = createReturnValViewerModule(featureData.entry)
-  }
-  featureModule.append(debugModule)
-
-  return featureModule
-}
-
-function constructTableFeatureModule(featureData) {
-  var trTemplate = $('#templates tr').clone()
-  trTemplate.find('.label').text(
-    convertCodeToEnglish(featureData.expectedExpression)
-  )
-  trTemplate.find('.value').text(
-    eval(featureData.expectedExpression)
-  )
-  return trTemplate
-}
-
-
-// function setupStatBar(property) {
-//   var value = t[property]
-//   var template = $(`#templates .stat-bar`).clone()
-//   template.attr('id', property)
-//   template.find('label').text(property)
-//   template.find('.progress-bar').css({
-//     width: `${value}%`,
-//     backgroundColor: colors.pop()
-//   })
-//   template.find('.bar-reading').text(`${value}/100`)
-//   $('#current-state .panel-body.display').append(template)
-// }
-
-
-var colorIndex = 0
-var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
-
-function constructBarFeatureModule(featureData) {
-  var value = eval(featureData.expectedExpression)
-  var template = $(`#templates .stat-bar`).clone()
-
-  template.attr('id', featureData.expectedExpression)
-  template.find('label').text(
-    convertCodeToEnglish(featureData.expectedExpression)
-  )
-  colorIndex = ++colorIndex % colors.length
-  template.find('.progress-bar').css({
-    width: `${value}%`,
-    backgroundColor: colors[colorIndex]
-  })
-  template.find('.bar-reading').text(`${value}/100`)
-  
-  return template
-}
-
-function convertCodeToEnglish(text) {
-  return camelToTitleCase(getPropertyFromExpression(text))
-}
-
-function getSourceCode() {
-  var element = $(this)
-
-  var property = getPropertyFromButton(element)
-  var tooltipText = `<h5>Source Code:</h5>`
-  var source = t[property].toString()
-  tooltipText += `<pre><code>${source}</code></pre>`
-
-  return tooltipText
+  // re-create panel body from json, using the specified mode
+  createPanel(currentPanel, icon.attr('mode'))
 }
 
 function togglePanelMinimization() {
@@ -282,17 +225,237 @@ function maximizePanel(panel) {
   panel.find('.minimize').removeClass('glyphicon-collapse-up').addClass('glyphicon-collapse-down')
 }
 
-// function togglePanelDisplayMode() {
-//   var icon = $(this)
-//   var panel = icon.parent().parent()
-//   var activePanelBody = panel.find('.panel-body.active')
-//   var hiddenPanelBody = panel.find('.panel-body.hidden')
-//   activePanelBody.removeClass('active').addClass('hidden')
-//   hiddenPanelBody.removeClass('hidden').addClass('active')
+function featureIsComplete(feature) {
+  return feature.status === "executed correct"
+}
 
-//   icon.toggleClass('glyphicon-flash').toggleClass('glyphicon-cog enabled')
-// }
+function panelIsComplete(panel) {
+  var panelComplete = true
+  for (var i=0; i < panel.features.length; i++) {
+    if (!featureIsComplete(panel.features[i])) {
+      panelComplete = false
+      break
+    }
+  }
+  panel.complete = panelComplete
+  savePanelToDB(panel)
+  return panel.complete
+}
 
+
+function panelIsLocked(panel) {
+  var stayLocked = false
+
+  if (panel.prereqs) {
+    for (var i=0; i < panel.prereqs.length; i++) {
+      var prereq = user.course.panels[panel.prereqs[i]]
+      if (!prereq.complete) {
+        stayLocked = true
+        break
+      }
+    }
+  }
+
+  // check if panel was just unlocked for the first time
+  if (panel.locked && !stayLocked) {
+    panel.locked = false
+    savePanelToDB(panel)
+    alert(`${panel.title} was just unlocked!`)
+  }
+
+  return stayLocked
+}
+
+function createPanel(_div, _mode) {
+  // start at div marked as panel root
+  var div = $(_div)
+  var panelData = user.course.panels[div.attr('id')]
+  var panel = $('#templates .panel').first().clone()
+
+  panel.attr('id', div.attr('id'))
+
+  var mode = _mode || panelData.mode
+  var displayType = panelData.displayType
+  panel.addClass(mode)
+  panel.addClass(displayType)
+
+  createPanelHead(panel, panelData, mode)
+  if (panelIsLocked(panelData)) {
+    createLockedPanelBody(panel)
+  } else {
+    createPanelBody(panel, panelData, mode, displayType)
+  }
+
+  if (panelData.minimized) {
+    minimizePanel(panel)
+  }
+
+  div.replaceWith(panel)
+}
+
+function createPanelHead(panel, panelData, mode) {
+  panel.find('.panel-title').text(panelData['title'])
+  if (mode === "display") {
+    panel.find('.activate').attr('mode', 'debug').toggleClass('glyphicon-flash').toggleClass('glyphicon-cog')
+  }
+}
+
+// Returns an array of panelIDs who have panelId as a prereq
+function getPostReqsOfPanel(panelId) {
+  var allPanelIDs = Object.keys(user.course.panels)
+  var postReqs = []
+  for (var i=0; i < allPanelIDs.length; i++) {
+    var panel = user.course.panels[allPanelIDs[i]]
+    if (panel.prereqs && panel.prereqs.includes(panelId)) {
+      postReqs.push(allPanelIDs[i])
+    }
+  }
+  return postReqs
+}
+
+function createPanelBody(panel, panelData, mode, displayType) {
+  var table
+  var body = panel.find('.panel-body')
+
+  if (mode === "display" && displayType === "tableType") {
+    table = $('#templates .table-template').clone()
+    table.appendTo(body)
+  }
+  
+  // for each feature, create appropriate featureModule
+  for (var i=0; i < panelData.features.length; i++) {
+    var featureModule
+    var featureData = panelData.features[i]
+
+    if (mode === "debug") {
+      featureModule = createDebugFeatureModule(featureData)
+      body.append(featureModule)
+    } else if (displayType === "tableType") {
+      featureModule = createTableFeatureModule(featureData)
+      table.append(featureModule)
+    } else if (displayType === "barType") {
+      featureModule = createBarFeatureModule(featureData)
+      body.append(featureModule)
+    } else {
+      alert('unrecognized display type')
+    }
+
+    featureModule.attr('index', i)
+  }
+}
+
+function createLockedPanelBody(panel) {
+  panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
+}
+
+function createDebugFeatureModule(featureData) {
+  var featureModule = $('#templates .feature-module').clone().attr('expected-expression', featureData.expectedExpression)
+
+  var label = $('#templates .label-' + featureData.type).clone()
+  label.find('.label-text').text(
+    convertCodeToEnglish(featureData.expectedExpression)
+  )
+  featureModule.append(label)
+  
+  var debugModule
+  if (featureData.status === 'empty' || featureData.status === 'locked') {
+    debugModule = createCodeEntryModule()
+  } else if (
+    featureData.status === 'entered correct' ||
+    featureData.status === 'entered incorrect'
+  ) { 
+    debugModule = createCodeViewerModule(
+      featureData.entry, featureData.expectedExpression
+    )
+  } else if (
+    featureData.status === 'executed correct' ||
+    featureData.status === 'executed incorrect') {
+    debugModule = createReturnValViewerModule(featureData.entry)
+  }
+  featureModule.append(debugModule)
+
+  return featureModule
+}
+
+function createTableFeatureModule(featureData) {
+  var trTemplate = $('#templates tr').clone()
+  trTemplate.find('.label').text(
+    convertCodeToEnglish(featureData.expectedExpression)
+  )
+  trTemplate.find('.value').text(
+    eval(featureData.expectedExpression)
+  )
+  return trTemplate
+}
+
+var colorIndex = 0
+var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
+
+function createBarFeatureModule(featureData) {
+  var value = eval(featureData.expectedExpression)
+  var template = $(`#templates .stat-bar`).clone()
+
+  template.attr('id', featureData.expectedExpression)
+  template.find('label').text(
+    convertCodeToEnglish(featureData.expectedExpression)
+  )
+  colorIndex = ++colorIndex % colors.length
+  template.find('.progress-bar').css({
+    width: `${value}%`,
+    backgroundColor: colors[colorIndex]
+  })
+  template.find('.bar-reading').text(`${value}/100`)
+  
+  return template
+}
+
+function createCodeEntryModule(entry) {
+  var module = $('#templates .code-entry').clone()
+  if (entry) {
+    module.find('input').val(entry)
+  }
+  return module
+}
+
+function createCodeViewerModule(entry, expected) {
+  var status = (entry === expected) ? "correct" : "incorrect" 
+  var module = $('#templates .code-button.' + status).clone()
+  module.find('.code-input button').text(entry)
+
+  return module
+}
+
+function createReturnValViewerModule(entry, panelId, index) {
+  var testResult = testCode(entry)
+
+  var module = $(
+    "#templates .return-val-viewer." + testResult.status
+  ).clone()
+
+  var formattedVal = formatReturnValue(testResult.returnValue)
+
+  module.find('.code-input button').text(formattedVal)
+  module.find('.code-action-module button').attr('expression', entry)
+
+  var status = "executed " + testResult.status
+  saveEntryToDB(null, status, panelId, index)
+  return module
+}
+
+function convertCodeToEnglish(text) {
+  return camelToTitleCase(getPropertyFromExpression(text))
+}
+
+function getSourceCode() {
+  var element = $(this)
+
+  var property = getPropertyFromButton(element)
+  var tooltipText = `<h5>Source Code:</h5>`
+  var source = t[property].toString()
+  tooltipText += `<pre><code>${source}</code></pre>`
+
+  return tooltipText
+}
 
 function setupButton() {
   var button = $(this)
@@ -329,6 +492,10 @@ function getPropertyFromButton(button) {
   return getPropertyFromExpression(button.text())
 }
 
+/*
+  Converts an expression like 't.say("hello")' to 'say'
+  Or trainer.getHeight to 'getHeight'
+*/
 function getPropertyFromExpression(text) {
   // get property name if called on obj
   if (text.split(".").length == 2) {
@@ -341,91 +508,27 @@ function getPropertyFromExpression(text) {
   return text
 }
 
-
-// function panelsPath() {
-//   return `courses/${user.uid}/panels/`
-// }
-
-function actionButtonClicked() {
-  var newModule
-  var button = $(this)
-  var codeModule = button.parent().parent()
-  var featureModule = codeModule.parent()
-  var index = featureModule.attr('index')
-  var panel = button.parent().parent().parent().parent().parent()
-  var panelId = panel.attr('id')
-
-  if (codeModule.is('.code-entry')) {
-    // get code from text input
-    var entry = codeModule.find('input').val()
-    
-    // save entry to db
-    var featurePath = `courses/${user.uid}/panels/${panelId}/`
-    featurePath += `features/${index}/` 
-    db.ref(featurePath).child('entry').set(entry)
-
-    // save new status to db
-    var expected = featureModule.attr('expected-expression')
-    var status = (entry === expected) ? "correct" : "incorrect"
-    db.ref(featurePath).child('status').set(`${status} entry`)
-    
-    // create code viewer module
-    newModule = createCodeViewerModule(entry, expected)
-
-  } else if (codeModule.is('.code-button.correct')) {
-    
-    // get code from text input
-    var entry = codeModule.find('.code-input button').text()
-    newModule = createReturnValViewerModule(entry)
-
-  } else if (codeModule.is('.code-button.incorrect')) {
-  
-    // Start over, just display text input and buttons
-    var entry = codeModule.find('.code-input button').text()
-    newModule = createCodeEntryModule(entry)
-
-  } else if (codeModule.is('.return-val-viewer')) {
-    
-    // reset was clicked, 
-    // so we want to re-display the code button
-    var entry = button.attr('expression')
-    newModule = createCodeViewerModule(entry, entry)
-  }
-  
-  if (newModule) {
-    codeModule.replaceWith(newModule)
-  }
+function savePanelToDB(panel) {
+  var panelPath = `courses/${user.uid}/panels/${panel.id}/`
+  db.ref(panelPath).update(panel)
 }
 
-function createCodeEntryModule(entry) {
-  var module = $('#templates .code-entry').clone()
+function saveEntryToDB(entry, status, panelId, index) {
+  var featurePath = `courses/${user.uid}/panels/${panelId}/`
+  featurePath += `features/${index}/` 
+  
+  // save entry to db if supplied (otherwise, just update status)
   if (entry) {
-    module.find('input').val(entry)
+    db.ref(featurePath).child('entry').set(entry)
   }
-  return module
-}
-
-function createCodeViewerModule(entry, expected) {
-  var status = (entry === expected) ? "correct" : "incorrect" 
-  var module = $('#templates .code-button.' + status).clone()
-  module.find('.code-input button').text(entry)
-
-  return module
-}
-
-function createReturnValViewerModule(entry) {
-  var testResult = testCode(entry)
-
-  var module = $(
-    "#templates .return-val-viewer." + testResult.status
-  ).clone()
-
-  var formattedVal = formatReturnValue(testResult.returnValue)
-
-  module.find('.code-input button').text(formattedVal)
-  module.find('.code-action-module button').attr('expression', entry)
-
-  return module
+  // save status to db
+  db.ref(featurePath).child('status').set(status)
+  if (status === "executed correct") {
+    db.ref(featurePath).child('complete').set(true)
+    // NOTE, this will never set complete to false...
+    // Probably want to reconsider this in case student
+    // breaks feature
+  }
 }
 
 function testCode(code) {
@@ -472,9 +575,10 @@ function camelToTitleCase(text) {
 }
 
 
-function deleteUser(user) {
+function clearUserData() {
   db.ref('users/' + user.uid).set(null)
   db.ref('courses/' + user.uid).set(null)
+  location.reload()
 }
 
 function chatBubble(msg) {
@@ -510,3 +614,33 @@ function tts(msg) {
   // };
   window.speechSynthesis.speak(utterance);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

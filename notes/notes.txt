@@ -6,35 +6,17 @@ To make the learning curve less steep, we break up the game into
 a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
 Trainer Studio, then Pokemon Studio, then Battle
 
-  x minimize modules with button press
-  x Fix setupStatBar / display mode
-  x Chat Bubble
 
-Next tasks:
+////////////////////////
+  LEFT OFF ON:
+  
+    - Or should a button appear that the student gets to click to unlock?
 
-  - Persistence
-    - Add firebase
-      - Auth
-      - Db conn
-    - Design schema
-
-
-
-Persistence Notes:
-
-When new account created:
-  -> need to initialize panels
-  -> set up system for locking/unlocking panels
-  - should features within be unlocked all at once? or one at at time?>
-
-
-
-
-
-
-
-
-
+  - Re-test code before panel is considered complete?
+  - Clear correct entry on right click
+  - Enable go back on escape
+  - Run code on enter
+  - App place holder tags -- replace with buttons/code entry
 
 
 

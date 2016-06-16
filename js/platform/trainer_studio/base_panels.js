@@ -2,70 +2,83 @@
   This JSON object contains the static data for panels used by all students, as well as the initial student progress data for a student
   who has just started.
 */
-var basePanels = {
+basePanels = {
   "basic-info": {
+    id: "basic-info",
     title: "Basic Information",
     mode: "debug",
     displayType: "tableType",
-    status: "empty",
+    complete: false,
+    locked: false,
     minimized: false,
+    prereqs: false,
     features: [
       {
         type: "variable",
         expectedExpression: "t.firstName",
         hasReturnValue: true,
         status: "empty",
+        complete: false,
         entry: ''
       },
-      {
-        type: "variable",
-        expectedExpression: "t.lastName",
-        hasReturnValue: true,
-        status: "empty",
-        entry: ''
-      },
-      {
-        type: "variable",
-        expectedExpression: "t.age",
-        hasReturnValue: true,
-        status: "empty",
-        entry: ''
-      },
-      {
-        type: "variable",
-        expectedExpression: "t.slogan",
-        hasReturnValue: true,
-        status: "empty",
-        entry: ''
-      },
-      {
-        type: "variable",
-        expectedExpression: "t.favoriteElement",
-        hasReturnValue: true,
-        status: "empty",
-        entry: ''
-      },
-      {
-        type: "variable",
-        expectedExpression: "t.favoriteColor",
-        hasReturnValue: true,
-        status: "empty",
-        entry: ''
-      },
+      // {
+      //   type: "variable",
+      //   expectedExpression: "t.lastName",
+      //   hasReturnValue: true,
+      //   status: "empty",
+      //   complete: false,
+      //   entry: ''
+      // },
+      // {
+      //   type: "variable",
+      //   expectedExpression: "t.age",
+      //   hasReturnValue: true,
+      //   status: "empty",
+      //   complete: false,
+      //   entry: ''
+      // },
+      // {
+      //   type: "variable",
+      //   expectedExpression: "t.slogan",
+      //   hasReturnValue: true,
+      //   status: "empty",
+      //   complete: false,
+      //   entry: ''
+      // },
+      // {
+      //   type: "variable",
+      //   expectedExpression: "t.favoriteElement",
+      //   hasReturnValue: true,
+      //   status: "empty",
+      //   complete: false,
+      //   entry: ''
+      // },
+      // {
+      //   type: "variable",
+      //   expectedExpression: "t.favoriteColor",
+      //   hasReturnValue: true,
+      //   status: "empty",
+      //   complete: false,
+      //   entry: ''
+      // },
     ]
   },
   "current-state": {
+    id: "current-state",
     title: "Current State",
     mode: "debug",
     displayType: "barType",
-    status: "locked",
-    minimized: true,
+    complete: false,
+    locked: true,
+    minimized: false,
+    prereqs: ["basic-info"],
     features: [
       {
         type: "variable",
         expectedExpression: "t.energy",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -73,6 +86,7 @@ var basePanels = {
         expectedExpression: "t.happiness",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -80,6 +94,7 @@ var basePanels = {
         expectedExpression: "t.confidence",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -87,6 +102,7 @@ var basePanels = {
         expectedExpression: "t.intelligence",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -94,6 +110,7 @@ var basePanels = {
         expectedExpression: "t.strength",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       // {
@@ -101,22 +118,27 @@ var basePanels = {
       //   expectedExpression: "t.coins",
       //   hasReturnValue: true,
       // status: "locked",
+      // complete: false,
       // entry: ''
       // }
     ]
   },
   "name": {
+    id: "name",
     title: "Name",
     mode: "debug",
     displayType: "tableType",
-    status: "locked",
-    minimized: true,
+    complete: false,
+    locked: true,
+    minimized: false,
+    prereqs: ['current-state'],
     features: [
       {
         type: "method",
         expectedExpression: "t.getFullName()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -124,6 +146,7 @@ var basePanels = {
         expectedExpression: "t.getReverseName()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -131,6 +154,7 @@ var basePanels = {
         expectedExpression: "t.getDoubleFullName()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -138,6 +162,7 @@ var basePanels = {
         expectedExpression: "t.getReverseName()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -145,6 +170,7 @@ var basePanels = {
         expectedExpression: "t.getImageFileName()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -152,6 +178,7 @@ var basePanels = {
         expectedExpression: "t.getFirstNameLastInitial()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -159,22 +186,27 @@ var basePanels = {
         expectedExpression: "t.getFirstNameLastInitial()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       }
     ]
   },
   "age": {
+    id: "age",
     title: "Age",
     mode: "debug",
     displayType: "tableType",
-    status: "locked",
-    minimized: true,
+    complete: false,
+    locked: true,
+    minimized: false,
+    prereqs: ["name"],
     features: [
       {
         type: "method",
         expectedExpression: "t.getAgeInMonths()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -182,6 +214,7 @@ var basePanels = {
         expectedExpression: "t.getAgeInWeeks()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -189,6 +222,7 @@ var basePanels = {
         expectedExpression: "t.getAgeInDays()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -196,6 +230,7 @@ var basePanels = {
         expectedExpression: "t.getAgeInHours()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -203,6 +238,7 @@ var basePanels = {
         expectedExpression: "t.getAgeInMinutes()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -210,22 +246,27 @@ var basePanels = {
         expectedExpression: "t.getAgeInSeconds()",
         hasReturnValue: true,
         status: "locked",
+        complete: false,
         entry: ''
       },
     ]
   },
   "communicate": {
+    id: "communicate",
     title: "Communicate",
     mode: "debug",
     displayType: "void",
-    status: "locked",
-    minimized: true,
+    complete: false,
+    locked: true,
+    minimized: false,
+    prereqs: ["age"],
     features: [
       {
         type: "method",
         expectedExpression: "t.writeHi()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -233,6 +274,7 @@ var basePanels = {
         expectedExpression: "t.writeSlogan()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -240,6 +282,7 @@ var basePanels = {
         expectedExpression: "t.write()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -247,6 +290,7 @@ var basePanels = {
         expectedExpression: "t.sayHi()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -254,6 +298,7 @@ var basePanels = {
         expectedExpression: "t.saySlogan()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -261,22 +306,27 @@ var basePanels = {
         expectedExpression: "t.say(something)",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
     ]
   },
   "activities": {
+    id: "activities",
     title: "Activities",
     mode: "debug",
     displayType: "void",
-    status: "locked",
-    minimized: true,
+    complete: false,
+    locked: true,
+    minimized: false,
+    prereqs: ["communicate"],
     features: [
       {
         type: "method",
         expectedExpression: "t.work()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -284,6 +334,7 @@ var basePanels = {
         expectedExpression: "t.rest()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -291,6 +342,7 @@ var basePanels = {
         expectedExpression: "t.exercise(...)",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -298,6 +350,7 @@ var basePanels = {
         expectedExpression: "t.watchTelevision()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -305,6 +358,7 @@ var basePanels = {
         expectedExpression: "t.readBook()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -312,6 +366,7 @@ var basePanels = {
         expectedExpression: "t.takeCompliment()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
       {
@@ -319,6 +374,7 @@ var basePanels = {
         expectedExpression: "t.takeInsult()",
         hasReturnValue: false,
         status: "locked",
+        complete: false,
         entry: ''
       },
     ]
