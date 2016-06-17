@@ -105,16 +105,16 @@ class Trainer {
 
   getFullName() {
     // return this.firstName + this.lastName
-    return new Exception()
+    // return new Exception()
 
   }
 
   getReverseName() {
-    return `${this.lastName}, ${this.firstName}`
+    // return `${this.lastName}, ${this.firstName}`
   }
 
   getDoubleFullName() {
-    return `${this.firstName} ${this.firstName} ${this.lastName} ${this.lastName}`
+    // return `${this.firstName} ${this.firstName} ${this.lastName} ${this.lastName}`
   }
 
 
@@ -123,11 +123,11 @@ class Trainer {
   // }
 
   getFirstNameLastInitial() {
-    return `${this.firstName} ${this.lastName[0]}.`
+    // return `${this.firstName} ${this.lastName[0]}.`
   }
 
   getFirstInitialLastName() {
-    return `${this.firstName[0]}. ${this.lastName}`
+    // return `${this.firstName[0]}. ${this.lastName}`
   }
 
   writeHi() {

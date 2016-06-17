@@ -6,60 +6,29 @@ To make the learning curve less steep, we break up the game into
 a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
 Trainer Studio, then Pokemon Studio, then Battle
 
+  - order curriculum
 
 ////////////////////////
   LEFT OFF ON:
   
-    - Or should a button appear that the student gets to click to unlock?
-
+  - App place holder tags -- replace with buttons/code entry
+  - Handle rendering/displaying void functions
+  - implement all functions
   - Re-test code before panel is considered complete?
+  - Or should a button appear that the student gets to click to unlock?
+
   - Clear correct entry on right click
   - Enable go back on escape
-  - Run code on enter
-  - App place holder tags -- replace with buttons/code entry
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Trainer Studio Implementation Tasks:
-  - Handle rendering/displaying void functions
-
-  - display mode for:
-    X current state
-    x basic info
-      x implement tables
-     x make sure activate button works
-
-  - order curriculum
-  - implement all functions
+  - Make unlocking announcements more attractive
   - get all functions on the UI
-  x If attribute is undefined, its button should be disabled
   - Button should glow while its method is running
   - create gui libary for students
-    x gui.say()
     - gui.displayIcon()
-    x- gui.print()
   - Set up testing system
-    x create an clone object with all of the same static attributes as the student's, but it runs our methods instead
     - how to test void functions?
       - how to test funcs that modify multiple attributes
-  x set modes feature
-    x modes
-      x debug (button to press)
-      - test (same as debug mode except already run)
-      x display (nice display mode for final game)
       - hide
-    x Add mode switch to panel
+      - test (same as debug mode except already run)
     - consume preferences object to
       - choose mode for each panel
       - choose global mode

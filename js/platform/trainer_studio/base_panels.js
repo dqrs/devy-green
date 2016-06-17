@@ -21,30 +21,30 @@ basePanels = {
         complete: false,
         entry: ''
       },
-      // {
-      //   type: "variable",
-      //   expectedExpression: "t.lastName",
-      //   hasReturnValue: true,
-      //   status: "empty",
-      //   complete: false,
-      //   entry: ''
-      // },
-      // {
-      //   type: "variable",
-      //   expectedExpression: "t.age",
-      //   hasReturnValue: true,
-      //   status: "empty",
-      //   complete: false,
-      //   entry: ''
-      // },
-      // {
-      //   type: "variable",
-      //   expectedExpression: "t.slogan",
-      //   hasReturnValue: true,
-      //   status: "empty",
-      //   complete: false,
-      //   entry: ''
-      // },
+      {
+        type: "variable",
+        expectedExpression: "t.lastName",
+        hasReturnValue: true,
+        status: "empty",
+        complete: false,
+        entry: ''
+      },
+      {
+        type: "variable",
+        expectedExpression: "t.age",
+        hasReturnValue: true,
+        status: "empty",
+        complete: false,
+        entry: ''
+      },
+      {
+        type: "variable",
+        expectedExpression: "t.slogan",
+        hasReturnValue: true,
+        status: "empty",
+        complete: false,
+        entry: ''
+      },
       // {
       //   type: "variable",
       //   expectedExpression: "t.favoriteElement",
