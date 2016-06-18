@@ -8,31 +8,68 @@ Trainer Studio, then Pokemon Studio, then Battle
 
   - order curriculum
 
+Notes from DD Meeting 6/17/16:
+
+- let students do quick 'think-pair-share' sessions
+- t.sayFullName() --> this.say(this.getFullName())
+- talk through how code works
+- dont be afraid of productive failure
+- when explaining classes, give multiple examples
+  -> person, car, printer, etc.
+
+  - inside the class vs outside the class
+    - 'this' == 'my'
+
+///////////////////
+
+Left Off:
+
+Setting up testing system
+- Getting tape & tape_dom working in browser
+- Style test output
+- Create test results module
+- Write tests
+
+
+
+
+
 ////////////////////////
-  LEFT OFF ON:
+  Next steps:
   
-  - App place holder tags -- replace with buttons/code entry
+  - Implement app tags with popups
+    - Create new CSS module
+    - Implement js
+    - Make sure code evaluation works properly
+  x fix the firebase popup issue
+  - Set up testing system
+  - DL and save firebase code (cache it)
+  - get tape working in browser (browserify it)
+  - Implement page loading screen
+  - students should type in the code to create their trainer instance   
+  - allow multiple trainer instances on screen
+    in the browser
+  - use cloud 9
+    --> Document steps for creating cloud9 workspace
+  - ensure that user data is properly saved
+  - remove trainer_studio.js
+  - Re-test code before panel is considered complete?
+  - Clear correct entry on right click
   - Handle rendering/displaying void functions
   - implement all functions
-  - Re-test code before panel is considered complete?
   - Or should a button appear that the student gets to click to unlock?
+    - consume preferences object to
+      - choose mode for each panel
+      - choose global mode
+      - hide
 
-  - Clear correct entry on right click
+
   - Enable go back on escape
   - Make unlocking announcements more attractive
   - get all functions on the UI
   - Button should glow while its method is running
   - create gui libary for students
     - gui.displayIcon()
-  - Set up testing system
-    - how to test void functions?
-      - how to test funcs that modify multiple attributes
-      - hide
-      - test (same as debug mode except already run)
-    - consume preferences object to
-      - choose mode for each panel
-      - choose global mode
-      - hide
   - Set Panel Color based on completion state
     - Gray - None defined yet
     - Yellow - At least one working

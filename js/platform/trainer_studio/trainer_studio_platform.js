@@ -10,7 +10,35 @@ uiSetup = false
 // var lastModuleChanged
 //
 
-initApp() // App Entry Point
+// App Entry Point
+window.onload = function() {
+  initApp()
+  setupTags()
+  // window.tape_dom.installCSS();
+  // window.tape_dom.stream(window.tape);
+} 
+
+function setupTags() {
+  $(`body`).on(`click`, `#app-name`, replaceTag)
+  $(`body`).on(`click`, `#test`, runTest)
+}
+
+function runTest() {
+  tape.createStream({ objectMode: true }).on('data', function (row) {
+    alert(JSON.stringify(row))
+  });
+
+  tape('timing test', function (t) {
+      t.plan(2);
+
+      t.equal(typeof Date.now, 'function');
+      var start = Date.now();
+
+      setTimeout(function () {
+          t.equal(Date.now() - start, 100);
+      }, 100);
+  });
+}
 
 function initApp() {
   // Todo: Display loading icon?
@@ -31,13 +59,22 @@ function initApp() {
   // db //////////////////////////////////
   db = firebase.database()
 
-  // auth /////////////////////////////////////
-  var provider = new firebase.auth.GithubAuthProvider();
-  provider.addScope('email');
-  // provider.addScope('repo');
+  firebase.auth().onAuthStateChanged(function(_user) {
+    if (_user) {
+      // User is signed in.
+      user = _user
+      db.ref(`users`).once(`value`).then(initUser)
+    } else {
+      var provider = new firebase.auth.GithubAuthProvider();
+      provider.addScope('email');
 
-  firebase.auth().signInWithPopup(provider).then(
-    handleLoginSuccess).catch(handleLoginError)
+      firebase.auth().signInWithPopup(provider).then(
+        handleLoginSuccess
+      ).catch(
+        handleLoginError
+      )
+    }
+  });
 }
 
 function handleLoginSuccess(result) {
@@ -300,19 +337,6 @@ function createPanelHead(panel, panelData, mode) {
   }
 }
 
-// Returns an array of panelIDs who have panelId as a prereq
-function getPostReqsOfPanel(panelId) {
-  var allPanelIDs = Object.keys(user.course.panels)
-  var postReqs = []
-  for (var i=0; i < allPanelIDs.length; i++) {
-    var panel = user.course.panels[allPanelIDs[i]]
-    if (panel.prereqs && panel.prereqs.includes(panelId)) {
-      postReqs.push(allPanelIDs[i])
-    }
-  }
-  return postReqs
-}
-
 function createPanelBody(panel, panelData, mode, displayType) {
   var table
   var body = panel.find('.panel-body')
@@ -347,6 +371,26 @@ function createPanelBody(panel, panelData, mode, displayType) {
 function createLockedPanelBody(panel) {
   panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
 }
+
+function replaceTag() {
+  // alert("hi")
+  // var codeEntryModule = createCodeEntryModule()
+  // var container = $('<div></div>')
+  var featureModule = createDebugFeatureModule({
+    expectedExpression: 'getAppName()',
+    type: "method",
+    status: "empty",
+    entry: ""
+  }) //.appendTo(container)
+
+  featureModule.appendTo($('body')).css({
+    position: 'absolute',
+    top: '100px',
+    left: '100px',
+    border: '1px solid white'
+  })
+}
+
 
 function createDebugFeatureModule(featureData) {
   var featureModule = $('#templates .feature-module').clone().attr('expected-expression', featureData.expectedExpression)
@@ -444,6 +488,19 @@ function createReturnValViewerModule(entry, panelId, index) {
 
 function convertCodeToEnglish(text) {
   return camelToTitleCase(getPropertyFromExpression(text))
+}
+
+// Returns an array of panelIDs who have panelId as a prereq
+function getPostReqsOfPanel(panelId) {
+  var allPanelIDs = Object.keys(user.course.panels)
+  var postReqs = []
+  for (var i=0; i < allPanelIDs.length; i++) {
+    var panel = user.course.panels[allPanelIDs[i]]
+    if (panel.prereqs && panel.prereqs.includes(panelId)) {
+      postReqs.push(allPanelIDs[i])
+    }
+  }
+  return postReqs
 }
 
 function getSourceCode() {

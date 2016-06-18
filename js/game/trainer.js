@@ -69,19 +69,19 @@ class Trainer {
     giveCompliment()
     
   */
-  constructor(options) {
-    this.firstName = options.firstName
-    this.lastName = options.lastName
-    this.age = options.age
-    this.favoriteElement = options.favoriteElement
-    this.favoriteColor = options.favoriteColor
-    this.slogan = options.slogan
-    this.energy = options.energy
-    this.happiness = options.happiness
-    this.confidence = options.confidence
-    this.intelligence = options.intelligence
-    this.strength = options.strength
-  }
+  // constructor(options) {
+  //   this.firstName = options.firstName
+  //   this.lastName = options.lastName
+  //   this.age = options.age
+  //   this.favoriteElement = options.favoriteElement
+  //   this.favoriteColor = options.favoriteColor
+  //   this.slogan = options.slogan
+  //   this.energy = options.energy
+  //   this.happiness = options.happiness
+  //   this.confidence = options.confidence
+  //   this.intelligence = options.intelligence
+  //   this.strength = options.strength
+  // }
 
   /*
     Returns the name of the Pokemon's image file.

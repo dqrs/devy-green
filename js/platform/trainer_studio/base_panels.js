@@ -65,13 +65,14 @@ basePanels = {
   },
   "current-state": {
     id: "current-state",
-    title: "Current State",
+    title: "Trainer Status",
     mode: "debug",
     displayType: "barType",
     complete: false,
-    locked: true,
+    locked: false,
     minimized: false,
-    prereqs: ["basic-info"],
+    prereqs: false,
+    // prereqs: ["basic-info"],
     features: [
       {
         type: "variable",
@@ -129,9 +130,10 @@ basePanels = {
     mode: "debug",
     displayType: "tableType",
     complete: false,
-    locked: true,
+    locked: false,
     minimized: false,
-    prereqs: ['current-state'],
+    // prereqs: ['current-state'],
+    prereqs: false,
     features: [
       {
         type: "method",
