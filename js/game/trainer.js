@@ -1,74 +1,5 @@
 class Trainer {
   
-  /*
-    // Static Attributes:
-    firstName
-    lastName
-    age
-    slogan
-    favoriteColor
-    favoriteELement
-
-    // Dynamic Attributes (State/Vitals):
-    money
-    happiness
-    intelligence
-    energy
-    confidence
-
-    // string interpolation
-    getFullName()
-    getReverseName()
-    getDoubleFullName()
-    getDoubleReverseName()
-    getFirstNameLastInitial()
-    getFirstInitialLastName()
-    getImageFileName()
-    
-    // conditionals - threshold functions
-    getConfidenceDescription()
-    getHappinessDescription()
-    getIntelligenceDescription()
-    getLeague()
-    
-    // conditionals - other
-    getWeakestElement()
-
-    // calculations
-    getAgeInMonths()
-    getAgeInDays()
-    getAgeInWeeks()
-    getAgeInMinutes()
-    getAgeInSeconds()
-
-    // void functions
-    printHi()
-    printSlogan()
-    print(message)
-    sayHi()
-    saySlogan()
-    say(message)
-    
-    // Methods that update a single instance variable
-    setCoins(num)
-    lose10Coins()
-    gain10Coins()
-    loseCoins(num)
-    gainCoins(num)
-
-
-    // Methods that update multiple instance variables
-    work()
-    rest()
-    exercise()
-    watchTV()
-    readBook()
-    takeCompliment()
-    takeInsult()
-
-    giveCompliment()
-    
-  */
   // constructor(options) {
   //   this.firstName = options.firstName
   //   this.lastName = options.lastName
@@ -104,15 +35,12 @@ class Trainer {
   // }
 
   getFullName() {
-    // return this.firstName + this.lastName
-    // return new Exception()
-
+    return this.firstName + ' ' + this.lastName
   }
 
   getReverseName() {
-    // return `${this.lastName}, ${this.firstName}`
+    return this.lastName + ', ' + this.firstName
   }
-
   getDoubleFullName() {
     // return `${this.firstName} ${this.firstName} ${this.lastName} ${this.lastName}`
   }

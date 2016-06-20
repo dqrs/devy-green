@@ -259,9 +259,10 @@ basePanels = {
     mode: "debug",
     displayType: "void",
     complete: false,
-    locked: true,
+    locked: false,
     minimized: false,
-    prereqs: ["age"],
+    prereqs: false,
+    // prereqs: ["age"],
     features: [
       {
         type: "method",

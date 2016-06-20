@@ -45,8 +45,12 @@ function isAppComplete() {
 // Version 2 (With Classes)
 function getTrainer() {
   var t = new Trainer()
-  t.firstName = "David2222"
-  t.lastName = "Gggggggg"
+  t.firstName = "Josh"
+  t.lastName = "Mines"
+  t.age = 26
+  t.slogan = 'genentech number 1'
+  
+  // t.lastName = "Gggggggg"
   // var t = new Trainer({
   //   firstName: "Ash",
   //   lastName: "Ketchfshsfhjum",
@@ -54,11 +58,11 @@ function getTrainer() {
   //   slogan: "Gotta catch 'em all",
   //   favoriteElement: "Fire",
   //   favoriteColor: "red",
-  //   // energy: 75,
-  //   // happiness: 40,
-  //   // confidence: 90,
-  //   // intelligence: 60,
-  //   // strength: 80
+  //   energy: 75,
+  //   happiness: 40,
+  //   confidence: 90,
+  //   intelligence: 60,
+  //   strength: 80
   // })
 
   return t
