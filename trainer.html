@@ -24,7 +24,7 @@
   <!-- platform code (not to be edited by students) -->
   <script src="js/platform/trainer_studio/base_panels.js"></script>
   <script src="js/platform/trainer_studio/trainer_reference.js"></script>
-  <script src="js/platform/trainer_studio/trainer_studio_platform.js"></script>
+  <script src="js/platform/trainer_studio/trainer_platform.js"></script>
 
 </head>
 
@@ -43,6 +43,7 @@
           <small>By</small>
           <small><code>&lt;App Author&gt;</code></small>
         </h1>
+        <a id="popper" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">Dismissible popover</a>
       </div>
 
       <div class="col-xs-3">
@@ -52,7 +53,7 @@
     </div> <!-- end #header -->
 
     <div class="row" id="main">
-      
+        
       <div class="col-xs-4"> <!-- first col -->
         <div class="trainer-image-wrapper thumbnail">
             <img class="trainer-image" src="assets/images/Ash Ketchum.png" alt="text">
@@ -193,7 +194,7 @@
     <!-- .return-val-viewer.correct template -->
     <div class="row code-module return-val-viewer correct ">              
       <div class="code-input">
-        <button type="button" class="btn btn-sm btn-code correct-val">-------  <span class="glyphicon glyphicon-ok"></span></button>
+        <a type="button" class="btn btn-sm btn-code correct-val" >-------  <span class="glyphicon glyphicon-ok"></span></a>
       </div>
     
       <div class="code-action-module">
@@ -244,6 +245,70 @@
     <div class="panel-body locked-panel">
       <h4><span class="glyphicon glyphicon-lock"></span> Locked</h4>
     </div>
+
+    <div class="popover popover-custom" role="tooltip">
+      <h3>Customized!</h3>
+      <div class="arrow"></div>
+      <h3 class="popover-title">Passed 
+        <span class="num-tests-passed"></span> /
+        <span class="num-tests-total"></span>
+        tests
+      </h3>
+      <div class="popover-content">
+        <table class="test-results">
+        </table>
+      </div>
+    </div>
+
+
+    <!-- <div class="test-result-module incorrect">
+      <table>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="test-result-status">
+        <p><span class="glyphicon glyphicon-remove"></span></p>
+      </div>
+      <div class="test-result-details">
+        <p><span class="test-name"></span></p>
+        <p>Expected: <span class="test-expected"></span></p>
+        <p>Actual: <span class="test-actual"></span></p>
+      </div>
+    </div>
+     -->
+    <table>
+      <tbody class="test-result-module incorrect">
+        <tr>
+          <td class="test-status"><span class="glyphicon glyphicon-remove"></span></td>
+          <td class="test-name"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="test-expected"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="test-actual"></td>
+        </tr>
+      </tbody>
+
+      <tbody class="test-result-module correct">
+        <tr>
+          <td class="test-status"><span class="glyphicon glyphicon-ok"></span></td>
+          <td class="test-name"></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div class="test-result-module correct">
+      <div class="test-result-status">
+        <a><span class="glyphicon glyphicon-ok"></span></a>
+      </div>
+      <div class="test-result-details">
+        <p><span class="test-name"></span></p>
+      </div>
+    </div> -->
 
   </div> <!-- end templates -->
 

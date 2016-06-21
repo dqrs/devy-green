@@ -207,11 +207,11 @@ class TrainerReference {
   }
 
   sayHi() {
-    tts("Hi!")
+    textToSpeech("Hi!")
   }
   
   saySlogan() {
-    tts(this.slogan)
+    textToSpeech(this.slogan)
   }
 
   getAgeInMonths() {

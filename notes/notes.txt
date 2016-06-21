@@ -1,35 +1,39 @@
 DEVY GREEEN:
 ===============================================
-The Multiple Screens Idea:
-
-To make the learning curve less steep, we break up the game into
-a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
-Trainer Studio, then Pokemon Studio, then Battle
-
-  - order curriculum
-
-Notes from DD Meeting 6/17/16:
-
-- let students do quick 'think-pair-share' sessions
-- t.sayFullName() --> this.say(this.getFullName())
-- talk through how code works
-- dont be afraid of productive failure
-- when explaining classes, give multiple examples
-  -> person, car, printer, etc.
-
-  - inside the class vs outside the class
-    - 'this' == 'my'
 
 ///////////////////
+Completed Today:
+x Get page working properly
+X Error message when executing undefined prop  
+x Getting tape working in browser
 
-Left Off:
+LEFT OFF:
+  - FIX: Max stack size exceeeded
+  - Clean up code
+  - Create separate data space for each feature
+  - Use expected expression as key
 
-Setting up testing system
-- Getting tape & tape_dom working in browser
-- Style test output
-- Create test results module
-- Write tests
+In Progress:
 
+  - Setup popovers
+    x Get popover to display
+    x Create test results template
+      x test line items
+        X- correct
+        X incorrect
+      - headline
+      - result summary
+      - wrapper with rounded corners
+
+
+
+
+  - Setting up testing system
+  - Style test output
+  - Create test results module
+  - Write tests
+  - Set up testing system
+  x get tape working in browser (browserify it)
 
 
 
@@ -42,9 +46,7 @@ Setting up testing system
     - Implement js
     - Make sure code evaluation works properly
   x fix the firebase popup issue
-  - Set up testing system
   - DL and save firebase code (cache it)
-  - get tape working in browser (browserify it)
   - Implement page loading screen
   - students should type in the code to create their trainer instance   
   - allow multiple trainer instances on screen
@@ -53,7 +55,7 @@ Setting up testing system
     --> Document steps for creating cloud9 workspace
   - ensure that user data is properly saved
   - remove trainer_studio.js
-  - Re-test code before panel is considered complete?
+  - Re-test code before panel is considered complete
   - Clear correct entry on right click
   - Handle rendering/displaying void functions
   - implement all functions
@@ -80,7 +82,18 @@ Setting up testing system
       - Number of tests passed out of total
   - set up grid & positioning
 
+===============================
+Notes from DD Meeting 6/17/16:
 
+- let students do quick 'think-pair-share' sessions
+- t.sayFullName() --> this.say(this.getFullName())
+- talk through how code works
+- dont be afraid of productive failure
+- when explaining classes, give multiple examples
+  -> person, car, printer, etc.
+
+  - inside the class vs outside the class
+    - 'this' == 'my'
 Apps:
 - Trainer Studio
   - GUI starts out empty, instructs students to fill in each piece
@@ -145,6 +158,14 @@ Apps:
 - Battle
 
 
+========================
+The Multiple Screens Idea:
+
+To make the learning curve less steep, we break up the game into
+a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
+Trainer Studio, then Pokemon Studio, then Battle
+
+  - order curriculum
 =================================
 New UI Concept for Trainer Studio
 
@@ -161,8 +182,8 @@ Clickable buttons that execute method calls
   - pre-execute money methods
   - etc.
 
-========================
 
+=================
 New Trainer attributes:
 
 - position: x, y

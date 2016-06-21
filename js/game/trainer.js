@@ -67,11 +67,11 @@ class Trainer {
   }
 
   sayHi() {
-    tts("Hi!")
+    textToSpeech("Hi!")
   }
 
   saySlogan() {
-    tts(this.slogan)
+    textToSpeech(this.slogan)
   }
 
   // say(message) {

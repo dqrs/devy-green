@@ -1,43 +1,109 @@
 // Global vars
-t = false
-tReference = false
+window.t = false
+window.tReference = false
 
-db = false
-user = false
-token = false
+window.db = false
+window.user = false
+window.token = false
 
-uiSetup = false
+window.uiSetup = false
+window.testResults = {}
 // var lastModuleChanged
 //
 
 // App Entry Point
 window.onload = function() {
+  tape.createStream({objectMode: true}).on(
+    'data', consumeTapeStream
+  );
   initApp()
   setupTags()
-  // window.tape_dom.installCSS();
-  // window.tape_dom.stream(window.tape);
 } 
 
 function setupTags() {
   $(`body`).on(`click`, `#app-name`, replaceTag)
-  $(`body`).on(`click`, `#test`, runTest)
+  // $(`body`).on(`click`, `#popper`, runTest)
+}
+
+function createPopoverTitle() { 
+  return $('#templates .popover-title').clone().addClass('active-test')
+}
+
+function fillPopoverTemplate() {
+  return $('#templates .popover-content').clone().addClass('active-test')
+}
+
+function createTestTrainer() {
+  return new Trainer({
+    firstName: "Robert",
+    lastName: "McTrainer",
+    age: 19,
+    slogan: "Gotta catch 'em all",
+    favoriteElement: "Fire",
+    favoriteColor: "red",
+    energy: 75,
+    happiness: 40,
+    confidence: 90,
+    intelligence: 60,
+    strength: 80
+  })
 }
 
 function runTest() {
-  tape.createStream({ objectMode: true }).on('data', function (row) {
-    alert(JSON.stringify(row))
+  // var popover = $('#templates .popover').clone().addClass('active').appendTo('body')
+
+  tape(`${Math.random()}`, function (test) {
+    test.plan(4);
+    var trainer = createTestTrainer()
+    var fullName = trainer.getFullName()
+
+    test.ok(
+      fullName.includes(trainer.firstName), 
+      "Includes trainer's first name"
+    );
+    test.ok(
+      fullName.includes(trainer.lastName), 
+      "Includes trainer's last name"
+    );
+    test.ok(
+      fullName.includes(" "), 
+      "Includes a space"
+    );
+    test.equal(
+      fullName, 
+      "Robert McTrainer",
+      "Is formatted correctly"
+    );
   });
+}
 
-  tape('timing test', function (t) {
-      t.plan(2);
-
-      t.equal(typeof Date.now, 'function');
-      var start = Date.now();
-
-      setTimeout(function () {
-          t.equal(Date.now() - start, 100);
-      }, 100);
-  });
+function consumeTapeStream(row) {
+  console.log(JSON.stringify(row))
+  if (row.type === "test") {
+    // beginning of test
+    testResults['numPassed'] = 0
+    testResults['numTotal'] = 0
+  } else if (row.type === "assert") {
+    testResults['numTotal'] += 1
+    if (row.ok) {
+      testResults['numPassed'] += 1
+      var tmp = $('.test-result-module.correct').first().clone()
+      tmp.find('.test-name').text(row.name)
+    } else {
+      var tmp = $('.test-result-module.incorrect').first().clone()
+      tmp.find('.test-name').text(row.name)
+      tmp.find('.test-actual').text(row.actual)
+      tmp.find('.test-expected').text(row.expected)
+    }
+    $('.active-test table.test-results').append(tmp)
+  } else if (row.type === "end") {
+    // var tmp = $('.popover.active-test')
+    $('.active-test .num-tests-passed').text(testResults['numPassed'])
+    $('.active-test .num-tests-total').text(testResults['numTotal'])
+    $('.active-test').removeClass('active-test')
+  } else {
+    alert("Unrecognized tape control event")
+  }
 }
 
 function initApp() {
@@ -61,10 +127,11 @@ function initApp() {
 
   firebase.auth().onAuthStateChanged(function(_user) {
     if (_user) {
-      // User is signed in.
+      // User is signed in
       user = _user
       db.ref(`users`).once(`value`).then(initUser)
     } else {
+      // User is not signed in, so create sign-in popup
       var provider = new firebase.auth.GithubAuthProvider();
       provider.addScope('email');
 
@@ -170,6 +237,7 @@ function setupTooltip() {
 }
 
 function actionButtonClicked() {
+  var testCode = false
   var newModule
   var button = $(this)
   var codeModule = button.parent().parent()
@@ -192,6 +260,7 @@ function actionButtonClicked() {
     
     var entry = codeModule.find('.code-input button').text()
     newModule = createReturnValViewerModule(entry, panelId, index)
+    testCode = true
 
     // check to see if this completes the panel
     var panel = user.course.panels[panelId]
@@ -229,7 +298,16 @@ function actionButtonClicked() {
   
   if (newModule) {
     codeModule.replaceWith(newModule)
-    // lastModuleChanged = newModule
+    if (testCode) {
+      newModule.find('.code-input a').popover({
+        html: true,
+        title: createPopoverTitle,
+        content: fillPopoverTemplate,
+        placement: 'auto bottom',
+        trigger: 'manual'
+      }).popover('show')
+      runTest()
+    }
   }
 }
 
@@ -478,11 +556,12 @@ function createReturnValViewerModule(entry, panelId, index) {
 
   var formattedVal = formatReturnValue(testResult.returnValue)
 
-  module.find('.code-input button').text(formattedVal)
+  module.find('.code-input a').text(formattedVal)
   module.find('.code-action-module button').attr('expression', entry)
 
   var status = "executed " + testResult.status
   saveEntryToDB(null, status, panelId, index)
+
   return module
 }
 
@@ -508,7 +587,13 @@ function getSourceCode() {
 
   var property = getPropertyFromButton(element)
   var tooltipText = `<h5>Source Code:</h5>`
-  var source = t[property].toString()
+  var source
+  // alert('property = ' + property)
+  if (property in t) {
+    source = t[property].toString()
+  } else {
+    source = '(UNDEFINED)'
+  }
   tooltipText += `<pre><code>${source}</code></pre>`
 
   return tooltipText
@@ -546,7 +631,9 @@ function setupButton() {
 }
 
 function getPropertyFromButton(button) {
-  return getPropertyFromExpression(button.text())
+  var featureModule = button.parent().parent().parent()
+  var expression = featureModule.attr('expected-expression')
+  return getPropertyFromExpression(expression)
 }
 
 /*
@@ -654,7 +741,7 @@ function removeChatBubble() {
   $('#chatBubble').empty().css({left: '-500px'})
 }
 
-function tts(msg) {
+function textToSpeech(msg) {
   var utterance = new SpeechSynthesisUtterance();
   var voices = window.speechSynthesis.getVoices();
   utterance.voice = voices[3];
@@ -671,33 +758,3 @@ function tts(msg) {
   // };
   window.speechSynthesis.speak(utterance);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

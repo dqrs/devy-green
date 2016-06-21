@@ -370,9 +370,33 @@ tbody tr:nth-child(even) {
   height: 30px;
 }
 
+.test-result-module {
+  width: 500px;
+  font-size: 12px;
+}
+
+.test-result-status {
+  float: left;
+  width: 20px;
+}
+
+.test-result-module.incorrect .glyphicon {
+  color: red;
+}
 
 
+.test-result-module.correct .glyphicon {
+  color: #0d0;
+}
 
+table.test-results td {
+  padding-left: 1em;
+}
+
+table.test-results td.test-status {
+  padding-right: 1em;
+  padding-left: 0em;
+}
 
 
 
