@@ -1,40 +1,27 @@
 DEVY GREEEN:
 ===============================================
-
-///////////////////
 Completed Today:
-x Get page working properly
-X Error message when executing undefined prop  
-x Getting tape working in browser
+  x FIX: return val viewer modules not displaying
 
-LEFT OFF:
-  - FIX: Max stack size exceeeded
+Left off:
+- Debugging neutral return val viewer modules
+- Having return val viewer status be set by test results
+
+Current tasks:
+  x FIX: Resetting return val doesnt preserve expr entered
+  x FIX: Popover not displaying again
+  - FIX: Popover's positioning so that it's centered beneath return val
+  - Clicking reset should dismiss the popover if it's open
+  - Visually indicate if ALL tests passed or not (popover color? icon?)
+  - re-implement panel completion checking based on passing all tests
+  - Make test results module wider, so results fit on one line
+  - make source code popover style match test popover style 
+  - Format 'expected/actual' text
+  - Figure out how to provide actual/expected feedback without confusing students
+  - Write tests for all features
   - Clean up code
-  - Create separate data space for each feature
-  - Use expected expression as key
-
-In Progress:
-
-  - Setup popovers
-    x Get popover to display
-    x Create test results template
-      x test line items
-        X- correct
-        X incorrect
-      - headline
-      - result summary
-      - wrapper with rounded corners
-
-
-
-
-  - Setting up testing system
-  - Style test output
-  - Create test results module
-  - Write tests
-  - Set up testing system
-  x get tape working in browser (browserify it)
-
+  - wrapper with rounded corners
+  - FIX: in '.code-button.correct', panel is undefined
 
 
 

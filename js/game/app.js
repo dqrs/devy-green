@@ -45,10 +45,10 @@ function isAppComplete() {
 // Version 2 (With Classes)
 function getTrainer() {
   var t = new Trainer()
-  t.firstName = "Josh"
-  t.lastName = "Mines"
-  t.age = 26
-  t.slogan = 'genentech number 1'
+  t.firstName = "Ash"
+  t.lastName = "Ketchum"
+  t.age = 14
+  t.slogan = "Gotta catch 'em all"
   
   // t.lastName = "Gggggggg"
   // var t = new Trainer({

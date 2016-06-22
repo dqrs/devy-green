@@ -22,8 +22,9 @@
   <script src="js/game/app.js"></script>
 
   <!-- platform code (not to be edited by students) -->
-  <script src="js/platform/trainer_studio/base_panels.js"></script>
   <script src="js/platform/trainer_studio/trainer_reference.js"></script>
+  <script src="js/platform/trainer_studio/base_panels.js"></script>
+  <script src="js/platform/trainer_studio/tests.js"></script>
   <script src="js/platform/trainer_studio/trainer_platform.js"></script>
 
 </head>
@@ -43,7 +44,7 @@
           <small>By</small>
           <small><code>&lt;App Author&gt;</code></small>
         </h1>
-        <a id="popper" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">Dismissible popover</a>
+        <!-- <a id="popper" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">Dismissible popover</a> -->
       </div>
 
       <div class="col-xs-3">
@@ -168,7 +169,7 @@
     <!-- code-button.correct template -->
     <div class="row code-module code-button correct">              
       <div class="code-input">
-        <button type="button" class="btn btn-sm btn-code correct-call">........</button>
+        <a type="button" class="btn btn-sm btn-code correct-call">........</a>
       </div>
     
       <div class="code-action-module">
@@ -181,7 +182,7 @@
     <!-- code-button.incorrect template -->
     <div class="row code-module code-button incorrect">              
       <div class="code-input">
-        <button type="button" class="btn btn-sm btn-code incorrect-call">........</button>
+        <a type="button" class="btn btn-sm btn-code incorrect-call">........</a>
       </div>
     
       <div class="code-action-module">
@@ -191,10 +192,10 @@
     </div>
     <!-- end code-button.incorrect template -->
 
-    <!-- .return-val-viewer.correct template -->
-    <div class="row code-module return-val-viewer correct ">              
+    <!-- .return-val-viewer.neutral template -->
+    <div class="row code-module return-val-viewer neutral">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code correct-val" >-------  <span class="glyphicon glyphicon-ok"></span></a>
+        <a type="button" class="btn btn-sm btn-code return-val" >-------</span></a>
       </div>
     
       <div class="code-action-module">
@@ -204,17 +205,30 @@
     </div>
     <!-- end return-val-viewer.correct template -->
 
-    <!-- end return-val-viewer.incorrect template -->
-    <div class="row code-module return-val-viewer incorrect">              
+    <!-- .return-val-viewer.correct template -->
+    <!-- <div class="row code-module return-val-viewer correct ">              
       <div class="code-input">
-        <button type="button" class="btn btn-sm btn-code incorrect-val">---------  <span class="glyphicon glyphicon-remove"></span></button>
+        <a type="button" class="btn btn-sm btn-code correct-val" ><span class="glyphicon glyphicon-ok"></span></a>
       </div>
     
       <div class="code-action-module">
         <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
       </div>
 
-    </div>
+    </div> -->
+    <!-- end return-val-viewer.correct template -->
+
+    <!-- end return-val-viewer.incorrect template -->
+    <!-- <div class="row code-module return-val-viewer incorrect">              
+      <div class="code-input">
+        <button type="button" class="btn btn-sm btn-code incorrect-val"> <span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+    
+      <div class="code-action-module">
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+      </div>
+
+    </div> -->
     <!-- end return-val-viewer.incorrect template -->
 
     <!-- table template-->
@@ -247,13 +261,14 @@
     </div>
 
     <div class="popover popover-custom" role="tooltip">
-      <h3>Customized!</h3>
       <div class="arrow"></div>
-      <h3 class="popover-title">Passed 
-        <span class="num-tests-passed"></span> /
+      <h4 class="popover-title">
+        <span class="test-suite-name"></span>
+        passed 
+        <span class="num-tests-passed"></span> out of
         <span class="num-tests-total"></span>
         tests
-      </h3>
+      </h4>
       <div class="popover-content">
         <table class="test-results">
         </table>
@@ -286,11 +301,11 @@
         </tr>
         <tr>
           <td></td>
-          <td class="test-expected"></td>
+          <td>Expected: <span class="test-expected"></span></td>
         </tr>
         <tr>
           <td></td>
-          <td class="test-actual"></td>
+          <td>Actual: <span class="test-actual"></span></td>
         </tr>
       </tbody>
 

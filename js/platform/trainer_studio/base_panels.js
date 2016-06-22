@@ -15,51 +15,51 @@ basePanels = {
     features: [
       {
         type: "variable",
-        expectedExpression: "t.firstName",
+        expressionExpected: "t.firstName",
+        expressionEntered: '',
         hasReturnValue: true,
         status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.lastName",
+        expressionExpected: "t.lastName",
+        expressionEntered: '',
         hasReturnValue: true,
         status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.age",
+        expressionExpected: "t.age",
+        expressionEntered: '',
         hasReturnValue: true,
         status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.slogan",
+        expressionExpected: "t.slogan",
+        expressionEntered: '',
         hasReturnValue: true,
         status: "empty",
         complete: false,
-        entry: ''
       },
       // {
       //   type: "variable",
-      //   expectedExpression: "t.favoriteElement",
+      //   expressionExpected: "t.favoriteElement",
+      //   expressionEntered: '',
       //   hasReturnValue: true,
       //   status: "empty",
       //   complete: false,
-      //   entry: ''
       // },
       // {
       //   type: "variable",
-      //   expectedExpression: "t.favoriteColor",
+      //   expressionExpected: "t.favoriteColor",
+      //   expressionEntered: '',
       //   hasReturnValue: true,
       //   status: "empty",
       //   complete: false,
-      //   entry: ''
       // },
     ]
   },
@@ -76,51 +76,51 @@ basePanels = {
     features: [
       {
         type: "variable",
-        expectedExpression: "t.energy",
+        expressionExpected: "t.energy",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.happiness",
+        expressionExpected: "t.happiness",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.confidence",
+        expressionExpected: "t.confidence",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.intelligence",
+        expressionExpected: "t.intelligence",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "variable",
-        expectedExpression: "t.strength",
+        expressionExpected: "t.strength",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       // {
       //   type: "variable",
-      //   expectedExpression: "t.coins",
+      //   expressionExpected: "t.coins",
+      // expressionEntered: '',
       //   hasReturnValue: true,
-      // status: "locked",
+      // status: "empty",
       // complete: false,
-      // entry: ''
       // }
     ]
   },
@@ -137,59 +137,59 @@ basePanels = {
     features: [
       {
         type: "method",
-        expectedExpression: "t.getFullName()",
+        expressionExpected: "t.getFullName()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getReverseName()",
+        expressionExpected: "t.getReverseName()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getDoubleFullName()",
+        expressionExpected: "t.getDoubleFullName()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getReverseName()",
+        expressionExpected: "t.getDoubleReverseName()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getImageFileName()",
+        expressionExpected: "t.getImageFileName()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getFirstNameLastInitial()",
+        expressionExpected: "t.getFirstNameLastInitial()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getFirstNameLastInitial()",
+        expressionExpected: "t.getFirstNameLastInitial()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       }
     ]
   },
@@ -201,55 +201,56 @@ basePanels = {
     complete: false,
     locked: true,
     minimized: false,
-    prereqs: ["name"],
+    prereqs: false,
+    // prereqs: ["name"],
     features: [
       {
         type: "method",
-        expectedExpression: "t.getAgeInMonths()",
+        expressionExpected: "t.getAgeInMonths()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getAgeInWeeks()",
+        expressionExpected: "t.getAgeInWeeks()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getAgeInDays()",
+        expressionExpected: "t.getAgeInDays()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getAgeInHours()",
+        expressionExpected: "t.getAgeInHours()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getAgeInMinutes()",
+        expressionExpected: "t.getAgeInMinutes()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.getAgeInSeconds()",
+        expressionExpected: "t.getAgeInSeconds()",
+        expressionEntered: '',
         hasReturnValue: true,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
     ]
   },
@@ -266,51 +267,51 @@ basePanels = {
     features: [
       {
         type: "method",
-        expectedExpression: "t.writeHi()",
+        expressionExpected: "t.writeHi()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.writeSlogan()",
+        expressionExpected: "t.writeSlogan()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.write()",
+        expressionExpected: "t.write()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.sayHi()",
+        expressionExpected: "t.sayHi()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.saySlogan()",
+        expressionExpected: "t.saySlogan()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.say(something)",
+        expressionExpected: "t.say(something)",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
     ]
   },
@@ -326,60 +327,70 @@ basePanels = {
     features: [
       {
         type: "method",
-        expectedExpression: "t.work()",
+        expressionExpected: "t.work()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.rest()",
+        expressionExpected: "t.rest()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.exercise(...)",
+        expressionExpected: "t.exercise(...)",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.watchTelevision()",
+        expressionExpected: "t.watchTelevision()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.readBook()",
+        expressionExpected: "t.readBook()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.takeCompliment()",
+        expressionExpected: "t.takeCompliment()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
       {
         type: "method",
-        expectedExpression: "t.takeInsult()",
+        expressionExpected: "t.takeInsult()",
+        expressionEntered: '',
         hasReturnValue: false,
-        status: "locked",
+        status: "empty",
         complete: false,
-        entry: ''
       },
     ]
   }
 }
+
+// features = {}
+// var panelsArray = Object.keys(basePanels)
+// for (var i=0; i < panelsArray.length; i++) {
+//   var panel = panelsArray[i]
+//   for (var j=0; j < panel.features.length; j++) {
+//     var feature = panel.features[j]
+//     features[feature.expressionExpected] = feature
+//   }
+// }

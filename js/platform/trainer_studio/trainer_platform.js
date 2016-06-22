@@ -1,117 +1,23 @@
 // Global vars
 window.t = false
-window.tReference = false
 
 window.db = false
 window.user = false
 window.token = false
 
-window.uiSetup = false
+window.guiSetup = false
 window.testResults = {}
 // var lastModuleChanged
-//
 
 // App Entry Point
 window.onload = function() {
-  tape.createStream({objectMode: true}).on(
-    'data', consumeTapeStream
-  );
   initApp()
-  setupTags()
 } 
 
-function setupTags() {
-  $(`body`).on(`click`, `#app-name`, replaceTag)
-  // $(`body`).on(`click`, `#popper`, runTest)
-}
-
-function createPopoverTitle() { 
-  return $('#templates .popover-title').clone().addClass('active-test')
-}
-
-function fillPopoverTemplate() {
-  return $('#templates .popover-content').clone().addClass('active-test')
-}
-
-function createTestTrainer() {
-  return new Trainer({
-    firstName: "Robert",
-    lastName: "McTrainer",
-    age: 19,
-    slogan: "Gotta catch 'em all",
-    favoriteElement: "Fire",
-    favoriteColor: "red",
-    energy: 75,
-    happiness: 40,
-    confidence: 90,
-    intelligence: 60,
-    strength: 80
-  })
-}
-
-function runTest() {
-  // var popover = $('#templates .popover').clone().addClass('active').appendTo('body')
-
-  tape(`${Math.random()}`, function (test) {
-    test.plan(4);
-    var trainer = createTestTrainer()
-    var fullName = trainer.getFullName()
-
-    test.ok(
-      fullName.includes(trainer.firstName), 
-      "Includes trainer's first name"
-    );
-    test.ok(
-      fullName.includes(trainer.lastName), 
-      "Includes trainer's last name"
-    );
-    test.ok(
-      fullName.includes(" "), 
-      "Includes a space"
-    );
-    test.equal(
-      fullName, 
-      "Robert McTrainer",
-      "Is formatted correctly"
-    );
-  });
-}
-
-function consumeTapeStream(row) {
-  console.log(JSON.stringify(row))
-  if (row.type === "test") {
-    // beginning of test
-    testResults['numPassed'] = 0
-    testResults['numTotal'] = 0
-  } else if (row.type === "assert") {
-    testResults['numTotal'] += 1
-    if (row.ok) {
-      testResults['numPassed'] += 1
-      var tmp = $('.test-result-module.correct').first().clone()
-      tmp.find('.test-name').text(row.name)
-    } else {
-      var tmp = $('.test-result-module.incorrect').first().clone()
-      tmp.find('.test-name').text(row.name)
-      tmp.find('.test-actual').text(row.actual)
-      tmp.find('.test-expected').text(row.expected)
-    }
-    $('.active-test table.test-results').append(tmp)
-  } else if (row.type === "end") {
-    // var tmp = $('.popover.active-test')
-    $('.active-test .num-tests-passed').text(testResults['numPassed'])
-    $('.active-test .num-tests-total').text(testResults['numTotal'])
-    $('.active-test').removeClass('active-test')
-  } else {
-    alert("Unrecognized tape control event")
-  }
-}
-
 function initApp() {
-  // Todo: Display loading icon?
-
   // Import student's Trainer and reference Trainer 
   t = getTrainer()
-  tReference = new TrainerReference(getTrainer())
+  // tReference = new TrainerReference(getTrainer())
 
   // Initialize Firebase
   var config = {
@@ -119,10 +25,9 @@ function initApp() {
     authDomain: "project-3047158032960725719.firebaseapp.com",
     databaseURL: "https://project-3047158032960725719.firebaseio.com",
     storageBucket: "",
-  };
+  }
   firebase.initializeApp(config);
 
-  // db //////////////////////////////////
   db = firebase.database()
 
   firebase.auth().onAuthStateChanged(function(_user) {
@@ -132,8 +37,8 @@ function initApp() {
       db.ref(`users`).once(`value`).then(initUser)
     } else {
       // User is not signed in, so create sign-in popup
-      var provider = new firebase.auth.GithubAuthProvider();
-      provider.addScope('email');
+      var provider = new firebase.auth.GithubAuthProvider()
+      provider.addScope('email')
 
       firebase.auth().signInWithPopup(provider).then(
         handleLoginSuccess
@@ -141,14 +46,14 @@ function initApp() {
         handleLoginError
       )
     }
-  });
+  })
 }
 
 function handleLoginSuccess(result) {
   // Use token to access the GitHub API.
-  token = result.credential.accessToken;
+  token = result.credential.accessToken
   // The signed-in user info.
-  user = result.user;
+  user = result.user
 
   db.ref(`users`).once(`value`).then(initUser)
 }
@@ -167,9 +72,9 @@ function initUser(usersSnapShot) {
   // then set up the UI with course data
   db.ref('courses/' + user.uid).on('value', function (courseSnapshot) {
     user.course = courseSnapshot.val()
-    if (!uiSetup) {
-      setupUI()
-      uiSetup = true
+    if (!guiSetup) {
+      setupGUI()
+      guiSetup = true
     }
   })
 }
@@ -177,47 +82,65 @@ function initUser(usersSnapShot) {
 function setupNewUser() {
   var userData = {}
   userData.name = user.displayName
-  db.ref('users/' + user.uid).set(userData)
-  
-  // alert("About to set up new user")
-  // alert("basePanels['basic-info'].prereqs: " + basePanels['basic-info'].prereqs)
+  db.ref('users/' + user.uid).set(userData)  
   db.ref('courses/' + user.uid + '/panels').set(basePanels)
 }
 
 function handleLoginError(error) {
   _error = error
   // Handle Errors here.
-  var errorfCode = error.code;
-  var errorMessage = error.message;
+  var errorfCode = error.code
+  var errorMessage = error.message
   
   // The email of the user's account used.
-  var email = error.email;
+  var email = error.email
   
   // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
+  var credential = error.credential
   
   alert("Something went wrong logging you in. Please refresh the page and try again.")
 }
 
-function setupUI() {
+function dismissPopover(event) {
+  event.stopImmediatePropagation()
+  $(event.currentTarget).popover('hide')
+}
+
+function setupGUI() {
+  $(document).off('.data-api')
+
+  $(`body`).on(`click`, `#chatBubble`, removeChatBubble)
   $(`body`).on(`click`, `.minimize`,   togglePanelMinimization)
   $(`body`).on(`click`, `.activate`,   activatePanelMode)
   $(`body`).on(`click`, `.btn-action`, actionButtonClicked)
-  $(`body`).on(`click`, `#chatBubble`, removeChatBubble)
   $(`body`).on(`keyup`, `.input-sm`,   handleKeyPress) 
-  $(`body`).on(`click`, `#clear-data`, clearUserData) 
+  $(`body`).on(`click`, `#clear-data`, clearUserData)
+  $(`body`).on(`click`, `.popover`,    dismissPopover)
+
+  // Experimental
+  $(`body`).on(`click`, `#app-name`, replaceTag)
   // $(document).on(`keyup`, handleKeyPress) 
 
   $('.replace-with-panel').each(function() {
     createPanel(this)
-  });
+  })
 
   setupTooltip()
+  // $(document).popover({
+  //   html: true,
+  //   container: 'body',
+  //   selector: '.code-input a',
+  //   title: createPopoverTitle,
+  //   content: createPopoverContent,
+  //   placement: 'auto bottom',
+  //   trigger: 'manual'
+  // }).popover('show')
 
-  // Trigger submit on enter keypress
+  // Trigger submit on enter keypress (TODO)
 }
 
 function handleKeyPress(e) {
+  event.stopImmediatePropagation()
   if (e.keyCode == 13) {
     triggerActionButtonOnEnter()
   } else if (e.keyCode == 27) {
@@ -232,12 +155,116 @@ function triggerActionButtonOnEnter() {
 function setupTooltip() {
   $(document).tooltip({
     content: getSourceCode,
-    items: 'button.correct-call,button.correct-val'
+    items: '.correct-call,.correct-val'
   })
 }
 
-function actionButtonClicked() {
-  var testCode = false
+
+function createTestTrainer() {
+  var trainer = new Trainer()
+  trainer.firstName = "Robert"
+  trainer.lastName = "McTrainer"
+  trainer.age = 19
+  trainer.slogan = "Gotta catch 'em all"
+  trainer.favoriteElement = "Fire"
+  trainer.favoriteColor = "red"
+  trainer.energy = 75
+  trainer.happiness = 40
+  trainer.confidence = 90
+  trainer.intelligence = 60
+  trainer.strength = 80
+  return trainer
+}
+
+function runTestsForFeature(featureId) {
+
+  // alert("testing! feature: " + featureId)
+  tape.createStream({objectMode: true}).on('data',
+    function(row) {
+      consumeTapeStream(row, featureId)
+    }
+  );
+
+  // featureId = feature.expressionExpected
+  tape(featureId, tests[featureId])
+}
+
+function createPopoverTemplate(featureId) {
+  return $('#templates .popover-custom').clone().addClass(featureId).prop('outerHTML')
+}
+
+function createPopoverTitle(featureId) { 
+  return $(`#templates .popover-title`).first().html()
+}
+
+function createPopoverContent(featureId) {
+  return $('#templates .popover-content').first().html()
+}
+
+function consumeTapeStream(row, featureId) {
+  // alert(row)
+  // console.log(JSON.stringify(row))
+
+  if (row.type === "test") {
+
+    // beginning of test
+    $(`.popover.${featureId} .test-suite-name`).text(row.name)
+    testResults[featureId] = {}
+    testResults[featureId]['numPassed'] = 0
+    testResults[featureId]['numTotal'] = 0
+
+  } else if (row.type === "assert") {
+    
+    testResults[featureId]['numTotal'] += 1
+    
+    if (row.ok) {
+      testResults[featureId]['numPassed'] += 1
+      var tmp = $(`#templates .test-result-module.correct`).first().clone()
+      tmp.find('.test-name').text(row.name)
+    } else {
+      var tmp = $(`#templates .test-result-module.incorrect`).first().clone()
+      tmp.find('.test-name').text(row.name)
+      tmp.find('.test-actual').text(row.actual)
+      tmp.find('.test-expected').text(row.expected)
+    }
+    
+    $(`.popover.${featureId} table.test-results`).append(tmp)
+
+  } else if (row.type === "end") {
+    
+    $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
+    $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
+    if (testResults[featureId]['numPassed'] == testResults[featureId]['numTotal']) {
+      $(`.code-input a.${featureId}`).addClass('correct').removeClass('incorrect')
+    } else {
+      $(`.code-input a.${featureId}`).addClass('incorrect').removeClass('correct')
+    }
+
+    // TODO: REimplement this
+    // check to see if this completes the panel
+    // var panel = user.course.panels[panelId]
+    // if (panel && !panel.complete && panelIsComplete(panel)) {
+      
+    //   alert(`${panel.title} completed!`)
+      
+    //   // check for newly unlocked panels and re-render UI 
+    //   var postReqs = getPostReqsOfPanel(panelId)
+    //   // alert(`postReqs: ${JSON.stringify(postReqs)}`)
+
+    //   for (var i=0; i < postReqs.length; i++) {
+    //     createPanel($(`#${postReqs[i]}`))
+    //   }
+    // }
+
+  } else {
+    alert("Unrecognized tape control event")
+  }
+}
+
+function actionButtonClicked(event) {
+  event.stopImmediatePropagation()
+
+  var runTests = false
   var newModule
   var button = $(this)
   var codeModule = button.parent().parent()
@@ -247,71 +274,53 @@ function actionButtonClicked() {
   var panelId = panel.attr('id')
 
   if (codeModule.is('.code-entry')) {
-
-    var entry = codeModule.find('input').val()    
-    var expected = featureModule.attr('expected-expression')
-    var status = (entry === expected) ? "entered correct" : "entered incorrect"    
-    saveEntryToDB(entry, status, panelId, index)
+    // user has just typed in an expression, let's check it
+    var expressionEntered = codeModule.find('input').val()    
+    var expected = featureModule.attr('expression-expected')
+    var status = (expressionEntered === expected) ? "entered correct" : "entered incorrect"    
+    saveExpressionEnteredToDB(expressionEntered, status, panelId, index)
     
     // create code viewer module
-    newModule = createCodeViewerModule(entry, expected)
-
-  } else if (codeModule.is('.code-button.correct')) {
-    
-    var entry = codeModule.find('.code-input button').text()
-    newModule = createReturnValViewerModule(entry, panelId, index)
-    testCode = true
-
-    // check to see if this completes the panel
-    var panel = user.course.panels[panelId]
-    if (!panel.complete && panelIsComplete(panel)) {
-      
-      alert(`${panel.title} completed!`)
-      
-      // check for newly unlocked panels and re-render UI 
-      var postReqs = getPostReqsOfPanel(panelId)
-      // alert(`postReqs: ${JSON.stringify(postReqs)}`)
-
-      for (var i=0; i < postReqs.length; i++) {
-        createPanel($(`#${postReqs[i]}`))
-      }
-    }
+    newModule = createCodeViewerModule(expressionEntered, expected)
 
   } else if (codeModule.is('.code-button.incorrect')) {
-  
+    // incorrect expression entered, so let's go back
     // Start over, just display text input and buttons
-    var entry = codeModule.find('.code-input button').text()
-    newModule = createCodeEntryModule(entry)
+    var expressionEntered = codeModule.find('.code-input a').text()
+    newModule = createCodeEntryModule(expressionEntered)
 
-    // clear entry from db
-    saveEntryToDB('', 'empty', panelId, index)
+    // clear expressionEntered from db
+    saveExpressionEnteredToDB('', 'empty', panelId, index)
+
+  } else if (codeModule.is('.code-button.correct')) {
+    // Correct expressione was entered, now time to execute it    
+    var expressionEntered = codeModule.find('.code-input a').text()
+    var expressionExpected = featureModule.attr('expression-expected')
+    // alert("EXPRESSION EXPECTED: " + expressionExpected)
+    featureModule.attr('expression-entered', expressionEntered)
+    newModule = createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index)
+    runTests = true // TODO: remove
 
   } else if (codeModule.is('.return-val-viewer')) {
-    
     // user has asked to reset this feature
     // so we want to re-display the code button
-    var entry = button.attr('expression')
+    var expressionEntered = featureModule.attr('expression-entered')
     var status = "entered correct"
-    saveEntryToDB(null, status, panelId, index)
-    newModule = createCodeViewerModule(entry, entry)
+    saveExpressionEnteredToDB(null, status, panelId, index)
+    newModule = createCodeViewerModule(expressionEntered, expressionEntered)
   }
   
   if (newModule) {
     codeModule.replaceWith(newModule)
-    if (testCode) {
-      newModule.find('.code-input a').popover({
-        html: true,
-        title: createPopoverTitle,
-        content: fillPopoverTemplate,
-        placement: 'auto bottom',
-        trigger: 'manual'
-      }).popover('show')
-      runTest()
+    if (runTests) {
+      var featureId = getPropertyFromExpression(featureModule.attr('expression-expected'))
+      createTestResultsPopover(newModule, featureId)
     }
   }
 }
 
-function activatePanelMode() {
+function activatePanelMode(event) {
+  event.stopImmediatePropagation()
   // get id of the parent panel of this button
   var icon = $(this)
   var currentPanel = icon.parent().parent()
@@ -320,7 +329,8 @@ function activatePanelMode() {
   createPanel(currentPanel, icon.attr('mode'))
 }
 
-function togglePanelMinimization() {
+function togglePanelMinimization(event) {
+  event.stopImmediatePropagation()
   var element = $(this)
   var minimized = element.hasClass('glyphicon-collapse-up')
   var panel = $(this).parent().parent()
@@ -357,7 +367,6 @@ function panelIsComplete(panel) {
   return panel.complete
 }
 
-
 function panelIsLocked(panel) {
   var stayLocked = false
 
@@ -375,7 +384,7 @@ function panelIsLocked(panel) {
   if (panel.locked && !stayLocked) {
     panel.locked = false
     savePanelToDB(panel)
-    alert(`${panel.title} was just unlocked!`)
+    // alert(`${panel.title} was just unlocked!`)
   }
 
   return stayLocked
@@ -417,11 +426,11 @@ function createPanelHead(panel, panelData, mode) {
 
 function createPanelBody(panel, panelData, mode, displayType) {
   var table
-  var body = panel.find('.panel-body')
+  var panelBody = panel.find('.panel-body')
 
   if (mode === "display" && displayType === "tableType") {
     table = $('#templates .table-template').clone()
-    table.appendTo(body)
+    table.appendTo(panelBody)
   }
   
   // for each feature, create appropriate featureModule
@@ -431,13 +440,13 @@ function createPanelBody(panel, panelData, mode, displayType) {
 
     if (mode === "debug") {
       featureModule = createDebugFeatureModule(featureData)
-      body.append(featureModule)
+      panelBody.append(featureModule)
     } else if (displayType === "tableType") {
       featureModule = createTableFeatureModule(featureData)
       table.append(featureModule)
     } else if (displayType === "barType") {
       featureModule = createBarFeatureModule(featureData)
-      body.append(featureModule)
+      panelBody.append(featureModule)
     } else {
       alert('unrecognized display type')
     }
@@ -451,15 +460,12 @@ function createLockedPanelBody(panel) {
 }
 
 function replaceTag() {
-  // alert("hi")
-  // var codeEntryModule = createCodeEntryModule()
-  // var container = $('<div></div>')
   var featureModule = createDebugFeatureModule({
-    expectedExpression: 'getAppName()',
+    expressionExpected: 'getAppName()',
     type: "method",
     status: "empty",
-    entry: ""
-  }) //.appendTo(container)
+    expressionEntered: ""
+  })
 
   featureModule.appendTo($('body')).css({
     position: 'absolute',
@@ -471,28 +477,30 @@ function replaceTag() {
 
 
 function createDebugFeatureModule(featureData) {
-  var featureModule = $('#templates .feature-module').clone().attr('expected-expression', featureData.expectedExpression)
+  var featureModule = $('#templates .feature-module').clone().attr('expression-expected', featureData.expressionExpected)
 
   var label = $('#templates .label-' + featureData.type).clone()
   label.find('.label-text').text(
-    convertCodeToEnglish(featureData.expectedExpression)
+    convertCodeToEnglish(featureData.expressionExpected)
   )
   featureModule.append(label)
   
   var debugModule
-  if (featureData.status === 'empty' || featureData.status === 'locked') {
+  if (featureData.status === 'empty') {
     debugModule = createCodeEntryModule()
   } else if (
     featureData.status === 'entered correct' ||
     featureData.status === 'entered incorrect'
   ) { 
     debugModule = createCodeViewerModule(
-      featureData.entry, featureData.expectedExpression
+      featureData.expressionEntered, featureData.expressionExpected
     )
   } else if (
     featureData.status === 'executed correct' ||
     featureData.status === 'executed incorrect') {
-    debugModule = createReturnValViewerModule(featureData.entry)
+    debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected)
+  } else {
+    alert('unrecognized feature status')
   }
   featureModule.append(debugModule)
 
@@ -502,10 +510,10 @@ function createDebugFeatureModule(featureData) {
 function createTableFeatureModule(featureData) {
   var trTemplate = $('#templates tr').clone()
   trTemplate.find('.label').text(
-    convertCodeToEnglish(featureData.expectedExpression)
+    convertCodeToEnglish(featureData.expressionExpected)
   )
   trTemplate.find('.value').text(
-    eval(featureData.expectedExpression)
+    eval(featureData.expressionExpected)
   )
   return trTemplate
 }
@@ -514,14 +522,14 @@ var colorIndex = 0
 var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 
 function createBarFeatureModule(featureData) {
-  var value = eval(featureData.expectedExpression)
+  var value = eval(featureData.expressionExpected)
   var template = $(`#templates .stat-bar`).clone()
 
-  template.attr('id', featureData.expectedExpression)
+  template.attr('id', featureData.expressionExpected)
   template.find('label').text(
-    convertCodeToEnglish(featureData.expectedExpression)
+    convertCodeToEnglish(featureData.expressionExpected)
   )
-  colorIndex = ++colorIndex % colors.length
+  colorIndex = (++colorIndex % colors.length)
   template.find('.progress-bar').css({
     width: `${value}%`,
     backgroundColor: colors[colorIndex]
@@ -531,38 +539,75 @@ function createBarFeatureModule(featureData) {
   return template
 }
 
-function createCodeEntryModule(entry) {
+function createCodeEntryModule(expressionEntered) {
   var module = $('#templates .code-entry').clone()
-  if (entry) {
-    module.find('input').val(entry)
+  if (expressionEntered) {
+    module.find('input').val(expressionEntered)
   }
   return module
 }
 
-function createCodeViewerModule(entry, expected) {
-  var status = (entry === expected) ? "correct" : "incorrect" 
+function createCodeViewerModule(expressionEntered, expected) {
+  var status = (expressionEntered === expected) ? "correct" : "incorrect" 
   var module = $('#templates .code-button.' + status).clone()
-  module.find('.code-input button').text(entry)
+  module.find('.code-input a').text(expressionEntered)
 
   return module
 }
 
-function createReturnValViewerModule(entry, panelId, index) {
-  var testResult = testCode(entry)
+function createTestResultsPopover(module, featureId) {
 
-  var module = $(
-    "#templates .return-val-viewer." + testResult.status
-  ).clone()
+  module.find('.code-input a').popover({
+    html: true,
+    container: 'body',
+    template: createPopoverTemplate(featureId),
+    title: function () { return createPopoverTitle(featureId) },
+    content: function () { return createPopoverContent(featureId) },
+    placement: 'auto bottom',
+    trigger: 'manual'
+  }).popover('show')
 
-  var formattedVal = formatReturnValue(testResult.returnValue)
+  runTestsForFeature(featureId)
+}
 
-  module.find('.code-input a').text(formattedVal)
-  module.find('.code-action-module button').attr('expression', entry)
+function createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index) {
+  var result = evaluateExpression(expressionEntered)
+  var module = $("#templates .return-val-viewer").clone()
+  var formattedVal = formatReturnValue(result.returnValue)
+  var featureId = getPropertyFromExpression(expressionExpected)
+  
+  module.find('.code-input a').text(formattedVal).addClass(featureId)
+  module.find('.code-action-module a').attr('expression-entered', expressionEntered)
 
-  var status = "executed " + testResult.status
-  saveEntryToDB(null, status, panelId, index)
+  // TODO: Need to update entry's status when correctly executed
+  var status = "executed " + result.status
+  saveExpressionEnteredToDB(null, status, panelId, index)
 
   return module
+}
+
+function evaluateExpression(code) {
+  var result = {}
+  try {
+    result.returnValue = eval(code)
+  } catch (err) {
+    result.returnValue = err.message
+  }
+  result.status = "correct" // TODO: Make this neutral
+
+  return result
+}
+
+function formatReturnValue(val) {
+  var formattedVal
+  if (typeof val === 'string') {
+    formattedVal = `"${val}"`
+  } else if (typeof val === 'undefined') {
+    formattedVal = '(void)'
+  } else {
+    formattedVal = val
+  }
+  return formattedVal
 }
 
 function convertCodeToEnglish(text) {
@@ -599,40 +644,9 @@ function getSourceCode() {
   return tooltipText
 }
 
-function setupButton() {
-  var button = $(this)
-
-  if (button.hasClass('notCode')) { return }
-
-  button.click(function(event) {
-    evaluateButton(event)
-  })
-
-  // get property name
-  var property = getPropertyFromButton(button)
-
-  if (typeof t[property] === 'undefined') {
-
-    button.removeClass('btn-primary')
-    button.attr('disabled', 'disabled')
-    button.parent().parent().find('label').attr('disabled', 'disabled')
-
-  } else if (typeof t[property] === 'function') {
-
-    button.addClass('function')
-    button.parent().parent().find('label').addClass('function')
-
-  } else {
-
-    button.addClass('attribute')
-    button.parent().parent().find('label').addClass('attribute')
-
-  }
-}
-
 function getPropertyFromButton(button) {
   var featureModule = button.parent().parent().parent()
-  var expression = featureModule.attr('expected-expression')
+  var expression = featureModule.attr('expression-expected')
   return getPropertyFromExpression(expression)
 }
 
@@ -641,6 +655,7 @@ function getPropertyFromButton(button) {
   Or trainer.getHeight to 'getHeight'
 */
 function getPropertyFromExpression(text) {
+  // alert("getting property from expresssion: " + text)
   // get property name if called on obj
   if (text.split(".").length == 2) {
     text = text.split(".")[1]
@@ -649,6 +664,7 @@ function getPropertyFromExpression(text) {
   var argsRegEx = /\(.*\)/
   text = text.replace(argsRegEx,'')
   
+  // alert("got: " + text)
   return text
 }
 
@@ -657,13 +673,13 @@ function savePanelToDB(panel) {
   db.ref(panelPath).update(panel)
 }
 
-function saveEntryToDB(entry, status, panelId, index) {
+function saveExpressionEnteredToDB(expressionEntered, status, panelId, index) {
   var featurePath = `courses/${user.uid}/panels/${panelId}/`
   featurePath += `features/${index}/` 
   
-  // save entry to db if supplied (otherwise, just update status)
-  if (entry) {
-    db.ref(featurePath).child('entry').set(entry)
+  // save expressionEntered to db if supplied (otherwise, just update status)
+  if (expressionEntered) {
+    db.ref(featurePath).child('expressionEntered').set(expressionEntered)
   }
   // save status to db
   db.ref(featurePath).child('status').set(status)
@@ -675,51 +691,14 @@ function saveEntryToDB(entry, status, panelId, index) {
   }
 }
 
-function testCode(code) {
-  var methodCall = code.split(".")[1]
-
-  var result = {}
-  var reference = {}
-  try {
-    reference.returnValue = eval('tReference.' + methodCall)
-  } catch (err) {
-    reference.returnValue = err.message
-  }
-
-  try {
-    result.returnValue = eval(code)
-  } catch (err) {
-    result.returnValue = err.message
-  }
-
-  if (result.returnValue === reference.returnValue) {
-    result.status = "correct"
-  } else {
-    result.status = "incorrect"
-  }
-
-  return result
-}
-
-function formatReturnValue(val) {
-  var formattedVal
-  if (typeof val === 'string') {
-    formattedVal = `"${val}"`
-  } else if (typeof val === 'undefined') {
-    formattedVal = '(void)'
-  } else {
-    formattedVal = val
-  }
-  return formattedVal
-}
-
 function camelToTitleCase(text) {
   var result = text.replace(/([A-Z])/g, " $1" )
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
 
-function clearUserData() {
+function clearUserData(event) {
+  event.stopImmediatePropagation()
   db.ref('users/' + user.uid).set(null)
   db.ref('courses/' + user.uid).set(null)
   location.reload()
