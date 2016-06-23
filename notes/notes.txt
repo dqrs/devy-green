@@ -2,27 +2,39 @@ DEVY GREEEN:
 ===============================================
 Completed Today:
   x FIX: return val viewer modules not displaying
-
-Left off:
-- Debugging neutral return val viewer modules
-- Having return val viewer status be set by test results
-
-Current tasks:
   x FIX: Resetting return val doesnt preserve expr entered
   x FIX: Popover not displaying again
-  - FIX: Popover's positioning so that it's centered beneath return val
-  - Clicking reset should dismiss the popover if it's open
-  - Visually indicate if ALL tests passed or not (popover color? icon?)
-  - re-implement panel completion checking based on passing all tests
-  - Make test results module wider, so results fit on one line
-  - make source code popover style match test popover style 
-  - Format 'expected/actual' text
-  - Figure out how to provide actual/expected feedback without confusing students
-  - Write tests for all features
-  - Clean up code
-  - wrapper with rounded corners
-  - FIX: in '.code-button.correct', panel is undefined
+  x Debugging neutral return val viewer modules
+  x Having return val viewer status be set by test results
+  x Make test results module wider, so results fit on one line
+  x FIX: Popover's positioning so that it's centered beneath return val
+  x Run code on enter
 
+NOTE: Call Silvia back / research static site generators
+
+Current tasks:
+
+
+  - On page load, tests should be re-run for code already entered and marked as passing/failing
+    --> Requires concurrent tape processes running?
+    --> Or is there a way to namespace the tap streams so they don't interfere with each other?
+
+  - Enhanced UX:
+    - Popovers should disappear when re-run
+    - Escape key shoudl dismiss popovers
+    - Clicking reset should dismiss the popover if it's open
+    - Clear correct entry on right click
+  - Re-implement panel completion checking based on passing all tests
+  - FIX: Leaking adding text to other popovers
+  - Test Results Module Styling:
+    - Format 'expected/actual' text
+    - if ALL tests passed or not (popover color icon?)
+    - Figure out how to provide actual/expected feedback without confusing students
+    - make source code popover style match test popover style 
+
+  - Make default text color white
+
+  - Write tests for all features
 
 
 ////////////////////////
@@ -42,8 +54,6 @@ Current tasks:
     --> Document steps for creating cloud9 workspace
   - ensure that user data is properly saved
   - remove trainer_studio.js
-  - Re-test code before panel is considered complete
-  - Clear correct entry on right click
   - Handle rendering/displaying void functions
   - implement all functions
   - Or should a button appear that the student gets to click to unlock?

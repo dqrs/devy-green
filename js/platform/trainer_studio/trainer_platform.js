@@ -159,25 +159,8 @@ function setupTooltip() {
   })
 }
 
-
-function createTestTrainer() {
-  var trainer = new Trainer()
-  trainer.firstName = "Robert"
-  trainer.lastName = "McTrainer"
-  trainer.age = 19
-  trainer.slogan = "Gotta catch 'em all"
-  trainer.favoriteElement = "Fire"
-  trainer.favoriteColor = "red"
-  trainer.energy = 75
-  trainer.happiness = 40
-  trainer.confidence = 90
-  trainer.intelligence = 60
-  trainer.strength = 80
-  return trainer
-}
-
 function runTestsForFeature(featureId) {
-
+  // var tape = JSON.parse(JSON.stringify(tape))
   // alert("testing! feature: " + featureId)
   tape.createStream({objectMode: true}).on('data',
     function(row) {
@@ -235,31 +218,36 @@ function consumeTapeStream(row, featureId) {
     $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
     $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
     if (testResults[featureId]['numPassed'] == testResults[featureId]['numTotal']) {
-      $(`.code-input a.${featureId}`).addClass('correct').removeClass('incorrect')
+      $(`.code-input a.${featureId}`).addClass('correct-val').removeClass('incorrect-val')
     } else {
-      $(`.code-input a.${featureId}`).addClass('incorrect').removeClass('correct')
+      $(`.code-input a.${featureId}`).addClass('incorrect-val').removeClass('correct-val')
     }
 
-    // TODO: REimplement this
-    // check to see if this completes the panel
-    // var panel = user.course.panels[panelId]
-    // if (panel && !panel.complete && panelIsComplete(panel)) {
-      
-    //   alert(`${panel.title} completed!`)
-      
-    //   // check for newly unlocked panels and re-render UI 
-    //   var postReqs = getPostReqsOfPanel(panelId)
-    //   // alert(`postReqs: ${JSON.stringify(postReqs)}`)
-
-    //   for (var i=0; i < postReqs.length; i++) {
-    //     createPanel($(`#${postReqs[i]}`))
-    //   }
-    // }
+    // checkForPanelCompletion()
 
   } else {
     alert("Unrecognized tape control event")
   }
 }
+
+// TODO: REimplement this
+function checkForPanelCompletion() {
+  // check to see if this completes the panel
+  // var panel = user.course.panels[panelId]
+  // if (panel && !panel.complete && panelIsComplete(panel)) {
+    
+  //   alert(`${panel.title} completed!`)
+    
+  //   // check for newly unlocked panels and re-render UI 
+  //   var postReqs = getPostReqsOfPanel(panelId)
+  //   // alert(`postReqs: ${JSON.stringify(postReqs)}`)
+
+  //   for (var i=0; i < postReqs.length; i++) {
+  //     createPanel($(`#${postReqs[i]}`))
+  //   }
+  // }
+}
+
 
 function actionButtonClicked(event) {
   event.stopImmediatePropagation()
@@ -312,6 +300,7 @@ function actionButtonClicked(event) {
   
   if (newModule) {
     codeModule.replaceWith(newModule)
+    newModule.find('.code-action-module button').focus()
     if (runTests) {
       var featureId = getPropertyFromExpression(featureModule.attr('expression-expected'))
       createTestResultsPopover(newModule, featureId)
@@ -499,6 +488,10 @@ function createDebugFeatureModule(featureData) {
     featureData.status === 'executed correct' ||
     featureData.status === 'executed incorrect') {
     debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected)
+    featureModule.attr('expression-entered', featureData.expressionEntered)
+    var featureId = getPropertyFromExpression(featureData.expressionExpected)
+    // TODO: Implement this
+    // runTestsForFeature(featureId)
   } else {
     alert('unrecognized feature status')
   }
@@ -736,4 +729,20 @@ function textToSpeech(msg) {
   //   console.log('Finished in ' + event.elapsedTime + ' seconds.');
   // };
   window.speechSynthesis.speak(utterance);
+}
+
+function createTestTrainer() {
+  var trainer = new Trainer()
+  trainer.firstName = "Robert"
+  trainer.lastName = "McTrainer"
+  trainer.age = 19
+  trainer.slogan = "Gotta catch 'em all"
+  trainer.favoriteElement = "Fire"
+  trainer.favoriteColor = "red"
+  trainer.energy = 75
+  trainer.happiness = 40
+  trainer.confidence = 90
+  trainer.intelligence = 60
+  trainer.strength = 80
+  return trainer
 }
