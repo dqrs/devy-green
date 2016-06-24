@@ -1,43 +1,30 @@
 DEVY GREEEN:
 ===============================================
 Completed Today:
-  x FIX: return val viewer modules not displaying
-  x FIX: Resetting return val doesnt preserve expr entered
-  x FIX: Popover not displaying again
-  x Debugging neutral return val viewer modules
-  x Having return val viewer status be set by test results
-  x Make test results module wider, so results fit on one line
-  x FIX: Popover's positioning so that it's centered beneath return val
-  x Run code on enter
-
-NOTE: Call Silvia back / research static site generators
+  x fix the firebase popup issue
+  x DL and save firebase code (cache it)
+  x On page load, tests should be re-run for code already entered and marked as passing/failing
+  x Requires concurrent tape processes running
+  x FIX: Leaking adding text to other popovers
+  x Display popovers on startup
+  X Enable dismiss all popovers
+  x Figure out how to provide actual/expected feedback without confusing students
+  x Display source on incorrect return val modules
+  X Escape key shoudl dismiss popovers
+  x Clicking reset should dismiss the popover if it's open
+  x Popovers should disappear when re-run
 
 Current tasks:
 
-
-  x On page load, tests should be re-run for code already entered and marked as passing/failing
-    x Requires concurrent tape processes running
-    x FIX: Leaking adding text to other popovers
-    - Display popovers on startup
-    - Enable dismiss all popovers
-
-
   - Enhanced UX:
-    - Popovers should disappear when re-run
-    - Escape key shoudl dismiss popovers
-    - Clicking reset should dismiss the popover if it's open
     - Clear correct entry on right click
   - Re-implement panel completion checking based on passing all tests
-  - Display source on incorrect return val modules
   - Test Results Module Styling:
-    - Format 'expected/actual' text
     - if ALL tests passed or not (popover color icon?)
-    - Figure out how to provide actual/expected feedback without confusing students
     - make source code popover style match test popover style 
 
   - Make default text color white
 
-  - Write tests for all features
 
 
 ////////////////////////
@@ -47,28 +34,22 @@ Current tasks:
     - Create new CSS module
     - Implement js
     - Make sure code evaluation works properly
-  x fix the firebase popup issue
-  - DL and save firebase code (cache it)
   - Implement page loading screen
   - students should type in the code to create their trainer instance   
   - allow multiple trainer instances on screen
-    in the browser
-  - use cloud 9
-    --> Document steps for creating cloud9 workspace
   - ensure that user data is properly saved
-  - remove trainer_studio.js
   - Handle rendering/displaying void functions
-  - implement all functions
   - Or should a button appear that the student gets to click to unlock?
     - consume preferences object to
       - choose mode for each panel
       - choose global mode
       - hide
-
-
+  - Implement all features
+  - Get all features on the UI
+  - Write tests for all features
+  - Document steps for creating cloud9 workspace
   - Enable go back on escape
   - Make unlocking announcements more attractive
-  - get all functions on the UI
   - Button should glow while its method is running
   - create gui libary for students
     - gui.displayIcon()
@@ -80,7 +61,6 @@ Current tasks:
     - Run/test/display all buttons
     - Provide a grade report as an overlay
       - Number of tests passed out of total
-  - set up grid & positioning
 
 ===============================
 Notes from DD Meeting 6/17/16:
@@ -169,19 +149,6 @@ Trainer Studio, then Pokemon Studio, then Battle
 =================================
 New UI Concept for Trainer Studio
 
-Clickable buttons that execute method calls
-- e.g.: trainer.saySlogan()
-- method executes
-- method returns its value in place (& void funcs return nothing)
-- the result is then marked correct or incorrect
-- the result can then be reset or kept
-
-- preferences object
-  - pre-execute all methods
-  - pre-execute basic stats
-  - pre-execute money methods
-  - etc.
-
 
 =================
 New Trainer attributes:
@@ -206,24 +173,6 @@ Notes from Meeting with Dave:
 - Fill-in-the-blank methods
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ====================================================
 Next tasks:
 
@@ -238,9 +187,7 @@ GUI Improvements:
   - choose fonts
   - style buttons
   - hide/disable buttons when not usable
-  - remove style attr after animating pokemon to fix abs pos
   - set continue button as default focus so hitting enter key works
-  - health bars
   - Add sound effects 
   - add logo
 
@@ -299,21 +246,3 @@ Note:
     - Empty method bodies
     - With comments spec'ing out each method
     - Commented out
-
-========================================
-
-Platform Tasks:
-  - Decide on cloud9 vs HyperDev vs ...
-  - Decide on unit testing framework
-    - simple to run
-    - pretty output
-  - Set up script for students to run
-  - Write unit Tests
-  - Settle on mechanism for student code inside of game engine
-  - Look into: persistence/saving game state
-
-Ideas:
-- Allow students to create their own pokemon classes
-
-
-

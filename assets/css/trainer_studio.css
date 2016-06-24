@@ -381,7 +381,7 @@ tbody.striped tr:nth-child(even) {
 
 .popover h4 {
   font-family: sans-serif !important; 
-  font-size: 1em;
+  font-size: 12px;
   letter-spacing: normal !important;
 }
 

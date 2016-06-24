@@ -128,49 +128,40 @@ function setupGUI() {
   $(`body`).on(`click`, `.minimize`,   togglePanelMinimization)
   $(`body`).on(`click`, `.activate`,   activatePanelMode)
   $(`body`).on(`click`, `.btn-action`, actionButtonClicked)
-  $(`body`).on(`keyup`, `.input-sm`,   handleKeyPress) 
+  $(`body`).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
   $(`body`).on(`click`, `#clear-data`, clearUserData)
   $(`body`).on(`click`, `.popover`,    dismissPopover)
 
   // Experimental
   $(`body`).on(`click`, `#app-name`, replaceTag)
-  // $(document).on(`keyup`, handleKeyPress) 
+  $(document).on(`keyup`, handleKeyPress) 
 
   $('.replace-with-panel').each(function() {
     createPanel(this)
   })
 
   setupTooltip()
-  // $(document).popover({
-  //   html: true,
-  //   container: 'body',
-  //   selector: '.code-input a',
-  //   title: createPopoverTitle,
-  //   content: createPopoverContent,
-  //   placement: 'auto bottom',
-  //   trigger: 'manual'
-  // }).popover('show')
-
-  // Trigger submit on enter keypress (TODO)
 }
 
+// hide all popovers on escape
 function handleKeyPress(e) {
   event.stopImmediatePropagation()
-  if (e.keyCode == 13) {
-    triggerActionButtonOnEnter()
-  } else if (e.keyCode == 27) {
-    alert("Escape pressed!")
+  if (e.keyCode == 27) {
+    $('.code-input a').popover('hide')
   }
 }
 
-function triggerActionButtonOnEnter() {
-  $(':focus').parent().parent().find('.btn-action').click()
+function triggerActionButtonOnEnter(e) {
+  event.stopImmediatePropagation()
+  if (e.keyCode == 13) {
+    $(':focus').parent().parent().find('.btn-action').click()
+  }
 }
 
 function setupTooltip() {
   $(document).tooltip({
     content: getSourceCode,
-    items: '.correct-call,.correct-val'
+    items: '.correct-call,.return-val'
   })
 }
 
@@ -230,8 +221,8 @@ function consumeTapeStream(row, testHarness) {
     } else {
       var tmp = $(`#templates .test-result-module.incorrect`).first().clone()
       tmp.find('.test-name').text(row.name)
-      tmp.find('.test-actual').text(row.actual)
-      tmp.find('.test-expected').text(row.expected)
+      // tmp.find('.test-actual').text(row.actual)
+      // tmp.find('.test-expected').text(row.expected)
     }
     
     $(`.popover.${featureId} table.test-results`).append(tmp)
@@ -321,6 +312,7 @@ function actionButtonClicked(event) {
     // user has asked to reset this feature
     // so we want to re-display the code button
     var expressionEntered = featureModule.attr('expression-entered')
+    featureModule.find('.code-input a').popover('hide')
     var status = "entered correct"
     saveExpressionEnteredToDB(null, status, panelId, index)
     newModule = createCodeViewerModule(expressionEntered, expressionEntered)
@@ -419,6 +411,7 @@ function createPanel(_div, _mode) {
   var displayType = panelData.displayType
   panel.addClass(mode)
   panel.addClass(displayType)
+  div.replaceWith(panel)
 
   createPanelHead(panel, panelData, mode)
   if (panelIsLocked(panelData)) {
@@ -431,7 +424,6 @@ function createPanel(_div, _mode) {
     minimizePanel(panel)
   }
 
-  div.replaceWith(panel)
 }
 
 function createPanelHead(panel, panelData, mode) {
@@ -468,7 +460,12 @@ function createPanelBody(panel, panelData, mode, displayType) {
       alert('unrecognized display type')
     }
 
-    featureModule.attr('index', i)
+    if (featureModule) {
+      featureModule.attr('index', i)
+      if (featureModule.popover) {
+        featureModule.popover()
+      }
+    } 
   }
 }
 
@@ -520,9 +517,6 @@ function createDebugFeatureModule(featureData) {
     debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected)
     featureModule.attr('expression-entered', featureData.expressionEntered)
     featureId = getPropertyFromExpression(featureData.expressionExpected)
-    // TODO: Implement this
-    // runTestsForFeature(featureId)
-    // runTestsForFeatureAsync(featureId)
     runTests = true
   } else {
     alert('unrecognized feature status')
@@ -530,7 +524,9 @@ function createDebugFeatureModule(featureData) {
 
   featureModule.append(debugModule)
   if (runTests) {
-    createTestResultsPopover(debugModule, featureId)
+    featureModule.popover = function() {
+      createTestResultsPopover(debugModule, featureId)
+    }
   }
 
   return featureModule
@@ -590,8 +586,8 @@ function createTestResultsPopover(module, featureId) {
     html: true,
     container: 'body',
     template: createPopoverTemplate(featureId),
-    title: function () { return createPopoverTitle(featureId) },
-    content: function () { return createPopoverContent(featureId) },
+    title: createPopoverTitle(featureId),
+    content: createPopoverContent(featureId),
     placement: 'auto bottom',
     trigger: 'manual'
   }).popover('show')
@@ -852,3 +848,49 @@ function releaseTestHarness(i) {
     testHarnesses[i].locked = false
   }
 }
+
+
+function popoverCodeNotes() {
+  // when tag is clicked
+  // popover should be created
+  // popover title is empty
+  // popover content is a code entry module
+  // for placeholder vals, works as usual except no tests run
+  // jus checks if return val is defined/ a string??
+
+  // for create trainer tag
+  // check if code matches expected regex
+  // if so, then eval the code
+  // be sure to save their trainer variable name
+  // and make it a global var
+  // then it needs to be used for all future calls
+
+  // GUI:
+  // should be a large empty box with a border and button inside
+  // then when clicked, should fill GUI as current
+  // the state of all of these buttons should saved
+
+  // what about multiple trainers?
+  // should create global update function to let kids
+  // modify trainer ojects and  redisplay
+
+  // what about the trainer image??
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
