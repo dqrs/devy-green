@@ -3,25 +3,25 @@ var tests  = {
     var trainer = createTestTrainer()
     test.ok(trainer.firstName, "Trainer's first name is defined.")
     // test.end()
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'lastName': function (test) {
     var trainer = createTestTrainer()
     test.ok(trainer.lastName, "Trainer's last name is defined.")
     // test.end()
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'age': function (test) {
     var trainer = createTestTrainer()
     test.ok(trainer.age, "Trainer's age is defined.")
     // test.end()
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'slogan': function (test) {
     var trainer = createTestTrainer()
     test.ok(trainer.slogan, "Trainer's slogan is defined.")
     // test.end()
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'getFullName': function (test) {
     var trainer = createTestTrainer()
@@ -41,7 +41,7 @@ var tests  = {
     )
     test.equal(fullName, "Robert McTrainer", "Is formatted correctly")
     // alert(JSON.stringify(test))
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'getReverseName': function (test) {
     var trainer = createTestTrainer()
@@ -64,7 +64,7 @@ var tests  = {
       "Includes a comma"
     )
     test.equal(fullName, "McTrainer, Robert", "Is in the correct order")
-    setTimeout(function() {test.end()}, 3000)
+    setTimeout(function() {test.end()}, 500)
   },
   'writeHi': function(test) {
     test.fail(false, false, "This is not a real test yet.")   

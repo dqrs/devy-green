@@ -15,11 +15,12 @@ NOTE: Call Silvia back / research static site generators
 Current tasks:
 
 
-  - On page load, tests should be re-run for code already entered and marked as passing/failing
-    --> Requires concurrent tape processes running?
-    --> Or is there a way to namespace the tap streams so they don't interfere with each other?
-  --> Why do tape streams interfere with each other?
-  --> Why does end() not arrive if tests overlap??
+  x On page load, tests should be re-run for code already entered and marked as passing/failing
+    x Requires concurrent tape processes running
+    x FIX: Leaking adding text to other popovers
+    - Display popovers on startup
+    - Enable dismiss all popovers
+
 
   - Enhanced UX:
     - Popovers should disappear when re-run
@@ -27,7 +28,6 @@ Current tasks:
     - Clicking reset should dismiss the popover if it's open
     - Clear correct entry on right click
   - Re-implement panel completion checking based on passing all tests
-  - FIX: Leaking adding text to other popovers
   - Display source on incorrect return val modules
   - Test Results Module Styling:
     - Format 'expected/actual' text

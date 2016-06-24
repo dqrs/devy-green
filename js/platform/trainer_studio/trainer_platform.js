@@ -13,14 +13,14 @@ window.testResults = {}
 window.activeTest = 'NONE'
 
 window.testQueue = []
-window.tapeClones = []
+window.testHarnesses = []
 window.featureIdMap = []
 
 // var lastModuleChanged
 
 // App Entry Point
 window.onload = function() {
-  initTapeClones()
+  initTestHarnesses()
   initApp()
 } 
 
@@ -199,11 +199,11 @@ function createPopoverContent(featureId) {
   return $('#templates .popover-content').first().html()
 }
 
-function consumeTapeStream(row, tapeClone) {
+function consumeTapeStream(row, testHarness) {
 // function consumeTapeStream(row, featureId, cloneId) {
   // alert(row)
   // console.log(JSON.stringify(row))
-  var featureId = activeTest
+  var featureId = testHarness.featureId
   if (row.type === "test") {
     // var featureId = row.name
     // var featureId = activeTest
@@ -251,7 +251,7 @@ function consumeTapeStream(row, tapeClone) {
     }
 
     // checkForPanelCompletion()
-    releaseTapeClone(tapeClone.id)
+    releaseTestHarness(testHarness.id)
 
   } else {
     alert("Unrecognized tape control event")
@@ -494,6 +494,8 @@ function replaceTag() {
 
 
 function createDebugFeatureModule(featureData) {
+  var runTests = false
+  var featureId
   var featureModule = $('#templates .feature-module').clone().attr('expression-expected', featureData.expressionExpected)
 
   var label = $('#templates .label-' + featureData.type).clone()
@@ -517,13 +519,19 @@ function createDebugFeatureModule(featureData) {
     featureData.status === 'executed incorrect') {
     debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected)
     featureModule.attr('expression-entered', featureData.expressionEntered)
-    var featureId = getPropertyFromExpression(featureData.expressionExpected)
+    featureId = getPropertyFromExpression(featureData.expressionExpected)
     // TODO: Implement this
     // runTestsForFeature(featureId)
+    // runTestsForFeatureAsync(featureId)
+    runTests = true
   } else {
     alert('unrecognized feature status')
   }
+
   featureModule.append(debugModule)
+  if (runTests) {
+    createTestResultsPopover(debugModule, featureId)
+  }
 
   return featureModule
 }
@@ -778,68 +786,69 @@ function createTestTrainer() {
 
 function runTestsForFeatureAsync(featureId) {
   runAsyncTapeTest(
-    function(tapeClone) {
-      activeTest = featureId
+    function(testHarness) {
+      // activeTest = featureId
+      testHarness.featureId = featureId
       // alert("Starting test for " + featureId)
-      tapeClone.createStream({objectMode: true}).on('data',
+      testHarness.createStream({objectMode: true}).on('data',
         function(row) {
-          return consumeTapeStream(row, tapeClone)
+          return consumeTapeStream(row, testHarness)
         }
       );
       
-      tapeClone(featureId, tests[featureId])
+      testHarness(featureId, tests[featureId])
     }
   )
 }
 
 function runAsyncTapeTest(testFunc) {
-  var tapeClone = acquireTapeClone()
+  var testHarness = acquireTestHarness()
   
-  // if none available, immediately found, add to queue
-  if (!tapeClone) {
+  // if none immediately available, add test to queue
+  if (!testHarness) {
     testQueue.push(testFunc) 
-    // will be run as soon as clone is released
+    // will be run as soon as next text harness is released
   } else {
-    testFunc(tapeClone)
+    testFunc(testHarness)
   }
 }
 
-function initTapeClones() {
-  for (var i=0; i < 1; i++) {
-    tapeClones.push({
+function initTestHarnesses() {
+  for (var i=0; i < 20; i++) {
+    testHarnesses.push({
       id: i,
       locked: false
     })
   }
 }
 
-function initTapeClone(i) {
-  tapeClones[i] = tape.createHarness()
-  tapeClones[i].id = i
-  tapeClones[i].locked = true
+function initTestHarness(i) {
+  testHarnesses[i] = tape.createHarness()
+  testHarnesses[i].id = i
+  testHarnesses[i].locked = true
 }
 
-function acquireTapeClone() {
-  var tapeClone = null
+function acquireTestHarness() {
+  var testHarness = null
 
-  // if a tape clone is available, get it now
-  for (var i=0; i < tapeClones.length; i++) {
-    if (!(tapeClones[i].locked)) {
-      initTapeClone(i)
-      tapeClone = tapeClones[i]
+  // if a test harness is available, get it now
+  for (var i=0; i < testHarnesses.length; i++) {
+    if (!(testHarnesses[i].locked)) {
+      initTestHarness(i)
+      testHarness = testHarnesses[i]
       break
     }
   }
-  return tapeClone
+  return testHarness
 }
 
-function releaseTapeClone(i) {
+function releaseTestHarness(i) {
   // if anyone waiting, run them first (FIFO)
   var waitingTest = testQueue.shift()
   if (waitingTest) {
-    initTapeClone(i)
-    waitingTest(tapeClones[i])
+    initTestHarness(i)
+    waitingTest(testHarnesses[i])
   } else {
-    tapeClones[i].locked = false
+    testHarnesses[i].locked = false
   }
 }
