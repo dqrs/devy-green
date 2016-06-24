@@ -1,8 +1,23 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// Function.prototype.clone = function() {
+//     var cloneObj = this;
+//     if(this.__isClone) {
+//       cloneObj = this.__clonedFrom;
+//     }
+
+//     var temp = function() { return cloneObj.apply(this, arguments); };
+//     for(var key in this) {
+//         temp[key] = this[key];
+//     }
+
+//     temp.__isClone = true;
+//     temp.__clonedFrom = cloneObj;
+
+//     return temp;
+// };
 // If DOM tree is available (browser, IronNode) then render
 // results to DOM. Otherwise, do nothing.
 window.tape = require('tape')
-// window.tape_dom = require('tape-dom');
 },{"tape":2}],2:[function(require,module,exports){
 (function (process){
 var defined = require('defined');
@@ -886,7 +901,7 @@ Test.skip = function (name_, _opts, _cb) {
 // vim: set softtabstop=4 shiftwidth=4:
 
 
-}).call(this,require('_process'),"/node_modules/tape/lib")
+}).call(this,require('_process'),"/../../../node_modules/tape/lib")
 },{"_process":43,"deep-equal":6,"defined":9,"events":39,"has":12,"inherits":13,"path":42,"string.prototype.trim":17}],6:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');

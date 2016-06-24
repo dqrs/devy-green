@@ -18,6 +18,8 @@ Current tasks:
   - On page load, tests should be re-run for code already entered and marked as passing/failing
     --> Requires concurrent tape processes running?
     --> Or is there a way to namespace the tap streams so they don't interfere with each other?
+  --> Why do tape streams interfere with each other?
+  --> Why does end() not arrive if tests overlap??
 
   - Enhanced UX:
     - Popovers should disappear when re-run
@@ -26,6 +28,7 @@ Current tasks:
     - Clear correct entry on right click
   - Re-implement panel completion checking based on passing all tests
   - FIX: Leaking adding text to other popovers
+  - Display source on incorrect return val modules
   - Test Results Module Styling:
     - Format 'expected/actual' text
     - if ALL tests passed or not (popover color icon?)

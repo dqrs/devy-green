@@ -7,16 +7,31 @@ window.token = false
 
 window.guiSetup = false
 window.testResults = {}
+// window.streams = {}
+// window.stream = null
+
+window.activeTest = 'NONE'
+
+window.testQueue = []
+window.tapeClones = []
+window.featureIdMap = []
+
 // var lastModuleChanged
 
 // App Entry Point
 window.onload = function() {
+  initTapeClones()
   initApp()
 } 
 
 function initApp() {
   // Import student's Trainer and reference Trainer 
   t = getTrainer()
+  // stream = tape.createStream({objectMode: true})
+  // stream.on('data', function(row) {
+  //   console.log(JSON.stringify(row))
+  //   // consumeTapeStream
+  // })
   // tReference = new TrainerReference(getTrainer())
 
   // Initialize Firebase
@@ -164,7 +179,7 @@ function runTestsForFeature(featureId) {
   // alert("testing! feature: " + featureId)
   tape.createStream({objectMode: true}).on('data',
     function(row) {
-      consumeTapeStream(row, featureId)
+      consumeTapeStream(row, featureId, 0)
     }
   );
 
@@ -184,12 +199,17 @@ function createPopoverContent(featureId) {
   return $('#templates .popover-content').first().html()
 }
 
-function consumeTapeStream(row, featureId) {
+function consumeTapeStream(row, tapeClone) {
+// function consumeTapeStream(row, featureId, cloneId) {
   // alert(row)
   // console.log(JSON.stringify(row))
-
+  var featureId = activeTest
   if (row.type === "test") {
+    // var featureId = row.name
+    // var featureId = activeTest
+    // var featureId = featureIdMap[row.id]
 
+    console.log(`Starting test #${row.id}: ${featureId}`)
     // beginning of test
     $(`.popover.${featureId} .test-suite-name`).text(row.name)
     testResults[featureId] = {}
@@ -197,7 +217,10 @@ function consumeTapeStream(row, featureId) {
     testResults[featureId]['numTotal'] = 0
 
   } else if (row.type === "assert") {
-    
+    // var featureId = activeTest
+    // var featureId = featureIdMap[row.test]
+
+    console.log(`Assertion #${row.id} for test #${row.test}: ${featureId}`)
     testResults[featureId]['numTotal'] += 1
     
     if (row.ok) {
@@ -214,7 +237,11 @@ function consumeTapeStream(row, featureId) {
     $(`.popover.${featureId} table.test-results`).append(tmp)
 
   } else if (row.type === "end") {
-    
+    // var featureId = activeTest
+    // var featureId = featureIdMap[row.test]
+
+    console.log(`Finishing test #${row.test} / ${featureId}`)
+
     $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
     $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
     if (testResults[featureId]['numPassed'] == testResults[featureId]['numTotal']) {
@@ -224,6 +251,7 @@ function consumeTapeStream(row, featureId) {
     }
 
     // checkForPanelCompletion()
+    releaseTapeClone(tapeClone.id)
 
   } else {
     alert("Unrecognized tape control event")
@@ -560,7 +588,8 @@ function createTestResultsPopover(module, featureId) {
     trigger: 'manual'
   }).popover('show')
 
-  runTestsForFeature(featureId)
+  // runTestsForFeature(featureId)
+  runTestsForFeatureAsync(featureId)
 }
 
 function createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index) {
@@ -745,4 +774,72 @@ function createTestTrainer() {
   trainer.intelligence = 60
   trainer.strength = 80
   return trainer
+}
+
+function runTestsForFeatureAsync(featureId) {
+  runAsyncTapeTest(
+    function(tapeClone) {
+      activeTest = featureId
+      // alert("Starting test for " + featureId)
+      tapeClone.createStream({objectMode: true}).on('data',
+        function(row) {
+          return consumeTapeStream(row, tapeClone)
+        }
+      );
+      
+      tapeClone(featureId, tests[featureId])
+    }
+  )
+}
+
+function runAsyncTapeTest(testFunc) {
+  var tapeClone = acquireTapeClone()
+  
+  // if none available, immediately found, add to queue
+  if (!tapeClone) {
+    testQueue.push(testFunc) 
+    // will be run as soon as clone is released
+  } else {
+    testFunc(tapeClone)
+  }
+}
+
+function initTapeClones() {
+  for (var i=0; i < 1; i++) {
+    tapeClones.push({
+      id: i,
+      locked: false
+    })
+  }
+}
+
+function initTapeClone(i) {
+  tapeClones[i] = tape.createHarness()
+  tapeClones[i].id = i
+  tapeClones[i].locked = true
+}
+
+function acquireTapeClone() {
+  var tapeClone = null
+
+  // if a tape clone is available, get it now
+  for (var i=0; i < tapeClones.length; i++) {
+    if (!(tapeClones[i].locked)) {
+      initTapeClone(i)
+      tapeClone = tapeClones[i]
+      break
+    }
+  }
+  return tapeClone
+}
+
+function releaseTapeClone(i) {
+  // if anyone waiting, run them first (FIFO)
+  var waitingTest = testQueue.shift()
+  if (waitingTest) {
+    initTapeClone(i)
+    waitingTest(tapeClones[i])
+  } else {
+    tapeClones[i].locked = false
+  }
 }
