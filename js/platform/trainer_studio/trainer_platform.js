@@ -1,5 +1,7 @@
 // Global vars
-window.t = false
+
+// TODO: Change this trainer variable name given by student
+window.t = false 
 
 window.db = false
 window.user = false
@@ -7,16 +9,9 @@ window.token = false
 
 window.guiSetup = false
 window.testResults = {}
-// window.streams = {}
-// window.stream = null
-
-window.activeTest = 'NONE'
 
 window.testQueue = []
 window.testHarnesses = []
-window.featureIdMap = []
-
-// var lastModuleChanged
 
 // App Entry Point
 window.onload = function() {
@@ -25,15 +20,10 @@ window.onload = function() {
 } 
 
 function initApp() {
-  // Import student's Trainer and reference Trainer 
+  // Import student's Trainer
+  // TODO: Add try/catch to handle syntax errors
   t = getTrainer()
-  // stream = tape.createStream({objectMode: true})
-  // stream.on('data', function(row) {
-  //   console.log(JSON.stringify(row))
-  //   // consumeTapeStream
-  // })
-  // tReference = new TrainerReference(getTrainer())
-
+  
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDkfHrjTE9jevhoE3PcI-biQFrbiaPHuDo",
@@ -116,11 +106,6 @@ function handleLoginError(error) {
   alert("Something went wrong logging you in. Please refresh the page and try again.")
 }
 
-function dismissPopover(event) {
-  event.stopImmediatePropagation()
-  $(event.currentTarget).popover('hide')
-}
-
 function setupGUI() {
   $(document).off('.data-api')
 
@@ -130,10 +115,12 @@ function setupGUI() {
   $(`body`).on(`click`, `.btn-action`, actionButtonClicked)
   $(`body`).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
   $(`body`).on(`click`, `#clear-data`, clearUserData)
-  $(`body`).on(`click`, `.popover`,    dismissPopover)
+  $(`body`).on(`click`, `.test-results-popover`, dismissPopover)
+  $(`body`).on(`contextmenu`, `.debug-module-popover`, dismissPopover)
+  $(`body`).on(`click`, `.popover-display`, popoverActivateButtonClicked)
 
   // Experimental
-  $(`body`).on(`click`, `#app-name`, replaceTag)
+  $(`body`).on(`click`, `#getAppName-tag`, createDebugModulePopover)
   $(document).on(`keyup`, handleKeyPress) 
 
   $('.replace-with-panel').each(function() {
@@ -143,6 +130,12 @@ function setupGUI() {
   setupTooltip()
 }
 
+function setupTooltip() {
+  $(document).tooltip({
+    content: getSourceCode,
+    items: '.correct-call,.return-val'
+  })
+}
 // hide all popovers on escape
 function handleKeyPress(e) {
   event.stopImmediatePropagation()
@@ -158,49 +151,45 @@ function triggerActionButtonOnEnter(e) {
   }
 }
 
-function setupTooltip() {
-  $(document).tooltip({
-    content: getSourceCode,
-    items: '.correct-call,.return-val'
-  })
+
+function dismissPopover(event) {
+  event.stopImmediatePropagation()
+  event.preventDefault()
+  $(event.currentTarget).popover('hide')
 }
 
-function runTestsForFeature(featureId) {
-  // var tape = JSON.parse(JSON.stringify(tape))
-  // alert("testing! feature: " + featureId)
-  tape.createStream({objectMode: true}).on('data',
-    function(row) {
-      consumeTapeStream(row, featureId, 0)
-    }
-  );
+// Deprecated
+// function runTestsForFeature(featureId) {
+//   // var tape = JSON.parse(JSON.stringify(tape))
+//   // alert("testing! feature: " + featureId)
+//   tape.createStream({objectMode: true}).on('data',
+//     function(row) {
+//       consumeTapeStream(row, featureId, 0)
+//     }
+//   );
 
-  // featureId = feature.expressionExpected
-  tape(featureId, tests[featureId])
+//   // featureId = feature.expressionExpected
+//   tape(featureId, tests[featureId])
+// }
+
+function createTestResultsPopoverTemplate(featureId) {
+  return $('#templates .test-results-popover').clone().addClass(featureId).prop('outerHTML')
 }
 
-function createPopoverTemplate(featureId) {
-  return $('#templates .popover-custom').clone().addClass(featureId).prop('outerHTML')
+function createTestResultsPopoverTitle(featureId) { 
+  return $(`#templates .test-results-popover .popover-title`).first().html()
 }
 
-function createPopoverTitle(featureId) { 
-  return $(`#templates .popover-title`).first().html()
-}
-
-function createPopoverContent(featureId) {
-  return $('#templates .popover-content').first().html()
+function createTestResultsPopoverContent(featureId) {
+  return $('#templates .test-results-popover .popover-content').first().html()
 }
 
 function consumeTapeStream(row, testHarness) {
-// function consumeTapeStream(row, featureId, cloneId) {
-  // alert(row)
   // console.log(JSON.stringify(row))
   var featureId = testHarness.featureId
   if (row.type === "test") {
-    // var featureId = row.name
-    // var featureId = activeTest
-    // var featureId = featureIdMap[row.id]
-
-    console.log(`Starting test #${row.id}: ${featureId}`)
+    
+    // console.log(`Starting test #${row.id}: ${featureId}`)
     // beginning of test
     $(`.popover.${featureId} .test-suite-name`).text(row.name)
     testResults[featureId] = {}
@@ -208,10 +197,7 @@ function consumeTapeStream(row, testHarness) {
     testResults[featureId]['numTotal'] = 0
 
   } else if (row.type === "assert") {
-    // var featureId = activeTest
-    // var featureId = featureIdMap[row.test]
-
-    console.log(`Assertion #${row.id} for test #${row.test}: ${featureId}`)
+    // console.log(`Assertion #${row.id} for test #${row.test}: ${featureId}`)
     testResults[featureId]['numTotal'] += 1
     
     if (row.ok) {
@@ -228,10 +214,7 @@ function consumeTapeStream(row, testHarness) {
     $(`.popover.${featureId} table.test-results`).append(tmp)
 
   } else if (row.type === "end") {
-    // var featureId = activeTest
-    // var featureId = featureIdMap[row.test]
-
-    console.log(`Finishing test #${row.test} / ${featureId}`)
+    // console.log(`Finishing test #${row.test} / ${featureId}`)
 
     $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
     $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
@@ -267,18 +250,49 @@ function checkForPanelCompletion() {
   // }
 }
 
+function popoverActivateButtonClicked(event) {
+  event.stopImmediatePropagation()
+
+  // figure out who we are
+  var button = $(event.currentTarget)
+  var featureModule = button.parent().siblings().find('.feature-module')
+  var featureId = getPropertyFromExpression(
+    featureModule.attr('expression-expected')
+  )
+  
+  // replace code tag proper disply module
+  var displayValue = featureModule.find('.return-val-viewer a').text()
+  var codeTag = $(`#${featureId}-tag`)
+  codeTag.text(displayValue)
+
+  // make sure it's styled properly  
+  
+  // then hide popover
+  codeTag.popover('hide')
+  
+  // later:
+    // save state to db (display mode)
+}
 
 function actionButtonClicked(event) {
   event.stopImmediatePropagation()
 
-  var runTests = false
   var newModule
+  var runTests = false
+  var debugModulePopover = false
   var button = $(this)
   var codeModule = button.parent().parent()
   var featureModule = codeModule.parent()
   var index = featureModule.attr('index')
-  var panel = button.parent().parent().parent().parent().parent()
-  var panelId = panel.attr('id')
+
+  // TODO: Replace this w/ better solution
+  if (featureModule.parent().is('.popover-content')) {
+    var panelId = 'app-info'
+    debugModulePopover = true
+  } else {
+    var panel = button.parent().parent().parent().parent().parent()
+    var panelId = panel.attr('id')
+  }
 
   if (codeModule.is('.code-entry')) {
     // user has just typed in an expression, let's check it
@@ -305,7 +319,15 @@ function actionButtonClicked(event) {
     var expressionExpected = featureModule.attr('expression-expected')
     // alert("EXPRESSION EXPECTED: " + expressionExpected)
     featureModule.attr('expression-entered', expressionEntered)
-    newModule = createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index)
+    newModule = createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index, true)
+
+    // mod to add activate icon for popover debug modules
+    if (panelId === 'app-info') {
+      featureModule.parent().siblings('.popover-title').append(
+        `<span class="popover-display glyphicon glyphicon glyphicon-flash" mode="display"></span>`
+      )
+    }
+
     runTests = true // TODO: remove
 
   } else if (codeModule.is('.return-val-viewer')) {
@@ -321,7 +343,7 @@ function actionButtonClicked(event) {
   if (newModule) {
     codeModule.replaceWith(newModule)
     newModule.find('.code-action-module button').focus()
-    if (runTests) {
+    if (runTests && !debugModulePopover) {
       var featureId = getPropertyFromExpression(featureModule.attr('expression-expected'))
       createTestResultsPopover(newModule, featureId)
     }
@@ -467,28 +489,12 @@ function createPanelBody(panel, panelData, mode, displayType) {
       }
     } 
   }
+
 }
 
 function createLockedPanelBody(panel) {
   panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
 }
-
-function replaceTag() {
-  var featureModule = createDebugFeatureModule({
-    expressionExpected: 'getAppName()',
-    type: "method",
-    status: "empty",
-    expressionEntered: ""
-  })
-
-  featureModule.appendTo($('body')).css({
-    position: 'absolute',
-    top: '100px',
-    left: '100px',
-    border: '1px solid white'
-  })
-}
-
 
 function createDebugFeatureModule(featureData) {
   var runTests = false
@@ -514,7 +520,7 @@ function createDebugFeatureModule(featureData) {
   } else if (
     featureData.status === 'executed correct' ||
     featureData.status === 'executed incorrect') {
-    debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected)
+    debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected, null, null, false)
     featureModule.attr('expression-entered', featureData.expressionEntered)
     featureId = getPropertyFromExpression(featureData.expressionExpected)
     runTests = true
@@ -585,9 +591,9 @@ function createTestResultsPopover(module, featureId) {
   module.find('.code-input a').popover({
     html: true,
     container: 'body',
-    template: createPopoverTemplate(featureId),
-    title: createPopoverTitle(featureId),
-    content: createPopoverContent(featureId),
+    template: createTestResultsPopoverTemplate(featureId),
+    title: createTestResultsPopoverTitle(featureId),
+    content: createTestResultsPopoverContent(featureId),
     placement: 'auto bottom',
     trigger: 'manual'
   }).popover('show')
@@ -596,18 +602,28 @@ function createTestResultsPopover(module, featureId) {
   runTestsForFeatureAsync(featureId)
 }
 
-function createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index) {
-  var result = evaluateExpression(expressionEntered)
+function createReturnValViewerModule(expressionEntered, expressionExpected, panelId, index, evaluateCode) {
+
+  var result
+  if (evaluateCode) {
+    result = evaluateExpression(expressionEntered)
+  } else {
+    result = "(void)"
+  }
+
   var module = $("#templates .return-val-viewer").clone()
   var formattedVal = formatReturnValue(result.returnValue)
   var featureId = getPropertyFromExpression(expressionExpected)
   
   module.find('.code-input a').text(formattedVal).addClass(featureId)
+
   module.find('.code-action-module a').attr('expression-entered', expressionEntered)
 
   // TODO: Need to update entry's status when correctly executed
   var status = "executed " + result.status
-  saveExpressionEnteredToDB(null, status, panelId, index)
+  if (panelId && index) {
+    saveExpressionEnteredToDB(null, status, panelId, index)
+  }
 
   return module
 }
@@ -662,10 +678,14 @@ function getSourceCode() {
   // alert('property = ' + property)
   if (property in t) {
     source = t[property].toString()
+  } else if (typeof property != 'undefined') {
+    source = window[property].toString()
   } else {
     source = '(UNDEFINED)'
   }
   tooltipText += `<pre><code>${source}</code></pre>`
+
+  window.tt = tooltipText
 
   return tooltipText
 }
@@ -849,14 +869,85 @@ function releaseTestHarness(i) {
   }
 }
 
+function createDebugModulePopover(module, featureId) {
 
-function popoverCodeNotes() {
+  module.find('.code-input a').popover({
+    html: true,
+    container: 'body',
+    template: createDebugModulePopoverTemplate(featureId),
+    title: createDebugModulePopoverTitle(featureId),
+    content: createDebugModulePopoverContent(featureId),
+    placement: 'auto bottom',
+    trigger: 'manual'
+  }).popover('show')
+
+  // runTestsForFeature(featureId)
+  runTestsForFeatureAsync(featureId)
+}
+
+function createDebugModulePopover(event) {
+  var button = $(event.currentTarget)
+  var panelId = button.attr('panel-id')
+  var index = button.attr('index')
+  var featureData = user.course.panels[panelId].features[index]
+  var featureId = getPropertyFromExpression(featureData.expressionExpected)
+
+  button.popover({
+    html: true,
+    container: 'body',
+    template: createDebugModulePopoverTemplate(featureId),
+    title: createDebugModulePopoverTitle(featureId),
+    content: function() {
+      var module = createDebugFeatureModule(featureData)
+      return module.prop('outerHTML')
+    },
+    // content: function ()  {
+    //   var module = createDebugModulePopoverContent(featureId)
+    //   module.attr('index', index)
+    //   module.attr('expression-expected', featureData.expressionExpected)
+    //   return module.prop('outerHTML')
+    // },
+    placement: 'auto bottom',
+    trigger: 'manual'
+  }).popover('show')
+}
+
+function createDebugModulePopoverTemplate(featureId) {
+  return $('#templates .debug-module-popover').clone().addClass(featureId).prop('outerHTML')
+}
+
+function createDebugModulePopoverTitle(featureId) { 
+  return $(`#templates .debug-module-popover .popover-title`).first().html()
+}
+
+function createDebugModulePopoverContent(featureId, index) {
+  // TODO: Implement real vals
+  // var featureData = codeTags[featureId]
+
+  var featureModule = createDebugFeatureModule({
+    expressionExpected: 'getAppName()',
+    type: "method",
+    status: "empty",
+    expressionEntered: ""
+  })
+
+  return featureModule
+}
+
+// function popoverCodeNotes() {
+  // should code tags be stored in separate file?
+  // base_course.js with panels and code_tags as vars?
+  // or separate file for each
+
   // when tag is clicked
   // popover should be created
+  // popover given id of clicked code-tag
+
   // popover title is empty
   // popover content is a code entry module
   // for placeholder vals, works as usual except no tests run
   // jus checks if return val is defined/ a string??
+  // expected expression and expected return val?
 
   // for create trainer tag
   // check if code matches expected regex
@@ -876,7 +967,7 @@ function popoverCodeNotes() {
 
   // what about the trainer image??
 
-}
+// }
 
 
 

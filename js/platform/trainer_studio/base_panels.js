@@ -3,6 +3,26 @@
   who has just started.
 */
 basePanels = {
+  "app-info": {
+    id: "app-info",
+    title: "App Information",
+    mode: "debug",
+    displayType: "tableType",
+    complete: false,
+    locked: false,
+    minimized: false,
+    prereqs: false,
+    features: [
+      {
+        type: "variable",
+        expressionExpected: "getAppName()",
+        expressionEntered: '',
+        hasReturnValue: true,
+        status: "empty",
+        complete: false,
+      },
+    ]
+  },
   "basic-info": {
     id: "basic-info",
     title: "Basic Information",

@@ -1,68 +1,127 @@
 DEVY GREEEN:
 ===============================================
 Completed Today:
-  x fix the firebase popup issue
-  x DL and save firebase code (cache it)
-  x On page load, tests should be re-run for code already entered and marked as passing/failing
-  x Requires concurrent tape processes running
-  x FIX: Leaking adding text to other popovers
-  x Display popovers on startup
-  X Enable dismiss all popovers
-  x Figure out how to provide actual/expected feedback without confusing students
-  x Display source on incorrect return val modules
-  X Escape key shoudl dismiss popovers
-  x Clicking reset should dismiss the popover if it's open
-  x Popovers should disappear when re-run
+x Extend width
+x Shouldn't disappear on click
+x Modify source code tooltip for App Tags
+x added debug module popovers
+x Create new CSS module
+x Implement js
+x Make sure code evaluation works properly
+x Figureo out func. mocking solution
+x TTS/Chat/Void funcs shouldn't run for real on startup
+  --> i.e. only their tests should run, but not the real funcs themselves
+
+
+
+
+
+Left Off:
+
+  - Code-tag-modules (Currently commented out, working on CSS)
+    - CSS/HTML
+    - JS
 
 Current tasks:
+  
 
+  - Implement app tags with popups
+    - Save entries to DB
+    - Activation
+      - Design button
+      - Go into display mode when clicked
+      -
+  - Label icon should be a function not an info icon
+  - Only disappear on escape or completion?
+  - Add border to popovers, stand out more
+  - Improve syntax highlighting for source code tooltip
+
+  - Create trainer dynamically
+    - students should type in the code to create their trainer instance   
+    - allow multiple trainer instances on screen
+    - Implement page loading screen
+
+  - Handle rendering/displaying void functions in display mode
+    --> Maybe just turn it into a cool control panel UI?
+
+    - UI Idea:
+      - Only actual code should be in monospace fonts
+      - All other UI labels/buttons etc should be in sans serif or something friendly
+
+  - Completion/Achievements:
+    - Re-implement panel completion checking based on passing all tests
+    - Panel states:
+      1) Start out locked
+      2) Then unlocked but in 'placheholder mode' (like display mode but not working)
+      3) Then put into debug/code mode
+      4) Then back to display mode (now fully working)
+    - Or should a button appear that the student gets to click to unlock?
+    - Make unlocking announcements more attractive
   - Enhanced UX:
     - Clear correct entry on right click
-  - Re-implement panel completion checking based on passing all tests
-  - Test Results Module Styling:
-    - if ALL tests passed or not (popover color icon?)
-    - make source code popover style match test popover style 
+    - Enable go back on escape
+  - Enchanced UI:
+    - Test Results Module Styling:
+      - If ALL tests passed or not (popover color icon?)
+      - Make source code popover style match test popover style 
+      - See if you can reverse z-index so popovers overlap properly
+        --> OR run tests in reverse order within each panel
+    - Make default text color white
+    - Choose fonts
+    - Hide/disable buttons when not usable
+    - Add sound effects 
+    - Add logo
+    - Button should glow while its method is running
 
-  - Make default text color white
+    Idea:
+      - Clean up chat bubble UI
+      - Add parameters to chat bubble so students can:
+        - set position of the chat bubble
+        - set font size
+        - set color (background color, text color, border color?)
 
-
-
-////////////////////////
   Next steps:
   
-  - Implement app tags with popups
-    - Create new CSS module
-    - Implement js
-    - Make sure code evaluation works properly
-  - Implement page loading screen
-  - students should type in the code to create their trainer instance   
-  - allow multiple trainer instances on screen
-  - ensure that user data is properly saved
-  - Handle rendering/displaying void functions
-  - Or should a button appear that the student gets to click to unlock?
-    - consume preferences object to
-      - choose mode for each panel
-      - choose global mode
-      - hide
   - Implement all features
   - Get all features on the UI
   - Write tests for all features
-  - Document steps for creating cloud9 workspace
-  - Enable go back on escape
-  - Make unlocking announcements more attractive
-  - Button should glow while its method is running
+  - ensure that user data is properly saved
   - create gui libary for students
     - gui.displayIcon()
-  - Set Panel Color based on completion state
-    - Gray - None defined yet
-    - Yellow - At least one working
-    - Green - once all properties in a panel work correctly
   - Grade Report feature
     - Run/test/display all buttons
     - Provide a grade report as an overlay
       - Number of tests passed out of total
+  - Document steps for creating cloud9 workspace
 
-===============================
+  - Someday/Maybe:
+    - Set Panel Color based on completion state (?)
+      - Gray - None defined yet
+      - Yellow - At least one working
+      - Green - once all properties in a panel work correctly
+    - Consume preferences object to
+      - choose mode for each panel
+      - choose global mode
+      - hide
+    
+////////////////////////
+- Notes: (6/24)
+  - sinon/mocks
+  - parent app
+  - syntax reinforcement lessons
+  - git book for curric
+  - error messages explaining what's wrong (on exceptions)
+  - user testing
+  - handle the case where student has syntax errors in trainer.js
+  - in curric, marks features as prod failure or prod succ
+  - feature labels shouldnt match  method names exactly...
+  - class analytics
+  - tool for easy quizzes?
+  - desirable difficulties / dysfluencies...
+  - elicit prior knowledge
+  - help students direct their attention to what's important -- deep structure (they don't know what to pay attention to)
+
+///////////////////////
 Notes from DD Meeting 6/17/16:
 
 - let students do quick 'think-pair-share' sessions
@@ -171,31 +230,6 @@ Notes from Meeting with Dave:
 - Syntax exercises
 - Syntax cheat sheet
 - Fill-in-the-blank methods
-
-
-====================================================
-Next tasks:
-
-- Implement
-  - calculated attributes
-    - Full Name
-    - League
-    - Weak Element
-    - Favorite Color (changes background)
-
-GUI Improvements:
-  - choose fonts
-  - style buttons
-  - hide/disable buttons when not usable
-  - set continue button as default focus so hitting enter key works
-  - Add sound effects 
-  - add logo
-
-- Write unit tests
-- Let player have multiple pokemon
-
-=================================
-
 
 ==============================================
 Curriculum Tasks:
