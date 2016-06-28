@@ -99,3 +99,19 @@ var tests  = {
     test.end()
   }
 }
+
+function createTestTrainer() {
+  var trainer = new Trainer()
+  trainer.firstName = "Robert"
+  trainer.lastName = "McTrainer"
+  trainer.age = 19
+  trainer.slogan = "Gotta catch 'em all"
+  trainer.favoriteElement = "Fire"
+  trainer.favoriteColor = "red"
+  trainer.energy = 75
+  trainer.happiness = 40
+  trainer.confidence = 90
+  trainer.intelligence = 60
+  trainer.strength = 80
+  return trainer
+}

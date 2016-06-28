@@ -12,15 +12,22 @@ x Figureo out func. mocking solution
 x TTS/Chat/Void funcs shouldn't run for real on startup
   --> i.e. only their tests should run, but not the real funcs themselves
 
-
-
-
-
 Left Off:
 
   - Code-tag-modules (Currently commented out, working on CSS)
-    - CSS/HTML
+    x CSS/HTML
     - JS
+    - Lightning bolt shouldn't append more than once
+    - Clicking code-tag-module in display mode (including gear should trigger popover debug module
+    - Refactor code to redude duplicated code 
+      --> OR cleanly separate code tag modules from other code
+
+- Refactored features/panels into separate data structures
+  - Update code to handle this change
+  - Remove 'index'
+  - features should be id'd by there featureID alone
+  - all other data/state should be retrieved from firebase
+
 
 Current tasks:
   

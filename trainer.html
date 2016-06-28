@@ -23,9 +23,12 @@
 
   <!-- platform code (not to be edited by students) -->
   <script src="js/platform/trainer_studio/trainer_reference.js"></script>
-  <script src="js/platform/trainer_studio/base_panels.js"></script>
-  <script src="js/platform/trainer_studio/tests.js"></script>
-  <script src="js/platform/trainer_studio/trainer_platform.js"></script>
+  <script src="js/platform/trainer_studio/data/features.js"></script>
+  <script src="js/platform/trainer_studio/data/panels.js"></script>
+  <script src="js/platform/trainer_studio/data/unit_tests.js"></script>
+  <script src="js/platform/trainer_studio/test_support.js"></script>
+  <script src="js/platform/trainer_studio/gui.js"></script>
+  <script src="js/platform/trainer_studio/main.js"></script>
 
 </head>
 
@@ -35,38 +38,25 @@
     
     <div class="row" id="header">
 
-      <div class="col-xs-9">
+      <div id="getAppName-tag" class="code-tag-placeholder">
+      </div>
+
+      <div id="getAppAuthor-tag" class="code-tag-placeholder">
+      </div>
+
+      <!-- <div class="col-xs-9">
         <h1>
           <code id="getAppName-tag" panel-id="app-info" index="0">&lt;App Name&gt;</code>
-          <!-- <button type="button" class="btn btn-sm btn-code correct-call">getAppName()</button> -->
           <small><code id="test">&lt;App Version&gt;</code></small>
-          <!-- <small><code class="incorrect">getAppVersio()</code></small> -->
           <small>By</small>
           <small><code>&lt;App Author&gt;</code></small>
         </h1>
-        
+       -->  
 
-<!--         <div class="code-tag-module debug-mode">
-          <label class="code-tag-text">&lt;Trainer Studio&gt;</label>
-          <div class="change-display-mode-icon">
-            <span class="glyphicon glyphicon-cog"></span>
-          </div>
-        </div>
-
-        <div class="code-tag-module display-mode">
-          <label class="code-tag-text">Trainer Studio</label>
-          <div class="change-display-mode-icon">
-            <span class="glyphicon glyphicon-cog"></span>
-          </div>
-        </div>
+      <!-- <div class="col-xs-3">
+        <h1><small><code id="clear-data">&lt;App Status&gt;</code></small>
+      </div>
  -->
-        <!-- <a id="popper" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover">Dismissible popover</a> -->
-      </div>
-
-      <div class="col-xs-3">
-        <h1><small><!-- In Progress --><code id="clear-data">&lt;App Status&gt;</code></small><!--  --></h1>
-      </div>
-
     </div> <!-- end #header -->
 
     <div class="row" id="main">
@@ -78,9 +68,9 @@
 
         <!-- <div class="row"> -->
           
-          <div class="replace-with-panel" id="basic-info">
+          <div class="panel-placeholder" id="basic-info">
           </div>
-          <div class="replace-with-panel" id="current-state">
+          <div class="panel-placeholder" id="current-state">
           </div>
           <!-- <div class="col-xs-6"> -->
           <!-- </div> -->
@@ -94,20 +84,20 @@
 
       <div class="col-xs-4" id="column2">
 
-        <div class="replace-with-panel" id="name">
+        <div class="panel-placeholder" id="name">
         </div>
 
-        <div class="replace-with-panel" id="age">
+        <div class="panel-placeholder" id="age">
         </div>
           
       </div> <!-- end #column2 -->
 
       <div class="col-xs-4" id="column3">
         
-        <div class="replace-with-panel" id="communicate">
+        <div class="panel-placeholder" id="communicate">
         </div>
         
-        <div class="replace-with-panel" id="activities">
+        <div class="panel-placeholder" id="activities">
         </div>
         
       </div> <!-- end #column3 -->
@@ -139,6 +129,20 @@
 
 
   <div id="templates" class="hidden">
+
+    <div class="code-tag-module debug-mode">
+      <label class="code-tag-text">&lt;App Name&gt;</label>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+
+    <div class="code-tag-module display-mode">
+      <label class="code-tag-text">Trainer Studio</label>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
 
     <!-- panel template -->
     <div class="panel panel-default">
