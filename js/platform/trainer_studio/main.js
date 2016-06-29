@@ -22,7 +22,7 @@ window.onload = function() {
 function initApp() {
   // Import student's Trainer
   // TODO: Add try/catch to handle syntax errors
-  t = getTrainer()
+  t = createTrainer()
   
   // Initialize Firebase
   var config = {
@@ -149,7 +149,7 @@ function checkForPanelCompletion(feature) {
   var panel = getPanelFromFeature(feature)
   if (panel && !panel.complete && panelIsComplete(panel)) {
     
-    alert(`${panel.title} completed!`)
+    // alert(`${panel.title} completed!`)
     
     // check for newly unlocked panels and re-render UI 
     var postReqs = getPostReqsOfPanel(panel.id)

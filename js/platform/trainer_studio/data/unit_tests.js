@@ -1,6 +1,6 @@
 function testAttribute(attr) {
   return function (test) {
-    var trainer = getTrainer()
+    var trainer = createTrainer()
     test.ok(trainer[attr], `Trainer's ${attr} is defined.`)
     test.end()
   }
