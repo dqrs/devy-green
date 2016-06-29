@@ -23,7 +23,7 @@ function getAppYear() {
 }
 
 // Version 2 (With Classes)
-function getTrainer() {
+function createTrainer() {
   var t = new Trainer()
   t.firstName = "Ash"
   t.lastName = "Ketchum"
@@ -32,20 +32,5 @@ function getTrainer() {
   t.favoriteElement = "Fire"
   t.favoriteColor = "red"
   
-  // t.lastName = "Gggggggg"
-  // var t = new Trainer({
-  //   firstName: "Ash",
-  //   lastName: "Ketchfshsfhjum",
-  //   age: 19,
-  //   slogan: "Gotta catch 'em all",
-  //   favoriteElement: "Fire",
-  //   favoriteColor: "red",
-  //   energy: 75,
-  //   happiness: 40,
-  //   confidence: 90,
-  //   intelligence: 60,
-  //   strength: 80
-  // })
-
   return t
 }

@@ -14,6 +14,10 @@ function setupGUI() {
   $(document).on(`click`, `#chatBubble`, removeChatBubble)
   $(document).on(`click`, `#clear-data`, clearUserData)
 
+  if (user.course.features.createTrainer.mode === 'display') {
+    $('#trainer-placeholder').addClass('hidden')
+    $('#main').removeClass('hidden')
+  }
 
   $('.code-tag-placeholder').each(function() {
     createCodeTagModule(this)
@@ -75,10 +79,17 @@ event.stopImmediatePropagation()
 
   feature.mode = 'display'
   saveFeatureToDB(feature)
-  var displayModule = createCodeTagDisplayModule(feature)
+
   var debugModule = $(`.code-tag-module[feature-id="${feature.id}"`)
   debugModule.popover('hide')
-  debugModule.replaceWith(displayModule)
+
+  if (feature.id === 'createTrainer') {
+    $('#trainer-placeholder').addClass('hidden')
+    $('#main').removeClass('hidden')
+  } else {
+    var displayModule = createCodeTagDisplayModule(feature)
+    debugModule.replaceWith(displayModule)
+  }
 }
 
 function changeCodeTagToDebugMode(event) {
@@ -352,6 +363,8 @@ function formatReturnValue(val) {
   var formattedVal
   if (typeof val === 'string') {
     formattedVal = `"${val}"`
+  } else if (typeof val === 'object') {
+    formattedVal = JSON.stringify(val)
   } else if (typeof val === 'undefined') {
     formattedVal = '(UNDEFINED)'
   } else {
