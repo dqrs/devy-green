@@ -1,80 +1,147 @@
 DEVY GREEEN:
 ===============================================
-The Multiple Screens Idea:
+Completed Today:
+x Extend width
+x Shouldn't disappear on click
+x Modify source code tooltip for App Tags
+x added debug module popovers
+x Create new CSS module
+x Implement js
+x Make sure code evaluation works properly
+x Figureo out func. mocking solution
+x TTS/Chat/Void funcs shouldn't run for real on startup
+  --> i.e. only their tests should run, but not the real funcs themselves
+x Refactored features/panels into separate data structures
+  x Update code to handle this change
+  x Remove 'index'
+  X features should be id'd by there featureID alone
+  x all other data/state should be retrieved from firebase
 
-To make the learning curve less steep, we break up the game into
-a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
-Trainer Studio, then Pokemon Studio, then Battle
+Left Off:
+
+  - Code-tag-modules (Currently commented out, working on CSS)
+    x CSS/HTML
+    - JS
+    x Lightning bolt shouldn't append more than once
+    - Clicking code-tag-module in display mode (including gear should trigger popover debug module
+    - Refactor code to redude duplicated code 
+      --> OR cleanly separate code tag modules from other code
 
 
-////////////////////////
-  LEFT OFF ON:
+
+Current tasks:
   
+  - FIX: attribute tests appearing twice
+  - Enter triggerint 2 actions instead of 1
+
+  - Implement app tags with popups
+    - Save entries to DB
+    - Activation
+      - Design button
+      - Go into display mode when clicked
+      -
+  - Label icon should be a function not an info icon
+  - Only disappear on escape or completion?
+  - Add border to popovers, stand out more
+  - Improve syntax highlighting for source code tooltip
+
+  - Create trainer dynamically
+    - students should type in the code to create their trainer instance   
+    - allow multiple trainer instances on screen
+    - Implement page loading screen
+
+  - Handle rendering/displaying void functions in display mode
+    --> Maybe just turn it into a cool control panel UI?
+
+    - UI Idea:
+      - Only actual code should be in monospace fonts
+      - All other UI labels/buttons etc should be in sans serif or something friendly
+
+  - Completion/Achievements:
+    - Re-implement panel completion checking based on passing all tests
+    - Panel states:
+      1) Start out locked
+      2) Then unlocked but in 'placheholder mode' (like display mode but not working)
+      3) Then put into debug/code mode
+      4) Then back to display mode (now fully working)
     - Or should a button appear that the student gets to click to unlock?
+    - Make unlocking announcements more attractive
+  - Enhanced UX:
+    - Clear correct entry on right click
+    - Enable go back on escape
+  - Enchanced UI:
+    - Test Results Module Styling:
+      - If ALL tests passed or not (popover color icon?)
+      - Make source code popover style match test popover style 
+      - See if you can reverse z-index so popovers overlap properly
+        --> OR run tests in reverse order within each panel
+    - Make default text color white
+    - Choose fonts
+    - Hide/disable buttons when not usable
+    - Add sound effects 
+    - Add logo
+    - Button should glow while its method is running
 
-  - Re-test code before panel is considered complete?
-  - Clear correct entry on right click
-  - Enable go back on escape
-  - Run code on enter
-  - App place holder tags -- replace with buttons/code entry
+    Idea:
+      - Clean up chat bubble UI
+      - Add parameters to chat bubble so students can:
+        - set position of the chat bubble
+        - set font size
+        - set color (background color, text color, border color?)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Trainer Studio Implementation Tasks:
-  - Handle rendering/displaying void functions
-
-  - display mode for:
-    X current state
-    x basic info
-      x implement tables
-     x make sure activate button works
-
-  - order curriculum
-  - implement all functions
-  - get all functions on the UI
-  x If attribute is undefined, its button should be disabled
-  - Button should glow while its method is running
+  Next steps:
+  
+  - Implement all features
+  - Get all features on the UI
+  - Write tests for all features
+  - ensure that user data is properly saved
   - create gui libary for students
-    x gui.say()
     - gui.displayIcon()
-    x- gui.print()
-  - Set up testing system
-    x create an clone object with all of the same static attributes as the student's, but it runs our methods instead
-    - how to test void functions?
-      - how to test funcs that modify multiple attributes
-  x set modes feature
-    x modes
-      x debug (button to press)
-      - test (same as debug mode except already run)
-      x display (nice display mode for final game)
-      - hide
-    x Add mode switch to panel
-    - consume preferences object to
-      - choose mode for each panel
-      - choose global mode
-      - hide
-  - Set Panel Color based on completion state
-    - Gray - None defined yet
-    - Yellow - At least one working
-    - Green - once all properties in a panel work correctly
   - Grade Report feature
     - Run/test/display all buttons
     - Provide a grade report as an overlay
       - Number of tests passed out of total
-  - set up grid & positioning
+  - Document steps for creating cloud9 workspace
 
+  - Someday/Maybe:
+    - Set Panel Color based on completion state (?)
+      - Gray - None defined yet
+      - Yellow - At least one working
+      - Green - once all properties in a panel work correctly
+    - Consume preferences object to
+      - choose mode for each panel
+      - choose global mode
+      - hide
+    
+////////////////////////
+- Notes: (6/24)
+  - sinon/mocks
+  - parent app
+  - syntax reinforcement lessons
+  - git book for curric
+  - error messages explaining what's wrong (on exceptions)
+  - user testing
+  - handle the case where student has syntax errors in trainer.js
+  - in curric, marks features as prod failure or prod succ
+  - feature labels shouldnt match  method names exactly...
+  - class analytics
+  - tool for easy quizzes?
+  - desirable difficulties / dysfluencies...
+  - elicit prior knowledge
+  - help students direct their attention to what's important -- deep structure (they don't know what to pay attention to)
 
+///////////////////////
+Notes from DD Meeting 6/17/16:
+
+- let students do quick 'think-pair-share' sessions
+- t.sayFullName() --> this.say(this.getFullName())
+- talk through how code works
+- dont be afraid of productive failure
+- when explaining classes, give multiple examples
+  -> person, car, printer, etc.
+
+  - inside the class vs outside the class
+    - 'this' == 'my'
 Apps:
 - Trainer Studio
   - GUI starts out empty, instructs students to fill in each piece
@@ -139,24 +206,19 @@ Apps:
 - Battle
 
 
+========================
+The Multiple Screens Idea:
+
+To make the learning curve less steep, we break up the game into
+a series of apps. Start with a demo of the full battle, showing the students what we're working towards. Then we move to
+Trainer Studio, then Pokemon Studio, then Battle
+
+  - order curriculum
 =================================
 New UI Concept for Trainer Studio
 
-Clickable buttons that execute method calls
-- e.g.: trainer.saySlogan()
-- method executes
-- method returns its value in place (& void funcs return nothing)
-- the result is then marked correct or incorrect
-- the result can then be reset or kept
 
-- preferences object
-  - pre-execute all methods
-  - pre-execute basic stats
-  - pre-execute money methods
-  - etc.
-
-========================
-
+=================
 New Trainer attributes:
 
 - position: x, y
@@ -177,51 +239,6 @@ Notes from Meeting with Dave:
 - Syntax exercises
 - Syntax cheat sheet
 - Fill-in-the-blank methods
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-====================================================
-Next tasks:
-
-- Implement
-  - calculated attributes
-    - Full Name
-    - League
-    - Weak Element
-    - Favorite Color (changes background)
-
-GUI Improvements:
-  - choose fonts
-  - style buttons
-  - hide/disable buttons when not usable
-  - remove style attr after animating pokemon to fix abs pos
-  - set continue button as default focus so hitting enter key works
-  - health bars
-  - Add sound effects 
-  - add logo
-
-- Write unit tests
-- Let player have multiple pokemon
-
-=================================
-
 
 ==============================================
 Curriculum Tasks:
@@ -272,21 +289,3 @@ Note:
     - Empty method bodies
     - With comments spec'ing out each method
     - Commented out
-
-========================================
-
-Platform Tasks:
-  - Decide on cloud9 vs HyperDev vs ...
-  - Decide on unit testing framework
-    - simple to run
-    - pretty output
-  - Set up script for students to run
-  - Write unit Tests
-  - Settle on mechanism for student code inside of game engine
-  - Look into: persistence/saving game state
-
-Ideas:
-- Allow students to create their own pokemon classes
-
-
-

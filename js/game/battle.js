@@ -15,7 +15,7 @@ class Battle {
   setupPlayer() {
 
     // initialize player
-    this.player = new Trainer({
+    this.player = new TrainerReference({
       firstName: 'Misty',
       lastName: 'Trainer',
       age: 14,
@@ -38,7 +38,7 @@ class Battle {
     Todo: Document
   */
   setupEnemy(enemyName) {
-    this.enemy = new Trainer({
+    this.enemy = new TrainerReference({
       firstName: 'Ash',
       lastName: 'Ketchum',
       age: 13,
