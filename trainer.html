@@ -112,21 +112,8 @@
 
   </div> <!-- end .container -->
 
-  <div class="form-group has-success has-feedback hidden correctResultTemplate">
-    <label class="control-label">t.happiness</label>
-    <input type="text" class="form-control input-sm" value="---------">
-    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-  </div>
-
-  <div class="form-group has-error has-feedback hidden errorResultTemplate">
-    <label class="control-label">t.happiness</label>
-    <input type="text" class="form-control input-sm" value="---------">
-    <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-  </div>
-
   <div id="chatBubble">
   </div>
-
 
   <div id="templates" class="hidden">
 
@@ -186,10 +173,10 @@
     </div>
     <!-- end code-entry code-module -->
 
-    <!-- code-button.correct template -->
-    <div class="row code-module code-button correct">              
+    <!-- code-viewer-module.expression-correct template -->
+    <div class="row code-module code-viewer-module expression-correct">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code correct-call">........</a>
+        <a type="button" class="btn btn-sm btn-code expression-correct">........</a>
       </div>
     
       <div class="code-action-module">
@@ -197,12 +184,12 @@
       </div>
 
     </div>
-    <!-- end code-button.correct template -->
+    <!-- end code-viewer-module.expression-correct template -->
 
-    <!-- code-button.incorrect template -->
-    <div class="row code-module code-button incorrect">              
+    <!-- code-viewer-module.incorrect template -->
+    <div class="row code-module code-viewer-module expression-incorrect">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code incorrect-call">........</a>
+        <a type="button" class="btn btn-sm btn-code expression-incorrect">........</a>
       </div>
     
       <div class="code-action-module">
@@ -210,7 +197,7 @@
       </div>
 
     </div>
-    <!-- end code-button.incorrect template -->
+    <!-- end code-viewer-module.expression-incorrect template -->
 
     <!-- .return-val-viewer.neutral template -->
     <div class="row code-module return-val-viewer neutral">              
@@ -310,7 +297,9 @@
 
     <div class="popover debug-module-popover" role="tooltip">
       <div class="arrow"></div>
-      <h4 class="popover-title">Call the function that will return your app's name</h4>
+      <h4 class="popover-title">Call the function that will return your app's name
+        <span class="popover-display glyphicon glyphicon glyphicon-flash hidden" mode="display"></span>
+      </h4>
       <div class="popover-content"> 
       </div>
     </div>

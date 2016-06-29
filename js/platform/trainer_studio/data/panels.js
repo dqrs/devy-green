@@ -42,10 +42,10 @@ panels = {
     mode: "debug",
     displayType: "barType",
     complete: false,
-    locked: false,
+    locked: true,
     minimized: false,
-    prereqs: false,
-    // prereqs: ["basic-info"],
+    // prereqs: false,
+    prereqs: ["basic-info"],
     features: [
       "energy",
       "happiness",

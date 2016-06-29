@@ -1,17 +1,17 @@
 function setupGUI() {
   $(document).off('.data-api')
 
-  $(document).on(`keyup`, handleKeyPress) 
-  $(document).on(`click`, `#chatBubble`, removeChatBubble)
-  $(document).on(`click`, `.minimize`,   togglePanelMinimization)
-  $(document).on(`click`, `.activate`,   activatePanelMode)
   $(document).on(`click`, `.btn-action`, actionButtonClicked)
-  $(document).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
-  $(document).on(`click`, `#clear-data`, clearUserData)
+  $(document).on(`click`, `.code-tag-module`, createDebugModulePopover)
   $(document).on(`click`, `.test-results-popover`, dismissPopover)
   $(document).on(`contextmenu`, `.debug-module-popover`, dismissPopover)
-  $(document).on(`click`, `.code-tag-module`, createDebugModulePopover)
   $(document).on(`click`, `.popover-display`, popoverActivateButtonClicked)
+  $(document).on(`keyup`, handleKeyPress) 
+  $(document).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
+  $(document).on(`click`, `.minimize`,   togglePanelMinimization)
+  $(document).on(`click`, `.activate`,   activatePanelMode)
+  $(document).on(`click`, `#chatBubble`, removeChatBubble)
+  $(document).on(`click`, `#clear-data`, clearUserData)
 
 
   // $('.code-tag-placeholder').each(function() {
@@ -27,8 +27,8 @@ function setupGUI() {
 
 function setupTooltip() {
   $(document).tooltip({
-    content: getSourceCode,
-    items: '.correct-call,.return-val'
+    content: getSourceCodeForTooltip,
+    items: '.return-val-viewer .btn-code,.code-viewer-module.expression-correct .btn-code'
   })
 }
 
@@ -97,80 +97,69 @@ function popoverActivateButtonClicked(event) {
 function actionButtonClicked(event) {
   event.stopImmediatePropagation()
 
-  var newModule
-  var runTests = false
-  var debugModulePopover = false
+  // alert("actionButtonClicked!")
+
   var button = $(this)
   var codeModule = button.parent().parent()
   var featureModule = codeModule.parent()
+  
   var featureId = featureModule.attr('feature-id')
-  var index = featureModule.attr('index')
+  var feature = user.course.features[featureId]
 
-  // TODO: Replace this w/ better solution
-  if (featureModule.parent().is('.popover-content')) {
-    var panelId = 'app-info'
-    debugModulePopover = true
-  } else {
-    var panel = button.parent().parent().parent().parent().parent()
-    var panelId = panel.attr('id')
-  }
-
-  if (codeModule.is('.code-entry')) {
-    // user has just typed in an expression, let's check it
-    var expressionEntered = codeModule.find('input').val()    
-    var expected = featureModule.attr('expression-expected')
-    var status = (expressionEntered === expected) ? "entered correct" : "entered incorrect"    
-    saveExpressionEnteredToDB(expressionEntered, status, featureId)
+  var newModule
+  if (feature.status === 'expression-empty') {
+    // user has just typed in an expression,
+    // so let's check to see if it's correct
     
-    // create code viewer module
-    newModule = createCodeViewerModule(expressionEntered, expected)
+    feature.expressionEntered = codeModule.find('input').val()    
+    if (feature.expressionEntered === feature.expressionExpected) {
+      feature.status = "expression-correct"
+    } else {
+      feature.status = "expression-incorrect"
+    }
+    saveFeatureToDB(feature)
+    newModule = createCodeViewerModule(feature)
 
-  } else if (codeModule.is('.code-button.incorrect')) {
-    // incorrect expression entered, so let's go back
-    // Start over, just display text input and buttons
-    var expressionEntered = codeModule.find('.code-input a').text()
-    newModule = createCodeEntryModule(expressionEntered)
+  } else if (feature.status === 'expression-incorrect') {
+    // incorrect expression entered,
+    // so let's go back to the code entry module
+    feature.status = 'expression-empty'
+    saveFeatureToDB(feature)
+    newModule = createCodeEntryModule(feature)
 
-    // clear expressionEntered from db
-    saveExpressionEnteredToDB('', 'empty', featureId)
+  } else if (feature.status === 'expression-correct') {
+    // Correct expression was entered, so 
+    // now it's time to run tests and evaluate it
+    feature.status = 'execution-in-progress'
+    feature.returnValue = formatReturnValue(
+      evaluateExpression(feature.expressionEntered)  
+    )
+    saveFeatureToDB(feature)
+    newModule = createReturnValViewerModule(feature)
 
-  } else if (codeModule.is('.code-button.correct')) {
-    // Correct expressione was entered, now time to execute it    
-    var expressionEntered = codeModule.find('.code-input a').text()
-    var expressionExpected = featureModule.attr('expression-expected')
-    featureModule.attr('expression-entered', expressionEntered)
-    newModule = createReturnValViewerModule(expressionEntered, expressionExpected, featureId, true)
-
-    // mod to add activate icon for popover debug modules
-    if (panelId === 'app-info') {
-      featureModule.parent().siblings('.popover-title').append(
-        `<span class="popover-display glyphicon glyphicon glyphicon-flash" mode="display"></span>`
-      )
+    // display activate icon for popover debug modules
+    if (feature.codeTag) {
+      featureModule.parent().siblings('.popover-title').find('span.popover-display').removeClass('hidden')
     }
 
-    runTests = true // TODO: remove
-
-  } else if (codeModule.is('.return-val-viewer')) {
+  } else if (feature.status.split("-")[0] === 'execution') {
     // user has asked to reset this feature
-    // so we want to re-display the code button
-    var expressionEntered = featureModule.attr('expression-entered')
+    // so we want to re-display the code viewer module
     featureModule.find('.code-input a').popover('hide')
-    var status = "entered correct"
-    saveExpressionEnteredToDB(null, status, featureId)
-    newModule = createCodeViewerModule(expressionEntered, expressionEntered)
+    feature.status = "expression-correct"
+    saveFeatureToDB(feature)
+    newModule = createCodeViewerModule(feature)
   }
   
-  if (newModule) {
-    codeModule.replaceWith(newModule)
-    newModule.find('.code-action-module button').focus()
-    if (runTests && !debugModulePopover) {
-      createTestResultsPopover(newModule, featureId)
-    }
+  codeModule.replaceWith(newModule)
+  newModule.find('.code-action-module button').focus()
+  if (feature.status === 'execution-in-progress' && !feature.codeTag) {
+    createTestResultsPopover(newModule, feature)
   }
 }
 
 function createPanel(_div, _mode) {
-  // start at div marked as panel root
+  // start at div marked as panel placeholder
   var div = $(_div)
   var panelData = user.course.panels[div.attr('id')]
   var panel = $('#templates .panel').first().clone()
@@ -214,7 +203,7 @@ function createPanelBody(panel, panelData, mode, displayType) {
     table.appendTo(panelBody)
   }
   
-  // for each feature, create appropriate featureModule
+  // for each feature, create appropriate type of featureModule
   for (var i=0; i < panelData.features.length; i++) {
     var featureModule
     var featureId = panelData.features[i]
@@ -224,17 +213,16 @@ function createPanelBody(panel, panelData, mode, displayType) {
       // alert(JSON.stringify(featureData))
       featureModule = createDebugFeatureModule(featureData)
       panelBody.append(featureModule)
-    } else if (displayType === "tableType") {
-      featureModule = createTableFeatureModule(featureData)
-      table.append(featureModule)
     } else if (displayType === "barType") {
       featureModule = createBarFeatureModule(featureData)
       panelBody.append(featureModule)
+    } else if (displayType === "tableType") {
+      featureModule = createTableFeatureModule(featureData)
+      table.append(featureModule)
     } else {
       alert('unrecognized display type')
     }
 
-    featureModule.attr('feature-id', featureId)
     if (featureModule.popover) {
       featureModule.popover()
     }
@@ -246,54 +234,44 @@ function createLockedPanelBody(panel) {
   panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
 }
 
-function createDebugFeatureModule(featureData) {
-  var runTests = false
-  var featureId = getPropertyFromExpression(featureData.expressionExpected)
-  var featureModule = $('#templates .feature-module').clone().attr('expression-expected', featureData.expressionExpected)
+function createDebugFeatureModule(feature) {
+  var featureModule = $('#templates .feature-module').clone()
+  featureModule.attr('feature-id', feature.featureId)
 
-  var label = $('#templates .label-' + featureData.type).clone()
+  var label = $('#templates .label-' + feature.type).clone()
   label.find('.label-text').text(
-    convertCodeToEnglish(featureData.expressionExpected)
+    convertCodeToEnglish(feature.expressionExpected)
   )
   featureModule.append(label)
   
   var debugModule
-  if (featureData.status === 'empty') {
-    debugModule = createCodeEntryModule()
-  } else if (
-    featureData.status === 'entered correct' ||
-    featureData.status === 'entered incorrect'
-  ) { 
-    debugModule = createCodeViewerModule(
-      featureData.expressionEntered, featureData.expressionExpected
-    )
-  } else if (
-    featureData.status === 'executed correct' ||
-    featureData.status === 'executed incorrect') {
-    debugModule = createReturnValViewerModule(featureData.expressionEntered, featureData.expressionExpected, null, false)
-    featureModule.attr('expression-entered', featureData.expressionEntered)
-    runTests = true
+  if (feature.status === 'expression-empty') {
+    debugModule = createCodeEntryModule(feature)
+
+  } else if (feature.status.split('-')[0] === 'expression') { 
+    debugModule = createCodeViewerModule(feature)
+
+  } else if (feature.status.split('-')[0] === 'execution') {
+    debugModule = createReturnValViewerModule(feature)
+    featureModule.popover = function() {
+      createTestResultsPopover(debugModule, feature)
+    }
   } else {
     alert('unrecognized feature status')
   }
 
   featureModule.append(debugModule)
-  if (runTests) {
-    featureModule.popover = function() {
-      createTestResultsPopover(debugModule, featureId)
-    }
-  }
 
   return featureModule
 }
 
-function createTableFeatureModule(featureData) {
+function createTableFeatureModule(feature) {
   var trTemplate = $('#templates tr').clone()
   trTemplate.find('.label').text(
-    convertCodeToEnglish(featureData.expressionExpected)
+    convertCodeToEnglish(feature.expressionExpected)
   )
   trTemplate.find('.value').text(
-    eval(featureData.expressionExpected)
+    eval(feature.expressionExpected)
   )
   return trTemplate
 }
@@ -301,13 +279,13 @@ function createTableFeatureModule(featureData) {
 var colorIndex = 0
 var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 
-function createBarFeatureModule(featureData) {
-  var value = eval(featureData.expressionExpected)
+function createBarFeatureModule(feature) {
+  var value = eval(feature.expressionExpected)
   var template = $(`#templates .stat-bar`).clone()
 
-  template.attr('id', featureData.expressionExpected)
+  template.attr('id', feature.expressionExpected)
   template.find('label').text(
-    convertCodeToEnglish(featureData.expressionExpected)
+    convertCodeToEnglish(feature.expressionExpected)
   )
   colorIndex = (++colorIndex % colors.length)
   template.find('.progress-bar').css({
@@ -319,72 +297,49 @@ function createBarFeatureModule(featureData) {
   return template
 }
 
-function createCodeEntryModule(expressionEntered) {
+function createCodeEntryModule(feature) {
   var module = $('#templates .code-entry').clone()
-  if (expressionEntered) {
-    module.find('input').val(expressionEntered)
+  if (feature.expressionEntered) {
+    module.find('input').val(feature.expressionEntered)
   }
   return module
 }
 
-function createCodeViewerModule(expressionEntered, expected) {
-  var status = (expressionEntered === expected) ? "correct" : "incorrect" 
-  var module = $('#templates .code-button.' + status).clone()
-  module.find('.code-input a').text(expressionEntered)
-
+function createCodeViewerModule(feature) {
+  var module = $('#templates .code-viewer-module.' + feature.status).clone()
+  module.find('.code-input a').text(feature.expressionEntered)
   return module
 }
 
-function createTestResultsPopover(module, featureId) {
+function createReturnValViewerModule(feature) {
+  var module = $("#templates .return-val-viewer").clone()
+  module.find('.code-input a').text(feature.returnValue)
+  return module
+}
+
+function createTestResultsPopover(module, feature) {
 
   module.find('.code-input a').popover({
     html: true,
     container: 'body',
-    template: createTestResultsPopoverTemplate(featureId),
-    title: createTestResultsPopoverTitle(featureId),
-    content: createTestResultsPopoverContent(featureId),
+    template: createTestResultsPopoverTemplate(feature.featureId),
+    title: createTestResultsPopoverTitle(feature.featureId),
+    content: createTestResultsPopoverContent(feature.featureId),
     placement: 'auto bottom',
     trigger: 'manual'
   }).popover('show')
 
-  // runTestsForFeature(featureId)
-  runTestsForFeatureAsync(featureId)
-}
-
-function createReturnValViewerModule(expressionEntered, expressionExpected, featureId, evaluateCode) {
-  var result
-  if (evaluateCode) {
-    result = evaluateExpression(expressionEntered)
-  } else {
-    result = "(void)"
-  }
-
-  var module = $("#templates .return-val-viewer").clone()
-  var formattedVal = formatReturnValue(result.returnValue)
-  
-  module.find('.code-input a').text(formattedVal).addClass(featureId)
-
-  module.find('.code-action-module a').attr('expression-entered', expressionEntered)
-
-  // TODO: Need to update entry's status when correctly executed
-  var status = "executed " + result.status
-  if (featureId) {
-    saveExpressionEnteredToDB(null, status, featureId)
-  }
-
-  return module
+  runTestsForFeatureAsync(feature.featureId)
 }
 
 function evaluateExpression(code) {
-  var result = {}
+  var returnValue
   try {
-    result.returnValue = eval(code)
+    returnValue = eval(code)
   } catch (err) {
-    result.returnValue = err.message
+    returnValue = err.message
   }
-  result.status = "correct" // TODO: Make this neutral
-
-  return result
+  return returnValue
 }
 
 function formatReturnValue(val) {
@@ -392,23 +347,24 @@ function formatReturnValue(val) {
   if (typeof val === 'string') {
     formattedVal = `"${val}"`
   } else if (typeof val === 'undefined') {
-    formattedVal = '(void)'
+    formattedVal = '(UNDEFINED)'
   } else {
     formattedVal = val
   }
   return formattedVal
 }
 
-function getSourceCode() {
+function getSourceCodeForTooltip() {
   var element = $(this)
 
-  var property = getPropertyFromButton(element)
+  var featureModule = element.parent().parent().parent()
+  var property = featureModule.attr('feature-id')
   var tooltipText = `<h5>Source Code:</h5>`
+  
   var source
-  // alert('property = ' + property)
   if (property in t) {
     source = t[property].toString()
-  } else if (typeof property != 'undefined') {
+  } else if (property in window) {
     source = window[property].toString()
   } else {
     source = '(UNDEFINED)'
@@ -450,30 +406,6 @@ function camelToTitleCase(text) {
   var result = text.replace(/([A-Z])/g, " $1" )
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
-
-
-// function createDebugModulePopover(module, featureId) {
-
-//   module.find('.code-input a').popover({
-//     html: true,
-//     container: 'body',
-//     template: createDebugModulePopoverTemplate(featureId),
-//     title: createDebugModulePopoverTitle(featureId),
-//     content: createDebugModulePopoverContent(featureId),
-//     placement: 'auto bottom',
-//     trigger: 'manual'
-//   }).popover('show')
-
-//   // runTestsForFeature(featureId)
-//   runTestsForFeatureAsync(featureId)
-// }
-
-// Clone template
-// Fill it in with data
-  // id
-  // placeholder text
-// add popover event handlers
-// then link it into the rest of the state machine stuff (?)
 
 function createCodeTagModule(_div, _mode) {
   var div = $(_div)

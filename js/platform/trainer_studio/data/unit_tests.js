@@ -1,32 +1,24 @@
+function testAttribute(attr) {
+  return function (test) {
+    var trainer = getTrainer()
+    test.ok(trainer[attr], `Trainer's ${attr} is defined.`)
+    test.end()
+  }
+}
+
 var tests  = {
-  'firstName': function (test) {
-    var trainer = createTestTrainer()
-    test.ok(trainer.firstName, "Trainer's first name is defined.")
-    // test.end()
-    test.end()
-    // setTimeout(function() {test.end()}, 500)
-  },
-  'lastName': function (test) {
-    var trainer = createTestTrainer()
-    test.ok(trainer.lastName, "Trainer's last name is defined.")
-    // test.end()
-    test.end()
-    // setTimeout(function() {test.end()}, 500)
-  },
-  'age': function (test) {
-    var trainer = createTestTrainer()
-    test.ok(trainer.age, "Trainer's age is defined.")
-    // test.end()
-    test.end()
-    // setTimeout(function() {test.end()}, 500)
-  },
-  'slogan': function (test) {
-    var trainer = createTestTrainer()
-    test.ok(trainer.slogan, "Trainer's slogan is defined.")
-    // test.end()
-    test.end()
-    // setTimeout(function() {test.end()}, 500)
-  },
+  'firstName': testAttribute('firstName'),
+  'lastName': testAttribute('lastName'),
+  'age': testAttribute('age'),
+  'slogan': testAttribute('slogan'),
+  'favoriteElement': testAttribute('favoriteElement'),
+  'favoriteColor': testAttribute('favoriteColor'),
+  'energy': testAttribute('energy'),
+  'happiness': testAttribute('happiness'),
+  'confidence': testAttribute('confidence'),
+  'intelligence': testAttribute('intelligence'),
+  'strength': testAttribute('strength'),
+  'coins': testAttribute('coins'),
   'getFullName': function (test) {
     var trainer = createTestTrainer()
     var fullName = trainer.getFullName()

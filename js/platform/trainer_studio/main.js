@@ -112,21 +112,9 @@ function savePanelToDB(panel) {
   db.ref(panelPath).update(panel)
 }
 
-function saveExpressionEnteredToDB(expressionEntered, status, featureId) {
-  var featurePath = `courses/${user.uid}/features/${featureId}`
-  
-  // save expressionEntered to db if supplied (otherwise, just update status)
-  if (expressionEntered) {
-    db.ref(featurePath).child('expressionEntered').set(expressionEntered)
-  }
-  // save status to db
-  db.ref(featurePath).child('status').set(status)
-  if (status === "executed correct") {
-    db.ref(featurePath).child('complete').set(true)
-    // NOTE, this will never set complete to false...
-    // Probably want to reconsider this in case student
-    // breaks feature
-  }
+function saveFeatureToDB(feature) {
+  var featurePath = `courses/${user.uid}/features/${feature.featureId}`
+  db.ref(featurePath).update(feature)
 }
 
 function clearUserData(event) {
@@ -138,29 +126,44 @@ function clearUserData(event) {
   location.reload()
 }
 
-// TODO: REimplement this
-function checkForPanelCompletion() {
-  // check to see if this completes the panel
-  // var panel = user.course.panels[panelId]
-  // if (panel && !panel.complete && panelIsComplete(panel)) {
-    
-  //   alert(`${panel.title} completed!`)
-    
-  //   // check for newly unlocked panels and re-render UI 
-  //   var postReqs = getPostReqsOfPanel(panelId)
-  //   // alert(`postReqs: ${JSON.stringify(postReqs)}`)
-
-  //   for (var i=0; i < postReqs.length; i++) {
-  //     createPanel($(`#${postReqs[i]}`))
-  //   }
-  // }
+function getPanelFromFeature(feature) {
+  // alert('in getPanelFromFeature')
+  var panel
+  var panelIds = Object.keys(panels)
+  for (var i=0; i < panelIds.length; i++) {
+    if (panels[panelIds[i]].features.includes(feature.featureId)) {
+      panel = panels[panelIds[i]]
+      break;
+    }
+  }
+  // alert (`Returning panel: ${panel.id} for feature: ${feature.featureId}`)
+  return panel
 }
 
-function featureIsComplete(feature) {
-  return feature.status === "executed correct"
+function checkForPanelCompletion(feature) {
+  // alert('in checkForPanelCompletion')
+  // check to see if this completes the panel
+  var panel = getPanelFromFeature(feature)
+  if (panel && !panel.complete && panelIsComplete(panel)) {
+    
+    alert(`${panel.title} completed!`)
+    
+    // check for newly unlocked panels and re-render UI 
+    var postReqs = getPostReqsOfPanel(panel.id)
+    // alert(`postReqs: ${JSON.stringify(postReqs)}`)
+
+    for (var i=0; i < postReqs.length; i++) {
+      createPanel($(`#${postReqs[i]}`))
+    }
+  }
+}
+
+function featureIsComplete(featureId) {
+  return user.course.features[featureId].status === "execution-correct"
 }
 
 function panelIsComplete(panel) {
+  // alert('in panelIsComplete')
   var panelComplete = true
   for (var i=0; i < panel.features.length; i++) {
     if (!featureIsComplete(panel.features[i])) {
@@ -170,6 +173,7 @@ function panelIsComplete(panel) {
   }
   panel.complete = panelComplete
   savePanelToDB(panel)
+
   return panel.complete
 }
 
@@ -190,7 +194,7 @@ function panelIsLocked(panel) {
   if (panel.locked && !stayLocked) {
     panel.locked = false
     savePanelToDB(panel)
-    // alert(`${panel.title} was just unlocked!`)
+    alert(`${panel.title} was just unlocked!`)
   }
 
   return stayLocked
@@ -198,12 +202,12 @@ function panelIsLocked(panel) {
 
 // Returns an array of panelIDs who have panelId as a prereq
 function getPostReqsOfPanel(panelId) {
-  var allPanelIDs = Object.keys(user.course.panels)
+  var panelIds = Object.keys(user.course.panels)
   var postReqs = []
-  for (var i=0; i < allPanelIDs.length; i++) {
-    var panel = user.course.panels[allPanelIDs[i]]
+  for (var i=0; i < panelIds.length; i++) {
+    var panel = user.course.panels[panelIds[i]]
     if (panel.prereqs && panel.prereqs.includes(panelId)) {
-      postReqs.push(allPanelIDs[i])
+      postReqs.push(panelIds[i])
     }
   }
   return postReqs

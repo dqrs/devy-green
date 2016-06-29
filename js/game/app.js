@@ -49,6 +49,8 @@ function getTrainer() {
   t.lastName = "Ketchum"
   t.age = 14
   t.slogan = "Gotta catch 'em all"
+  t.favoriteElement = "Fire"
+  t.favoriteColor = "red"
   
   // t.lastName = "Gggggggg"
   // var t = new Trainer({

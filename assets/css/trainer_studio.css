@@ -249,24 +249,24 @@ h1 .btn-code {
   border: 1px dotted white;
 }
 
-.btn-code.correct-val {
+.btn-code.execution-correct {
   color: black;
   background-color: #0d0;
   border: 1px dotted white;
 }
 
-.btn-code.incorrect-val {
+.btn-code.execution-incorrect {
   color: black;
   background-color: #d00;
   border: 1px dotted white;
 }
 
-.btn-code.correct-call {
+.btn-code.expression-correct  {
   color: #0d0;
   border: 1px dotted #0d0;
 }
 
-.btn-code.incorrect-call {
+.btn-code.expression-incorrect  {
   color: #d00;
   border: 1px dotted #d00;
 }

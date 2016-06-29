@@ -1,5 +1,7 @@
+var NUM_TEST_HARNESSES = 5
+
 function initTestHarnesses() {
-  for (var i=0; i < 20; i++) {
+  for (var i=0; i < NUM_TEST_HARNESSES; i++) {
     testHarnesses.push({
       id: i,
       locked: false
@@ -41,6 +43,7 @@ function resetTestHarness(i) {
 function consumeTapeStream(row, testHarness) {
   // console.log(JSON.stringify(row))
   var featureId = testHarness.featureId
+  var feature = user.course.features[featureId]
   if (row.type === "test") {
     
     // console.log(`Starting test #${row.id}: ${featureId}`)
@@ -73,13 +76,16 @@ function consumeTapeStream(row, testHarness) {
     $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
     $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
     if (testResults[featureId]['numPassed'] == testResults[featureId]['numTotal']) {
-      $(`.code-input a.${featureId}`).addClass('correct-val').removeClass('incorrect-val')
+      $(`[feature-id="${featureId}"] .code-input a`).addClass('execution-correct').removeClass('execution-incorrect')
+      feature.status = 'execution-correct'
     } else {
-      $(`.code-input a.${featureId}`).addClass('incorrect-val').removeClass('correct-val')
+      $(`[feature-id="${featureId}"] .code-input a`).addClass('execution-incorrect').removeClass('execution-correct')
+      feature.status = 'execution-incorrect'
     }
 
-    // checkForPanelCompletion()
     releaseTestHarness(testHarness.id)
+    saveFeatureToDB(feature)
+    checkForPanelCompletion(feature)
 
   } else {
     alert("Unrecognized tape control event")
