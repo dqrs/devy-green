@@ -440,7 +440,9 @@ table.test-results td.test-status {
 }
 
 .code-tag-module {
+  /*float: left;*/
   display: inline-block;
+  margin-right: 10px;
 }
 
 .code-tag-module.debug-mode {
@@ -461,6 +463,28 @@ table.test-results td.test-status {
   padding: 0.3em 0.3em 0.0em 0.3em;
   color: #ccc;
   font-size: 1.8em;
+  font-weight: normal;
+}
+
+#subheading {
+  float: right;
+}
+
+#subheading h3 {
+  margin-right: 10px;
+}
+
+#subheading .code-tag-text {
+  padding: 0.3em 0.3em 0.0em 0.3em;
+  color: #ccc;
+  font-size: 1.2em;
+  font-weight: normal;
+}
+
+footer .code-tag-text {
+  padding: 0.3em 0.3em 0.0em 0.3em;
+  color: #ccc;
+  font-size: 1.0em;
   font-weight: normal;
 }
 
@@ -504,7 +528,11 @@ table.test-results td.test-status {
   color: white;
 }
 
+h3.by-author {
+  display: inline;
+}
 
+#subheading .code-tag-module {
 
-
+}
 

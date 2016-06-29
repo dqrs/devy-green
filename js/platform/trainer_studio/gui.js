@@ -432,7 +432,7 @@ function createCodeTagModule(_div, _mode) {
 function createCodeTagDebugModule(feature) {
   var module = $('#templates .code-tag-module.debug-mode').first().clone()
   module.find('.code-tag-text').text(
-    "<" + convertCodeToEnglish(feature.expressionExpected) + ">"
+    "<" + feature.placeholderText + ">"
   )
   module.attr('feature-id', feature.id)
   return module
@@ -441,8 +441,16 @@ function createCodeTagDebugModule(feature) {
 function createCodeTagDisplayModule(feature) {
   var module = $('#templates .code-tag-module.display-mode').first().clone()  
   
-  // replace code tag proper disply module
-  var displayValue = feature.returnValue.replace(/"/g, '')
+  // Convert return value to display value
+  var displayValue
+  if (feature.id === 'getAppVersion' && 
+    Object.prototype.toString.call(feature.returnValue) === "[object Number]") {
+    // For app version number format v number as 1.0, 2.1, etc," 
+    displayValue = feature.returnValue.toPrecision(2)
+  } else {
+   displayValue = feature.returnValue.toString().replace(/"/g, '')
+  }
+
   module.find('.code-tag-text').text(displayValue)
   module.attr('feature-id', feature.id)
   return module

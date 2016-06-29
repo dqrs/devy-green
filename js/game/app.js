@@ -3,15 +3,7 @@ function getAppName() {
 }
 
 function getAppAuthor() {
-  return "Created by Gerardo"
-}
-
-function getAppCredits() {
-  return "Created by Gerardo"
-}
-
-function getAppYear() {
-  return 2016
+  return "Gerardo Student"
 }
 
 function getAppVersion() {
@@ -22,29 +14,13 @@ function isAppComplete() {
   return false
 }
 
-// function getApp() {
-//   return {
-//     name: "Trainer Studio",
-//     version: 1.0,
-//     credits: "Created by Gerardo",
-//     year: 2016,
-//     complete: false
-//   }
-// }
+function getAppCredits() {
+  return "Created by Gerardo"
+}
 
-// --> insert exercise
-
-// Version 1 (With plain objects)
-// function getTrainer() {
-//   var trainer = {
-//     name: "***",
-//     age: 14,
-//     motto: "Gott catch 'em all",
-//     favoriteElement: "Fire"
-//   }
-
-//   return trainer
-// }
+function getAppYear() {
+  return 2016
+}
 
 // Version 2 (With Classes)
 function getTrainer() {
