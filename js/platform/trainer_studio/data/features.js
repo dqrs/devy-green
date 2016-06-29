@@ -3,8 +3,10 @@
 */
 features = {
   "getAppName": {
-    featureId: "getAppName",
+    id: "getAppName",
     codeTag: true,
+    mode: 'debug',
+    instrux: "Call the function that will return your app's name",
     type: "function",
     expressionExpected: "getAppName()",
     expressionEntered: '',
@@ -13,8 +15,10 @@ features = {
     complete: false,
   },
   "getAppAuthor": {
-    featureId: "getAppAuthor",
+    id: "getAppAuthor",
     codeTag: true,
+    mode: 'debug',
+    instrux: "Call the function that will return your app's author",
     type: "function",
     expressionExpected: "getAppAuthor()",
     expressionEntered: '',
@@ -23,8 +27,10 @@ features = {
     complete: false,
   },
   "getAppVersion": {
-    featureId: "getAppVersion",
+    id: "getAppVersion",
     codeTag: true,
+    mode: 'debug',
+    instrux: "Call the function that will return your app's version",
     type: "function",
     expressionExpected: "getAppVersion()",
     expressionEntered: '',
@@ -33,7 +39,7 @@ features = {
     complete: false,
   },
   "firstName": {
-    featureId: "firstName",
+    id: "firstName",
     type: "variable",
     expressionExpected: "t.firstName",
     expressionEntered: '',
@@ -42,7 +48,7 @@ features = {
     complete: false,
   },
   "lastName": {
-    featureId: "lastName",
+    id: "lastName",
     type: "variable",
     expressionExpected: "t.lastName",
     expressionEntered: '',
@@ -51,7 +57,7 @@ features = {
     complete: false,
   },
   "age": {
-    featureId: "age",
+    id: "age",
     type: "variable",
     expressionExpected: "t.age",
     expressionEntered: '',
@@ -60,7 +66,7 @@ features = {
     complete: false,
   },
   "slogan": {
-    featureId: "slogan",
+    id: "slogan",
     type: "variable",
     expressionExpected: "t.slogan",
     expressionEntered: '',
@@ -69,7 +75,7 @@ features = {
     complete: false,
   },
   "favoriteElement": {
-    featureId: "favoriteElement",
+    id: "favoriteElement",
     type: "variable",
     expressionExpected: "t.favoriteElement",
     expressionEntered: '',
@@ -78,7 +84,7 @@ features = {
     complete: false,
   },
   "favoriteColor": {
-    featureId: "favoriteColor",
+    id: "favoriteColor",
     type: "variable",
     expressionExpected: "t.favoriteColor",
     expressionEntered: '',
@@ -87,7 +93,7 @@ features = {
     complete: false,
   },
   "energy": {
-    featureId: "energy",
+    id: "energy",
     type: "variable",
     expressionExpected: "t.energy",
     expressionEntered: '',
@@ -96,7 +102,7 @@ features = {
     complete: false,
   },
   "happiness": {
-    featureId: "happiness",
+    id: "happiness",
     type: "variable",
     expressionExpected: "t.happiness",
     expressionEntered: '',
@@ -105,7 +111,7 @@ features = {
     complete: false,
   },
   "confidence": {
-    featureId: "confidence",
+    id: "confidence",
     type: "variable",
     expressionExpected: "t.confidence",
     expressionEntered: '',
@@ -114,7 +120,7 @@ features = {
     complete: false,
   },
   "intelligence": {
-    featureId: "intelligence",
+    id: "intelligence",
     type: "variable",
     expressionExpected: "t.intelligence",
     expressionEntered: '',
@@ -123,7 +129,7 @@ features = {
     complete: false,
   },
   "strength": {
-    featureId: "strength",
+    id: "strength",
     type: "variable",
     expressionExpected: "t.strength",
     expressionEntered: '',
@@ -132,7 +138,7 @@ features = {
     complete: false,
   },
   "coins": {
-    featureId: "coins",
+    id: "coins",
     type: "variable",
     expressionExpected: "t.coins",
     expressionEntered: '',
@@ -141,7 +147,7 @@ features = {
     complete: false,
   },
   "getFullName": {
-    featureId: "getFullName",
+    id: "getFullName",
     type: "method",
     expressionExpected: "t.getFullName()",
     expressionEntered: '',
@@ -150,7 +156,7 @@ features = {
     complete: false,
   },
   "getReverseName": {
-    featureId: "getReverseName",
+    id: "getReverseName",
     type: "method",
     expressionExpected: "t.getReverseName()",
     expressionEntered: '',
@@ -159,7 +165,7 @@ features = {
     complete: false,
   },
   "getDoubleFullName": {
-    featureId: "getDoubleFullName",
+    id: "getDoubleFullName",
     type: "method",
     expressionExpected: "t.getDoubleFullName()",
     expressionEntered: '',
@@ -168,7 +174,7 @@ features = {
     complete: false,
   },
   "getDoubleReverseName": {
-    featureId: "getDoubleReverseName",
+    id: "getDoubleReverseName",
     type: "method",
     expressionExpected: "t.getDoubleReverseName()",
     expressionEntered: '',
@@ -177,7 +183,7 @@ features = {
     complete: false,
   },
   "getImageFileName": {
-    featureId: "getImageFileName",
+    id: "getImageFileName",
     type: "method",
     expressionExpected: "t.getImageFileName()",
     expressionEntered: '',
@@ -186,7 +192,7 @@ features = {
     complete: false,
   },
   "getFirstNameLastInitial": {
-    featureId: "getFirstNameLastInitial",
+    id: "getFirstNameLastInitial",
     type: "method",
     expressionExpected: "t.getFirstNameLastInitial()",
     expressionEntered: '',
@@ -195,7 +201,7 @@ features = {
     complete: false,
   },
   "getLastNameFirstInitial": {
-    featureId: "getLastNameFirstInitial",
+    id: "getLastNameFirstInitial",
     type: "method",
     expressionExpected: "t.getLastNameFirstInitial()",
     expressionEntered: '',
@@ -204,7 +210,7 @@ features = {
     complete: false,
   },
   "getAgeInMonths": {
-    featureId: "getAgeInMonths",
+    id: "getAgeInMonths",
     type: "method",
     expressionExpected: "t.getAgeInMonths()",
     expressionEntered: '',
@@ -213,7 +219,7 @@ features = {
     complete: false,
   },
   "getAgeInWeeks": {
-    featureId: "getAgeInWeeks",
+    id: "getAgeInWeeks",
     type: "method",
     expressionExpected: "t.getAgeInWeeks()",
     expressionEntered: '',
@@ -222,7 +228,7 @@ features = {
     complete: false,
   },
   "getAgeInDays": {
-    featureId: "getAgeInDays",
+    id: "getAgeInDays",
     type: "method",
     expressionExpected: "t.getAgeInDays()",
     expressionEntered: '',
@@ -231,7 +237,7 @@ features = {
     complete: false,
   },
   "getAgeInHours": {
-    featureId: "getAgeInHours",
+    id: "getAgeInHours",
     type: "method",
     expressionExpected: "t.getAgeInHours()",
     expressionEntered: '',
@@ -240,7 +246,7 @@ features = {
     complete: false,
   },
   "getAgeInMinutes": {
-    featureId: "getAgeInMinutes",
+    id: "getAgeInMinutes",
     type: "method",
     expressionExpected: "t.getAgeInMinutes()",
     expressionEntered: '',
@@ -249,7 +255,7 @@ features = {
     complete: false,
   },
   "getAgeInSeconds": {
-    featureId: "getAgeInSeconds",
+    id: "getAgeInSeconds",
     type: "method",
     expressionExpected: "t.getAgeInSeconds()",
     expressionEntered: '',
@@ -258,7 +264,7 @@ features = {
     complete: false,
   },
   "writeHi": {
-    featureId: "writeHi",
+    id: "writeHi",
     type: "method",
     expressionExpected: "t.writeHi()",
     expressionEntered: '',
@@ -267,7 +273,7 @@ features = {
     complete: false,
   },
   "writeSlogan": {
-    featureId: "writeSlogan",
+    id: "writeSlogan",
     type: "method",
     expressionExpected: "t.writeSlogan()",
     expressionEntered: '',
@@ -276,7 +282,7 @@ features = {
     complete: false,
   },
   "write": {
-    featureId: "write",
+    id: "write",
     type: "method",
     expressionExpected: "t.write()",
     expressionEntered: '',
@@ -285,7 +291,7 @@ features = {
     complete: false,
   },
   "sayHi": {
-    featureId: "sayHi",
+    id: "sayHi",
     type: "method",
     expressionExpected: "t.sayHi()",
     expressionEntered: '',
@@ -294,7 +300,7 @@ features = {
     complete: false,
   },
   "saySlogan": {
-    featureId: "saySlogan",
+    id: "saySlogan",
     type: "method",
     expressionExpected: "t.saySlogan()",
     expressionEntered: '',
@@ -303,7 +309,7 @@ features = {
     complete: false,
   },
   "say": {
-    featureId: "say",
+    id: "say",
     type: "method",
     expressionExpected: "t.say()",
     expressionEntered: '',
@@ -312,7 +318,7 @@ features = {
     complete: false,
   },
   "work": {
-    featureId: "work",
+    id: "work",
     type: "method",
     expressionExpected: "t.work()",
     expressionEntered: '',
@@ -321,7 +327,7 @@ features = {
     complete: false,
   },
   "rest": {
-    featureId: "rest",
+    id: "rest",
     type: "method",
     expressionExpected: "t.rest()",
     expressionEntered: '',
@@ -330,7 +336,7 @@ features = {
     complete: false,
   },
   "exercise": {
-    featureId: "exercise",
+    id: "exercise",
     type: "method",
     expressionExpected: "t.exercise()",
     expressionEntered: '',
@@ -339,7 +345,7 @@ features = {
     complete: false,
   },
   "watchTelevision": {
-    featureId: "watchTelevision",
+    id: "watchTelevision",
     type: "method",
     expressionExpected: "t.watchTelevision()",
     expressionEntered: '',
@@ -348,7 +354,7 @@ features = {
     complete: false,
   },
   "readBook": {
-    featureId: "readBook",
+    id: "readBook",
     type: "method",
     expressionExpected: "t.readBook()",
     expressionEntered: '',
@@ -357,7 +363,7 @@ features = {
     complete: false,
   },
   "takeCompliment": {
-    featureId: "takeCompliment",
+    id: "takeCompliment",
     type: "method",
     expressionExpected: "t.takeCompliment()",
     expressionEntered: '',
@@ -366,7 +372,7 @@ features = {
     complete: false,
   },
   "takeInsult": {
-    featureId: "takeInsult",
+    id: "takeInsult",
     type: "method",
     expressionExpected: "t.takeInsult()",
     expressionEntered: '',

@@ -42,23 +42,22 @@ function resetTestHarness(i) {
 
 function consumeTapeStream(row, testHarness) {
   // console.log(JSON.stringify(row))
-  var featureId = testHarness.featureId
-  var feature = user.course.features[featureId]
+  var feature = user.course.features[testHarness.featureId]
   if (row.type === "test") {
     
     // console.log(`Starting test #${row.id}: ${featureId}`)
     // beginning of test
-    $(`.popover.${featureId} .test-suite-name`).text(row.name)
-    testResults[featureId] = {}
-    testResults[featureId]['numPassed'] = 0
-    testResults[featureId]['numTotal'] = 0
+    $(`.popover[feature-id="${feature.id}"] .test-suite-name`).text(row.name)
+    testResults[feature.id] = {}
+    testResults[feature.id]['numPassed'] = 0
+    testResults[feature.id]['numTotal'] = 0
 
   } else if (row.type === "assert") {
-    // console.log(`Assertion #${row.id} for test #${row.test}: ${featureId}`)
-    testResults[featureId]['numTotal'] += 1
+    // console.log(`Assertion #${row.id} for test #${row.test}: ${feature.id}`)
+    testResults[feature.id]['numTotal'] += 1
     
     if (row.ok) {
-      testResults[featureId]['numPassed'] += 1
+      testResults[feature.id]['numPassed'] += 1
       var tmp = $(`#templates .test-result-module.correct`).first().clone()
       tmp.find('.test-name').text(row.name)
     } else {
@@ -68,18 +67,18 @@ function consumeTapeStream(row, testHarness) {
       // tmp.find('.test-expected').text(row.expected)
     }
     
-    $(`.popover.${featureId} table.test-results`).append(tmp)
+    $(`.popover[feature-id="${feature.id}"] table.test-results`).append(tmp)
 
   } else if (row.type === "end") {
-    // console.log(`Finishing test #${row.test} / ${featureId}`)
+    // console.log(`Finishing test #${row.test} / ${feature.id}`)
 
-    $(`.popover.${featureId} .num-tests-passed`).text(testResults[featureId]['numPassed'])
-    $(`.popover.${featureId} .num-tests-total`).text(testResults[featureId]['numTotal'])
-    if (testResults[featureId]['numPassed'] == testResults[featureId]['numTotal']) {
-      $(`[feature-id="${featureId}"] .code-input a`).addClass('execution-correct').removeClass('execution-incorrect')
+    $(`.popover[feature-id="${feature.id}"] .num-tests-passed`).text(testResults[feature.id]['numPassed'])
+    $(`.popover[feature-id="${feature.id}"] .num-tests-total`).text(testResults[feature.id]['numTotal'])
+    if (testResults[feature.id]['numPassed'] == testResults[feature.id]['numTotal']) {
+      $(`[feature-id="${feature.id}"] .code-input a`).addClass('execution-correct').removeClass('execution-incorrect')
       feature.status = 'execution-correct'
     } else {
-      $(`[feature-id="${featureId}"] .code-input a`).addClass('execution-incorrect').removeClass('execution-correct')
+      $(`[feature-id="${feature.id}"] .code-input a`).addClass('execution-incorrect').removeClass('execution-correct')
       feature.status = 'execution-incorrect'
     }
 
@@ -92,19 +91,18 @@ function consumeTapeStream(row, testHarness) {
   }
 }
 
-function runTestsForFeatureAsync(featureId) {
+function runTestsForFeatureAsync(feature) {
   runAsyncTapeTest(
     function(testHarness) {
-      // activeTest = featureId
-      testHarness.featureId = featureId
-      // alert("Starting test for " + featureId)
+      testHarness.featureId = feature.id
+      // alert("Starting test for " + feature.id)
       testHarness.createStream({objectMode: true}).on('data',
         function(row) {
           return consumeTapeStream(row, testHarness)
         }
       );
       
-      testHarness(featureId, tests[featureId])
+      testHarness(feature.id, tests[feature.id])
     }
   )
 }

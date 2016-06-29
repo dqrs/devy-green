@@ -446,7 +446,7 @@ table.test-results td.test-status {
 .code-tag-module.debug-mode {
   border-radius: 3px;
   background-color: #333;
-  border: 1px solid #555;
+  border: 0.2em solid #555;
   color: #ccc;
 }
 
@@ -488,8 +488,8 @@ table.test-results td.test-status {
 /* change display mode icon */
 .code-tag-module .change-display-mode-icon {
   float: right;
-  margin-top: 3px;
-  margin-right: 3px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 .code-tag-module.debug-mode .change-display-mode-icon {
   color: #333;

@@ -2,6 +2,10 @@ function getAppName() {
   return "Trainer Studio"
 }
 
+function getAppAuthor() {
+  return "Created by Gerardo"
+}
+
 function getAppCredits() {
   return "Created by Gerardo"
 }

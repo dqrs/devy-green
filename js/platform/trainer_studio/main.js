@@ -76,6 +76,7 @@ function initUser(usersSnapShot) {
   // store global reference to course data in user
   // then set up the UI with course data
   db.ref('courses/' + user.uid).on('value', function (courseSnapshot) {
+    // alert(`course change detected: getAppName entry = ${courseSnapshot.val().features.getAppName.expressionEntered}`)
     user.course = courseSnapshot.val()
     if (!guiSetup) {
       setupGUI()
@@ -113,7 +114,9 @@ function savePanelToDB(panel) {
 }
 
 function saveFeatureToDB(feature) {
-  var featurePath = `courses/${user.uid}/features/${feature.featureId}`
+  var featurePath = `courses/${user.uid}/features/${feature.id}`
+  // fix race condition
+  // user.course.features[feature.id] = feature
   db.ref(featurePath).update(feature)
 }
 
@@ -131,7 +134,7 @@ function getPanelFromFeature(feature) {
   var panel
   var panelIds = Object.keys(panels)
   for (var i=0; i < panelIds.length; i++) {
-    if (panels[panelIds[i]].features.includes(feature.featureId)) {
+    if (panels[panelIds[i]].features.includes(feature.id)) {
       panel = panels[panelIds[i]]
       break;
     }

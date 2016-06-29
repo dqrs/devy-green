@@ -2,10 +2,11 @@ function setupGUI() {
   $(document).off('.data-api')
 
   $(document).on(`click`, `.btn-action`, actionButtonClicked)
-  $(document).on(`click`, `.code-tag-module`, createDebugModulePopover)
+  $(document).on(`click`, `.code-tag-module.debug-mode`, createCodeTagPopover)
   $(document).on(`click`, `.test-results-popover`, dismissPopover)
   $(document).on(`contextmenu`, `.debug-module-popover`, dismissPopover)
-  $(document).on(`click`, `.popover-display`, popoverActivateButtonClicked)
+  $(document).on(`click`, `.popover-display`, changeCodeTagToDisplayMode)
+  $(document).on(`click`, `.code-tag-module.display-mode`, changeCodeTagToDebugMode)
   $(document).on(`keyup`, handleKeyPress) 
   $(document).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
   $(document).on(`click`, `.minimize`,   togglePanelMinimization)
@@ -14,9 +15,9 @@ function setupGUI() {
   $(document).on(`click`, `#clear-data`, clearUserData)
 
 
-  // $('.code-tag-placeholder').each(function() {
-  //   createCodeTagModule(this)
-  // })
+  $('.code-tag-placeholder').each(function() {
+    createCodeTagModule(this)
+  })
 
   $('.panel-placeholder').each(function() {
     createPanel(this)
@@ -37,7 +38,7 @@ function handleKeyPress(e) {
   
   // hide all popovers on escape
   if (e.keyCode == 27) {
-    $('.code-input a').popover('hide')
+    $('.code-input a, .code-tag-module').popover('hide')
   }
 }
 
@@ -54,44 +55,45 @@ function dismissPopover(event) {
   $(event.currentTarget).popover('hide')
 }
 
-function createTestResultsPopoverTemplate(featureId) {
-  return $('#templates .test-results-popover').clone().addClass(featureId).prop('outerHTML')
+function createTestResultsPopoverTemplate(feature) {
+  return $('#templates .test-results-popover').clone().attr('feature-id',feature.id).prop('outerHTML')
 }
 
-function createTestResultsPopoverTitle(featureId) { 
+function createTestResultsPopoverTitle(feature) { 
   return $(`#templates .test-results-popover .popover-title`).first().html()
 }
 
-function createTestResultsPopoverContent(featureId) {
+function createTestResultsPopoverContent(feature) {
   return $('#templates .test-results-popover .popover-content').first().html()
 }
 
-function popoverActivateButtonClicked(event) {
+function changeCodeTagToDisplayMode(event) {
+event.stopImmediatePropagation()
+  var element = $(event.currentTarget)
+  var featureId = element.parent().parent().attr('feature-id')
+  var feature = user.course.features[featureId]
+
+  feature.mode = 'display'
+  saveFeatureToDB(feature)
+  var displayModule = createCodeTagDisplayModule(feature)
+  var debugModule = $(`.code-tag-module[feature-id="${feature.id}"`)
+  debugModule.popover('hide')
+  debugModule.replaceWith(displayModule)
+}
+
+function changeCodeTagToDebugMode(event) {
   event.stopImmediatePropagation()
+  var element = $(event.currentTarget)
+  var featureId = element.attr('feature-id')
+  var feature = user.course.features[featureId]
 
-  // figure out who we are
-  var button = $(event.currentTarget)
-  var featureModule = button.parent().siblings().find('.feature-module')
-  var featureId = getPropertyFromExpression(
-    featureModule.attr('expression-expected')
-  )
-  
-  var codeTagModule = $(`#${featureId}-tag`)
-  var displayModule = $('#templates .code-tag-module.display-mode').first().clone()
-
-  displayModule.attr('id', featureId)
-  displayModule.attr('panel-id', 'app-info')
-  
-  // replace code tag proper disply module
-  var displayValue = featureModule.find('.return-val-viewer a').text()
-  displayValue = displayValue.replace(/"/g, '')
-
-  displayModule.find('.code-tag-text').text(displayValue)
-  codeTagModule.popover('hide')
-  codeTagModule.replaceWith(displayModule)
-  
-  // later:
-    // save state to db (display mode)
+  feature.mode = 'debug'
+  feature.status = 'expression-empty'
+  saveFeatureToDB(feature)
+  var debugModule = createCodeTagDebugModule(feature)
+  var displayModule = $(`.code-tag-module[feature-id="${feature.id}"`)
+  displayModule.replaceWith(debugModule)
+  debugModule.click()
 }
 
 function actionButtonClicked(event) {
@@ -110,7 +112,11 @@ function actionButtonClicked(event) {
   if (feature.status === 'expression-empty') {
     // user has just typed in an expression,
     // so let's check to see if it's correct
-    
+    _feature = feature
+    _codeModule = codeModule
+    _featureModule = featureModule
+    _featureId = featureId
+
     feature.expressionEntered = codeModule.find('input').val()    
     if (feature.expressionEntered === feature.expressionExpected) {
       feature.status = "expression-correct"
@@ -207,17 +213,17 @@ function createPanelBody(panel, panelData, mode, displayType) {
   for (var i=0; i < panelData.features.length; i++) {
     var featureModule
     var featureId = panelData.features[i]
-    var featureData = user.course.features[featureId]
+    var feature = user.course.features[featureId]
 
     if (mode === "debug") {
-      // alert(JSON.stringify(featureData))
-      featureModule = createDebugFeatureModule(featureData)
+      // alert(JSON.stringify(feature))
+      featureModule = createDebugFeatureModule(feature)
       panelBody.append(featureModule)
     } else if (displayType === "barType") {
-      featureModule = createBarFeatureModule(featureData)
+      featureModule = createBarFeatureModule(feature)
       panelBody.append(featureModule)
     } else if (displayType === "tableType") {
-      featureModule = createTableFeatureModule(featureData)
+      featureModule = createTableFeatureModule(feature)
       table.append(featureModule)
     } else {
       alert('unrecognized display type')
@@ -236,7 +242,7 @@ function createLockedPanelBody(panel) {
 
 function createDebugFeatureModule(feature) {
   var featureModule = $('#templates .feature-module').clone()
-  featureModule.attr('feature-id', feature.featureId)
+  featureModule.attr('feature-id', feature.id)
 
   var label = $('#templates .label-' + feature.type).clone()
   label.find('.label-text').text(
@@ -322,14 +328,14 @@ function createTestResultsPopover(module, feature) {
   module.find('.code-input a').popover({
     html: true,
     container: 'body',
-    template: createTestResultsPopoverTemplate(feature.featureId),
-    title: createTestResultsPopoverTitle(feature.featureId),
-    content: createTestResultsPopoverContent(feature.featureId),
+    template: createTestResultsPopoverTemplate(feature),
+    title: createTestResultsPopoverTitle(feature),
+    content: createTestResultsPopoverContent(feature),
     placement: 'auto bottom',
     trigger: 'manual'
   }).popover('show')
 
-  runTestsForFeatureAsync(feature.featureId)
+  runTestsForFeatureAsync(feature)
 }
 
 function evaluateExpression(code) {
@@ -409,30 +415,51 @@ function camelToTitleCase(text) {
 
 function createCodeTagModule(_div, _mode) {
   var div = $(_div)
-  var codeTagData = user.course.panels['app-info'][div.attr('id')] 
-  // TODO: Select template based on mode
-  var codeTagModule = $('#templates .code-tag-module.debug-mode').first().clone()
+  var feature = user.course.features[div.attr('id')]
 
-  codeTagModule.attr('id', div.attr('id'))
-  codeTagModule.attr('panel-id', 'app-info')
-  codeTagModule.attr('index', 0)
+  var codeTagModule
+  if (feature.mode === 'debug') {
+    codeTagModule = createCodeTagDebugModule(feature)
+  } else if (feature.mode === 'display') {
+    codeTagModule = createCodeTagDisplayModule(feature)
+  } else {
+    alert(`unrecognized feature mode: '${feature.mode}'`)
+  }
+
   div.replaceWith(codeTagModule)
 }
 
-function createDebugModulePopover(event) {
-  var button = $(event.currentTarget)
-  var panelId = button.attr('panel-id')
-  var index = button.attr('index')
-  var featureData = user.course.panels[panelId].features[index]
-  var featureId = getPropertyFromExpression(featureData.expressionExpected)
+function createCodeTagDebugModule(feature) {
+  var module = $('#templates .code-tag-module.debug-mode').first().clone()
+  module.find('.code-tag-text').text(
+    "<" + convertCodeToEnglish(feature.expressionExpected) + ">"
+  )
+  module.attr('feature-id', feature.id)
+  return module
+}
 
-  button.popover({
+function createCodeTagDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.display-mode').first().clone()  
+  
+  // replace code tag proper disply module
+  var displayValue = feature.returnValue.replace(/"/g, '')
+  module.find('.code-tag-text').text(displayValue)
+  module.attr('feature-id', feature.id)
+  return module
+}
+
+function createCodeTagPopover(event) {
+  var element = $(event.currentTarget)
+  var featureId = element.attr('feature-id')
+  var feature = user.course.features[featureId]
+
+  element.popover({
     html: true,
     container: 'body',
-    template: createDebugModulePopoverTemplate(featureId),
-    title: createDebugModulePopoverTitle(featureId),
+    template: createCodeTagPopoverTemplate(feature),
+    title: createCodeTagPopoverTitle(feature),
     content: function() {
-      var module = createDebugFeatureModule(featureData)
+      var module = createDebugFeatureModule(feature)
       return module.prop('outerHTML')
     },
     placement: 'auto bottom',
@@ -440,26 +467,23 @@ function createDebugModulePopover(event) {
   }).popover('show')
 }
 
-function createDebugModulePopoverTemplate(featureId) {
-  return $('#templates .debug-module-popover').clone().addClass(featureId).prop('outerHTML')
+function createCodeTagPopoverTemplate(feature) {
+  return $('#templates .debug-module-popover').clone().attr('feature-id', feature.id).prop('outerHTML')
 }
 
-function createDebugModulePopoverTitle(featureId) { 
-  return $(`#templates .debug-module-popover .popover-title`).first().html()
+function createCodeTagPopoverTitle(feature) { 
+  var title = $('#templates .debug-module-popover h4').first().clone()
+  title.find('.instrux').text(feature.instrux)
+  if (feature.status === 'expression-correct') {
+    title.find('.popover-display').removeClass('hidden')
+  }
+  return title.html()
 }
 
-function createDebugModulePopoverContent(featureId, index) {
-  // TODO: Implement real vals
-  // var featureData = codeTags[featureId]
-
-  var featureModule = createDebugFeatureModule({
-    expressionExpected: 'getAppName()',
-    type: "method",
-    status: "empty",
-    expressionEntered: ""
-  })
-
-  return featureModule
+function createCodeTagPopoverContent(feature) {
+  return createDebugFeatureModule(feature)
+  // var featureModule = createDebugFeatureModule(feature)
+  // return featureModule
 }
 
 // function popoverCodeNotes() {

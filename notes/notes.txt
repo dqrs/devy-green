@@ -11,26 +11,28 @@ x Make sure code evaluation works properly
 x Figureo out func. mocking solution
 x TTS/Chat/Void funcs shouldn't run for real on startup
   --> i.e. only their tests should run, but not the real funcs themselves
+x Refactored features/panels into separate data structures
+  x Update code to handle this change
+  x Remove 'index'
+  X features should be id'd by there featureID alone
+  x all other data/state should be retrieved from firebase
 
 Left Off:
 
   - Code-tag-modules (Currently commented out, working on CSS)
     x CSS/HTML
     - JS
-    - Lightning bolt shouldn't append more than once
+    x Lightning bolt shouldn't append more than once
     - Clicking code-tag-module in display mode (including gear should trigger popover debug module
     - Refactor code to redude duplicated code 
       --> OR cleanly separate code tag modules from other code
 
-- Refactored features/panels into separate data structures
-  - Update code to handle this change
-  - Remove 'index'
-  - features should be id'd by there featureID alone
-  - all other data/state should be retrieved from firebase
 
 
 Current tasks:
   
+  - FIX: attribute tests appearing twice
+  - Enter triggerint 2 actions instead of 1
 
   - Implement app tags with popups
     - Save entries to DB

@@ -38,10 +38,10 @@
     
     <div class="row" id="header">
 
-      <div id="getAppName-tag" class="code-tag-placeholder">
+      <div id="getAppName" class="code-tag-placeholder">
       </div>
 
-      <div id="getAppAuthor-tag" class="code-tag-placeholder">
+      <div id="getAppAuthor" class="code-tag-placeholder">
       </div>
 
       <!-- <div class="col-xs-9">
@@ -118,16 +118,26 @@
   <div id="templates" class="hidden">
 
     <div class="code-tag-module debug-mode">
-      <label class="code-tag-text">&lt;App Name&gt;</label>
+      <label class="code-tag-text">-------</label>
+      <!-- <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div> -->
+    </div>
+
+    <div class="code-tag-module display-mode">
+      <label class="code-tag-text">-------</label>
       <div class="change-display-mode-icon">
         <span class="glyphicon glyphicon-cog"></span>
       </div>
     </div>
 
-    <div class="code-tag-module display-mode">
-      <label class="code-tag-text">Trainer Studio</label>
-      <div class="change-display-mode-icon">
-        <span class="glyphicon glyphicon-cog"></span>
+    <div class="popover debug-module-popover" role="tooltip">
+      <div class="arrow"></div>
+      <h4 class="popover-title">
+        <span class="instrux"></span>
+        <span class="popover-display glyphicon glyphicon glyphicon-flash hidden" mode="display"></span>
+      </h4>
+      <div class="popover-content"> 
       </div>
     </div>
 
@@ -224,33 +234,6 @@
       </div>
     </div>
 
-
-    <!-- .return-val-viewer.correct template -->
-    <!-- <div class="row code-module return-val-viewer correct ">              
-      <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code correct-val" ><span class="glyphicon glyphicon-ok"></span></a>
-      </div>
-    
-      <div class="code-action-module">
-        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
-      </div>
-
-    </div> -->
-    <!-- end return-val-viewer.correct template -->
-
-    <!-- end return-val-viewer.incorrect template -->
-    <!-- <div class="row code-module return-val-viewer incorrect">              
-      <div class="code-input">
-        <button type="button" class="btn btn-sm btn-code incorrect-val"> <span class="glyphicon glyphicon-remove"></span></button>
-      </div>
-    
-      <div class="code-action-module">
-        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
-      </div>
-
-    </div> -->
-    <!-- end return-val-viewer.incorrect template -->
-
     <!-- table template-->
     <table class="table table-template display">
     </table>
@@ -295,32 +278,6 @@
       </div>
     </div>
 
-    <div class="popover debug-module-popover" role="tooltip">
-      <div class="arrow"></div>
-      <h4 class="popover-title">Call the function that will return your app's name
-        <span class="popover-display glyphicon glyphicon glyphicon-flash hidden" mode="display"></span>
-      </h4>
-      <div class="popover-content"> 
-      </div>
-    </div>
-
-    <!-- <div class="test-result-module incorrect">
-      <table>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
-      <div class="test-result-status">
-        <p><span class="glyphicon glyphicon-remove"></span></p>
-      </div>
-      <div class="test-result-details">
-        <p><span class="test-name"></span></p>
-        <p>Expected: <span class="test-expected"></span></p>
-        <p>Actual: <span class="test-actual"></span></p>
-      </div>
-    </div>
-     -->
     <table>
 
       <tbody class="test-result-module incorrect">
