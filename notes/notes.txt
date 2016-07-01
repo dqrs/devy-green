@@ -1,10 +1,50 @@
 DEVY GREEEN:
 ===============================================
+Completed:
+x FIX: Give more room for tooltip and enforce word-wrap
+x Switch to display mode with embedded code tags everywhere
+x Embed tags everywhere
+x Ensure completion/saving still works
+x Fix CSS sizing issues
 
-Current tasks:
+Working On:
+/////////////////////////
+  
 
+  - Test Results appended to code tag popover instead of new popover
+  - When test starts, new div and title created, appended to popover
+  - Each row of testing adds to the div
+
+  - On startup, tests only show a single X if not working. Otherwise nothing.
+
+
+
+
+
+
+
+  - Panel starts out locked
+  - When unlocked, it's in display mode with placeholder tags
+  - Activate on a feature by feature basis
+  - Improve 'activate button' icon
+  - Ensure that unlocking/completion still works
+  - Create debug module will need to be updated
+  - If code has been entered into a code tag but not run,
+  the code tag should open in display mode
+  - Maybe panels should start out on page, not hidden, but in locked mode, then JS unlocks them -- this could help overcome to popover/hidden issues. Allows you to append to the DOM
+
+  - Return value should not be saved to DB, func should be re-run
+  - Also, need to somehow re-run void funcs without triggering side effects
+
+
+/////////////////////
+Tasks:
+  - FIX: Activate icon not showing on startup
+  - Add feature-based unlocking (i.e. without panels)
+  - Tooltip fixes:
+    - Add syntax highlighting to tooltip
+    - Center tooltip
   - FIX: CreateTrainer activation persistence
-
   - FIX: attribute tests appearing twice
   - Enter triggerint 2 actions instead of 1
 
@@ -32,7 +72,7 @@ Current tasks:
       - All other UI labels/buttons etc should be in sans serif or something friendly
 
   - Completion/Achievements:
-    - Re-implement panel completion checking based on passing all tests
+    x Re-implement panel completion checking based on passing all tests
     - Panel states:
       1) Start out locked
       2) Then unlocked but in 'placheholder mode' (like display mode but not working)
@@ -87,35 +127,92 @@ Current tasks:
       - choose global mode
       - hide
     
-////////////////////////
-- Notes: (6/24)
-  - sinon/mocks
+////// Notes from 6/29 Meeting with Daniel/DavidD
+  - DEBUG App on C9
+    - Persistence issues
+    - Live reloading (?)
+    - Too many popups
+    - Panel activation
+  - Curric:
+    - Enforce variable types in tests
+    - Set limits/constraints on vars
+    - Set total limit of points to allocate to trainer stats
+    - Add more functions for code tags before trainer created
+      - Add funcs with computation/logic, preferably a few lines
+      - Gender
+      - Image
+      - Location
+      - Cheat code / easter eggs?
+      - Challenge?
+      - Unlocking
+    - Different kinds of exercises/objectives
+      - Func declaration with empty body
+      - No declaration at all -- must be added
+      - Incorrect function provided with errors
+      - Correct implementation that is incomplete and must be filled in
+    - Try to create a consistent workflow for them to get used to
+      - Going from app to code to app
+    - Ask them to explain how it's working
+      - Ask students to discuss/argue/compare answers
+      - Let the console/code be the ultimate source of truth
+    - Think about classroom layout
+    - Try to give them agency
+    - Ask them to diagnose what's wrong when things are broken
+    - ASk students to come up with their own challenges
+    - Add 'boss battle' challenge exercise at the end of each panel
+    - Allocate lots of time to discuss topics
+    - Listent to / explore their incorrect attempts
+    - Develop explanation for their coding environment / app
+    - Set up blank slate code base
+    - (idea) Use git tags to have them load in the codebase at various checkpoints/preconfigured states
+    - Use constructor to create trainer
+    - Save the name they give to their trainer var
+    - 'Platform Library Functions'
+      - Eg TTS, ChatBubble, displayIcon
+      - Create documentation for them to learn how to use them
+      - Add more?
+    - Catalog activities that a programmer typically does
+      - Writing functions
+      - Calling/testing functions
+      - Reading documentation
+      - Reading code
+      - Commenting their code for others
+  - UI:
+    - FIX: Give more room for tooltip and enforce word-wrap
+  - TASK:
+    - Switch to display mode with embedded code tags everywhere
+  
+
+//// Setup Instructions with Cloud9 & Github
+  - Go to c9.io
+  - Click sign in button
+  - Sign in with github
+  - Click the 'create new workspace' button
+  - Help them with github URL
+
+
+//// Aggregated Notes
   - parent app
   - syntax reinforcement lessons
   - git book for curric
   - error messages explaining what's wrong (on exceptions)
   - user testing
   - handle the case where student has syntax errors in trainer.js
-  - in curric, marks features as prod failure or prod succ
-  - feature labels shouldnt match  method names exactly...
   - class analytics
   - tool for easy quizzes?
+  - feature labels shouldnt match  method names exactly
   - desirable difficulties / dysfluencies...
   - elicit prior knowledge
   - help students direct their attention to what's important -- deep structure (they don't know what to pay attention to)
-
-///////////////////////
-Notes from DD Meeting 6/17/16:
-
-- let students do quick 'think-pair-share' sessions
-- t.sayFullName() --> this.say(this.getFullName())
-- talk through how code works
-- dont be afraid of productive failure
-- when explaining classes, give multiple examples
-  -> person, car, printer, etc.
-
+  - let students do quick 'think-pair-share' sessions
+  - t.sayFullName() --> this.say(this.getFullName())
+  - talk through how code works
+  - dont be afraid of productive failure
+  - when explaining classes, give multiple examples
+    -> person, car, printer, etc.
   - inside the class vs outside the class
     - 'this' == 'my'
+
 Apps:
 - Trainer Studio
   - GUI starts out empty, instructs students to fill in each piece

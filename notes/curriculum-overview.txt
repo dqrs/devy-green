@@ -17,14 +17,43 @@ For each pokemon method, unit tests check to see if the method was written by th
 
 
 - Different Types of Performance Objectives:
-  - read and understand code (e.g. trace code, determine output)
-  - read and understand pseudocode
-  - write code after seeing similar code example
+  - read and understand similar code (e.g. trace code, determine output)
+  - read and understand similar pseudocode
+  - read and understand new code (e.g. trace code, determine output)
+  - read and understand new pseudocode
+  - write code after seeing very similar code example
+  - write code after seeing somewhat similar code example
   - write code without seeing similar code example
   - modify code to perform a specific task
   - write code after being given the pseudocode
   - write the pseudocode given a spec
   - convert code to pseudocode
+
+-code structure
+  -complete (syntax correct)/incomplete (syntax incorrect; with or without blanks)/from scratch (blank page)
+  -semantics correct/semantics incorrect (refers either to example code or code student is writing)
+  -own code or someone else's code
+  -javascript or pseudocode or requirements
+
+-coding actions
+  -commenting
+  -writing
+  -reviewing/reading
+  -reading documentation
+  -planning requirements
+
+-cognitive resources
+  -working from code (in any of the above structures)
+  -from memory
+  -with social support
+  -with or without the ability to run the code
+
+-difficulty
+  -gap between your knowledge and the task at hand
+  -using the code for the same purpose or a different purpose
+  
+-concepts (scope & sequence)
+  -functions (calling functions, creating functions, combining functions)
 
 - Curriculum Order:
 - Intro to the Pokemon World and its Rules

@@ -25,7 +25,7 @@ function getAppYear() {
 // Version 2 (With Classes)
 function createTrainer() {
   var t = new Trainer()
-  t.firstName = "Ash"
+  t.firstName = "David Gershuni I"
   t.lastName = "Ketchum"
   t.age = 14
   t.slogan = "Gotta catch 'em all"

@@ -67,20 +67,10 @@
             <img class="trainer-image" src="assets/images/Ash Ketchum.png" alt="text">
         </div> <!-- end .trainerImageWrapper -->
 
-        <!-- <div class="row"> -->
-          
-          <div class="panel-placeholder" id="basic-info">
-          </div>
-          <div class="panel-placeholder" id="current-state">
-          </div>
-          <!-- <div class="col-xs-6"> -->
-          <!-- </div> -->
+        <div class="panel-placeholder" id="basic-info"></div>
 
-          <div class="col-xs-6">
-          </div>
+        <div class="panel-placeholder" id="current-state"></div>
 
-        <!-- </div> -->
-          
       </div> <!-- end #column1 -->
 
       <div class="col-xs-4" id="column2">
@@ -138,10 +128,13 @@
 
     <div class="popover debug-module-popover" role="tooltip">
       <div class="arrow"></div>
-      <h4 class="popover-title">
+      <div class="popover-title">
         <span class="instrux"></span>
-        <span class="popover-display glyphicon glyphicon glyphicon-flash hidden" mode="display"></span>
-      </h4>
+        <div class="popover-controls">
+          <span class="go-back glyphicon glyphicon-arrow-left hidden"></span>
+          <span class="close-popover glyphicon glyphicon-remove"></span>
+        </div>
+      </div>
       <div class="popover-content"> 
       </div>
     </div>
@@ -215,13 +208,13 @@
     <!-- end code-viewer-module.expression-incorrect template -->
 
     <!-- .return-val-viewer.neutral template -->
-    <div class="row code-module return-val-viewer neutral">              
+    <div class="row code-module return-val-viewer">              
       <div class="code-input">
         <a type="button" class="btn btn-sm btn-code return-val" >-------</span></a>
       </div>
     
       <div class="code-action-module">
-        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-repeat"></span>  Reset</button>
+        <button type="button" class="btn btn-sm btn-action"><span class="glyphicon glyphicon-flash"></span>  Activate</button>
       </div>
 
     </div>
@@ -246,9 +239,21 @@
 
     <!-- table row template-->
     <table>
-      <tr>
+      <tr class="display-info">
         <th class="label">---------</th>
         <td class="value">---------</td>
+      </tr>
+    </table>
+    <!-- end table row -->
+
+    <!-- table row template w/code-tag -->
+    <table>
+      <tr class="with-code-tag">
+        <th class="label">---------</th>
+        <td class="value">
+          <div id="undefined" class="code-tag-placeholder">
+          </div>
+        </td>
       </tr>
     </table>
     <!-- end table row -->
@@ -268,7 +273,7 @@
       <h4><span class="glyphicon glyphicon-lock"></span> Locked</h4>
     </div>
 
-    <div class="popover test-results-popover" role="tooltip">
+    <!-- <div class="popover test-results-popover" role="tooltip">
       <div class="arrow"></div>
       <h4 class="popover-title">
         <span class="test-suite-name"></span>
@@ -278,6 +283,24 @@
         tests
       </h4>
       <div class="popover-content">
+        <table class="test-results">
+        </table>
+      </div>
+    </div> -->
+
+    <div class="test-results-module">
+      <h5>
+        Test Results for getFirstName:
+        <!-- <span class="test-suite-name"> --></span>
+      </h5>
+      <h4 class="trm-title">
+        <span class="test-suite-name"></span>
+        passed 
+        <span class="num-tests-passed"></span> out of
+        <span class="num-tests-total"></span>
+        tests
+      </h4>
+      <div class="trm-content">
         <table class="test-results">
         </table>
       </div>

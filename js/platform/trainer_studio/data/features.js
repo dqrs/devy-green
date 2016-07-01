@@ -1,6 +1,16 @@
 /*
   This JSON object contains the static data for features used by all students.
 */
+
+
+// TODO: Individualize these
+globalInstrux = {
+  "expression-empty": "Enter the expression that will return your trainer's firstName",
+  "expression-correct": "Correct! The code you entered will return your trainer's firstName",
+  "expression-incorrect": "Incorrect! There's a mistake in the code you entered",
+  "execution": "Your code returned the value below:"
+}
+
 features = {
   "getAppName": {
     id: "getAppName",
@@ -83,6 +93,9 @@ features = {
   "firstName": {
     id: "firstName",
     type: "variable",
+    codeTag: true,
+    mode: 'debug',
+    placeholderText: "First Name",
     expressionExpected: "t.firstName",
     expressionEntered: '',
     hasReturnValue: true,
@@ -92,6 +105,10 @@ features = {
   "lastName": {
     id: "lastName",
     type: "variable",
+    codeTag: true,
+    mode: 'debug',
+    placeholderText: "Last Name",
+    instrux: "Call the function that will return your trainer's last name",
     expressionExpected: "t.lastName",
     expressionEntered: '',
     hasReturnValue: true,
@@ -101,6 +118,9 @@ features = {
   "age": {
     id: "age",
     type: "variable",
+    codeTag: true,
+    mode: 'debug',
+    placeholderText: "Age",
     expressionExpected: "t.age",
     expressionEntered: '',
     hasReturnValue: true,
@@ -119,6 +139,9 @@ features = {
   "favoriteElement": {
     id: "favoriteElement",
     type: "variable",
+    codeTag: true,
+    mode: 'debug',
+    placeholderText: "Favorite Element",
     expressionExpected: "t.favoriteElement",
     expressionEntered: '',
     hasReturnValue: true,
@@ -128,6 +151,9 @@ features = {
   "favoriteColor": {
     id: "favoriteColor",
     type: "variable",
+    codeTag: true,
+    mode: 'debug',
+    placeholderText: "Favorite Color",
     expressionExpected: "t.favoriteColor",
     expressionEntered: '',
     hasReturnValue: true,

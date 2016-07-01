@@ -39,7 +39,8 @@ class Pokemon {
     For example, every Pikachu barks 'Pikachu!'
   */
   bark() {
-    return `<p>${this.species}!</p>`
+    return this.species
+    // return `<p>${this.species}!</p>`
   }
 
   /*
