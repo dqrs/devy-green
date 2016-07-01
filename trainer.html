@@ -114,9 +114,6 @@
 
     <div class="code-tag-module debug-mode">
       <label class="code-tag-text">-------</label>
-      <!-- <div class="change-display-mode-icon">
-        <span class="glyphicon glyphicon-cog"></span>
-      </div> -->
     </div>
 
     <div class="code-tag-module display-mode">
@@ -129,9 +126,10 @@
     <div class="popover debug-module-popover" role="tooltip">
       <div class="arrow"></div>
       <div class="popover-title">
-        <span class="instrux"></span>
+        <span class="expr"></span>
+        &nbsp;<span class="instrux"></span>
         <div class="popover-controls">
-          <span class="go-back glyphicon glyphicon-arrow-left hidden"></span>
+          <span class="go-back glyphicon glyphicon-arrow-left"></span>
           <span class="close-popover glyphicon glyphicon-remove"></span>
         </div>
       </div>
@@ -144,7 +142,6 @@
 
       <div class="panel-heading">
         <h4 class="panel-title">-------</h4>
-        <span class="activate glyphicon glyphicon glyphicon-flash" mode="display"></span>
         <span class="minimize glyphicon glyphicon-collapse-down"></span>
       </div>
 
@@ -159,19 +156,13 @@
     </div>
     <!-- end feature-module template -->
 
-    <!-- start label templates -->
-    <label class="control-label label-variable"><span class="glyphicon glyphicon-info-sign"></span>  <span class="label-text">-------</span></label> 
-
-    <label class="control-label label-method"><span class="glyphicon glyphicon-play"></span>  <span class="label-text">-------</span></label> 
-    <!-- end label templates -->
-
     <!-- start code-module templates -->
 
     <!-- code-entry template -->
-    <div class="row code-module code-entry">              
+    <div class="code-module code-entry">              
 
       <div class="code-input">
-        <input type="text" class="form-control input-sm" placeholder="Enter code...">
+        <input type="text" class="form-control input-sm" placeholder="Enter code expression...">
       </div>
     
       <div class="code-action-module">
@@ -182,9 +173,9 @@
     <!-- end code-entry code-module -->
 
     <!-- code-viewer-module.expression-correct template -->
-    <div class="row code-module code-viewer-module expression-correct">              
+    <div class="code-module code-viewer-module expression-correct">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code expression-correct">........</a>
+        <button class="btn btn-sm btn-code expression-correct">........</button>
       </div>
     
       <div class="code-action-module">
@@ -195,9 +186,9 @@
     <!-- end code-viewer-module.expression-correct template -->
 
     <!-- code-viewer-module.incorrect template -->
-    <div class="row code-module code-viewer-module expression-incorrect">              
+    <div class="code-module code-viewer-module expression-incorrect">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code expression-incorrect">........</a>
+        <button type="button" class="btn btn-sm btn-code expression-incorrect">........</button>
       </div>
     
       <div class="code-action-module">
@@ -208,9 +199,9 @@
     <!-- end code-viewer-module.expression-incorrect template -->
 
     <!-- .return-val-viewer.neutral template -->
-    <div class="row code-module return-val-viewer">              
+    <div class="code-module return-val-viewer">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code return-val" >-------</span></a>
+        <button class="btn btn-sm btn-code return-val" >-------</span></button>
       </div>
     
       <div class="code-action-module">
@@ -221,9 +212,9 @@
     <!-- end return-val-viewer.neutral template -->
 
     <!-- .return-val-viewer.neutral template -->
-    <div class="row code-module code-tag-return-val-viewer neutral">              
+    <div class="code-module code-tag-return-val-viewer neutral">              
       <div class="code-input">
-        <a type="button" class="btn btn-sm btn-code return-val" >-------</span></a>
+        <button class="btn btn-sm btn-code return-val" >-------</span></button>
       </div>
     
       <div class="code-action-module">
@@ -273,48 +264,28 @@
       <h4><span class="glyphicon glyphicon-lock"></span> Locked</h4>
     </div>
 
-    <!-- <div class="popover test-results-popover" role="tooltip">
-      <div class="arrow"></div>
-      <h4 class="popover-title">
-        <span class="test-suite-name"></span>
-        passed 
-        <span class="num-tests-passed"></span> out of
-        <span class="num-tests-total"></span>
-        tests
-      </h4>
-      <div class="popover-content">
-        <table class="test-results">
-        </table>
-      </div>
-    </div> -->
-
     <div class="test-results-module">
-      <h5>
-        Test Results for getFirstName:
-        <!-- <span class="test-suite-name"> --></span>
-      </h5>
-      <h4 class="trm-title">
-        <span class="test-suite-name"></span>
-        passed 
-        <span class="num-tests-passed"></span> out of
-        <span class="num-tests-total"></span>
-        tests
-      </h4>
+      <h5 class="test-results-title">Test Results</h5>
       <div class="trm-content">
         <table class="test-results">
         </table>
+        <h5 class="test-results-summary">
+          Passed 
+          <span class="num-tests-passed"></span> out of
+          <span class="num-tests-total"></span>
+          tests
+        </h5>
       </div>
     </div>
 
     <table>
-
-      <tbody class="test-result-module incorrect">
+      <tbody class="test-result-line-item incorrect">
         <tr>
           <td class="test-status"><span class="glyphicon glyphicon-remove"></span></td>
           <td class="test-name"></td>
         </tr>
       </tbody>
-      <tbody class="test-result-module correct">
+      <tbody class="test-result-line-item correct">
         <tr>
           <td class="test-status"><span class="glyphicon glyphicon-ok"></span></td>
           <td class="test-name"></td>
@@ -322,29 +293,7 @@
       </tbody>
     </table>
     
-    <!-- <tbody class="test-result-module incorrect">
-      <tr>
-        <td class="test-status"><span class="glyphicon glyphicon-remove"></span></td>
-        <td class="test-name"></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>Expected: <span class="test-expected"></span></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>Actual: <span class="test-actual"></span></td>
-      </tr>
-    </tbody> -->
-
-    <!-- <div class="title-display-module">
-      <h1>This is a test</h1>
-      <div class="change-display-mode hidden">
-        <span class="glyphicon glyphicon-cog"
-      </div>
-    </div> -->
   </div> <!-- end templates -->
-
 </body>
 
 </html>

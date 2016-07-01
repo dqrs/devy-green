@@ -7,7 +7,7 @@ function setupGUI() {
   $(document).on(`click`, `.close-popover`, closePopoverButtonClicked)
   $(document).on(`click`, `.go-back`, backButtonClicked)
   $(document).on(`contextmenu`, `.debug-module-popover`, dismissPopover)
-  $(document).on(`click`, `.popover-display`, changeCodeTagToDisplayMode)
+  $(document).on(`click`, `.popover-display`, returnValActivateButtonClicked)
   $(document).on(`click`, `.code-tag-module.display-mode`, changeCodeTagToDebugMode)
   $(document).on(`keyup`, handleKeyPress) 
   $(document).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
@@ -55,7 +55,7 @@ function handleKeyPress(e) {
   
   // hide all popovers on escape
   if (e.keyCode == 27) {
-    $('.code-input a, .code-tag-module').popover('hide')
+    $('.code-input button, .code-tag-module').popover('hide')
   }
 }
 
@@ -75,14 +75,6 @@ function dismissPopover(event) {
 function createTestResultsModuleTemplate(feature) {
   return $('#templates .test-results-popover').clone().attr('feature-id',feature.id).prop('outerHTML')
 }
-
-// function createTestResultsModuleTitle(feature) { 
-//   return $(`#templates .test-results-popover .popover-title`).first().html()
-// }
-
-// function createTestResultsModuleContent(feature) {
-//   return $('#templates .test-results-popover .popover-content').first().html()
-// }
 
 function getActionButtonClickContext(clickedElement) {
   var button = $(clickedElement)
@@ -130,9 +122,9 @@ function backButtonClicked(event) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(this)
 
   if (feature.status === 'expression-incorrect') {
-    codeViewerBackButtonClicked(this)
+    codeViewerBackButtonClicked(this, 'popoverControlButton')
   } else if (feature.status === 'expression-correct') {
-    codeViewerBackButtonClicked(this)
+    codeViewerBackButtonClicked(this, 'popoverControlButton')
   } else if (feature.status.split("-")[0] === 'execution') {
     returnValBackButtonClicked(this)
   }
@@ -146,25 +138,25 @@ function actionButtonClicked(event) {
   if (feature.status === 'expression-empty') {
     // user has just typed in an expression,
     // so let's check to see if it's correct
-    codeEntryButtonClicked(this)
+    codeEntrySaveButtonClicked(this)
 
   } else if (feature.status === 'expression-incorrect') {
     // incorrect expression entered,
     // so let's go back to the code entry module
-    codeViewerBackButtonClicked(this)
+    codeViewerBackButtonClicked(this, 'actionButton')
 
   } else if (feature.status === 'expression-correct') {
     // Correct expression was entered, so 
     // now it's time to run tests and evaluate it
-    evalExpressionButtonClicked(this)
+    codeViewerRunButtonClicked(this)
 
   } else if (feature.status.split("-")[0] === 'execution') {
     // User's code is correct and she wants to activate it
-    changeCodeTagToDisplayMode(this)
+    returnValActivateButtonClicked(this)
   }
 }
 
-function codeEntryButtonClicked(clickedElt) {
+function codeEntrySaveButtonClicked(clickedElt) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
 
   // user has just typed in an expression,
@@ -181,8 +173,14 @@ function codeEntryButtonClicked(clickedElt) {
   newModule.find('.code-action-module button').focus()
 }
 
-function codeViewerBackButtonClicked(clickedElt) {
-  var {codeModule, featureModule, featureId, feature} = getPopoverControlButtonClickContext(clickedElt)
+function codeViewerBackButtonClicked(clickedElt, buttonType) {
+  if (buttonType === 'actionButton') {
+    var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
+  } else if (buttonType === 'popoverControlButton') {
+    var {codeModule, featureModule, featureId, feature} = getPopoverControlButtonClickContext(clickedElt)
+  } else {
+    alert("unrecognized buttonType")
+  }
 
   // incorrect expression entered,
   // so let's go back to the code entry module
@@ -193,7 +191,7 @@ function codeViewerBackButtonClicked(clickedElt) {
   newModule.find('.code-action-module button').focus()
 }
 
-function evalExpressionButtonClicked(clickedElt) {
+function codeViewerRunButtonClicked(clickedElt) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
 
   // Correct expression was entered, so 
@@ -216,7 +214,7 @@ function returnValBackButtonClicked(clickedElt) {
 
   // user has asked to reset this feature
   // so we want to re-display the code viewer module
-  featureModule.find('.code-input a').popover('hide')
+  featureModule.find('.code-input button').popover('hide')
   feature.status = "expression-correct"
   saveFeatureToDB(feature)
   
@@ -228,38 +226,6 @@ function returnValBackButtonClicked(clickedElt) {
   featureModule.siblings('.test-results-module').remove()
 }
 
-function changeCodeTagToDisplayMode(clickedElt) {
-  var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
-
-  feature.mode = 'display'
-  saveFeatureToDB(feature)
-
-  var debugModule = $(`.code-tag-module[feature-id="${feature.id}"`)
-  debugModule.popover('hide')
-
-  if (feature.id === 'createTrainer') {
-    $('#trainer-placeholder').addClass('hidden')
-    $('#main').removeClass('hidden')
-  } else {
-    var displayModule = createCodeTagDisplayModule(feature)
-    debugModule.replaceWith(displayModule)
-  }
-}
-
-function changeCodeTagToDebugMode(event) {
-  event.stopImmediatePropagation()
-  var element = $(event.currentTarget)
-  var featureId = element.attr('feature-id')
-  var feature = user.course.features[featureId]
-
-  feature.mode = 'debug'
-  feature.status = 'expression-empty'
-  saveFeatureToDB(feature)
-  var debugModule = createCodeTagDebugModule(feature)
-  var displayModule = $(`.code-tag-module[feature-id="${feature.id}"`)
-  displayModule.replaceWith(debugModule)
-  debugModule.click()
-}
 
 function createPanel(_div, _mode) {
   // start at div marked as panel placeholder
@@ -311,10 +277,6 @@ function createUnlockedPanelBody(panel, panelData, mode, displayType) {
 
     featureModule = createTableFeatureModuleWithCodeTag(feature)
     table.append(featureModule)
-
-    // if (featureModule.popover) {
-    //   featureModule.popover()
-    // }
   }
 
   // Activate code tags within this panel
@@ -322,45 +284,6 @@ function createUnlockedPanelBody(panel, panelData, mode, displayType) {
     createCodeTagModule(this)
   })
 }
-
-// function createUnlockedPanelBody(panel, panelData, mode, displayType) {
-//   var table
-//   var panelBody = panel.find('.panel-body')
-
-//   // if panel is in display mode and its display mode
-//   // is a table, then create a table before
-//   // we start appending features (which are table rows)
-//   if (mode === "display" && displayType === "tableType") {
-//     table = $('#templates .table-template').clone()
-//     table.appendTo(panelBody)
-//   }
-  
-//   // for each feature, create appropriate type of featureModule
-//   for (var i=0; i < panelData.features.length; i++) {
-//     var featureModule
-//     var featureId = panelData.features[i]
-//     var feature = user.course.features[featureId]
-
-//     if (mode === "debug") {
-//       // alert(JSON.stringify(feature))
-//       featureModule = createDebugFeatureModule(feature)
-//       panelBody.append(featureModule)
-//     } else if (displayType === "barType") {
-//       featureModule = createBarFeatureModule(feature)
-//       panelBody.append(featureModule)
-//     } else if (displayType === "tableType") {
-//       featureModule = createTableFeatureModule(feature)
-//       table.append(featureModule)
-//     } else {
-//       alert('unrecognized display type')
-//     }
-
-//     if (featureModule.popover) {
-//       featureModule.popover()
-//     }
-//   }
-
-// }
 
 function createLockedPanelBody(panel) {
   panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
@@ -377,7 +300,7 @@ function createDebugFeatureModule(feature) {
   } else if (feature.status.split('-')[0] === 'expression') { 
     debugModule = createCodeViewerModule(feature)
 
-  } else if (feature.status.split('-')[0] === 'execution') {
+  } else if (feature.status.startsWith('execution')) {
     debugModule = createReturnValViewerModule(feature)
     featureModule.popover = function() {
       createTestResultsModule(debugModule, feature)
@@ -443,7 +366,7 @@ function getInstruxFromStatus(feature) {
     instrux = globalInstrux['expression-correct']
   } else if (feature.status === 'expression-incorrect') {
     instrux = globalInstrux['expression-incorrect']
-  } else if (feature.status.split('-')[0] === 'execution') {
+  } else if (feature.status.startsWith('execution')) {
     instrux = globalInstrux['execution']
   } else {
     instrux = "XXXXXXXXXXXX"
@@ -451,14 +374,22 @@ function getInstruxFromStatus(feature) {
   return instrux
 }
 
-function setPopoverTitle(feature) {
+function setPopoverTitle(feature, _titleDiv) {
   var instrux = getInstruxFromStatus(feature)
-  var popover = $(`.popover[feature-id="${feature.id}"]`)
-  popover.find('.instrux').text(instrux)
+  var titleDiv = _titleDiv || $(`.popover[feature-id="${feature.id}"]`).find('.popover-title')
+  
+  titleDiv.find('.instrux').text(instrux)
+  
   if (feature.status === 'expression-empty') {
-    popover.find('.go-back').addClass('hidden')
+    titleDiv.find('.go-back').addClass('hidden')
   } else {
-    popover.find('.go-back').removeClass('hidden')
+    titleDiv.find('.go-back').removeClass('hidden')
+  } 
+  
+  if (feature.status.startsWith('execution')) {
+    titleDiv.find('.expr').text(feature.expressionEntered)
+  } else {
+    titleDiv.find('.expr').text('')
   }
 }
 
@@ -474,22 +405,22 @@ function createCodeEntryModule(feature) {
 
 
 function createCodeViewerModule(feature) {
-  var module = $('#templates .code-viewer-module.' + feature.status).clone()
-  module.find('.code-input a').text(feature.expressionEntered)
+  var module = $('#templates .code-viewer-module.' + feature.status).first().clone()
+  module.find('.code-input button').text(feature.expressionEntered)
   setPopoverTitle(feature)
   return module
 }
 
 function createReturnValViewerModule(feature) {
   var module = $("#templates .return-val-viewer").clone()
-  module.find('.code-input a').text(feature.returnValue)
+  module.find('.code-input button').text(feature.returnValue)
   setPopoverTitle(feature)
   return module
 }
 
 function createTestResultsModule(popover, feature) {
 
-  // module.find('.code-input a').popover({
+  // module.find('.code-input button').popover({
   //   html: true,
   //   container: 'body',
   //   template: createTestResultsModuleTemplate(feature),
@@ -636,6 +567,40 @@ function createCodeTagDisplayModule(feature) {
   return module
 }
 
+
+function returnValActivateButtonClicked(clickedElt) {
+  var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
+
+  feature.mode = 'display'
+  saveFeatureToDB(feature)
+
+  var debugModule = $(`.code-tag-module[feature-id="${feature.id}"`)
+  debugModule.popover('hide')
+
+  if (feature.id === 'createTrainer') {
+    $('#trainer-placeholder').addClass('hidden')
+    $('#main').removeClass('hidden')
+  } else {
+    var displayModule = createCodeTagDisplayModule(feature)
+    debugModule.replaceWith(displayModule)
+  }
+}
+
+function changeCodeTagToDebugMode(event) {
+  event.stopImmediatePropagation()
+  var element = $(event.currentTarget)
+  var featureId = element.attr('feature-id')
+  var feature = user.course.features[featureId]
+
+  feature.mode = 'debug'
+  feature.status = 'expression-empty'
+  saveFeatureToDB(feature)
+  var debugModule = createCodeTagDebugModule(feature)
+  var displayModule = $(`.code-tag-module[feature-id="${feature.id}"`)
+  displayModule.replaceWith(debugModule)
+  debugModule.click()
+}
+
 function createCodeTagPopover(event) {
   var element = $(event.currentTarget)
   var featureId = element.attr('feature-id')
@@ -660,12 +625,11 @@ function createCodeTagPopoverTemplate(feature) {
 }
 
 function createCodeTagPopoverTitle(feature) { 
-  var title = $('#templates .debug-module-popover .popover-title').first().clone()
-  title.find('.instrux').text(getInstruxFromStatus(feature))
-  // if (feature.status === 'expression-correct') {
-  //   title.find('.popover-display').removeClass('hidden')
-  // }
-  return title.html()
+  var titleDiv = $('#templates .debug-module-popover .popover-title').first().clone()
+  
+  setPopoverTitle(feature, titleDiv)
+  
+  return titleDiv.html()
 }
 
 function createCodeTagPopoverContent(feature) {
@@ -673,41 +637,6 @@ function createCodeTagPopoverContent(feature) {
   // var featureModule = createDebugFeatureModule(feature)
   // return featureModule
 }
-
-// function popoverCodeNotes() {
-  // should code tags be stored in separate file?
-  // base_course.js with panels and code_tags as vars?
-  // or separate file for each
-
-  // when tag is clicked
-  // popover should be created
-  // popover given id of clicked code-tag
-
-  // popover title is empty
-  // popover content is a code entry module
-  // for placeholder vals, works as usual except no tests run
-  // jus checks if return val is defined/ a string??
-  // expected expression and expected return val?
-
-  // for create trainer tag
-  // check if code matches expected regex
-  // if so, then eval the code
-  // be sure to save their trainer variable name
-  // and make it a global var
-  // then it needs to be used for all future calls
-
-  // GUI:
-  // should be a large empty box with a border and button inside
-  // then when clicked, should fill GUI as current
-  // the state of all of these buttons should saved
-
-  // what about multiple trainers?
-  // should create global update function to let kids
-  // modify trainer ojects and  redisplay
-
-  // what about the trainer image??
-
-// }
 
 function activatePanelMode(event) {
   event.stopImmediatePropagation()

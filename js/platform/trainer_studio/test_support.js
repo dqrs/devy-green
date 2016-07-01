@@ -43,42 +43,37 @@ function resetTestHarness(i) {
 function consumeTapeStream(row, testHarness) {
   // console.log(JSON.stringify(row))
   var feature = user.course.features[testHarness.featureId]
+  var popover = $(`.popover[feature-id="${feature.id}"]`)
+
   if (row.type === "test") {
-    
-    // console.log(`Starting test #${row.id}: ${featureId}`)
-    // beginning of test
-    $(`.popover[feature-id="${feature.id}"] .test-suite-name`).text(row.name)
+
     testResults[feature.id] = {}
     testResults[feature.id]['numPassed'] = 0
     testResults[feature.id]['numTotal'] = 0
 
   } else if (row.type === "assert") {
-    // console.log(`Assertion #${row.id} for test #${row.test}: ${feature.id}`)
+    
     testResults[feature.id]['numTotal'] += 1
     
     if (row.ok) {
       testResults[feature.id]['numPassed'] += 1
-      var tmp = $(`#templates .test-result-module.correct`).first().clone()
+      var tmp = $(`#templates .test-result-line-item.correct`).first().clone()
       tmp.find('.test-name').text(row.name)
     } else {
-      var tmp = $(`#templates .test-result-module.incorrect`).first().clone()
+      var tmp = $(`#templates .test-result-line-item.incorrect`).first().clone()
       tmp.find('.test-name').text(row.name)
-      // tmp.find('.test-actual').text(row.actual)
-      // tmp.find('.test-expected').text(row.expected)
     }
     
-    $(`.popover[feature-id="${feature.id}"] table.test-results`).append(tmp)
+    popover.find(`table.test-results`).append(tmp)
 
   } else if (row.type === "end") {
-    // console.log(`Finishing test #${row.test} / ${feature.id}`)
-
-    $(`.popover[feature-id="${feature.id}"] .num-tests-passed`).text(testResults[feature.id]['numPassed'])
-    $(`.popover[feature-id="${feature.id}"] .num-tests-total`).text(testResults[feature.id]['numTotal'])
+    popover.find(`.num-tests-passed`).text(testResults[feature.id]['numPassed'])
+    popover.find(`.num-tests-total`).text(testResults[feature.id]['numTotal'])
     if (testResults[feature.id]['numPassed'] == testResults[feature.id]['numTotal']) {
-      $(`[feature-id="${feature.id}"] .code-input a`).addClass('execution-correct').removeClass('execution-incorrect')
+      popover.find(`.btn-code`).addClass('execution-correct').removeClass('execution-incorrect')
       feature.status = 'execution-correct'
     } else {
-      $(`[feature-id="${feature.id}"] .code-input a`).addClass('execution-incorrect').removeClass('execution-correct')
+      popover.find(`.btn-code`).addClass('execution-incorrect').removeClass('execution-correct')
       feature.status = 'execution-incorrect'
     }
 

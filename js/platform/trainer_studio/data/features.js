@@ -5,10 +5,10 @@
 
 // TODO: Individualize these
 globalInstrux = {
-  "expression-empty": "Enter the expression that will return your trainer's firstName",
-  "expression-correct": "Correct! The code you entered will return your trainer's firstName",
-  "expression-incorrect": "Incorrect! There's a mistake in the code you entered",
-  "execution": "Your code returned the value below:"
+  "expression-empty": "Enter the expression that will return your trainer's firstName.",
+  "expression-correct": "Correct expression! Click run to continue.",
+  "expression-incorrect": "Incorrect! Check your expression carefully, and try again.",
+  "execution": 'returned the value below.'
 }
 
 features = {

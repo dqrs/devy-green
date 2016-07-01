@@ -6,8 +6,20 @@ function testAttribute(attr) {
   }
 }
 
+function testAppFuntion(funcName) {
+  return function(test) {
+    var returnVal = window[funcName]()
+    test.ok(returnVal, `${funcName}() is defined and returns a value`)
+    test.end()
+  }
+}
+
 var tests  = {
-  'firstName': testAttribute('firstName'),
+  'getAppName': testAppFuntion('getAppName'),
+  'getAppVersion': testAppFuntion('getAppVersion'),
+  'getAppAuthor': testAppFuntion('getAppAuthor'),
+  'getAppYear': testAppFuntion('getAppYear'),
+  'getAppCredits': testAppFuntion('getAppCredits'),
   'lastName': testAttribute('lastName'),
   'age': testAttribute('age'),
   'slogan': testAttribute('slogan'),

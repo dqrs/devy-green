@@ -6,18 +6,36 @@ x Switch to display mode with embedded code tags everywhere
 x Embed tags everywhere
 x Ensure completion/saving still works
 x Fix CSS sizing issues
+x Test Results appended to code tag popover instead of new popover
+x When test starts, new div and title created, appended to popover
+x Each row of testing adds to the div
+x Test Results Module CSS
+x FIX: Not rendering # tests passed
+
+
+
+////
+Left Off:
+ - Finalizing output to test-results-module in Trainer methods
+ - NEXT STEP: create new trainer with new Trainer() syntax
+
 
 Working On:
 /////////////////////////
   
+- Debug: Go back with control button vs action button
+- FIX: Not starting code tag at correct state if in middle step
+- FIX: Clicking gear should return to most recent debug state (not scratch)
 
-  - Test Results appended to code tag popover instead of new popover
-  - When test starts, new div and title created, appended to popover
-  - Each row of testing adds to the div
 
+  - Format return vals before displaying onscreen
   - On startup, tests only show a single X if not working. Otherwise nothing.
 
-
+IDEA:
+  - trainer image should start out as a placeholder image / outline of a generic person (male or female)
+  - then they should use functions to render the image / set gender, etc.
+  - use func tags to set trainer's appearance as app progresses
+  - eye color, name, hat, clothes, etc.
 
 
 
