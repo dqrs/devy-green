@@ -383,11 +383,11 @@ footer .code-tag-text {
 }
 
 .feature-module {
-  display: flex;
+  /*display: flex;*/
   padding: 0px;
   margin-top: 3px;
   margin-right: 0px;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
   margin-left: 0px;
 }
 
@@ -526,12 +526,14 @@ table.test-results td.test-status {
   color: #ddd;
   border: 1px solid #555;
   padding: 5px;
+  margin-top: 5px;
 }
 
 .test-results-title {
   margin: 0px;
   padding: 0px;
-  font-family: sans-serif
+  font-family: sans-serif;
+  font-weight: normal;
 }
 
 .test-results-summary {

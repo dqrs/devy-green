@@ -11,21 +11,22 @@ x When test starts, new div and title created, appended to popover
 x Each row of testing adds to the div
 x Test Results Module CSS
 x FIX: Not rendering # tests passed
+x Finalizing output to test-results-module in Trainer methods
+x Debug: Go back with control button vs action button
+x FIX: Not starting code tag at correct state if in middle step
+x FIX: Clicking gear should return to most recent debug state (not scratch)
 
 
 
 ////
 Left Off:
- - Finalizing output to test-results-module in Trainer methods
+  - expressionEntered not displaying in codeEntry module when new popover created
  - NEXT STEP: create new trainer with new Trainer() syntax
 
 
 Working On:
 /////////////////////////
   
-- Debug: Go back with control button vs action button
-- FIX: Not starting code tag at correct state if in middle step
-- FIX: Clicking gear should return to most recent debug state (not scratch)
 
 
   - Format return vals before displaying onscreen

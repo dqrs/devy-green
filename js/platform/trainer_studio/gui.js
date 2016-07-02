@@ -3,18 +3,20 @@ function setupGUI() {
 
   $(document).on(`click`, `.btn-action`, actionButtonClicked)
   $(document).on(`click`, `.code-tag-module.debug-mode`, createCodeTagPopover)
-  // $(document).on(`click`, `.test-results-popover`, dismissPopover)
+  $(document).on(
+    `click`, `.code-tag-module.display-mode`, changeCodeTagToDebugMode
+  )
   $(document).on(`click`, `.close-popover`, closePopoverButtonClicked)
   $(document).on(`click`, `.go-back`, backButtonClicked)
-  $(document).on(`contextmenu`, `.debug-module-popover`, dismissPopover)
-  $(document).on(`click`, `.popover-display`, returnValActivateButtonClicked)
-  $(document).on(`click`, `.code-tag-module.display-mode`, changeCodeTagToDebugMode)
+  $(document).on(
+    `click`, `.popover-display`, returnValActivateButtonClicked
+  )
   $(document).on(`keyup`, handleKeyPress) 
   $(document).on(`keyup`, `.input-sm`,   triggerActionButtonOnEnter) 
   $(document).on(`click`, `.minimize`,   togglePanelMinimization)
   $(document).on(`click`, `.activate`,   activatePanelMode)
   $(document).on(`click`, `#chatBubble`, removeChatBubble)
-  $(document).on(`click`, `#clear-data`, clearUserData)
+  // $(document).on(`click`, `#clear-data`, clearUserData)
 
   if (user.course.features.createTrainer.mode === 'display') {
     $('#trainer-placeholder').addClass('hidden')
@@ -55,7 +57,7 @@ function handleKeyPress(e) {
   
   // hide all popovers on escape
   if (e.keyCode == 27) {
-    $('.code-input button, .code-tag-module').popover('hide')
+    $('.code-input button, .code-tag-module').popover('destroy')
   }
 }
 
@@ -66,14 +68,8 @@ function triggerActionButtonOnEnter(e) {
   }
 }
 
-function dismissPopover(event) {
-  event.stopImmediatePropagation()
-  event.preventDefault()
-  $(event.currentTarget).popover('hide')
-}
-
 function createTestResultsModuleTemplate(feature) {
-  return $('#templates .test-results-popover').clone().attr('feature-id',feature.id).prop('outerHTML')
+  return $('#templates .test-results-popover').first().clone().attr('feature-id',feature.id).prop('outerHTML')
 }
 
 function getActionButtonClickContext(clickedElement) {
@@ -110,10 +106,13 @@ function getPopoverControlButtonClickContext(clickedElement) {
 }
 
 function closePopoverButtonClicked(event) {
+  event.stopImmediatePropagation()
+
   var element = $(event.currentTarget)
   var popover = element.parent().parent().parent()
   var featureId = popover.attr('feature-id')
-  $(`.code-tag-module[feature-id="${featureId}"]`).popover('hide')
+  var codeTagModule = $(`.code-tag-module[feature-id="${featureId}"]`)
+  codeTagModule.popover('destroy')
 }
 
 function backButtonClicked(event) {
@@ -182,8 +181,7 @@ function codeViewerBackButtonClicked(clickedElt, buttonType) {
     alert("unrecognized buttonType")
   }
 
-  // incorrect expression entered,
-  // so let's go back to the code entry module
+  // User wants to return to code entry module
   feature.status = 'expression-empty'
   saveFeatureToDB(feature)
   newModule = createCodeEntryModule(feature)
@@ -205,24 +203,24 @@ function codeViewerRunButtonClicked(clickedElt) {
   newModule = createReturnValViewerModule(feature)
   codeModule.replaceWith(newModule)
   newModule.find('.code-action-module button').focus()
-  var popover = newModule.parent().parent().parent()
-  createTestResultsModule(popover, feature)
+  
+  featureModule.append(createTestResultsModule(feature))
+  runTestsForFeatureAsync(feature)
 }
 
 function returnValBackButtonClicked(clickedElt) {
-  var {codeModule, featureModule, featureId, feature} = getPopoverControlButtonClickContext(clickedElt)
-
   // user has asked to reset this feature
   // so we want to re-display the code viewer module
-  featureModule.find('.code-input button').popover('hide')
+  var {codeModule, featureModule, featureId, feature} = getPopoverControlButtonClickContext(clickedElt)
+
+  // featureModule.find('.code-input button').popover('hide')
+  featureModule.find('.test-results-module').remove()
   feature.status = "expression-correct"
   saveFeatureToDB(feature)
   
   newModule = createCodeViewerModule(feature)
   codeModule.replaceWith(newModule)
   newModule.find('.code-action-module button').focus()
-
-  // remove test results module
   featureModule.siblings('.test-results-module').remove()
 }
 
@@ -260,13 +258,17 @@ function createPanelHead(panel, panelData, mode) {
   }
 }
 
+function createLockedPanelBody(panel) {
+  panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
+}
+
 function createUnlockedPanelBody(panel, panelData, mode, displayType) {
   var table
   var panelBody = panel.find('.panel-body')
 
   // create a table before
   // we start appending features (which are table rows)
-  table = $('#templates .table-template').clone()
+  table = $('#templates .table-template').first().clone()
   table.appendTo(panelBody)
   
   // for each feature create a code tag
@@ -285,43 +287,70 @@ function createUnlockedPanelBody(panel, panelData, mode, displayType) {
   })
 }
 
-function createLockedPanelBody(panel) {
-  panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
+function createCodeTagPopover(event) {
+  event.stopImmediatePropagation()
+
+  var element = $(event.currentTarget)
+  var featureId = element.attr('feature-id')
+  var feature = user.course.features[featureId]
+
+  element.popover({
+    html: true,
+    container: 'body',
+    template: createCodeTagPopoverTemplate(feature),
+    title: createCodeTagPopoverTitle(feature),
+    content: createDebugFeatureModule(feature).prop('outerHTML'),
+    placement: 'auto bottom',
+    trigger: 'manual'
+  }).popover('show')
+  
+  if (feature.status.startsWith('execution')) {
+    runTestsForFeatureAsync(feature)
+  }
+}
+
+function createCodeTagPopoverTemplate(feature) {
+  return $('#templates .debug-module-popover').first().clone().attr('feature-id', feature.id).prop('outerHTML')
+}
+
+function createCodeTagPopoverTitle(feature) { 
+  var titleDiv = $('#templates .debug-module-popover .popover-title').first().clone()
+  
+  setPopoverTitle(feature, titleDiv)
+  
+  return titleDiv.html()
+}
+
+function createCodeTagPopoverContent(feature) {
+  return createDebugFeatureModule(feature)
 }
 
 function createDebugFeatureModule(feature) {
-  var featureModule = $('#templates .feature-module').clone()
+  var featureModule = $('#templates .feature-module').first().clone()
   featureModule.attr('feature-id', feature.id)
   
   var debugModule
   if (feature.status === 'expression-empty') {
     debugModule = createCodeEntryModule(feature)
-
-  } else if (feature.status.split('-')[0] === 'expression') { 
+    featureModule.append(debugModule)
+  } else if (feature.status.startsWith('expression')) { 
     debugModule = createCodeViewerModule(feature)
-
+    featureModule.append(debugModule)
   } else if (feature.status.startsWith('execution')) {
-    debugModule = createReturnValViewerModule(feature)
-    featureModule.popover = function() {
-      createTestResultsModule(debugModule, feature)
-    }
+    featureModule.append(createReturnValViewerModule(feature))
+    featureModule.append(createTestResultsModule(feature))
   } else {
     alert('unrecognized feature status')
   }
-
-  featureModule.append(debugModule)
 
   return featureModule
 }
 
 function createTableFeatureModuleWithCodeTag(feature) {
-  var trTemplate = $('#templates tr.with-code-tag').clone()
+  var trTemplate = $('#templates tr.with-code-tag').first().clone()
   trTemplate.find('.label').text(
     convertCodeToEnglish(feature.expressionExpected)
   )
-  // trTemplate.find('.value').text(
-  //   eval(feature.expressionExpected)
-  // )
   trTemplate.find('.code-tag-placeholder').attr('id', feature.id)
   return trTemplate
 }
@@ -369,23 +398,25 @@ function getInstruxFromStatus(feature) {
   } else if (feature.status.startsWith('execution')) {
     instrux = globalInstrux['execution']
   } else {
-    instrux = "XXXXXXXXXXXX"
+    alert("unrecognized feature status")
   }
   return instrux
 }
 
 function setPopoverTitle(feature, _titleDiv) {
   var instrux = getInstruxFromStatus(feature)
-  var titleDiv = _titleDiv || $(`.popover[feature-id="${feature.id}"]`).find('.popover-title')
+  var titleDiv = _titleDiv || $(`.popover[feature-id="${feature.id}"] .popover-title`)
   
   titleDiv.find('.instrux').text(instrux)
   
+  // Hide back button if on first step (expr empty)
   if (feature.status === 'expression-empty') {
     titleDiv.find('.go-back').addClass('hidden')
   } else {
     titleDiv.find('.go-back').removeClass('hidden')
-  } 
+  }
   
+  // Display expression if viewing return value
   if (feature.status.startsWith('execution')) {
     titleDiv.find('.expr').text(feature.expressionEntered)
   } else {
@@ -394,15 +425,16 @@ function setPopoverTitle(feature, _titleDiv) {
 }
 
 function createCodeEntryModule(feature) {
-  var module = $('#templates .code-entry').clone()
+  var module = $('#templates .code-entry').first().clone()
   if (feature.expressionEntered) {
+    console.log(JSON.stringify(feature))
+    module.attr('testVal', true)
     module.find('input').val(feature.expressionEntered)
   }
 
   setPopoverTitle(feature)
   return module
 }
-
 
 function createCodeViewerModule(feature) {
   var module = $('#templates .code-viewer-module.' + feature.status).first().clone()
@@ -412,105 +444,18 @@ function createCodeViewerModule(feature) {
 }
 
 function createReturnValViewerModule(feature) {
-  var module = $("#templates .return-val-viewer").clone()
+  var module = $("#templates .return-val-viewer").first().clone()
   module.find('.code-input button').text(feature.returnValue)
   setPopoverTitle(feature)
+
   return module
 }
 
-function createTestResultsModule(popover, feature) {
-
-  // module.find('.code-input button').popover({
-  //   html: true,
-  //   container: 'body',
-  //   template: createTestResultsModuleTemplate(feature),
-  //   title: createTestResultsModuleTitle(feature),
-  //   content: createTestResultsModuleContent(feature),
-  //   placement: 'auto bottom',
-  //   trigger: 'manual'
-  // }).popover('show')
-  var testResultsModule = $('#templates .test-results-module').clone()
-  popover.find('.popover-content').append(testResultsModule)
-
-  runTestsForFeatureAsync(feature)
+function createTestResultsModule(feature) {
+  var testResultsModule = $('#templates .test-results-module').first().clone()
+  return testResultsModule
 }
 
-function evaluateExpression(code) {
-  var returnValue
-  try {
-    returnValue = eval(code)
-  } catch (err) {
-    returnValue = err.message
-  }
-  return returnValue
-}
-
-function formatReturnValue(val) {
-  var formattedVal
-  if (typeof val === 'string') {
-    formattedVal = `"${val}"`
-  } else if (typeof val === 'object') {
-    formattedVal = JSON.stringify(val)
-  } else if (typeof val === 'undefined') {
-    formattedVal = '(UNDEFINED)'
-  } else {
-    formattedVal = val
-  }
-  return formattedVal
-}
-
-function getSourceCodeForTooltip() {
-  var element = $(this)
-
-  var featureModule = element.parent().parent().parent()
-  var property = featureModule.attr('feature-id')
-  var tooltipText = `<h5>Source Code:</h5>`
-  
-  var source
-  if (property in t) {
-    source = t[property].toString()
-  } else if (property in window) {
-    source = window[property].toString()
-  } else {
-    source = '(UNDEFINED)'
-  }
-  tooltipText += `<pre><code>${source}</code></pre>`
-
-  return tooltipText
-}
-
-function getPropertyFromButton(button) {
-  var featureModule = button.parent().parent().parent()
-  var expression = featureModule.attr('expression-expected')
-  return getPropertyFromExpression(expression)
-}
-
-/*
-  Converts an expression like 't.say("hello")' to 'say'
-  Or trainer.getHeight to 'getHeight'
-*/
-function getPropertyFromExpression(text) {
-  // alert("getting property from expresssion: " + text)
-  // get property name if called on obj
-  if (text.split(".").length == 2) {
-    text = text.split(".")[1]
-  }
-  // remove args if it's a method call
-  var argsRegEx = /\(.*\)/
-  text = text.replace(argsRegEx,'')
-  
-  // alert("got: " + text)
-  return text
-}
-
-function convertCodeToEnglish(text) {
-  return camelToTitleCase(getPropertyFromExpression(text))
-}
-
-function camelToTitleCase(text) {
-  var result = text.replace(/([A-Z])/g, " $1" )
-  return result.charAt(0).toUpperCase() + result.slice(1);
-}
 
 function createCodeTagModule(_div, _mode) {
   var div = $(_div)
@@ -593,49 +538,12 @@ function changeCodeTagToDebugMode(event) {
   var feature = user.course.features[featureId]
 
   feature.mode = 'debug'
-  feature.status = 'expression-empty'
+  // feature.status = 'expression-empty'
   saveFeatureToDB(feature)
   var debugModule = createCodeTagDebugModule(feature)
   var displayModule = $(`.code-tag-module[feature-id="${feature.id}"`)
   displayModule.replaceWith(debugModule)
   debugModule.click()
-}
-
-function createCodeTagPopover(event) {
-  var element = $(event.currentTarget)
-  var featureId = element.attr('feature-id')
-  var feature = user.course.features[featureId]
-
-  element.popover({
-    html: true,
-    container: 'body',
-    template: createCodeTagPopoverTemplate(feature),
-    title: createCodeTagPopoverTitle(feature),
-    content: function() {
-      var module = createDebugFeatureModule(feature)
-      return module.prop('outerHTML')
-    },
-    placement: 'auto bottom',
-    trigger: 'manual'
-  }).popover('show')
-}
-
-function createCodeTagPopoverTemplate(feature) {
-  return $('#templates .debug-module-popover').clone().attr('feature-id', feature.id).prop('outerHTML')
-}
-
-function createCodeTagPopoverTitle(feature) { 
-  var titleDiv = $('#templates .debug-module-popover .popover-title').first().clone()
-  
-  setPopoverTitle(feature, titleDiv)
-  
-  return titleDiv.html()
-}
-
-function createCodeTagPopoverContent(feature) {
-  return createDebugFeatureModule(feature)
-  // var featureModule = createDebugFeatureModule(feature)
-  // return featureModule
 }
 
 function activatePanelMode(event) {
@@ -667,4 +575,81 @@ function minimizePanel(panel) {
 function maximizePanel(panel) {
   panel.find('.panel-body').removeClass('hidden')
   panel.find('.minimize').removeClass('glyphicon-collapse-up').addClass('glyphicon-collapse-down')
+}
+
+function evaluateExpression(code) {
+  var returnValue
+  try {
+    returnValue = eval(code)
+  } catch (err) {
+    returnValue = err.message
+  }
+  return returnValue
+}
+
+function formatReturnValue(val) {
+  var formattedVal
+  if (typeof val === 'string') {
+    formattedVal = `"${val}"`
+  } else if (typeof val === 'object') {
+    formattedVal = JSON.stringify(val)
+  } else if (typeof val === 'undefined') {
+    formattedVal = '(UNDEFINED)'
+  } else {
+    formattedVal = val
+  }
+  return formattedVal
+}
+
+function getSourceCodeForTooltip() {
+  var element = $(this)
+
+  var featureModule = element.parent().parent().parent()
+  var property = featureModule.attr('feature-id')
+  var tooltipText = `<h5>Source Code:</h5>`
+  
+  var source
+  if (property in t) {
+    source = t[property].toString()
+  } else if (property in window) {
+    source = window[property].toString()
+  } else {
+    source = '(UNDEFINED)'
+  }
+  tooltipText += `<pre><code>${source}</code></pre>`
+
+  return tooltipText
+}
+
+function getPropertyFromButton(button) {
+  var featureModule = button.parent().parent().parent()
+  var expression = featureModule.attr('expression-expected')
+  return getPropertyFromExpression(expression)
+}
+
+/*
+  Converts an expression like 't.say("hello")' to 'say'
+  Or trainer.getHeight to 'getHeight'
+*/
+function getPropertyFromExpression(text) {
+  // alert("getting property from expresssion: " + text)
+  // get property name if called on obj
+  if (text.split(".").length == 2) {
+    text = text.split(".")[1]
+  }
+  // remove args if it's a method call
+  var argsRegEx = /\(.*\)/
+  text = text.replace(argsRegEx,'')
+  
+  // alert("got: " + text)
+  return text
+}
+
+function convertCodeToEnglish(text) {
+  return camelToTitleCase(getPropertyFromExpression(text))
+}
+
+function camelToTitleCase(text) {
+  var result = text.replace(/([A-Z])/g, " $1" )
+  return result.charAt(0).toUpperCase() + result.slice(1);
 }
