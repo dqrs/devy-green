@@ -14,6 +14,7 @@ globalInstrux = {
 features = {
   "getAppName": {
     id: "getAppName",
+    displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Name",
     mode: 'debug',
@@ -27,6 +28,7 @@ features = {
   },
   "getAppAuthor": {
     id: "getAppAuthor",
+    displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Author",
     mode: 'debug',
@@ -40,6 +42,7 @@ features = {
   },
   "getAppVersion": {
     id: "getAppVersion",
+    displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Version",
     mode: 'debug',
@@ -53,6 +56,7 @@ features = {
   },
   "getAppCredits": {
     id: "getAppCredits",
+    displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Credits",
     mode: 'debug',
@@ -66,6 +70,7 @@ features = {
   },
   "getAppYear": {
     id: "getAppYear",
+    displayType: 'tableType',
     codeTag: true,
     mode: 'debug',
     placeholderText: "App Year",
@@ -79,19 +84,22 @@ features = {
   },
   "createTrainer": {
     id: "createTrainer",
+    displayType: 'tableType',
     codeTag: true,
     mode: 'debug',
     placeholderText: "Pokemon Trainer",
     instrux: "Call the function that will create your Pokemon Trainer",
     type: "function",
-    expressionExpected: "createTrainer()",
+    expressionExpected: "constructor",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    trainerVar: false
   },
   "firstName": {
     id: "firstName",
+    displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
@@ -104,6 +112,7 @@ features = {
   },
   "lastName": {
     id: "lastName",
+    displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
@@ -117,6 +126,7 @@ features = {
   },
   "age": {
     id: "age",
+    displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
@@ -129,6 +139,7 @@ features = {
   },
   "slogan": {
     id: "slogan",
+    displayType: 'tableType',
     type: "variable",
     expressionExpected: "t.slogan",
     expressionEntered: '',
@@ -138,6 +149,7 @@ features = {
   },
   "favoriteElement": {
     id: "favoriteElement",
+    displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
@@ -150,6 +162,7 @@ features = {
   },
   "favoriteColor": {
     id: "favoriteColor",
+    displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
@@ -162,6 +175,7 @@ features = {
   },
   "energy": {
     id: "energy",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.energy",
     expressionEntered: '',
@@ -171,6 +185,7 @@ features = {
   },
   "happiness": {
     id: "happiness",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.happiness",
     expressionEntered: '',
@@ -180,6 +195,7 @@ features = {
   },
   "confidence": {
     id: "confidence",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.confidence",
     expressionEntered: '',
@@ -189,6 +205,7 @@ features = {
   },
   "intelligence": {
     id: "intelligence",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.intelligence",
     expressionEntered: '',
@@ -198,6 +215,7 @@ features = {
   },
   "strength": {
     id: "strength",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.strength",
     expressionEntered: '',
@@ -207,6 +225,7 @@ features = {
   },
   "coins": {
     id: "coins",
+    displayType: 'barType',
     type: "variable",
     expressionExpected: "t.coins",
     expressionEntered: '',
@@ -216,6 +235,7 @@ features = {
   },
   "getFullName": {
     id: "getFullName",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getFullName()",
     expressionEntered: '',
@@ -225,6 +245,7 @@ features = {
   },
   "getReverseName": {
     id: "getReverseName",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getReverseName()",
     expressionEntered: '',
@@ -234,6 +255,7 @@ features = {
   },
   "getDoubleFullName": {
     id: "getDoubleFullName",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getDoubleFullName()",
     expressionEntered: '',
@@ -243,6 +265,7 @@ features = {
   },
   "getDoubleReverseName": {
     id: "getDoubleReverseName",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getDoubleReverseName()",
     expressionEntered: '',
@@ -252,6 +275,7 @@ features = {
   },
   "getImageFileName": {
     id: "getImageFileName",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getImageFileName()",
     expressionEntered: '',
@@ -261,6 +285,7 @@ features = {
   },
   "getFirstNameLastInitial": {
     id: "getFirstNameLastInitial",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getFirstNameLastInitial()",
     expressionEntered: '',
@@ -270,6 +295,7 @@ features = {
   },
   "getLastNameFirstInitial": {
     id: "getLastNameFirstInitial",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getLastNameFirstInitial()",
     expressionEntered: '',
@@ -279,6 +305,7 @@ features = {
   },
   "getAgeInMonths": {
     id: "getAgeInMonths",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInMonths()",
     expressionEntered: '',
@@ -288,6 +315,7 @@ features = {
   },
   "getAgeInWeeks": {
     id: "getAgeInWeeks",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInWeeks()",
     expressionEntered: '',
@@ -297,6 +325,7 @@ features = {
   },
   "getAgeInDays": {
     id: "getAgeInDays",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInDays()",
     expressionEntered: '',
@@ -306,6 +335,7 @@ features = {
   },
   "getAgeInHours": {
     id: "getAgeInHours",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInHours()",
     expressionEntered: '',
@@ -315,6 +345,7 @@ features = {
   },
   "getAgeInMinutes": {
     id: "getAgeInMinutes",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInMinutes()",
     expressionEntered: '',
@@ -324,6 +355,7 @@ features = {
   },
   "getAgeInSeconds": {
     id: "getAgeInSeconds",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInSeconds()",
     expressionEntered: '',
@@ -333,6 +365,7 @@ features = {
   },
   "writeHi": {
     id: "writeHi",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.writeHi()",
     expressionEntered: '',
@@ -342,6 +375,7 @@ features = {
   },
   "writeSlogan": {
     id: "writeSlogan",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.writeSlogan()",
     expressionEntered: '',
@@ -351,6 +385,7 @@ features = {
   },
   "write": {
     id: "write",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.write()",
     expressionEntered: '',
@@ -360,6 +395,7 @@ features = {
   },
   "sayHi": {
     id: "sayHi",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.sayHi()",
     expressionEntered: '',
@@ -369,6 +405,7 @@ features = {
   },
   "saySlogan": {
     id: "saySlogan",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.saySlogan()",
     expressionEntered: '',
@@ -378,6 +415,7 @@ features = {
   },
   "say": {
     id: "say",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.say()",
     expressionEntered: '',
@@ -387,6 +425,7 @@ features = {
   },
   "work": {
     id: "work",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.work()",
     expressionEntered: '',
@@ -396,6 +435,7 @@ features = {
   },
   "rest": {
     id: "rest",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.rest()",
     expressionEntered: '',
@@ -405,6 +445,7 @@ features = {
   },
   "exercise": {
     id: "exercise",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.exercise()",
     expressionEntered: '',
@@ -414,6 +455,7 @@ features = {
   },
   "watchTelevision": {
     id: "watchTelevision",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.watchTelevision()",
     expressionEntered: '',
@@ -423,6 +465,7 @@ features = {
   },
   "readBook": {
     id: "readBook",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.readBook()",
     expressionEntered: '',
@@ -432,6 +475,7 @@ features = {
   },
   "takeCompliment": {
     id: "takeCompliment",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.takeCompliment()",
     expressionEntered: '',
@@ -441,6 +485,7 @@ features = {
   },
   "takeInsult": {
     id: "takeInsult",
+    displayType: 'tableType',
     type: "method",
     expressionExpected: "t.takeInsult()",
     expressionEntered: '',

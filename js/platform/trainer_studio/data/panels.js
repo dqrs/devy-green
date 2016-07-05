@@ -38,14 +38,14 @@ panels = {
   },
   "current-state": {
     id: "current-state",
-    title: "Trainer Status",
+    title: "Current State",
     mode: "debug",
     displayType: "barType",
     complete: false,
     locked: true,
     minimized: false,
-    // prereqs: false,
-    prereqs: ["basic-info"],
+    prereqs: false,
+    // prereqs: ["basic-info"],
     features: [
       "energy",
       "happiness",

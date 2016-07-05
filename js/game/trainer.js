@@ -1,5 +1,23 @@
 class Trainer {  
 
+  constructor() {
+    // basic info
+    this.firstName = "David Gershuni I"
+    this.lastName = "Ketchum"
+    this.age = 14
+    this.slogan = "Gotta catch 'em all"
+    this.favoriteElement = "Fire"
+    this.favoriteColor = "red"
+
+    // current status
+    this.energy = 80
+    this.happiness = 90
+    this.confidence = 30
+    this.intelligence = 40
+    this.strength = 30
+    this.coins = 55
+  }
+
   getFullName() {
     return this.firstName + ' ' + this.lastName
   }

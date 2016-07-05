@@ -1,8 +1,5 @@
 // Global vars
 
-// TODO: Change this trainer variable name given by student
-window.t = false 
-
 window.db = false
 window.user = false
 window.token = false
@@ -20,10 +17,6 @@ window.onload = function() {
 } 
 
 function initApp() {
-  // Import student's Trainer
-  // TODO: Add try/catch to handle syntax errors
-  t = createTrainer()
-  
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDkfHrjTE9jevhoE3PcI-biQFrbiaPHuDo",
@@ -79,6 +72,11 @@ function initUser(usersSnapShot) {
     // alert(`course change detected: getAppName entry = ${courseSnapshot.val().features.getAppName.expressionEntered}`)
     user.course = courseSnapshot.val()
     if (!guiSetup) {
+      // init trainer object
+      var trainerVar = user.course.trainerVar
+      if (trainerVar) {
+        window[trainerVar] = new Trainer()
+      }
       setupGUI()
       guiSetup = true
     }
@@ -108,6 +106,11 @@ function handleLoginError(error) {
   alert("Something went wrong logging you in. Please refresh the page and try again.")
 }
 
+function saveCourseToDB() {
+  var coursePath = `courses/${user.uid}/`
+  db.ref(coursePath).set(user.course)
+}
+
 function savePanelToDB(panel) {
   var panelPath = `courses/${user.uid}/panels/${panel.id}/`
   db.ref(panelPath).update(panel)
@@ -115,8 +118,6 @@ function savePanelToDB(panel) {
 
 function saveFeatureToDB(feature) {
   var featurePath = `courses/${user.uid}/features/${feature.id}`
-  // fix race condition
-  // user.course.features[feature.id] = feature
   db.ref(featurePath).update(feature)
 }
 

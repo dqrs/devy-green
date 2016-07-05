@@ -1,6 +1,6 @@
 function testAttribute(attr) {
   return function (test) {
-    var trainer = createTrainer()
+    var trainer = new Trainer()
     test.ok(trainer[attr], `Trainer's ${attr} is defined.`)
     test.end()
   }
@@ -20,6 +20,12 @@ var tests  = {
   'getAppAuthor': testAppFuntion('getAppAuthor'),
   'getAppYear': testAppFuntion('getAppYear'),
   'getAppCredits': testAppFuntion('getAppCredits'),
+  'createTrainer': function(test) {
+    var t = new Trainer()
+    test.ok(t, "Trainer object created!")
+    test.end()
+  },
+  'firstName': testAttribute('firstName'),
   'lastName': testAttribute('lastName'),
   'age': testAttribute('age'),
   'slogan': testAttribute('slogan'),

@@ -16,7 +16,7 @@ a {
 }
 
 .trainer-image-wrapper {
-  height: 200px;
+  height: 260px;
   width: 100%;
   overflow: hidden;
 }
@@ -133,6 +133,10 @@ body {
   position: relative;
 }
 
+.stat-bar {
+  width: 260px;
+}
+
 .bar-reading {
   font-size: 13px;
   font-weight: bold;
@@ -240,9 +244,9 @@ tbody.striped tr:nth-child(even) {
 
 .code-action-module {
   flex-grow: 1;
+  flex-direction: row;
   margin-left: 5px;
   display: flex;
-  flex-direction: row;
 }
 
 button, input, a {
@@ -285,6 +289,7 @@ button, input, a {
 
 .btn-action {
   flex-grow: 1;
+  flex-direction: row;
   background-color: black;
   color: #bbb; 
   border: 1px dotted #ccc;
@@ -582,4 +587,47 @@ table .glyphicon {
 
 .popover-content {
   padding: 5px;
+}
+
+.var-info-module {
+  color: white;
+  font-size: 13px;
+  position: relative;
+  top: -40px;
+  left: 0px;
+  background-color: rgba(0,0,0,0.75);
+  padding-top: 0.1em;
+  padding-left: 10px;
+  font-family: sans-serif;
+  margin-bottom: 0px;
+  border-left: 1px solid #444;
+  border-right: 1px solid #444;
+}
+
+.var-info-module label {
+  color: white;
+  font-family: sans-serif;
+  margin-bottom: 0px;
+}
+
+.var-name-module {
+  position: relative;
+  top: -63px;
+  left: 0px;
+  /*border-top: 1px solid #333;*/
+  border-bottom: 1px solid #252525;
+}
+
+.var-class-module {
+  position: relative;
+  top:  -63px;
+  left: 0px;
+  margin-bottom: -40px;
+}
+
+
+.trainer-var, .trainer-class {
+  font-family: monospace;
+  margin-bottom: 0px;
+  /*font-weight: bold;*/
 }

@@ -21,6 +21,7 @@ function setupGUI() {
   if (user.course.features.createTrainer.mode === 'display') {
     $('#trainer-placeholder').addClass('hidden')
     $('#main').removeClass('hidden')
+    $(`.trainer-var`).text(user.course.trainerVar)
   }
 
   setupAppCodeTags()
@@ -155,13 +156,51 @@ function actionButtonClicked(event) {
   }
 }
 
+function checkIfCreateTrainerExpressionMatches(feature) {
+  var newTrainerRegEx = /(var\s)((\w+)\s?=\s?new\sTrainer\(\))/
+  var matchArray = newTrainerRegEx.exec(feature.expressionEntered)
+  if (matchArray) {
+    feature.expressionToExecute = matchArray[2]
+    saveFeatureToDB(feature)
+    
+    user.course.trainerVar = matchArray[3]
+    alert(`matchArray[3] = '${matchArray[3]}'`)
+    alert(`user.course.trainerVar = '${user.course.trainerVar}'`)
+    saveCourseToDB()
+    return true
+  } else {
+    return false
+  }
+}
+
+function checkIfExpressionMatchesExpected(feature) {
+  var trainerVar = user.course.trainerVar
+
+  // perform regex match to allow diff trainer variables
+  if (feature.id === 'createTrainer') {
+    // check if matches create trainer statement
+    return checkIfCreateTrainerExpressionMatches(feature)
+  } else if (feature.expressionExpected.startsWith("t.")) {
+    // check matches method call / instance variable expression
+    var parts = feature.expressionEntered.split(".")
+    return (
+      parts.length == 2 && 
+      parts[0] === trainerVar &&
+      parts[1] === feature.expressionExpected.split('.')[1]
+    )
+  } else {
+    // check matches simple function call (exact match)
+    return feature.expressionEntered === feature.expressionExpected
+  }
+}
+
 function codeEntrySaveButtonClicked(clickedElt) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
 
   // user has just typed in an expression,
   // so let's check to see if it's correct
   feature.expressionEntered = codeModule.find('input').val()    
-  if (feature.expressionEntered === feature.expressionExpected) {
+  if (checkIfExpressionMatchesExpected(feature)) {
     feature.status = "expression-correct"
   } else {
     feature.status = "expression-incorrect"
@@ -195,9 +234,7 @@ function codeViewerRunButtonClicked(clickedElt) {
   // Correct expression was entered, so 
   // now it's time to run tests and evaluate it
   feature.status = 'execution-in-progress'
-  feature.returnValue = formatReturnValue(
-    evaluateExpression(feature.expressionEntered)  
-  )
+  feature.returnValue = formatReturnValue(evaluateExpression(feature))
   saveFeatureToDB(feature)
   
   newModule = createReturnValViewerModule(feature)
@@ -259,7 +296,7 @@ function createPanelHead(panel, panelData, mode) {
 }
 
 function createLockedPanelBody(panel) {
-  panel.find('.panel-body').replaceWith($('#templates .locked-panel').clone())
+  panel.find('.panel-body').replaceWith($('#templates .locked-panel').first().clone())
 }
 
 function createUnlockedPanelBody(panel, panelData, mode, displayType) {
@@ -356,7 +393,7 @@ function createTableFeatureModuleWithCodeTag(feature) {
 }
 
 function createTableFeatureModule(feature) {
-  var trTemplate = $('#templates tr.display-info').clone()
+  var trTemplate = $('#templates tr.display-info').first().clone()
   trTemplate.find('.label').text(
     convertCodeToEnglish(feature.expressionExpected)
   )
@@ -370,13 +407,13 @@ var colorIndex = 0
 var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 
 function createBarFeatureModule(feature) {
-  var value = eval(feature.expressionExpected)
-  var template = $(`#templates .stat-bar`).clone()
+  var value = eval(feature.expressionEntered)
+  var template = $(`#templates .stat-bar`).first().clone()
 
-  template.attr('id', feature.expressionExpected)
-  template.find('label').text(
-    convertCodeToEnglish(feature.expressionExpected)
-  )
+  template.attr('id', feature.id)
+  // template.find('label').text(
+  //   convertCodeToEnglish(feature.expressionExpected)
+  // )
   colorIndex = (++colorIndex % colors.length)
   template.find('.progress-bar').css({
     width: `${value}%`,
@@ -427,8 +464,8 @@ function setPopoverTitle(feature, _titleDiv) {
 function createCodeEntryModule(feature) {
   var module = $('#templates .code-entry').first().clone()
   if (feature.expressionEntered) {
-    console.log(JSON.stringify(feature))
-    module.attr('testVal', true)
+    // console.log(JSON.stringify(feature))
+    // module.attr('testVal', true)
     module.find('input').val(feature.expressionEntered)
   }
 
@@ -494,9 +531,34 @@ function createCodeTagDebugModule(feature) {
   return module
 }
 
-function createCodeTagDisplayModule(feature) {
-  var module = $('#templates .code-tag-module.display-mode').first().clone()  
-  
+function createCodeTagDisplayModule(feature) { 
+  if (feature.displayType === 'tableType') {
+    return createCodeTagTableTypeDisplayModule(feature)
+  } else if (feature.displayType === 'barType') {
+    return createCodeTagBarTypeDisplayModule(feature)
+  }
+}
+
+function createCodeTagBarTypeDisplayModule(feature) {
+  return createBarFeatureModule(feature)
+  // var module = $('#templates .code-tag-module.display-mode').first().clone()
+  // // Convert return value to display value
+  // var displayValue
+  // if (feature.id === 'getAppVersion' && 
+  //   Object.prototype.toString.call(feature.returnValue) === "[object Number]") {
+  //   // For app version number format v number as 1.0, 2.1, etc," 
+  //   displayValue = feature.returnValue.toPrecision(2)
+  // } else {
+  //   displayValue = feature.returnValue.toString().replace(/"/g, '')
+  // }
+
+  // module.find('.code-tag-text').text(displayValue)
+  // module.attr('feature-id', feature.id)
+  // return module
+}
+
+function createCodeTagTableTypeDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.display-mode').first().clone()
   // Convert return value to display value
   var displayValue
   if (feature.id === 'getAppVersion' && 
@@ -504,14 +566,13 @@ function createCodeTagDisplayModule(feature) {
     // For app version number format v number as 1.0, 2.1, etc," 
     displayValue = feature.returnValue.toPrecision(2)
   } else {
-   displayValue = feature.returnValue.toString().replace(/"/g, '')
+    displayValue = feature.returnValue.toString().replace(/"/g, '')
   }
 
   module.find('.code-tag-text').text(displayValue)
   module.attr('feature-id', feature.id)
   return module
 }
-
 
 function returnValActivateButtonClicked(clickedElt) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
@@ -523,6 +584,7 @@ function returnValActivateButtonClicked(clickedElt) {
   debugModule.popover('hide')
 
   if (feature.id === 'createTrainer') {
+    $(`.trainer-var`).text(user.course.trainerVar)
     $('#trainer-placeholder').addClass('hidden')
     $('#main').removeClass('hidden')
   } else {
@@ -577,14 +639,24 @@ function maximizePanel(panel) {
   panel.find('.minimize').removeClass('glyphicon-collapse-up').addClass('glyphicon-collapse-down')
 }
 
-function evaluateExpression(code) {
-  var returnValue
-  try {
-    returnValue = eval(code)
-  } catch (err) {
-    returnValue = err.message
+function evaluateExpression(feature) {
+  // console.log(JSON.stringify(feature))
+  if (feature.id === 'createTrainer') {
+    try {
+      eval("window." + feature.expressionToExecute)
+    } catch (err) {
+      window[user.course.trainerVar] = err.message
+    }
+    return window[user.course.trainerVar]
+
+  } else {
+
+    try {
+      return eval(feature.expressionEntered)
+    } catch (err) {
+      return err.message
+    } 
   }
-  return returnValue
 }
 
 function formatReturnValue(val) {
@@ -601,16 +673,47 @@ function formatReturnValue(val) {
   return formattedVal
 }
 
+/*
+class Trainer {  
+
+  constructor() {
+    this.firstName = "David Gershuni I"
+    this.lastName = "Ketchum"
+    this.age = 14
+    this.slogan = "Gotta catch 'em all"
+    this.favoriteElement = "Fire"
+    this.favoriteColor = "red"
+  }
+
+  getFullName() {
+    return this.firstName + ' ' + this.lastName
+  }
+*/
+
 function getSourceCodeForTooltip() {
   var element = $(this)
 
+  // /\s*\w+\s*\([\w\d\,\s]*\)\s*\{/
   var featureModule = element.parent().parent().parent()
   var property = featureModule.attr('feature-id')
   var tooltipText = `<h5>Source Code:</h5>`
-  
+  var feature = user.course.features[property]
+
+  var trainer = {}
+  if (user.course.trainerVar) {
+    trainer = window[user.course.trainerVar]
+  }
   var source
-  if (property in t) {
-    source = t[property].toString()
+  if (property === 'createTrainer') {
+    var constructorRegEx = /(constructor\s*\([\w\d\,\s]*\)\s*\{[^}]+\})/
+    var pieces = constructorRegEx.exec(Trainer.prototype.constructor)
+    if (pieces) {
+      source = pieces[1]
+    } else {
+      source = "An error occurred while parsing the Trainer object's constructor function."
+    }
+  } else if (property in trainer) {
+    source = trainer[property].toString()
   } else if (property in window) {
     source = window[property].toString()
   } else {
@@ -638,7 +741,7 @@ function getPropertyFromExpression(text) {
     text = text.split(".")[1]
   }
   // remove args if it's a method call
-  var argsRegEx = /\(.*\)/
+  var argsRegEx = /\([\w\d\s,]*\)/
   text = text.replace(argsRegEx,'')
   
   // alert("got: " + text)
