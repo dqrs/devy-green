@@ -19,10 +19,11 @@ x Fix UNDEFINED return val
 x Need to trigger execution of trainer creation on startup each time
 x Fix source code tooltip -- should show constructor
 x Store trainer variable name, and display it over picture
+x Get barType display modules working
+x Display actual name given to trainer on UI (currently just placeholder text)
+x Format return vals before displaying onscreen
 
 /////////////////////////
-- Get barType display modules working
-- Display actual name given to trainer on UI (currently just placeholder text)
 
 Tasks:
   - Add gear icon to trainer picture --> activates debug mode
@@ -32,7 +33,6 @@ Tasks:
   - Debug all cloud9 issues
   - Display mode for void func buttons
   
-  x Format return vals before displaying onscreen
   - Implement page loading screen
 
 - Ensure that unlocking/completion still works

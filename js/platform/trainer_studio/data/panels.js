@@ -44,8 +44,8 @@ panels = {
     complete: false,
     locked: true,
     minimized: false,
-    prereqs: false,
-    // prereqs: ["basic-info"],
+    // prereqs: false,
+    prereqs: ["basic-info"],
     features: [
       "energy",
       "happiness",
