@@ -78,7 +78,7 @@ var tests  = {
       fullName.includes(","), 
       "Includes a comma"
     )
-    test.equal(fullName, "McTrainer, Robert", "Is in the correct order")
+    test.equal(fullName, "McTrainer, Robert", "Matches expected output exactly")
     test.end()
     // setTimeout(function() {test.end()}, 500)
   },

@@ -67,7 +67,7 @@ label.current-stats {
 .ui-tooltip pre {
   color: black;
   font-family: monospace;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .ui-tooltip h5 {
@@ -296,6 +296,13 @@ button, input, a {
   border-radius: 3px;
 }
 
+.btn-action.disabled {
+  background-color: #666;
+  color: #777; 
+  border: 1px dotted #ccc;
+  border-radius: 3px;
+}
+
 .btn-action:hover {
   color: white;
   border: 1px dotted white;
@@ -520,6 +527,7 @@ table .code-tag-text {
 
 table.test-results td {
   padding-left: 0.9em;
+  height: 30px;
 }
 
 table.test-results td.test-status {

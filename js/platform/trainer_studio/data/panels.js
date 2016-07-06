@@ -89,9 +89,7 @@ panels = {
       "getAgeInMonths",
       "getAgeInWeeks",
       "getAgeInDays",
-      "getAgeInHours",
-      "getAgeInMinutes",
-      "getAgeInSeconds",
+      "getAgeInHours"
     ]
   },
   "communicate": {

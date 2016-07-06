@@ -4,12 +4,12 @@ class Trainer {
     // basic info
     this.firstName = "Dav" + "idson"
     this.lastName = "Ketchum"
-    this.age = 14
-    this.slogan = "Gotta catch 'em all"
-    this.favoriteElement = "Fire"
-    this.favoriteColor = "red"
+    // this.age = 14
+    // this.slogan = "Gotta catch 'em all"
+    // this.favoriteElement = "Fire"
+    // this.favoriteColor = "red"
 
-    // current status
+    // // current status
     this.energy = 80
     this.happiness = 90
     this.confidence = 30
@@ -76,6 +76,12 @@ class Trainer {
 
   saySlogan() {
     textToSpeech(this.slogan)
+  }
+
+  work() {
+    this.energy -= 10
+    this.happiness -= 20
+    this.coins += 25
   }
 
 }

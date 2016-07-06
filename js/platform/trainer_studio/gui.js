@@ -232,7 +232,7 @@ function codeViewerRunButtonClicked(clickedElt) {
   // now it's time to run tests and evaluate it
   feature.status = 'execution-in-progress'
   feature.returnValue = formatReturnValue(evaluateExpression(feature))
-  saveFeatureToDB(feature)
+  // saveFeatureToDB(feature)
   
   newModule = createReturnValViewerModule(feature)
   codeModule.replaceWith(newModule)

@@ -1,31 +1,9 @@
 DEVY GREEEN:
 ===============================================
 Completed:
-x Panel starts out locked
-x When unlocked, it's in display mode with placeholder tags
-x Activate on a feature by feature basis
-x Improve 'activate button' icon
-x FIX: Activate icon not showing on startup
-x Left off on evaluateExression
-x modding it to create new trainer and save it for tests/globally avail
-x For creating new trainer:
-x Want to match a regex rather than an exact string.
-x var _____ = new Trainer()
-x want to save the var_name
-x use it to check all other trainer method calls
-x want to save 
-x Create new trainer with new Trainer() syntax
-x Fix UNDEFINED return val
-x Need to trigger execution of trainer creation on startup each time
-x Fix source code tooltip -- should show constructor
-x Store trainer variable name, and display it over picture
-x Get barType display modules working
-x Display actual name given to trainer on UI (currently just placeholder text)
-x Format return vals before displaying onscreen
-x FIX: CreateTrainer activation persistence
-x FIX: code tage popover input should have focus
-x For properties, hover shows line of source where assigned/defined
-x Individualized instructions for each feature
+x State should not be saved from correct expr to incorrect execution
+  x Becuase if incorrect, we want to re-run manually
+
 
 /////////////////////////
 - DEBUG: Firebase will not save to DB for some users. Saves for DG but not for devytest@mailinator.com
@@ -37,12 +15,12 @@ x Individualized instructions for each feature
 Tasks:
   - Display mode for void func buttons
     - Replace with button to trigger func. Only clicking gear should trigger debug mode -- not whole button
-  - State should not be saved from correct expr to incorrect execution
-    --> Becuase if incorrect, we want to re-run manually
-  - Figure out how to detect/display all JS errors. Chrome is hiding some
+  
+  - Refresh stats/attributes after certain funcs (or all funcs)
   - Implement/test out a few eat/work methods
-  x Re-enable completion alerts
+
   - Add gear icon to trainer picture --> activates debug mode
+  - Figure out how to detect/display all JS errors. Chrome is hiding some
   - Fix return val formatting -- need more room
   - Display mode should re-run funcs before displaying them
   - On startup, tests only show a single X if not working. Otherwise nothing.
@@ -56,12 +34,11 @@ Tasks:
   - FIX: table alignment
   - Action buttons change color for each step
   - Display tooltip hover above button
-  - 
+  - Make tooltip source code font smaller
 
 QA:
   - Debug all cloud9 issues
-  - ensure that user data is properly saved
-  - Update OS's/Chrome of macbook airs
+    - ensure that user data is properly saved
 
 Curriculum/Content:
   - New app tags for app functions (before trainer created)

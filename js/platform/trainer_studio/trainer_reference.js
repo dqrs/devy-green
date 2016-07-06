@@ -83,18 +83,6 @@ class TrainerReference {
   }
 
   /*
-    Might not need this... could use constructor
-  */
-  // copyStaticAttributes(otherTrainer) {
-  //   this.firstName = otherTrainer.firstName,
-  //   this.lastName = otherTrainer.lastName,
-  //   this.age = otherTrainer.age,
-  //   this.favoriteElement = otherTrainer.favoriteElement,
-  //   this.favoriteColor = otherTrainer.favoriteColor,
-  //   this.slogan = otherTrainer.slogan
-  // }
-
-  /*
     Returns the name of the Pokemon's image file.
     The image changes based on the Pokemon's species and
     whether it is alive or not.
