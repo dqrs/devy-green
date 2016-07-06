@@ -1,36 +1,36 @@
-function getAppName() {
-  return "Trainer Studio"
-}
+// function getAppName() {
+//   return "Trainer Studio"
+// }
 
-function getAppAuthor() {
-  return "Gerardo Student"
-}
+// function getAppAuthor() {
+//   return "Gerardo Student"
+// }
 
-function getAppVersion() {
-  return 1.0
-}
+// function getAppVersion() {
+//   return 1.0
+// }
 
-// yes/no --> true/false
-function setAppStatus(answer) {
+// // yes/no --> true/false
+// function setAppStatus(answer) {
   
-}
+// }
 
-// bool --> string
-function getAppStatus(complete) {
+// // bool --> string
+// function getAppStatus(complete) {
 
-}
+// }
 
-function getAppCredits() {
-  return `Created by ${getAppAuthor()}`
-}
+// function getAppCredits() {
+//   return `Created by ${getAppAuthor()}`
+// }
 
-function getAppYear() {
-  return 2016
-}
+// function getAppYear() {
+//   return 2016
+// }
 
-function getAppSeason(month) {
-  /// month --> season
-}
+// function getAppSeason(month) {
+//   /// month --> season
+// }
 
 /* App Function Ideas:
 
