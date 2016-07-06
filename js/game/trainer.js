@@ -2,7 +2,7 @@ class Trainer {
 
   constructor() {
     // basic info
-    this.firstName = "David Gershuni I"
+    this.firstName = "Dav" + "idson"
     this.lastName = "Ketchum"
     this.age = 14
     this.slogan = "Gotta catch 'em all"
@@ -63,18 +63,14 @@ class Trainer {
   // }
 
   writeHi() {
-    // chatBubble("Hi")
+    chatBubble("Hi")
   }
 
   writeSlogan() {
-    // chatBubble(this.slogan)
+    chatBubble(this.slogan)
   }
 
   sayHi() {
-    // tts("Hi!")
-  }
-
-  saySlogan() {
     textToSpeech("Hi!")
   }
 

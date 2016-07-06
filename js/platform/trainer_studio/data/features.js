@@ -5,7 +5,6 @@
 
 // TODO: Individualize these
 globalInstrux = {
-  "expression-empty": "Enter the expression that will return your trainer's firstName.",
   "expression-correct": "Correct expression! Click run to continue.",
   "expression-incorrect": "Incorrect! Check your expression carefully, and try again.",
   "execution": 'returned the value below.'
@@ -14,11 +13,12 @@ globalInstrux = {
 features = {
   "getAppName": {
     id: "getAppName",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Name",
     mode: 'debug',
-    instrux: "Call the function that will return your app's name",
+    entryInstrux: "Call the function that will return your app's name",
     type: "function",
     expressionExpected: "getAppName()",
     expressionEntered: '',
@@ -28,11 +28,12 @@ features = {
   },
   "getAppAuthor": {
     id: "getAppAuthor",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Author",
     mode: 'debug',
-    instrux: "Call the function that will return your app's author",
+    entryInstrux: "Call the function that will return your app's author",
     type: "function",
     expressionExpected: "getAppAuthor()",
     expressionEntered: '',
@@ -42,11 +43,12 @@ features = {
   },
   "getAppVersion": {
     id: "getAppVersion",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Version",
     mode: 'debug',
-    instrux: "Call the function that will return your app's version #",
+    entryInstrux: "Call the function that will return your app's version #",
     type: "function",
     expressionExpected: "getAppVersion()",
     expressionEntered: '',
@@ -56,11 +58,12 @@ features = {
   },
   "getAppCredits": {
     id: "getAppCredits",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     placeholderText: "App Credits",
     mode: 'debug',
-    instrux: "Call the function that will return your app's credits",
+    entryInstrux: "Call the function that will return your app's credits",
     type: "function",
     expressionExpected: "getAppCredits()",
     expressionEntered: '',
@@ -70,11 +73,12 @@ features = {
   },
   "getAppYear": {
     id: "getAppYear",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     mode: 'debug',
     placeholderText: "App Year",
-    instrux: "Call the function that will return the year you created the app",
+    entryInstrux: "Call the function that will return the year you created the app",
     type: "function",
     expressionExpected: "getAppYear()",
     expressionEntered: '',
@@ -84,11 +88,12 @@ features = {
   },
   "createTrainer": {
     id: "createTrainer",
+    entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
     codeTag: true,
     mode: 'debug',
     placeholderText: "Pokemon Trainer",
-    instrux: "Call the function that will create your Pokemon Trainer",
+    entryInstrux: "Create a new Trainer and save it to a variable",
     type: "function",
     expressionExpected: "constructor",
     expressionEntered: '',
@@ -99,6 +104,7 @@ features = {
   },
   "firstName": {
     id: "firstName",
+    entryInstrux: "Enter the expression that will retrieve your trainer's first name",
     displayType: 'tableType',
     type: "variable",
     codeTag: true,
@@ -112,12 +118,12 @@ features = {
   },
   "lastName": {
     id: "lastName",
+    entryInstrux: "Enter the expression that will retrieve your trainer's last name",
     displayType: 'tableType',
     type: "variable",
     codeTag: true,
     mode: 'debug',
     placeholderText: "Last Name",
-    instrux: "Call the function that will return your trainer's last name",
     expressionExpected: "t.lastName",
     expressionEntered: '',
     hasReturnValue: true,
@@ -126,6 +132,7 @@ features = {
   },
   "age": {
     id: "age",
+    entryInstrux: "Enter the expression that will retrieve your trainer's age",
     displayType: 'tableType',
     type: "variable",
     codeTag: true,
@@ -139,6 +146,7 @@ features = {
   },
   "slogan": {
     id: "slogan",
+    entryInstrux: "Enter the expression that will retrieve your trainer's slogan",
     displayType: 'tableType',
     type: "variable",
     expressionExpected: "t.slogan",
@@ -149,6 +157,7 @@ features = {
   },
   "favoriteElement": {
     id: "favoriteElement",
+    entryInstrux: "Enter the expression that will retrieve your trainer's favorite element",
     displayType: 'tableType',
     type: "variable",
     codeTag: true,
@@ -162,6 +171,7 @@ features = {
   },
   "favoriteColor": {
     id: "favoriteColor",
+    entryInstrux: "Enter the expression that will retrieve your trainer's favorite color",
     displayType: 'tableType',
     type: "variable",
     codeTag: true,
@@ -175,6 +185,7 @@ features = {
   },
   "energy": {
     id: "energy",
+    entryInstrux: "Enter the expression that will retrieve your trainer's energy",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.energy",
@@ -185,6 +196,7 @@ features = {
   },
   "happiness": {
     id: "happiness",
+    entryInstrux: "Enter the expression that will retrieve your trainer's happiness",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.happiness",
@@ -195,6 +207,7 @@ features = {
   },
   "confidence": {
     id: "confidence",
+    entryInstrux: "Enter the expression that will retrieve your trainer's confidence",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.confidence",
@@ -205,6 +218,7 @@ features = {
   },
   "intelligence": {
     id: "intelligence",
+    entryInstrux: "Enter the expression that will retrieve your trainer's intelligence",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.intelligence",
@@ -215,6 +229,7 @@ features = {
   },
   "strength": {
     id: "strength",
+    entryInstrux: "Enter the expression that will retrieve your trainer's strength",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.strength",
@@ -225,6 +240,7 @@ features = {
   },
   "coins": {
     id: "coins",
+    entryInstrux: "Enter the expression that will retrieve your trainer's coins",
     displayType: 'barType',
     type: "variable",
     expressionExpected: "t.coins",
@@ -235,6 +251,7 @@ features = {
   },
   "getFullName": {
     id: "getFullName",
+    entryInstrux: "Call the method that will create and return your trainer's 'full name'",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getFullName()",
@@ -245,6 +262,7 @@ features = {
   },
   "getReverseName": {
     id: "getReverseName",
+    entryInstrux: "Call the method that will create and return your trainer's 'reverse name'",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getReverseName()",
@@ -255,6 +273,7 @@ features = {
   },
   "getDoubleFullName": {
     id: "getDoubleFullName",
+    entryInstrux: "Call the method that will create and return your trainer's 'double full name'",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getDoubleFullName()",
@@ -265,6 +284,7 @@ features = {
   },
   "getDoubleReverseName": {
     id: "getDoubleReverseName",
+    entryInstrux: "Call the method that will create and return your trainer's 'double full name'",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getDoubleReverseName()",
@@ -275,6 +295,7 @@ features = {
   },
   "getImageFileName": {
     id: "getImageFileName",
+    entryInstrux: "Call the method that will create and return your trainer's image filename",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getImageFileName()",
@@ -285,6 +306,7 @@ features = {
   },
   "getFirstNameLastInitial": {
     id: "getFirstNameLastInitial",
+    entryInstrux: "Call the method that will create and return your trainer's first name followed by their last initial",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getFirstNameLastInitial()",
@@ -293,11 +315,12 @@ features = {
     status: "expression-empty",
     complete: false,
   },
-  "getLastNameFirstInitial": {
-    id: "getLastNameFirstInitial",
+  "getFirstInitialLastName": {
+    id: "getFirstInitialLastName",
+    entryInstrux: "Call the method that will create and return your trainer's first initial followed by their last name",
     displayType: 'tableType',
     type: "method",
-    expressionExpected: "t.getLastNameFirstInitial()",
+    expressionExpected: "t.getFirstInitialLastName()",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
@@ -305,6 +328,7 @@ features = {
   },
   "getAgeInMonths": {
     id: "getAgeInMonths",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in months",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInMonths()",
@@ -315,6 +339,7 @@ features = {
   },
   "getAgeInWeeks": {
     id: "getAgeInWeeks",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in weeks",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInWeeks()",
@@ -325,6 +350,7 @@ features = {
   },
   "getAgeInDays": {
     id: "getAgeInDays",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in days",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInDays()",
@@ -335,6 +361,7 @@ features = {
   },
   "getAgeInHours": {
     id: "getAgeInHours",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in hourss",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInHours()",
@@ -345,6 +372,7 @@ features = {
   },
   "getAgeInMinutes": {
     id: "getAgeInMinutes",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in minutes",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInMinutes()",
@@ -355,6 +383,7 @@ features = {
   },
   "getAgeInSeconds": {
     id: "getAgeInSeconds",
+    entryInstrux: "Call the method that will calculate and return your trainer's age in seconds",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.getAgeInSeconds()",
@@ -365,6 +394,7 @@ features = {
   },
   "writeHi": {
     id: "writeHi",
+    entryInstrux: "Call the method that will cause your trainer to write 'hi'",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.writeHi()",
@@ -375,6 +405,7 @@ features = {
   },
   "writeSlogan": {
     id: "writeSlogan",
+    entryInstrux: "Call the method that will cause your trainer to write their slogan",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.writeSlogan()",
@@ -385,6 +416,7 @@ features = {
   },
   "write": {
     id: "write",
+    entryInstrux: "Call the method that will cause your trainer to write whatever the user inputs",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.write()",
@@ -395,6 +427,7 @@ features = {
   },
   "sayHi": {
     id: "sayHi",
+    entryInstrux: "Call the method that will cause your trainer to say 'hi' out loud",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.sayHi()",
@@ -405,6 +438,7 @@ features = {
   },
   "saySlogan": {
     id: "saySlogan",
+    entryInstrux: "Call the method that will cause your trainer to say their slogan out loud",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.saySlogan()",
@@ -415,6 +449,7 @@ features = {
   },
   "say": {
     id: "say",
+    entryInstrux: "Call the method that will cause your trainer to say whatever the user inputs out loud",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.say()",
@@ -425,6 +460,7 @@ features = {
   },
   "work": {
     id: "work",
+    entryInstrux: "Call the method that will cause your trainer to work",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.work()",
@@ -435,6 +471,7 @@ features = {
   },
   "rest": {
     id: "rest",
+    entryInstrux: "Call the method that will cause your trainer to rest",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.rest()",
@@ -445,6 +482,7 @@ features = {
   },
   "exercise": {
     id: "exercise",
+    entryInstrux: "Call the method that will cause your trainer to exercise",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.exercise()",
@@ -455,6 +493,7 @@ features = {
   },
   "watchTelevision": {
     id: "watchTelevision",
+    entryInstrux: "--- TO BE COMPLETED ---",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.watchTelevision()",
@@ -465,6 +504,7 @@ features = {
   },
   "readBook": {
     id: "readBook",
+    entryInstrux: "--- TO BE COMPLETED ---",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.readBook()",
@@ -475,6 +515,7 @@ features = {
   },
   "takeCompliment": {
     id: "takeCompliment",
+    entryInstrux: "--- TO BE COMPLETED ---",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.takeCompliment()",
@@ -485,6 +526,7 @@ features = {
   },
   "takeInsult": {
     id: "takeInsult",
+    entryInstrux: "--- TO BE COMPLETED ---",
     displayType: 'tableType',
     type: "method",
     expressionExpected: "t.takeInsult()",

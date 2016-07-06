@@ -44,8 +44,8 @@ panels = {
     complete: false,
     locked: true,
     minimized: false,
-    // prereqs: false,
-    prereqs: ["basic-info"],
+    // prereqs: ["basic-info"],
+    prereqs: false,
     features: [
       "energy",
       "happiness",
@@ -63,8 +63,8 @@ panels = {
     complete: false,
     locked: true,
     minimized: false,
-    // prereqs: false,
-    prereqs: ['current-state'],
+    // prereqs: ['current-state'],
+    prereqs: false,
     features: [
       "getFullName",
       "getReverseName",
@@ -83,8 +83,8 @@ panels = {
     complete: false,
     locked: true,
     minimized: false,
-    // prereqs: false,
-    prereqs: ["name"],
+    // prereqs: ["name"],
+    prereqs: false,
     features: [
       "getAgeInMonths",
       "getAgeInWeeks",
@@ -102,8 +102,8 @@ panels = {
     complete: false,
     locked: true,
     minimized: false,
+    // prereqs: ["age"],
     prereqs: false,
-    prereqs: ["age"],
     features: [
       "writeHi",
       "writeSlogan",
@@ -121,7 +121,8 @@ panels = {
     complete: false,
     minimized: false,
     locked: true,
-    prereqs: ["communicate"],
+    // prereqs: ["communicate"],
+    prereqs: false,
     features: [
       "work",
       "rest",

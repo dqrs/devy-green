@@ -195,7 +195,7 @@ function panelIsLocked(panel) {
   }
 
   // check if panel was just unlocked for the first time
-  if (panel.locked && !stayLocked) {
+  if (panel.prereqs && panel.locked && !stayLocked) {
     panel.locked = false
     savePanelToDB(panel)
     alert(`${panel.title} was just unlocked!`)

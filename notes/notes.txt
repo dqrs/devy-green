@@ -22,37 +22,55 @@ x Store trainer variable name, and display it over picture
 x Get barType display modules working
 x Display actual name given to trainer on UI (currently just placeholder text)
 x Format return vals before displaying onscreen
+x FIX: CreateTrainer activation persistence
+x FIX: code tage popover input should have focus
+x For properties, hover shows line of source where assigned/defined
+x Individualized instructions for each feature
 
 /////////////////////////
+- DEBUG: Firebase will not save to DB for some users. Saves for DG but not for devytest@mailinator.com
+  --> Why?
+///////////
+
+- 
 
 Tasks:
+  - Display mode for void func buttons
+    - Replace with button to trigger func. Only clicking gear should trigger debug mode -- not whole button
+  - State should not be saved from correct expr to incorrect execution
+    --> Becuase if incorrect, we want to re-run manually
+  - Figure out how to detect/display all JS errors. Chrome is hiding some
+  - Implement/test out a few eat/work methods
+  x Re-enable completion alerts
   - Add gear icon to trainer picture --> activates debug mode
   - Fix return val formatting -- need more room
-  - Individualized instructions for each feature
+  - Display mode should re-run funcs before displaying them
   - On startup, tests only show a single X if not working. Otherwise nothing.
-  - Debug all cloud9 issues
-  - Display mode for void func buttons
-  
-  - Implement page loading screen
-
-- Ensure that unlocking/completion still works
-  - Fix: Return value should not be saved to DB, func should be re-run
   - Also, need to somehow re-run void funcs without triggering side effects
-  - Add feature-based unlocking (i.e. without panels)
-  - Tooltip fixes:
-    - Add syntax highlighting to tooltip
-    - Center tooltip
-  - FIX: CreateTrainer activation persistence
-  - FIX: attribute tests appearing twice
+  - Fix: Return value should not be saved to DB, func should be re-run
+  - Implement page loading screen
+  - Create sign out button
+  - Ensure that unlocking/completion still works
   - FIX: 'Panel completed' alert coming up for previously completed panels
-  - Enter triggerint 2 actions instead of 1
-  - Improve syntax highlighting for source code tooltip
   - FIX: Gear icon on display table should be higher
   - FIX: table alignment
+  - Action buttons change color for each step
+  - Display tooltip hover above button
+  - 
+
 QA:
+  - Debug all cloud9 issues
   - ensure that user data is properly saved
+  - Update OS's/Chrome of macbook airs
 
 Curriculum/Content:
+  - New app tags for app functions (before trainer created)
+    - app season
+    - app credits constructed from others
+    - changeBackgroundcColor
+    - create getInput() func
+    - first/last/reverse name
+
   - Implement all features
   - Get all features on the UI
   - Write tests for all features
@@ -74,6 +92,9 @@ IDEA:
 
 /////////////////////////
 Someday/Maybe:
+  - Tooltip fixes:
+    - Add syntax highlighting to tooltip
+    - Center tooltip
     Idea:
       - Clean up chat bubble UI
       - Add parameters to chat bubble so students can:
@@ -154,16 +175,16 @@ Someday/Maybe:
       - Reading documentation
       - Reading code
       - Commenting their code for others
-  - UI:
-    - FIX: Give more room for tooltip and enforce word-wrap
-  - TASK:
-    - Switch to display mode with embedded code tags everywhere
   
 
 //// Setup Instructions with Cloud9 & Github
+  - Create github.com account
+  - veryify github email
   - Go to c9.io
-  - Click sign in button
-  - Sign in with github
+  - Click sign up button
+  - Create account with email
+  - Add SSH Key from c9 to github
+  - Set up password (via email sent)
   - Click the 'create new workspace' button
   - Help them with github URL
 

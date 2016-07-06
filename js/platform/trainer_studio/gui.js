@@ -162,10 +162,7 @@ function checkIfCreateTrainerExpressionMatches(feature) {
   if (matchArray) {
     feature.expressionToExecute = matchArray[2]
     saveFeatureToDB(feature)
-    
     user.course.trainerVar = matchArray[3]
-    alert(`matchArray[3] = '${matchArray[3]}'`)
-    alert(`user.course.trainerVar = '${user.course.trainerVar}'`)
     saveCourseToDB()
     return true
   } else {
@@ -340,6 +337,14 @@ function createCodeTagPopover(event) {
     placement: 'auto bottom',
     trigger: 'manual'
   }).popover('show')
+
+  // Set focus to input of popover module
+  var popover = $(`.popover[feature-id="${featureId}"]`).first()
+  if (feature.status === 'expression-empty') {
+    popover.find('input').focus()
+  } else {
+    popover.find('.btn-action').focus()
+  }
   
   if (feature.status.startsWith('execution')) {
     runTestsForFeatureAsync(feature)
@@ -427,7 +432,7 @@ function createBarFeatureModule(feature) {
 function getInstruxFromStatus(feature) {
   var instrux
   if (feature.status === 'expression-empty') {
-    instrux = globalInstrux['expression-empty']
+    instrux = feature.entryInstrux
   } else if (feature.status === 'expression-correct') {
     instrux = globalInstrux['expression-correct']
   } else if (feature.status === 'expression-incorrect') {
@@ -673,23 +678,6 @@ function formatReturnValue(val) {
   return formattedVal
 }
 
-/*
-class Trainer {  
-
-  constructor() {
-    this.firstName = "David Gershuni I"
-    this.lastName = "Ketchum"
-    this.age = 14
-    this.slogan = "Gotta catch 'em all"
-    this.favoriteElement = "Fire"
-    this.favoriteColor = "red"
-  }
-
-  getFullName() {
-    return this.firstName + ' ' + this.lastName
-  }
-*/
-
 function getSourceCodeForTooltip() {
   var element = $(this)
 
@@ -703,8 +691,10 @@ function getSourceCodeForTooltip() {
   if (user.course.trainerVar) {
     trainer = window[user.course.trainerVar]
   }
+
   var source
   if (property === 'createTrainer') {
+    // display Trainer construcutor
     var constructorRegEx = /(constructor\s*\([\w\d\,\s]*\)\s*\{[^}]+\})/
     var pieces = constructorRegEx.exec(Trainer.prototype.constructor)
     if (pieces) {
@@ -712,8 +702,14 @@ function getSourceCodeForTooltip() {
     } else {
       source = "An error occurred while parsing the Trainer object's constructor function."
     }
+  } else if (feature.type === 'variable') {
+    // display line where variable was defined/assigned first
+    var reg = new RegExp("this\\." + property + "\\s*=\\s*.+$", "m")
+    source = reg.exec(Trainer.prototype.constructor.toString())
   } else if (property in trainer) {
+    // display method definition
     source = trainer[property].toString()
+    // display function definition
   } else if (property in window) {
     source = window[property].toString()
   } else {
