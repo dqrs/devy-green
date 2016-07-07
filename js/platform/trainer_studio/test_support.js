@@ -101,7 +101,12 @@ function runTestsForFeatureAsync(feature) {
         }
       );
       
-      testHarness(feature.id, tests[feature.id])
+      if (feature.id in tests) {
+        testHarness(feature.id, tests[feature.id])
+      } else {
+        console.log("NO TEST FOUND FOR: " + feature.id)
+        testHarness(feature.id, tests['placeholder'])
+      }
     }
   )
 }

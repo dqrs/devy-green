@@ -1,4 +1,4 @@
-a {
+a, a:hover {
   color: white;
 }
 
@@ -210,7 +210,7 @@ tbody.striped tr:nth-child(even) {
 }
 
 .popover.debug-module-popover { 
-  width: 400px;
+  width: 450px;
   padding: 0px;
   max-width: 1000px;
   font-family: sans-serif !important;
@@ -232,7 +232,6 @@ tbody.striped tr:nth-child(even) {
 .code-module {
   display: flex;
   flex-direction: row;
-  width: 390px;
   margin: 0px;
 }
 
@@ -255,11 +254,11 @@ button, input, a {
 }
 
 .code-input input {
-  width: 285px;
+  width: 320px;
 }
 
 .btn-code {
-  width: 285px;
+  width: 320px;
   height: 30px;
   background-color: black;
   color: white;
@@ -322,15 +321,70 @@ input:focus {
 */
 
 #header {
-  padding-left: 15px;
   padding-top: 10px;
-  padding-bottom: 10px
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 70px;
 }
 
-.code-tag-module {
-  /*float: left;*/
+#header-left {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0px;
+}
+
+#header-right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0px;
+  padding-top: 15px;
+}
+
+/*.code-tag-module {
   display: inline-block;
   margin-right: 10px;
+}
+*/
+
+.code-tag-module.display-mode {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 10px;
+  align-items: center;
+}
+
+.code-tag-module.debug-mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.code-tag-text {
+  padding: 0.3em 0.3em 0.0em 0.3em;
+  color: #ccc;
+  font-size: 1.6em;
+  font-weight: normal;
+}
+
+/*[feature-id="getAppVersion"] .code-tag-text {
+  padding: 0.3em 0.3em 0.0em 0.3em;
+  font-size: 1.2em;
+}
+*/
+
+#header-right .code-tag-text {
+  /*padding: 0px 5px 0px 5px;*/
+  color: #ccc;
+  font-size: 14px;
+  font-weight: normal;
 }
 
 .code-tag-module.debug-mode {
@@ -345,30 +399,6 @@ input:focus {
   background-color: #222;
   border: 1px solid #777;
   color: #ccc;
-}
-
-.code-tag-text {
-  padding: 0.3em 0.3em 0.0em 0.3em;
-  color: #ccc;
-  font-size: 1.8em;
-  font-weight: normal;
-}
-
-#subheading {
-  float: right;
-  padding-top: 15px;
-  padding-right: 5px;
-}
-
-#subheading h3 {
-  margin-right: 10px;
-}
-
-#subheading .code-tag-text {
-  padding: 0.3em 0.3em 0.0em 0.3em;
-  color: #ccc;
-  font-size: 1.2em;
-  font-weight: normal;
 }
 
 footer .code-tag-text {
@@ -410,9 +440,10 @@ footer .code-tag-text {
 
 /* change display mode icon */
 .code-tag-module .change-display-mode-icon {
-  float: right;
+  /*float: right;*/
   margin-top: 5px;
   margin-right: 5px;
+  margin-left: 5px;
 }
 .code-tag-module.debug-mode .change-display-mode-icon {
   color: #333;
@@ -431,12 +462,10 @@ h3.by-author {
   display: inline;
 }
 
-/*#subheading .code-tag-module {
-
-}*/
-
 #trainer-placeholder {
   text-align: center;
+  margin-bottom: 0px;
+  position: relative;
 }
 
 #trainer-placeholder .trainer-image-wrapper {
@@ -446,16 +475,13 @@ h3.by-author {
   overflow: hidden;
   border: 1px solid #444;
   text-align: center;
+  margin: 0px;
 }
 
 #trainer-placeholder image.trainer-image {
   display: inline-block;
   width: 147px;
   height: 350px;
-  position: relative;
-}
-
-#trainer-placeholder {
   position: relative;
 }
 
@@ -466,6 +492,11 @@ h3.by-author {
   top: -120px;
 }
 
+#trainer-placeholder-inner {
+  height: 400px;
+  overflow: hidden;
+}
+
 #trainer-placeholder .code-tag-text {
   padding: 0.3em 0.3em 0.0em 0.3em;
   color: #ccc;
@@ -474,15 +505,36 @@ h3.by-author {
 }
 
 footer {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 10px;
 }
 
-footer label {
-  display: inline-block;
+#footer-left {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0px;
 }
 
-footer .code-tag-module {
-  display: inline-block;
+#footer-right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0px;
+}
+
+#header-right .code-tag-module:last-child {
+  margin-right: 0px;
+}
+
+#footer-right .code-tag-module:last-child {
+  margin-right: 0px;
 }
 
 table .code-tag-module {
@@ -638,4 +690,36 @@ table .glyphicon {
   font-family: monospace;
   margin-bottom: 0px;
   /*font-weight: bold;*/
+}
+
+body {
+  /*background-image: url("../images/wallpaper-1.jpg");*/
+}
+
+.code-tag-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin-right: 7px;
+  margin-left: 3px;
+}
+
+
+/* specific image sizes for features */
+.image-type {
+  display: flex;
+  flex-direction: row;
+}
+
+[feature-id="getAppIcon"] img {
+  height: 50px;
+  /*max-width: 150px;*/
+  flex: none !important;
+}
+
+[feature-id="getAppName"].display-mode .code-tag-text {
+  font-size: 40px;
+  padding: 0px;
+  /*border: 1px solid red;*/
 }

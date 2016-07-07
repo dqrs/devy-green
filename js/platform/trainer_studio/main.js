@@ -250,3 +250,66 @@ function textToSpeech(msg) {
   // };
   window.speechSynthesis.speak(utterance);
 }
+
+// TODO: Should be saved to DB,
+// as part of the wallpaper code-tag-module display mode
+function setHTMLBackgroundImage(src) {
+  $('body').css('background-image', `url(${src})`)
+}
+
+// Todo: Should also save to the db
+function setColorScheme(color) {
+  var schemes = ['dark-gray', 'white', 'red', 'blue', 'green']
+  $('body').css('background-color', color)
+
+  // Just changing background for now, but could change these too
+  // code-tags
+  // background-color
+  // module header
+  // module-body
+}
+
+
+function createLink(displayText, URL) {
+  return `<a href="${URL}">${displayText}</a>`
+}
+
+// var stringExp = "(['\"`])\\w+\\1"
+// var numericExp = "\\d*\\.?\\d+"
+// var variableExp = "\\w+"
+// var boolExp = "(?:true)|(?:false)"
+// var objPropertyExp = "\\w+\\.\\w+"
+// var funcExp = "\\w+\\.\\w+"
+
+// var feature1 = {
+//   type: "function",
+//   args: [stringExp, boolExp]
+// }
+
+// var feature2 = {
+//   type: "function",
+//   args: [variableExp]
+// }
+
+// function buildRegex(feature) {
+//   var argsStart = "\\(\\s*"
+//   var argsSeparator = "\\s*,\\s*"
+//   var argsEnd = "\\s*\\)"
+  
+//   var regex = "^" + feature.id
+//   if (
+//     feature.type === "function" 
+//     feature.type === "method"
+//   ) {
+//     regex += argsStart
+//     for (var i=0; i < features.args.length; i++) {
+//       regex += feature.args[i]
+//       if (i < args.length - 1) {
+//         regex += argsSeparator
+//       }
+//     }
+//     regex += argsEnd + "$"
+//   }
+
+//   return regex
+// }

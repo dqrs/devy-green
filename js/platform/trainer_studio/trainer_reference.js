@@ -1,4 +1,4 @@
-class TrainerReference {
+class Trainer {
   
   /*
     // Static Attributes:
@@ -68,18 +68,18 @@ class TrainerReference {
     giveCompliment()
     
   */
-  constructor(options) {
-    this.firstName = options.firstName
-    this.lastName = options.lastName
-    this.age = options.age
-    this.favoriteElement = options.favoriteElement
-    this.favoriteColor = options.favoriteColor
-    this.slogan = options.slogan
-    this.energy = options.energy
-    this.happiness = options.happiness
-    this.confidence = options.confidence
-    this.intelligence = options.intelligence
-    this.strength = options.strength
+  constructor() {
+    this.firstName = 'Shdave'
+    this.lastName = 'D'
+    this.age = 30
+    this.energy = 80
+    this.happiness = 50
+    this.slogan = 'Happiness only with success'
+    this.energy = 75
+    this.happiness = 75
+    this.confidence = 75
+    this.intelligence = 75
+    this.strength = 75
   }
 
   /*

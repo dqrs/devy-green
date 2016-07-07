@@ -4,7 +4,7 @@ function setupGUI() {
   $(document).on(`click`, `.btn-action`, actionButtonClicked)
   $(document).on(`click`, `.code-tag-module.debug-mode`, createCodeTagPopover)
   $(document).on(
-    `click`, `.code-tag-module.display-mode`, changeCodeTagToDebugMode
+    `click`, `.change-display-mode-icon`, changeCodeTagToDebugMode
   )
   $(document).on(`click`, `.close-popover`, closePopoverButtonClicked)
   $(document).on(`click`, `.go-back`, backButtonClicked)
@@ -36,12 +36,15 @@ function setupGUI() {
 
 function setupAppCodeTags() {
   $('#header .code-tag-placeholder').each(function() {
+    console.log($(this).attr('id'))
     createCodeTagModule(this)
   })
   $('#trainer-placeholder .code-tag-placeholder').each(function() {
+    console.log($(this).attr('id'))
     createCodeTagModule(this)
   })
   $('footer .code-tag-placeholder').each(function() {
+    console.log($(this).attr('id'))
     createCodeTagModule(this)
   })
 }
@@ -541,6 +544,10 @@ function createCodeTagDisplayModule(feature) {
     return createCodeTagTableTypeDisplayModule(feature)
   } else if (feature.displayType === 'barType') {
     return createCodeTagBarTypeDisplayModule(feature)
+  } else if (feature.displayType === 'imageType') {
+    return createCodeTagImageTypeDisplayModule(feature)
+  } else if (feature.displayType === 'linkType') {
+    return createCodeTagLinkTypeDisplayModule(feature)
   }
 }
 
@@ -579,6 +586,23 @@ function createCodeTagTableTypeDisplayModule(feature) {
   return module
 }
 
+function createCodeTagImageTypeDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.image-type').first().clone()
+  module.attr('feature-id', feature.id)
+  module.find('img').attr("src", feature.returnValue.toString().replace(/"/g, ''))
+  return module
+}
+
+function createCodeTagLinkTypeDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.link-type').first().clone()
+  var linkHTML = feature.returnValue.toString().replace(/"/g, '')
+  var linkEl = $(linkHTML).attr('target', "_blank")
+  // var city = url.split("/")[-1].replace('+',' ')
+  module.attr('feature-id', feature.id)
+  module.find('a').replaceWith(linkEl)
+  return module
+}
+
 function returnValActivateButtonClicked(clickedElt) {
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(clickedElt)
 
@@ -601,7 +625,7 @@ function returnValActivateButtonClicked(clickedElt) {
 function changeCodeTagToDebugMode(event) {
   event.stopImmediatePropagation()
   var element = $(event.currentTarget)
-  var featureId = element.attr('feature-id')
+  var featureId = element.parent().attr('feature-id')
   var feature = user.course.features[featureId]
 
   feature.mode = 'debug'

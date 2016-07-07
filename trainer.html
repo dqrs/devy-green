@@ -18,11 +18,14 @@
 
 
   <!-- game world classes (for students to edit) -->
-  <script src="js/game/trainer.js"></script>
-  <script src="js/game/app.js"></script>
+  <!-- <script src="js/game/trainer.js"></script>
+  <script src="js/game/app.js"></script> -->
+
+  <!-- Reference code just for testing (Remove) -->
+  <script src="js/platform/trainer_studio/trainer_reference.js"></script>
+  <script src="js/platform/trainer_studio/app_reference.js"></script>
 
   <!-- platform code (not to be edited by students) -->
-  <script src="js/platform/trainer_studio/trainer_reference.js"></script>
   <script src="js/platform/trainer_studio/data/features.js"></script>
   <script src="js/platform/trainer_studio/data/panels.js"></script>
   <script src="js/platform/trainer_studio/data/unit_tests.js"></script>
@@ -36,22 +39,43 @@
   
   <div class="container">
     
-    <div class="row" id="header">
-
-      <div id="getAppName" class="code-tag-placeholder">
-      </div>
-      <div id="subheading">
-        <span>By</span>
-        <div id="getAppAuthor" class="code-tag-placeholder">
+    <div id="header">
+    <!-- <div class="row" id="header"> -->
+      
+      <div id="header-left">
+        
+        <div id="getAppIcon" class="code-tag-placeholder">
         </div>
-        <span>Version</span>
+        
+        <div id="getAppName" class="code-tag-placeholder">
+        </div>
+      
+      </div>
+      
+      <div id="header-right">
+        <div class="code-tag-label">
+          <span>Version</span>
+        </div>
         <div id="getAppVersion" class="code-tag-placeholder">
         </div>
+
+        <div class="code-tag-label">
+          <span>By</span>
+        </div>
+        <div id="getAppAuthor" class="code-tag-placeholder">
+        </div>
+      
+        <div class="code-tag-label">
+          <span>In</span>
+        </div>
+        <div id="getAppLocationMap" class="code-tag-placeholder">
+        </div>
+
       </div>
     </div> <!-- end row#header -->
 
     <div class="row" id="trainer-placeholder">
-      <div class="col-xs-12">
+      <div class="col-xs-12" id="trainer-placeholder-inner">
         <div class="trainer-image-wrapper col-xs-12">
           <img class="trainer-image" src="assets/images/Misty Trainer-Dead.png" alt="text">
         </div> <!-- end .trainerImageWrapper -->
@@ -107,13 +131,35 @@
     </div> <!-- end #main -->
   
     <footer class="row">
-      <!-- <div class="col-xs-offset-5 col-xs-6"> -->
-      <span>&copy;</span>
-      <div id="getAppYear" class="code-tag-placeholder">
+      
+      <div id="footer-left">
+        
+        <div id="setAppColor" class="code-tag-placeholder">
+        </div>
+        
+        <div id="setAppFont" class="code-tag-placeholder">
+        </div>
+        
+        <div id="setAppWallpaper" class="code-tag-placeholder">
+        </div>
+
       </div>
-      <div id="getAppCredits" class="code-tag-placeholder">
+
+      <div id="footer-right">
+        <div class="code-tag-label">
+          <span>&copy;</span>
+        </div>
+        <div id="getAppYear" class="code-tag-placeholder">
+        </div>
+        
+        <div id="getAppSeason" class="code-tag-placeholder">
+        </div>
+        
+        <div id="getAppCredits" class="code-tag-placeholder">
+        </div>
+
       </div>
-      <!-- </div> -->
+
     </footer> <!-- end footer -->
 
   </div> <!-- end .container -->
@@ -129,6 +175,20 @@
 
     <div class="code-tag-module display-mode">
       <label class="code-tag-text">-------</label>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+
+    <div class="code-tag-module display-mode image-type">
+      <img class="code-tag-image">
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+
+    <div class="code-tag-module display-mode link-type">
+      <a class='display-link'></a>
       <div class="change-display-mode-icon">
         <span class="glyphicon glyphicon-cog"></span>
       </div>
@@ -253,7 +313,7 @@
       <tr class="with-code-tag">
         <th class="label">---------</th>
         <td class="value">
-          <div id="undefined" class="code-tag-placeholder">
+          <div class="code-tag-placeholder">
           </div>
         </td>
       </tr>
