@@ -1,4 +1,4 @@
-function chatBubble(msg) {
+function creatChatBubble(msg) {
   $('#chatBubble').empty()
   $('#chatBubble').css({left: '150px'})
   $('#chatBubble').append('<div class="newMessage"></div>')

@@ -4,14 +4,39 @@ Completed:
   x Refresh stats/attributes after certain funcs (or all funcs)
   x Implement/test out a few eat/work methods
   x Set Font
+  x FIX: Gear icon on display table should be higher
+  x FIX: table alignment
+  x find 5-10 icons
+  x Debug all cloud9 issues
+  x ensure that user data is properly saved
 
 /// Before Demo:
 
+  - remove app/trainer reference from repo
   - Include app and trainer js instead of reference in trainer.html
   - Switch loadSource ajax call to app.js (instead of app-reference)
   - Put app and trainer js files in starting state
 
 Tasks:
+  - finish trainer reference
+  - document functions
+  - create commented trainer.js
+  - create commented app.js
+  - document library functions in library.txt
+  - document function names etc in app.js
+  - document 'suggested' order in readme.txt
+  - finalize exercises
+  - write unit tests
+  - add more pokemon references
+    - set trainer image
+    - favorite pokemon (with image)
+    - hometown?
+    - favorite element image?
+    - make icons appear / image change when hungry, thirst tired
+    - add items?
+
+
+
   
  - New Trainer Methods:
   - work/sleep/etc should:
@@ -30,16 +55,11 @@ Tasks:
   
   - Implement page loading screen
   - Create sign out button
-  - FIX: Gear icon on display table should be higher
-  - FIX: table alignment
   - Action buttons change color for each step
   - Display tooltip hover above button
-  - find 5-10 icons
 
 
 QA:
-  - Debug all cloud9 issues
-    - ensure that user data is properly saved
 
   - Implement all features
   - Get all features on the UI
@@ -329,3 +349,83 @@ Note:
     - Empty method bodies
     - With comments spec'ing out each method
     - Commented out
+
+
+
+
+
+
+
+
+
+
+Trainer Notes:
+  
+  /*
+    // Static Attributes:
+    firstName
+    lastName
+    age
+    slogan
+    favoriteColor
+    favoriteELement
+
+    // Dynamic Attributes (State/Vitals):
+    money
+    happiness
+    intelligence
+    energy
+    confidence
+
+    // string interpolation
+    getFullName()
+    getReverseName()
+    getDoubleName()
+    getFirstNameLastInitial()
+    getFirstInitialLastName()
+    getImageFileName()
+    
+    // conditionals - threshold functions
+    getConfidenceDescription()
+    getHappinessDescription()
+    getIntelligenceDescription()
+    getLeague()
+    
+    // conditionals - other
+    getElementWeakestAgainst()
+
+    // calculations
+    getAgeInMonths()
+    getAgeInDays()
+    getAgeInWeeks()
+    getAgeInMinutes()
+    getAgeInSeconds()
+
+    // void functions
+    printHi()
+    printSlogan()
+    print(message)
+    sayHi()
+    saySlogan()
+    say(message)
+    
+    // Methods that update a single instance variable
+    setCoins(num)
+    lose10Coins()
+    gain10Coins()
+    loseCoins(num)
+    gainCoins(num)
+
+
+    // Methods that update multiple instance variables
+    work()
+    rest()
+    exercise()
+    watchTV()
+    readBook()
+    takeCompliment()
+    takeInsult()
+
+    giveCompliment()
+    
+  */

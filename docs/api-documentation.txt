@@ -1,0 +1,96 @@
+------------------------------------------------------
+createChatBubble [function]:
+- parameters:
+  * message [string]
+- action: 
+  * prints out the {message} provided in a chat bubble
+  next to the pokemon trainer's picture
+- return value:
+  * (undefined)
+- example 
+    usage:
+      createChatBubble('Hello world!')
+    return value: 
+      (undefined)
+
+------------------------------------------------------
+createLink [function]:
+- parameters:
+  * textToDisplay [string]
+  * URL [string]
+- action: 
+  * constructs an HTML link tag that
+  displays the {textToDisplay} and links to the {URL}.
+- return value:
+  * link tag HTML [string]
+- example 
+    usage:
+      createLink('Search Engine', 'http://google.com')
+    return value: 
+      '<a href="http://google.com">Search Engine</a>'
+
+------------------------------------------------------
+setColor [function]:
+- parameters:
+  * targetElement [string] ('background' or 'highlight')
+  * redValue [integer] (0-255)
+  * greenValue [integer] (0-255)
+  * blueValue [integer] (0-255)
+- action: 
+  * sets the {targetElement} to the RGB color determined by 
+  {redValue}, {greenValue}, {blueValue}
+- return value:
+  * (undefined)
+- example 
+    usage:
+      setColor('background', 50, 50, 50)
+    return value: 
+      (undefined)
+
+------------------------------------------------------
+setDefaultFont [function]:
+- parameters:
+  * targetElement [string] ('background' or 'highlight')
+  * redValue [integer] (0-255)
+  * greenValue [integer] (0-255)
+  * blueValue [integer] (0-255)
+- action: 
+  * sets your app's default font to the {fontName} provided.
+- return value:
+  * true if the font was set successfully, false otherwise 
+- example 
+    usage:
+      setFont('baskerville')
+    return value: 
+      true
+
+------------------------------------------------------
+setHTMLBackgroundImage [function]:
+- parameters:
+  * imageFileName [string]
+- action: 
+  * sets the app's background image to {imageFileName} if 
+  provided. If {imageFileName} is empty, it removes the app
+  s background image.
+- return value:
+  * (undefined)
+- example 
+    usage:
+      setHTMLBackgroundImage('assets/wallpaper/1.png')
+    return value: 
+      (undefined)
+
+------------------------------------------------------
+textToSpeech [function]:
+- parameters:
+  * message [string]
+- action: 
+  * speaks the {message} provided out loud using your
+  computer's speakers
+- return value:
+  * (undefined)
+- example 
+    usage:
+      textToSpeech('Hello world!')
+    return value: 
+      (undefined)

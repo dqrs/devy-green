@@ -1,3 +1,5 @@
+/* app.js */
+
 /* 
   appName [variable]:
   - stores your application's name
@@ -8,30 +10,25 @@ var appVersion = "1.0 alpha"
   appVersion [variable]:
   - stores your application's name
 */
-var appName = "Trainer Studio"
+
 
 /* 
   appYear [variable]:
   - stores the year your application was created
 */
-var appYear = 2016
+
 
 /* 
   authorFirstName [variable]: 
   - stores your first name
 */
 
-var authorFirstName = "Gerardo"
+
 /* 
   authorlastName [variable]: 
   - stores your first name
 */
-var authorLastName = "Student"
 
-/* 
-  authorFirstName [variable]: 
-  - stores your first name
-*/
 
 /*
   getAppAuthor [function]:
@@ -40,9 +37,22 @@ var authorLastName = "Student"
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function getAppAuthor() {
-  return authorFirstName + ' ' + authorLastName
-}
+
+
+/* 
+  appIcon [variable]: 
+  - stores the number of your app's icon setting (1-5)
+*/
+
+
+/*
+  getAppIcon [function]:
+  - parameters: none
+  - action: constructs the filename of your appIcon from the
+  based on your {appIcon} setting
+  - return value: author's full name
+*/
+
 
 /*
   getAppCredits [function]:
@@ -57,15 +67,13 @@ function getAppAuthor() {
       "Trainer Studio was created in 2016 by Sammy Student"
   - return value: app's 'credits' [string]
 */
-function getAppCredits() {
-  return `${appName} was created by with love by ${getAppAuthor()} at 9 Dots in $`
-}
+
 
 /* 
   appLocation [variable]: 
   - stores your first name
 */
-var appLocation = "Los Angeles"
+
 
 /*
   getAppLocationLink [function]:
@@ -74,11 +82,6 @@ var appLocation = "Los Angeles"
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function getAppLocationLink() {
-  var mapsURL = "https://www.google.com/maps/place/"
-  mapsURL += appLocation.replace(" ", "+")
-  return createLink(appLocation, mapsURL)
-}
 
 
 /*
@@ -88,31 +91,13 @@ function getAppLocationLink() {
     Summer/Fall/Winter, etc.) 
   - return value: the season [string]
 */
-function getAppSeason(month) {
-  var springMonths = ["March", "April", "May"]
-  var summerMonths = ["June", "July", "August"]
-  var fallMonths = ["September", "October", "November"]
-  var winterMonths = ["December", "January", "February"]
-  
-  if (springMonths.includes(month)) {
-    return "Spring"
-  } else if (summerMonths.includes(month)) {
-    return "Summer"
-  } else if (fallMonths.includes(month)) {
-    return "Fall"
-  } else if (winterMonths.includes(month)) {
-    return "Winter"
-  } else {
-    return ""
-  }
-}
 
 
 /* 
   appLocation [variable]: 
   - stores your first name
 */
-var appIconNumber = 3
+
 
 /*
   getAppLocationLink [function]:
@@ -121,9 +106,7 @@ var appIconNumber = 3
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function getAppIcon() {
-  return `assets/icons/${appIconNumber}.png`
-}
+
 
 /*
   setBackgroundColor [function]:
@@ -132,17 +115,7 @@ function getAppIcon() {
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function setBackgroundColor(color) {
-  if (color === 'red') {
-    setColor('background', 210, 40, 40)
-  } else if (color === 'green') {
-    setColor('background', 40, 210, 40)
-  } else if (color === 'blue') {
-    setColor('background', 40, 40, 210)
-  } else if (color === 'gray') {
-    setColor('background', 40, 40, 40)
-  }
-}
+
 
 /*
   setHighlightColor [function]:
@@ -151,18 +124,7 @@ function setBackgroundColor(color) {
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function setHighlightColor(color) {
-  if (color === 'light') {
-    setColor('highlight', 120, 150, 120)
-    return `Highlight color set to ${color}`
-  } else if (color === 'dark') {
-    setColor('highlight', 30, 30, 50)
-    return `Highlight color set to ${color}`
-  } else if (color === 'special') {
-    setColor('highlight', 40, 180, 180)
-    return `Highlight color set to ${color}`
-  }
-}
+
 
 /*
   setFont [function]:
@@ -171,14 +133,7 @@ function setHighlightColor(color) {
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function setFont(fontName) {
-  var success = setDefaultFont(fontName)
-  if (success) {
-    return "Success: Font set successfully!"
-  } else {
-    return "Error: This computer does not support that font!"
-  }
-}
+
 
 /*
   setWallpaper [function]:
@@ -187,16 +142,7 @@ function setFont(fontName) {
     authorFirstName and authorLastName
   - return value: author's full name
 */
-function setWallpaper(wallpaperNumber) {
-  if (wallpaperNumber == 0) {
-    setHTMLBackgroundImage(false)
-  } else if (wallpaperNumber > 0 && wallpaperNumber <= 10) {
-    setHTMLBackgroundImage(`assets/wallpaper/${wallpaperNumber}.jpg`)
-    return true
-  } else {
-    return false
-  }
-}
+
 
 
 

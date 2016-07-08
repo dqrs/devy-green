@@ -1,72 +1,14 @@
+/* trainer.js */
+
+// declare your trainer class here
 class Trainer {
-  
+
   /*
-    // Static Attributes:
-    firstName
-    lastName
-    age
-    slogan
-    favoriteColor
-    favoriteELement
-
-    // Dynamic Attributes (State/Vitals):
-    money
-    happiness
-    intelligence
-    energy
-    confidence
-
-    // string interpolation
-    getFullName()
-    getReverseName()
-    getDoubleName()
-    getFirstNameLastInitial()
-    getFirstInitialLastName()
-    getImageFileName()
-    
-    // conditionals - threshold functions
-    getConfidenceDescription()
-    getHappinessDescription()
-    getIntelligenceDescription()
-    getLeague()
-    
-    // conditionals - other
-    getElementWeakestAgainst()
-
-    // calculations
-    getAgeInMonths()
-    getAgeInDays()
-    getAgeInWeeks()
-    getAgeInMinutes()
-    getAgeInSeconds()
-
-    // void functions
-    printHi()
-    printSlogan()
-    print(message)
-    sayHi()
-    saySlogan()
-    say(message)
-    
-    // Methods that update a single instance variable
-    setCoins(num)
-    lose10Coins()
-    gain10Coins()
-    loseCoins(num)
-    gainCoins(num)
-
-
-    // Methods that update multiple instance variables
-    work()
-    rest()
-    exercise()
-    watchTV()
-    readBook()
-    takeCompliment()
-    takeInsult()
-
-    giveCompliment()
-    
+    constructor [constructor]:
+    - parameters: none
+    - action: constructs the app author's full name from
+      authorFirstName and authorLastName
+    - return value: author's full name
   */
   constructor() {
     this.firstName = 'Shdave'
@@ -187,11 +129,11 @@ class Trainer {
   }
 
   writeHi() {
-    chatBubble("Hi")
+    createChatBubble("Hi")
   }
 
   writeSlogan() {
-    chatBubble(this.slogan)
+    createChatBubble(this.slogan)
   }
 
   sayHi() {
