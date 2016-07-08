@@ -103,7 +103,7 @@ function initializeNewUser() {
 
 // Loads the student's app.js code for parsing/reading
 function loadAppSourceCode() {
-  var studentAppPath = "js/game/app.js"
+  var studentAppPath = "js/app.js"
   var referenceAppPath = "js/platform/trainer-studio/app-reference.js"
   $.ajax(
     studentAppPath,

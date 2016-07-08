@@ -2,13 +2,13 @@
   appName [variable]:
   - stores your application's name
 */
-var appVersion = "1.0 alpha"
+var appName = "Trainer Studio"
 
 /* 
   appVersion [variable]:
   - stores your application's name
 */
-var appName = "Trainer Studio"
+var appVersion = "1.0 alpha"
 
 /* 
   appYear [variable]:

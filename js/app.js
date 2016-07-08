@@ -4,7 +4,7 @@
   appName [variable]:
   - stores your application's name
 */
-var appVersion = "1.0 alpha"
+var appName
 
 /* 
   appVersion [variable]:
