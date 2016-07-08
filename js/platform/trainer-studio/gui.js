@@ -650,7 +650,7 @@ function createCodeTagSettingTypeDisplayModule(feature) {
   var module = $('#templates .code-tag-module.setting-type').first().clone()
   module.attr('feature-id', feature.id)
   
-  var settingName = feature.expressionEntered.replace('setApp', '').replace(/\(.*\)/, '')
+  var settingName = feature.expressionEntered.replace('set', '').replace(/\(.*\)/, '')
   var settingValue = /\((.*)\)/.exec(feature.expressionEntered)[1]
   module.find('label').text(`${settingName}: ${settingValue}`)
   return module
@@ -846,7 +846,7 @@ function camelToTitleCase(text) {
 }
 
 var patterns = {}
-patterns['str']  = "(['\"`])\\w+\\1"
+patterns['str']  = "(['\"`])[^\\1]*\\1"
 patterns['num']  = "\\d*\\.?\\d+"
 patterns['var']  = "\\w+"
 patterns['bool'] = "(?:true)|(?:false)"// untested

@@ -40,12 +40,10 @@ function getAppCredits() {
   return `${appName} was created by with love by ${getAppAuthor()} at 9 Dots in ${appLocation}`
 }
 
-
 var appIconNumber = 3
 function getAppIcon() {
   return `assets/icons/${appIconNumber}.png`
 }
-
 
 function setBackgroundColor(color) {
   if (color === 'red') {
@@ -62,21 +60,18 @@ function setBackgroundColor(color) {
 function setHighlightColor(color) {
   if (color === 'light') {
     setColor('highlight', 120, 150, 120)
+    return `Highlight color set to ${color}`
   } else if (color === 'dark') {
     setColor('highlight', 30, 30, 50)
+    return `Highlight color set to ${color}`
   } else if (color === 'special') {
     setColor('highlight', 40, 180, 180)
+    return `Highlight color set to ${color}`
   }
 }
 
-// TODO:
-function setFont(fontNumber) {
-  if (wallpaperNumber >= 1 && wallpaperNumber <= 10) {
-    setHTMLBackgroundImage(`assets/wallpaper/${wallpaperNumber}.jpg`)
-    return true
-  } else {
-    return false
-  }
+function setFont(fontName) {
+  setDefaultFont(fontName)
 }
 
 

@@ -1,21 +1,13 @@
 DEVY GREEEN:
 ===============================================
 Completed:
-  x Add new hover source for vars -- use line where they're declared (var _____ = ________)
-  x Display mode for void func buttons
-  x Replace with button to trigger func. 
-  x Support expressions with variables
-  x find 5-10 wallpapers
-  x DEBUG: Firebase will not save to DB for some users. Saves for DG but not for devytest@mailinator.com
-  x Display mode should re-run funcs before displaying them
-  x Re-run void funcs without triggering side effects
-  x Return value should not be saved to DB, func should be re-run on startup
-  x FIX: Looks like converting returnvalues to displayvalues silently fails sometimes and doesnt save to DB, causing all kinds of problems.
-  x Ensure that unlocking/completion still works
-  x Make tooltip source code font smaller
-  x Figure out how to detect/display all JS errors. Chrome is hiding some
-  x FIX: 'Panel completed' alert coming up for previously completed panels
-  x Add gear icon to trainer picture --> activates debug mode
+
+
+/// Before Demo:
+
+  - Include app and trainer js instead of reference in trainer.html
+  - Switch loadSource ajax call to app.js (instead of app-reference)
+  - Put app and trainer js files in starting state
 
 Tasks:
   - Refresh stats/attributes after certain funcs (or all funcs)

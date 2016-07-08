@@ -106,7 +106,7 @@ features = {
   },
   "setFont": {
     id: "setFont",
-    entryInstrux: "Call the function that will set your app's font to the font given",
+    entryInstrux: "Call the function that will set your app's font to the font name given",
     displayType: 'settingType',
     type: "function",
     args: 'str',
