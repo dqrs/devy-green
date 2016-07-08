@@ -52,7 +52,7 @@ panels = {
       "confidence",
       "intelligence",
       "strength",
-      "coins",
+      // "coins",
     ]
   },
   "name": {
