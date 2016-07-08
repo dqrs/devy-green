@@ -15,15 +15,17 @@ Completed:
   x Make tooltip source code font smaller
   x Figure out how to detect/display all JS errors. Chrome is hiding some
   x FIX: 'Panel completed' alert coming up for previously completed panels
+  x Add gear icon to trainer picture --> activates debug mode
 
 Tasks:
-  - Add gear icon to trainer picture --> activates debug mode
-  
-  
   - Refresh stats/attributes after certain funcs (or all funcs)
   - Implement/test out a few eat/work methods
   
   - On startup, tests only show a single X if not working. Otherwise nothing.
+  
+  - Set trainer image
+
+  - Set Font
   
   - Fix return val formatting -- need more room
   

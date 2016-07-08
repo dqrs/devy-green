@@ -70,11 +70,11 @@ function consumeTapeStream(row, testHarness) {
     popover.find(`.num-tests-passed`).text(testResults[feature.id]['numPassed'])
     popover.find(`.num-tests-total`).text(testResults[feature.id]['numTotal'])
     if (testResults[feature.id]['numPassed'] == testResults[feature.id]['numTotal']) {
-      popover.find(`.btn-code`).addClass('execution-correct').removeClass('execution-incorrect')
+      popover.find(`.btn-code,.code-input`).addClass('execution-correct').removeClass('execution-incorrect')
       popover.find(`.btn-action`).removeClass('disabled')
       feature.status = 'execution-correct'
     } else {
-      popover.find(`.btn-code`).addClass('execution-incorrect').removeClass('execution-correct')
+      popover.find(`.btn-code,.code-input`).addClass('execution-incorrect').removeClass('execution-correct')
       feature.status = 'execution-incorrect'
       popover.find(`.btn-action`).addClass('disabled')
     }

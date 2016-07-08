@@ -265,10 +265,12 @@ function textToSpeech(msg) {
   window.speechSynthesis.speak(utterance);
 }
 
-// TODO: Should be saved to DB,
-// as part of the wallpaper code-tag-module display mode
 function setHTMLBackgroundImage(src) {
-  $('body').css('background-image', `url(${src})`)
+  if (src) {
+    $('body').css('background-image', `url(${src})`)
+  } else {
+    $('body').css('background-image', `none`)
+  }
 }
 
 // Todo: Should also save to the db

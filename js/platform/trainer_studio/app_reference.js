@@ -47,7 +47,7 @@ function getAppIcon() {
 }
 
 
-function setAppBackgroundColor(color) {
+function setBackgroundColor(color) {
   if (color === 'red') {
     setColor('background', 210, 40, 40)
   } else if (color === 'green') {
@@ -59,7 +59,7 @@ function setAppBackgroundColor(color) {
   }
 }
 
-function setAppHighlightColor(color) {
+function setHighlightColor(color) {
   if (color === 'light') {
     setColor('highlight', 120, 150, 120)
   } else if (color === 'dark') {
@@ -70,7 +70,7 @@ function setAppHighlightColor(color) {
 }
 
 // TODO:
-function setAppFont(fontNumber) {
+function setFont(fontNumber) {
   if (wallpaperNumber >= 1 && wallpaperNumber <= 10) {
     setHTMLBackgroundImage(`assets/wallpaper/${wallpaperNumber}.jpg`)
     return true
@@ -80,9 +80,9 @@ function setAppFont(fontNumber) {
 }
 
 
-function setAppWallpaper(wallpaperNumber) {
+function setWallpaper(wallpaperNumber) {
   if (wallpaperNumber == 0) {
-    setHTMLBackgroundImage(`none`)
+    setHTMLBackgroundImage(false)
   } else if (wallpaperNumber >= 0 && wallpaperNumber <= 10) {
     setHTMLBackgroundImage(`assets/wallpaper/${wallpaperNumber}.jpg`)
     return true

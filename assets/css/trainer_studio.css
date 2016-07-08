@@ -16,10 +16,6 @@ a, a:hover, a:visited {
   font-family:'Glyphicons Halflings' !important;
 }
 
-/*.hidden {
-  display: none;
-}
-*/
 #main {
   margin-top: 10px;
 }
@@ -150,7 +146,7 @@ table.display {
 }
 
 table.display th{
-  color: #888;
+  color: #ccc;
   font-weight: normal;
 }
 
@@ -194,7 +190,18 @@ tbody.striped tr:nth-child(even) {
 .code-input {
   overflow: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.code-input p.return-val {
+  font-family: monospace;
+  /*overflow: visible;*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*overflow: auto;*/
+  /*height: 200px;*/
+  /*width: 200px;*/
+  /*word-wrap: break-word;*/
 }
 
 .code-action-module {
@@ -220,6 +227,16 @@ button, input {
   color: white;
   border-radius: 3px;
   border: 1px dotted #ccc;
+}
+
+.code-input.execution-correct {
+  color: black;
+  background-color: #0d0;
+}
+
+.code-input.execution-incorrect {
+  color: black;
+  background-color: #d00;
 }
 
 .btn-code.execution-correct {
@@ -367,14 +384,13 @@ footer .code-tag-text {
   color: white;
 }
 
-.code-tag-module.display-mode:hover {
+/*.code-tag-module.display-mode:hover {
   border-radius: 3px;
-  background-color: #222;
-  border: 1px solid #555;
+  border: 1px solid #eee;
   text-decoration: none;
   color: #666;
 }
-
+*/
 .feature-module {
   /*display: flex;*/
   padding: 0px;
@@ -402,11 +418,22 @@ footer .code-tag-text {
 .code-tag-module.debug-mode:hover .change-display-mode-icon {
   color: #222;
 }
-.code-tag-module.display-mode .change-display-mode-icon {
+
+table .change-display-mode-icon {
+  color: #666;
+}
+.change-display-mode-icon {
   color: #333;
 }
-.code-tag-module.display-mode:hover .change-display-mode-icon {
+.change-display-mode-icon:hover {
   color: white;
+}
+
+.change-display-mode-icon span:hover {
+  /*border: 1px solid #777;
+  border-radius: 2px;
+  color: #aaa;
+  background-color: #666;*/
 }
 
 #trainer-placeholder {
@@ -458,6 +485,7 @@ footer {
   padding-left: 15px;
   padding-right: 15px;
   margin-top: 10px;
+  margin-bottom: 250px
 }
 
 #footer-left {
@@ -689,6 +717,14 @@ body {
   padding: 0px;
   /*border: 1px solid red;*/
 }
+
+#trainer-display-icon {
+  position: relative;
+  bottom: -25px;
+  left: 5px;
+  margin-top: -20px;
+}
+
 .code-tag-module.display-mode label {
   font-family: sans-serif;
 }
@@ -716,7 +752,7 @@ h4.panel-title {
 
 .panel {
   margin-bottom: 20px;
-  background-color: rgba(80, 80, 80, 0.45);
+  background-color: rgba(80, 80, 80, 0.55);
   border:1px solid transparent;
   border-radius:0;
   -webkit-box-shadow:0 1px 1px rgba(0,0,0,0.05);
@@ -728,8 +764,8 @@ h4.panel-title {
 }
 
 .panel-heading{
-  background-color: rgba(55, 55, 55, 0.45);
-  color: #777;
+  background-color: rgba(0, 0, 0, 0.7) !important; 
+  color: #aaa !important;
   padding:10px 15px;
   border-bottom:1px solid transparent;
   border-top-right-radius:-1;
@@ -742,9 +778,9 @@ h4.panel-title {
 
 .panel-footer{padding:10px 15px;background-color:#080808;border-top:1px solid #3c3c3c;border-bottom-right-radius:-1;border-bottom-left-radius:-1}
 
-.panel-title {
+/*.panel-title {
   color: #666;
-}
+}*/
 
 .panel-heading {
   position: relative;

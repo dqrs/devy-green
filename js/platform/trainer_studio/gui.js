@@ -19,9 +19,7 @@ function setupGUI() {
   $(document).on(`click`, `#chatBubble`, removeChatBubble)
 
   if (user.course.features.createTrainer.mode === 'display') {
-    $('#trainer-placeholder').addClass('hidden')
-    $('#main').removeClass('hidden')
-    $(`.trainer-var`).text(user.course.trainerVar)
+    renderTrainerDisplayModule('display')
   }
 
   setupAppCodeTagModules()
@@ -45,6 +43,19 @@ function setupGUI() {
     }
   })
 
+}
+
+function renderTrainerDisplayModule(mode) {
+  if (mode === 'display') {
+    $('#trainer-placeholder').addClass('hidden')
+    $('#main').removeClass('hidden')
+    $(`.trainer-var`).text(user.course.trainerVar)
+  } else if (mode === 'debug') {
+    $('#trainer-placeholder').removeClass('hidden')
+    $('#main').addClass('hidden')
+  } else {
+    alert("unrecognized mode for renderTrainerDisplayModule")
+  }
 }
 
 function setupAppCodeTagModules() {
@@ -208,7 +219,7 @@ function checkIfExpressionMatchesExpected(feature) {
 
 function checkIfMatchesTrainerConstructor(feature) {
   // perform regex match to allow diff trainer variables
-  var newTrainerRegEx = /(var\s)((\w+)\s?=\s?new\sTrainer\(\))/
+  var newTrainerRegEx = /(var\s)((\w+)\s?=\s?new\sTrainer\s*\(\))/
   var matchArray = newTrainerRegEx.exec(feature.expressionEntered)
   if (matchArray) {
     feature.expressionToExecute = matchArray[2]
@@ -530,7 +541,7 @@ function createCodeViewerModule(feature) {
 
 function createReturnValViewerModule(feature) {
   var module = $("#templates .return-val-viewer").first().clone()
-  module.find('.code-input button').text(
+  module.find('.code-input .return-val').text(
     formatReturnValue(evaluateExpression(feature))
   )
   setPopoverTitle(feature)
@@ -593,41 +604,41 @@ function createCodeTagDisplayModule(feature) {
 var colorIndex = 0
 var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 function createCodeTagBarTypeDisplayModule(feature) {
-  feature.displayValue = evaluateExpression(feature)
+  var displayValue = evaluateExpression(feature)
   
   var template = $(`#templates .bar-type`).first().clone()
 
   template.attr('id', feature.id)
   colorIndex = (++colorIndex % colors.length)
   template.find('.progress-bar').css({
-    width: `${feature.displayValue}%`,
+    width: `${displayValue}%`,
     backgroundColor: colors[colorIndex]
   })
-  template.find('.bar-reading').text(`${feature.displayValue}/100`)
+  template.find('.bar-reading').text(`${displayValue}/100`)
   
   return template
 }
 
 function createCodeTagTableTypeDisplayModule(feature) {
-  feature.displayValue = evaluateExpression(feature)
+  var displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.display-mode').first().clone()
-  module.find('.code-tag-text').text(feature.displayValue)
+  module.find('.code-tag-text').text(displayValue)
   module.attr('feature-id', feature.id)
   return module
 }
 
 function createCodeTagImageTypeDisplayModule(feature) {
-  feature.displayValue = evaluateExpression(feature)
+  var displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.image-type').first().clone()
   module.attr('feature-id', feature.id)
-  module.find('img').attr("src", feature.displayValue)
+  module.find('img').attr("src", displayValue)
   return module
 }
 
 function createCodeTagLinkTypeDisplayModule(feature) {
-  feature.displayValue = evaluateExpression(feature)
+  var displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.link-type').first().clone()
-  var linkHTML = feature.displayValue
+  var linkHTML = displayValue
   var linkEl = $(linkHTML).attr('target', "_blank")
   module.attr('feature-id', feature.id)
   module.find('a').replaceWith(linkEl)
@@ -635,7 +646,7 @@ function createCodeTagLinkTypeDisplayModule(feature) {
 }
 
 function createCodeTagSettingTypeDisplayModule(feature) {
-  feature.displayValue = evaluateExpression(feature)
+  var displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.setting-type').first().clone()
   module.attr('feature-id', feature.id)
   
@@ -664,9 +675,7 @@ function returnValActivateButtonClicked(clickedElt) {
   debugModule.popover('hide')
 
   if (feature.id === 'createTrainer') {
-    $(`.trainer-var`).text(user.course.trainerVar)
-    $('#trainer-placeholder').addClass('hidden')
-    $('#main').removeClass('hidden')
+    renderTrainerDisplayModule('display')
   } else {
     var displayModule = createCodeTagDisplayModule(feature)
     debugModule.replaceWith(displayModule)
@@ -682,6 +691,11 @@ function changeCodeTagToDebugMode(event) {
   feature.mode = 'debug'
   // feature.status = 'expression-empty'
   saveFeatureToDB(feature)
+
+  if (feature.id === 'createTrainer') {
+    renderTrainerDisplayModule('debug')
+  }
+   
   var debugModule = createCodeTagDebugModule(feature)
   var displayModule = $(`.code-tag-module[feature-id="${feature.id}"`)
   displayModule.replaceWith(debugModule)
@@ -823,11 +837,11 @@ function getPropertyFromExpression(text) {
 }
 
 function convertCodeToEnglish(text) {
-  return camelToTitleCase(getPropertyFromExpression(text))
+  return camelToTitleCase(text)
 }
 
 function camelToTitleCase(text) {
-  var result = text.replace(/([A-Z])/g, " $1" )
+  var result = text.replace(/([A-Z])/g, " $1" ).trimLeft()
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
