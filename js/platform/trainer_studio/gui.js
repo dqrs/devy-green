@@ -17,7 +17,6 @@ function setupGUI() {
   $(document).on(`click`, `.minimize`,   togglePanelMinimization)
   $(document).on(`click`, `.activate`,   activatePanelMode)
   $(document).on(`click`, `#chatBubble`, removeChatBubble)
-  // $(document).on(`click`, `#clear-data`, clearUserData)
 
   if (user.course.features.createTrainer.mode === 'display') {
     $('#trainer-placeholder').addClass('hidden')
@@ -225,12 +224,12 @@ function checkIfMatchesInstanceVar(feature) {
 }
 
 function checkIfMatchesFunctionCall(feature) {
-  if (typeof feature.args === 'undefined') {
-    console.log("No args attribute for " + feature.id)
-    return true
-  }
+  // if (typeof feature.args === 'undefined') {
+  //   console.log("No args attribute for " + feature.id)
+  //   return true
+  // }
   var funcRegex = buildFunctionRegex(feature)
-  return funcRegex.match(feature.expressionEntered)
+  return funcRegex.exec(feature.expressionEntered)
 }
 
 function checkIfMatchesMethodCall(feature) {
@@ -238,8 +237,8 @@ function checkIfMatchesMethodCall(feature) {
   var funcRegex = buildFunctionRegex(feature)
   return (
     parts.length == 2 && 
-    parts[0] === trainerVar &&
-    funcRegex.match(parts[1])
+    parts[0] === user.course.trainerVar &&
+    funcRegex.exec(parts[1])
   )
 }
 
@@ -835,29 +834,37 @@ function camelToTitleCase(text) {
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
-var regexes = {}
-regexes['str']  = "(['\"`])\\w+\\1"
-regexes['num']  = "\\d*\\.?\\d+"
-regexes['var']  = "\\w+"
-regexes['bool'] = "(?:true)|(?:false)"
-regexes['prop'] = "\\w+\\.\\w+"
-regexes['func'] = "\\w+\\.\\w+"
+var patterns = {}
+patterns['str']  = "(['\"`])\\w+\\1"
+patterns['num']  = "\\d*\\.?\\d+"
+patterns['var']  = "\\w+"
+patterns['bool'] = "(?:true)|(?:false)"// untested
+patterns['prop'] = "\\w+\\.\\w+" // untested
+patterns['func'] = "\\w+\\.\\w+" // untested
 
 function buildFunctionRegex(feature) {
   var argsStart = "\\(\\s*"
   var argsSeparator = "\\s*,\\s*"
   var argsEnd = "\\s*\\)"
   
-  var regex = "^" + feature.id
-  regex += argsStart
-  var numArgs = Object.keys(feature.args).length
-  for (var i=0; i < numArgs; i++) {
-    regex += feature.args[i.tostring()]
-    if (i < numArgs - 1) {
-      regex += argsSeparator
+  var pattern = "^" + feature.id + "\\s*"
+  pattern += argsStart
+  // var numArgs = Object.keys(feature.args).length
+  // for (var i=0; i < numArgs; i++) {
+  var args = feature.args.split(', ')
+  for (var i=0; i < args.length; i++) {
+    
+    // empty string means no args required
+    if (args[i] === '') {
+      continue
+    }
+    
+    pattern += patterns[args[i]]
+    if (i < args.length - 1) {
+      pattern += argsSeparator
     }
   }
-  regex += argsEnd + "$"
+  pattern += argsEnd + "$"
 
-  return regex
+  return new RegExp(pattern)
 }

@@ -80,7 +80,6 @@ function initUser(usersSnapshot) {
 }
 
 function fbsignout() {
-  firebase.auth().onAuthStateChanged(function() {})
   firebase.auth().signOut()
 }
 
@@ -129,14 +128,11 @@ function saveFeatureToDB(feature) {
   db.ref(featurePath).set(feature)
 }
 
-function clearUserData(event) {
-  if (event) {
-    event.stopImmediatePropagation()
-  }
+function clearUserData() {
+  user.delete()
   db.ref('users/' + user.uid).remove()
   db.ref('courses/' + user.uid).remove()
-  user.delete()
-  location.reload()
+  // location.reload()
 }
 
 function getPanelFromFeature(feature) {
