@@ -83,23 +83,6 @@ label {
   color: white;
 }
 
-.progress {
-  position: relative;
-}
-
-.stat-bar {
-  width: 260px;
-}
-
-.bar-reading {
-  font-size: 13px;
-  font-weight: bold;
-  color: black;
-  position: absolute;
-  top: 2px;
-  left: 70px;
-}
-
 .thumbnail {
   border-color: #444
 }
@@ -748,7 +731,7 @@ h4.panel-title {
 }
 
 .panel-body{
-  padding:15px
+  padding: 5px 10px 5px 10px;
 }
 
 .panel-heading{
@@ -802,4 +785,54 @@ h4.panel-title {
 
 .panel-heading .glyphicon:hover {
   color: #aaa;
+}
+
+.feature-listing {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  align-items: center;
+}
+
+.label-wrapper {
+  width: 120px;
+  flex-grow: 0;
+  padding-right: 10px;
+}
+
+.code-tag-module-wrapper {
+  flex-grow: 1;
+}
+
+.code-tag-module.bar-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 0px;
+  align-items: center;
+}
+
+.stat-bar {
+  width: 195px;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.progress {
+  position: relative;
+  background-color: #333;
+  border: 1px solid #555;
+}
+
+.bar-reading {
+  font-size: 13px;
+  font-weight: bold;
+  color: #ddd;
+  position: absolute;
+  left: 85px;
+}
+
+.panel-body .code-tag-module {
+  margin: 0px;
 }

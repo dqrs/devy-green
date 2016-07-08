@@ -161,7 +161,13 @@ function backButtonClicked(event) {
 function triggerButtonClicked(event) {
   var button = $(event.currentTarget)
   var expression = button.text()
+  var fid = button.parent().attr('feature-id')
+  var feature = user.course.features[fid]
   eval(expression) // TODO: consider using evalExpression
+  if (feature.refresh === 'current-state') {
+    // re-render panel
+    createPanel($('#current-state'))
+  }
 }
 
 function actionButtonClicked(event) {
@@ -372,22 +378,22 @@ function createLockedPanelBody(panel) {
 }
 
 function createUnlockedPanelBody(panel, panelData, mode, displayType) {
-  var table
   var panelBody = panel.find('.panel-body')
 
   // create a table before
   // we start appending features (which are table rows)
-  table = $('#templates .table-template').first().clone()
-  table.appendTo(panelBody)
+  // var table = $('#templates .table-template').first().clone()
+  // table.appendTo(panelBody)
   
   // for each feature create a code tag
   for (var i=0; i < panelData.features.length; i++) {
-    var featureModule
     var featureId = panelData.features[i]
     var feature = user.course.features[featureId]
 
-    featureModule = createTableFeatureModuleWithCodeTag(feature)
-    table.append(featureModule)
+    // var featureModule = createTableFeatureModuleWithCodeTag(feature)
+    // table.append(featureModule)
+    featureListing = createFeatureListing(feature)
+    panelBody.append(featureListing)
   }
 
   // Activate code tags within this panel
@@ -463,14 +469,24 @@ function createDebugFeatureModule(feature) {
   return featureModule
 }
 
-function createTableFeatureModuleWithCodeTag(feature) {
-  var trTemplate = $('#templates tr.with-code-tag').first().clone()
-  trTemplate.find('.label').text(
+function createFeatureListing(feature) {
+  var featureListing =  $('#templates .feature-listing').first().clone()
+  featureListing.find('.feature-label').text(
     convertCodeToEnglish(feature.id)
   )
-  trTemplate.find('.code-tag-placeholder').attr('id', feature.id)
-  return trTemplate
+  featureListing.find('.code-tag-placeholder').attr('id', feature.id)
+  return featureListing
 }
+
+// deprecated
+// function createTableFeatureModuleWithCodeTag(feature) {
+//   var trTemplate = $('#templates tr.with-code-tag').first().clone()
+//   trTemplate.find('.label').text(
+//     convertCodeToEnglish(feature.id)
+//   )
+//   trTemplate.find('.code-tag-placeholder').attr('id', feature.id)
+//   return trTemplate
+// }
 
 function createTableFeatureModule(feature) {
   var trTemplate = $('#templates tr.display-info').first().clone()
@@ -546,6 +562,11 @@ function createReturnValViewerModule(feature) {
   )
   setPopoverTitle(feature)
 
+  if (feature.refresh === 'current-state') {
+    // re-render panel
+    createPanel($('#current-state'))
+  }
+
   return module
 }
 
@@ -601,18 +622,22 @@ function createCodeTagDisplayModule(feature) {
   }
 }
 
-var colorIndex = 0
-var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
+var colors = {
+  energy: "#090", 
+  happiness: "#36c",
+  confidence: "#f4ff00",
+  intelligence: "#f00",
+  strength: "purple"
+}
 function createCodeTagBarTypeDisplayModule(feature) {
   var displayValue = evaluateExpression(feature)
   
   var template = $(`#templates .bar-type`).first().clone()
 
-  template.attr('id', feature.id)
-  colorIndex = (++colorIndex % colors.length)
+  template.attr('feature-id', feature.id)
   template.find('.progress-bar').css({
     width: `${displayValue}%`,
-    backgroundColor: colors[colorIndex]
+    backgroundColor: colors[feature.id]
   })
   template.find('.bar-reading').text(`${displayValue}/100`)
   

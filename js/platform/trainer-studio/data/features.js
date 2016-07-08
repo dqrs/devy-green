@@ -307,17 +307,17 @@ features = {
     complete: false,
     mode: 'debug'
   },
-  "coins": {
-    id: "coins",
-    entryInstrux: "Enter the expression that will retrieve your trainer's coins",
-    displayType: 'barType',
-    type: "instance_var",
-    expressionEntered: '',
-    hasReturnValue: true,
-    status: "expression-empty",
-    complete: false,
-    mode: 'debug'
-  },
+  // "coins": {
+  //   id: "coins",
+  //   entryInstrux: "Enter the expression that will retrieve your trainer's coins",
+  //   displayType: 'barType',
+  //   type: "instance_var",
+  //   expressionEntered: '',
+  //   hasReturnValue: true,
+  //   status: "expression-empty",
+  //   complete: false,
+  //   mode: 'debug'
+  // },
   "getFullName": {
     id: "getFullName",
     entryInstrux: "Call the method that will create and return your trainer's 'full name'",
@@ -556,6 +556,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "rest": {
@@ -568,6 +569,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "exercise": {
@@ -580,6 +582,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "watchTelevision": {
@@ -592,6 +595,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "readBook": {
@@ -604,6 +608,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "takeCompliment": {
@@ -616,6 +621,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   },
   "takeInsult": {
@@ -628,6 +634,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    refresh: 'current-state',
     mode: 'debug'
   }
 }

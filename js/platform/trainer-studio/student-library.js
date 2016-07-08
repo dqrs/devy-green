@@ -57,7 +57,13 @@ function createLink(displayText, URL) {
 }
 
 function setDefaultFont(fontName) {
-  $('body').css('font-family', fontName)
+  var d = new Detector()
+  if (d.detect(fontName)) {
+    $('body').css('font-family', fontName)
+    return true
+  } else {
+    return false
+  }
 }
 
 function setCodeFont() {

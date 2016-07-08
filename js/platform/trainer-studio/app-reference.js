@@ -71,9 +71,13 @@ function setHighlightColor(color) {
 }
 
 function setFont(fontName) {
-  setDefaultFont(fontName)
+  var success = setDefaultFont(fontName)
+  if (success) {
+    return "Success: Font set successfully!"
+  } else {
+    return "Error: This computer does not support that font!"
+  }
 }
-
 
 function setWallpaper(wallpaperNumber) {
   if (wallpaperNumber == 0) {

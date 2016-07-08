@@ -226,4 +226,24 @@ class Trainer {
     return getAgeInHours() * 60
   }
 
+  work() {
+    this.coins += 50
+    this.energy -= 20
+    this.happiness -= 10
+    this.confidence += 5
+  }
+
+  rest() {
+    this.energy += 20
+    this.intelligence += 10
+  }
+
+  eat() {
+
+  }
+
+  exercise() {
+
+  }
+
 }

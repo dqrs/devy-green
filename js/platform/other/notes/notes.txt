@@ -1,7 +1,9 @@
 DEVY GREEEN:
 ===============================================
 Completed:
-
+  x Refresh stats/attributes after certain funcs (or all funcs)
+  x Implement/test out a few eat/work methods
+  x Set Font
 
 /// Before Demo:
 
@@ -10,14 +12,19 @@ Completed:
   - Put app and trainer js files in starting state
 
 Tasks:
-  - Refresh stats/attributes after certain funcs (or all funcs)
-  - Implement/test out a few eat/work methods
   
+ - New Trainer Methods:
+  - work/sleep/etc should:
+    - check for constraints (e.g. cant work unless enough energy)
+    - return object {
+      success: true/false
+      result_message: "I ate a big meal!"
+    }
   - On startup, tests only show a single X if not working. Otherwise nothing.
   
   - Set trainer image
 
-  - Set Font
+  - implement coins
   
   - Fix return val formatting -- need more room
   
@@ -29,13 +36,6 @@ Tasks:
   - Display tooltip hover above button
   - find 5-10 icons
 
-New Trainer Methods:
-  - work/sleep/etc should:
-    - check for constraints (e.g. cant work unless enough energy)
-    - return object {
-      success: true/false
-      result_message: "I ate a big meal!"
-    }
 
 QA:
   - Debug all cloud9 issues
