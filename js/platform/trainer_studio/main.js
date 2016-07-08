@@ -15,9 +15,18 @@ window.testHarnesses = []
 
 // App Entry Point
 window.onload = function() {
-  initTestHarnesses()
-  initApp()
+  if (window.SYNTAX_ERROR) {
+    $('#trainer-placeholder-inner').replaceWith($('#syntax-error-img').removeClass('hidden'))
+  } else {
+    initTestHarnesses()
+    initApp()
+  }
 } 
+
+// window.onerror = function(error) {
+//   console.log(JSON.stringify(error))
+//   $('#syntax-error-img').removeClass('hidden')
+// }
 
 function initApp() {
   // Initialize Firebase
@@ -55,7 +64,7 @@ function initUser(usersSnapshot) {
   // if user doesn't already exist in db, 
   // then initialize the new user with base data
   if (!(user.uid in usersSnapshot.val())) {
-    alert("Initializing new user")
+    // alert("Initializing new user")
     initializeNewUser()
   }
 
@@ -263,15 +272,14 @@ function setHTMLBackgroundImage(src) {
 }
 
 // Todo: Should also save to the db
-function setColorScheme(color) {
-  var schemes = ['dark-gray', 'white', 'red', 'blue', 'green']
-  $('body').css('background-color', color)
-
-  // Just changing background for now, but could change these too
-  // code-tags
-  // background-color
-  // module header
-  // module-body
+function setColor(target, r, g, b) {
+  var el
+  if (target === 'background') {
+    el = $('body')
+  } else if (target === 'highlight') {
+    el = $('.panel-title, .code-tag-module')
+  }
+  el.css('background-color', `rgb(${r}, ${g}, ${b})`)
 }
 
 

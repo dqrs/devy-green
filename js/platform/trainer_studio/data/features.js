@@ -21,49 +21,44 @@ features = {
     id: "getAppIcon",
     entryInstrux: "Call the function that will return your app's icon filename",
     displayType: 'imageType',
-    codeTag: true,
     placeholderText: "App Icon",
-    mode: 'debug',
     type: "function",
     args: '',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "appName": {
     id: "appName",
     entryInstrux: "Read the value of the variable containing your app's name",
     displayType: 'tableType',
-    codeTag: true,
     placeholderText: "App Name",
-    mode: 'debug',
     type: "global_var",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "appVersion": {
     id: "appVersion",
     entryInstrux: "Read the value of the variable containing your app's version",
     displayType: 'tableType',
-    codeTag: true,
     placeholderText: "App Version",
-    mode: 'debug',
     type: "global_var",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAppAuthor": {
     id: "getAppAuthor",
     entryInstrux: "Call the function that will return your app's author's full name",
     displayType: 'tableType',
-    codeTag: true,
     placeholderText: "App Author",
-    mode: 'debug',
     entryInstrux: "Call the function that will return your app's author",
     type: "function",
     args: '',
@@ -71,69 +66,72 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAppLocationLink": {
     id: "getAppLocationLink",
     entryInstrux: "Call the function that will create a Google Maps link to your app's location",
     displayType: 'linkType',
-    codeTag: true,
-    placeholderText: "App Location Link",
-    mode: 'debug',
     type: "function",
     args: '',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
-  "setAppColor": {
-    id: "setAppColor",
-    entryInstrux: "Call the function that will set your app's color to the color given",
-    displayType: 'tableType',
-    codeTag: true,
-    placeholderText: "Set App Color",
-    mode: 'debug',
+  "setBackgroundColor": {
+    id: "setBackgroundColor",
+    entryInstrux: "Call the function that will set your app's background color to the color given",
+    displayType: 'settingType',
     type: "function",
     args: 'str',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
-  "setAppFont": {
-    id: "setAppFont",
+  "setHighlightColor": {
+    id: "setHighlightColor",
+    entryInstrux: "Call the function that will set your app's highlight color to the color given",
+    displayType: 'settingType',
+    type: "function",
+    args: 'str',
+    expressionEntered: '',
+    hasReturnValue: true,
+    status: "expression-empty",
+    complete: false,
+    mode: 'debug'
+  },
+  "setFont": {
+    id: "setFont",
     entryInstrux: "Call the function that will set your app's font to the font given",
-    displayType: 'tableType',
-    codeTag: true,
-    placeholderText: "Set App Font",
-    mode: 'debug',
+    displayType: 'settingType',
     type: "function",
     args: 'str',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
-  "setAppWallpaper": {
-    id: "setAppWallpaper",
+  "setWallpaper": {
+    id: "setWallpaper",
     entryInstrux: "Call the function that will set your app's wallpaper to the preset given",
     displayType: 'settingType',
-    codeTag: true,
-    placeholderText: "Set App Wallpaper",
-    mode: 'debug',
     type: "function",
     args: 'num',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "appYear": {
     id: "appYear",
     entryInstrux: "Enter the expression to retreive the variable containing the year your app was created",
     displayType: 'tableType',
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "App Year",
     type: "global_var",
     expressionExpected: "appYear",
@@ -141,13 +139,12 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAppSeason": {
     id: "getAppSeason",
     entryInstrux: "Call the function that will return the season when given a month",
     displayType: 'tableType',
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "App Season",
     type: "function",
     args: 'str',
@@ -155,27 +152,25 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAppCredits": {
     id: "getAppCredits",
     entryInstrux: "Call the function that will return your app's credits",
     displayType: 'tableType',
-    codeTag: true,
     placeholderText: "App Credits",
-    mode: 'debug',
     type: "function",
     args: '',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "createTrainer": {
     id: "createTrainer",
     entryInstrux: "Call the function that will return your trainer's last name",
     displayType: 'tableType',
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "Pokemon Trainer",
     entryInstrux: "Create a new Trainer and save it to a variable",
     type: "constructor", // TODO: Double check this
@@ -183,6 +178,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug',
     trainerVar: false
   },
   "firstName": {
@@ -190,39 +186,36 @@ features = {
     entryInstrux: "Enter the expression that will retrieve your trainer's first name",
     displayType: 'tableType',
     type: "instance_var",
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "First Name",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "lastName": {
     id: "lastName",
     entryInstrux: "Enter the expression that will retrieve your trainer's last name",
     displayType: 'tableType',
     type: "instance_var",
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "Last Name",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "age": {
     id: "age",
     entryInstrux: "Enter the expression that will retrieve your trainer's age",
     displayType: 'tableType',
     type: "instance_var",
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "Age",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "slogan": {
     id: "slogan",
@@ -233,32 +226,31 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "favoriteElement": {
     id: "favoriteElement",
     entryInstrux: "Enter the expression that will retrieve your trainer's favorite element",
     displayType: 'tableType',
     type: "instance_var",
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "Favorite Element",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "favoriteColor": {
     id: "favoriteColor",
     entryInstrux: "Enter the expression that will retrieve your trainer's favorite color",
     displayType: 'tableType',
     type: "instance_var",
-    codeTag: true,
-    mode: 'debug',
     placeholderText: "Favorite Color",
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "energy": {
     id: "energy",
@@ -269,6 +261,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "happiness": {
     id: "happiness",
@@ -279,6 +272,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "confidence": {
     id: "confidence",
@@ -289,6 +283,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "intelligence": {
     id: "intelligence",
@@ -299,6 +294,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "strength": {
     id: "strength",
@@ -309,6 +305,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "coins": {
     id: "coins",
@@ -319,6 +316,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getFullName": {
     id: "getFullName",
@@ -330,6 +328,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getReverseName": {
     id: "getReverseName",
@@ -341,6 +340,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getDoubleFullName": {
     id: "getDoubleFullName",
@@ -352,6 +352,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getDoubleReverseName": {
     id: "getDoubleReverseName",
@@ -363,6 +364,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getImageFileName": {
     id: "getImageFileName",
@@ -374,6 +376,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getFirstNameLastInitial": {
     id: "getFirstNameLastInitial",
@@ -385,6 +388,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getFirstInitialLastName": {
     id: "getFirstInitialLastName",
@@ -396,6 +400,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAgeInMonths": {
     id: "getAgeInMonths",
@@ -407,6 +412,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAgeInWeeks": {
     id: "getAgeInWeeks",
@@ -418,6 +424,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAgeInDays": {
     id: "getAgeInDays",
@@ -429,6 +436,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAgeInHours": {
     id: "getAgeInHours",
@@ -440,6 +448,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "getAgeInMinutes": {
     id: "getAgeInMinutes",
@@ -451,6 +460,7 @@ features = {
     hasReturnValue: true,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   // "getAgeInSeconds": {
   //   id: "getAgeInSeconds",
@@ -462,6 +472,7 @@ features = {
   //   hasReturnValue: true,
   //   status: "expression-empty",
   //   complete: false,
+  // mode: 'debug'
   // },
   "writeHi": {
     id: "writeHi",
@@ -473,6 +484,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "writeSlogan": {
     id: "writeSlogan",
@@ -484,6 +496,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "write": {
     id: "write",
@@ -495,6 +508,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "sayHi": {
     id: "sayHi",
@@ -506,6 +520,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "saySlogan": {
     id: "saySlogan",
@@ -517,6 +532,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "say": {
     id: "say",
@@ -528,6 +544,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "work": {
     id: "work",
@@ -539,6 +556,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "rest": {
     id: "rest",
@@ -550,6 +568,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "exercise": {
     id: "exercise",
@@ -561,6 +580,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "watchTelevision": {
     id: "watchTelevision",
@@ -572,6 +592,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "readBook": {
     id: "readBook",
@@ -583,6 +604,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "takeCompliment": {
     id: "takeCompliment",
@@ -594,6 +616,7 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   },
   "takeInsult": {
     id: "takeInsult",
@@ -605,5 +628,6 @@ features = {
     hasReturnValue: false,
     status: "expression-empty",
     complete: false,
+    mode: 'debug'
   }
 }

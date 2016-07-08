@@ -6,8 +6,9 @@ body {
   color: white;
 }
 
-a, a:hover {
+a, a:hover, a:visited {
   color: white;
+  font-family: sans-serif;
 }
 
 .glyphicon {
@@ -78,43 +79,6 @@ label {
   color: #aaa;
 }
 
-.panel-title {
-  color: #666;
-}
-
-.panel-heading {
-  position: relative;
-}
-
-.panel-heading .glyphicon {
-  color: #777;
-  position: absolute;
-  top: 10px;
-}
-
-.panel-heading .minimize {
-  right: 5px;
-}
-
-.panel-heading .activate.enabled {
-  color: #a2a400;
-}
-
-.panel-heading .activate.enabled:hover {
-  color: #f2f400;
-}
-
-.panel-heading .activate.enabled:active {
-  color: #929400;
-}
-
-.panel-heading .glyphicon:active {
-  color: #111;
-}
-
-.panel-heading .glyphicon:hover {
-  color: #aaa;
-}
 
 .control-label {
   color: white;
@@ -199,6 +163,7 @@ tbody.striped tr:nth-child(even) {
  background-color: #2d2d2d;
 }
 
+
 .panel.display, .panel.display h4 {
   font-family: arial;
   font-variant: small-caps;
@@ -239,7 +204,7 @@ tbody.striped tr:nth-child(even) {
   display: flex;
 }
 
-button, input, a {
+button, input {
   font-family: monospace;
   font-weight: bold !important;
 }
@@ -714,10 +679,9 @@ body {
   flex: none !important;
 }
 
-[feature-id="getAppName"].display-mode .code-tag-text {
+[feature-id="appName"].display-mode .code-tag-text {
   font-size: 40px;
   padding: 0px;
-  /*border: 1px solid red;*/
 }
 
 [feature-id="getAppCredits"].display-mode {
@@ -740,4 +704,78 @@ td, th {
 
 tr {
   /*line-height: 28px;*/
+}
+
+h4.panel-title {
+  font-family: sans-serif;
+}
+
+.code-tag-module .display-mode {
+  font-family: sans-serif;
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: rgba(80, 80, 80, 0.45);
+  border:1px solid transparent;
+  border-radius:0;
+  -webkit-box-shadow:0 1px 1px rgba(0,0,0,0.05);
+  box-shadow:0 1px 1px rgba(0,0,0,0.05)
+}
+
+.panel-body{
+  padding:15px
+}
+
+.panel-heading{
+  background-color: rgba(55, 55, 55, 0.45);
+  color: #777;
+  padding:10px 15px;
+  border-bottom:1px solid transparent;
+  border-top-right-radius:-1;
+  border-top-left-radius:-1
+}
+
+.panel-heading>.dropdown .dropdown-toggle{color:inherit}
+
+.panel-title{margin-top:0;margin-bottom:0;font-size:16px;color:inherit}.panel-title>a,.panel-title>small,.panel-title>.small,.panel-title>small>a,.panel-title>.small>a{color:inherit}
+
+.panel-footer{padding:10px 15px;background-color:#080808;border-top:1px solid #3c3c3c;border-bottom-right-radius:-1;border-bottom-left-radius:-1}
+
+.panel-title {
+  color: #666;
+}
+
+.panel-heading {
+  position: relative;
+}
+
+.panel-heading .glyphicon {
+  color: #777;
+  position: absolute;
+  top: 10px;
+}
+
+.panel-heading .minimize {
+  right: 5px;
+}
+
+.panel-heading .activate.enabled {
+  color: #a2a400;
+}
+
+.panel-heading .activate.enabled:hover {
+  color: #f2f400;
+}
+
+.panel-heading .activate.enabled:active {
+  color: #929400;
+}
+
+.panel-heading .glyphicon:active {
+  color: #111;
+}
+
+.panel-heading .glyphicon:hover {
+  color: #aaa;
 }

@@ -24,17 +24,30 @@ function setupGUI() {
     $(`.trainer-var`).text(user.course.trainerVar)
   }
 
-  setupAppCodeTags()
+  setupAppCodeTagModules()
   
   $('.panel-placeholder').each(function() {
     createPanel(this)
   })
 
   setupSourceCodeTooltips()
+
+  // trigger debug popovers for all partially completed features
+  $(`.code-tag-module`).each(function() {
+    var fid = $(this).attr('feature-id')
+    if (!fid) {
+      return // ignore popover template
+    }
+    var feature = user.course.features[fid]
+    if (feature.mode === 'debug' && 
+      feature.status != 'expression-empty') {
+      $(this).click()
+    }
+  })
+
 }
 
-
-function setupAppCodeTags() {
+function setupAppCodeTagModules() {
   $('#header .code-tag-placeholder').each(function() {
     console.log($(this).attr('id'))
     createCodeTagModule(this)
@@ -137,7 +150,7 @@ function backButtonClicked(event) {
 function triggerButtonClicked(event) {
   var button = $(event.currentTarget)
   var expression = button.text()
-  eval(expression)
+  eval(expression) // TODO: consider using evalExpression
 }
 
 function actionButtonClicked(event) {
@@ -282,7 +295,7 @@ function codeViewerRunButtonClicked(clickedElt) {
   // Correct expression was entered, so 
   // now it's time to run tests and evaluate it
   feature.status = 'execution-in-progress'
-  feature.returnValue = formatReturnValue(evaluateExpression(feature))
+  // feature.returnValue = formatReturnValue(evaluateExpression(feature))
   // saveFeatureToDB(feature)
   
   newModule = createReturnValViewerModule(feature)
@@ -459,24 +472,6 @@ function createTableFeatureModule(feature) {
   return trTemplate
 }
 
-var colorIndex = 0
-var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
-
-function createBarFeatureModule(feature) {
-  var value = eval(feature.expressionEntered)
-  var template = $(`#templates .bar-type`).first().clone()
-
-  template.attr('id', feature.id)
-  colorIndex = (++colorIndex % colors.length)
-  template.find('.progress-bar').css({
-    width: `${value}%`,
-    backgroundColor: colors[colorIndex]
-  })
-  template.find('.bar-reading').text(`${value}/100`)
-  
-  return template
-}
-
 function getInstruxFromStatus(feature) {
   var instrux
   if (feature.status === 'expression-empty') {
@@ -535,7 +530,9 @@ function createCodeViewerModule(feature) {
 
 function createReturnValViewerModule(feature) {
   var module = $("#templates .return-val-viewer").first().clone()
-  module.find('.code-input button').text(feature.returnValue)
+  module.find('.code-input button').text(
+    formatReturnValue(evaluateExpression(feature))
+  )
   setPopoverTitle(feature)
 
   return module
@@ -546,21 +543,11 @@ function createTestResultsModule(feature) {
   return testResultsModule
 }
 
-
 function createCodeTagModule(_div, _mode) {
   var div = $(_div)
   var feature = user.course.features[div.attr('id')]
 
   var codeTagModule
-  
-  if (!feature.mode) {
-    if (feature.status === 'execution-correct') {
-      feature.mode = 'display'  
-    } else {
-      feature.mode = 'debug'    
-    }
-  }
-
   if (feature.mode === 'debug') {
     codeTagModule = createCodeTagDebugModule(feature)
   } else if (feature.mode === 'display') {
@@ -575,12 +562,15 @@ function createCodeTagModule(_div, _mode) {
 function createCodeTagDebugModule(feature) {
   var module = $('#templates .code-tag-module.debug-mode').first().clone()
   if (!feature.placeholderText) {
-    feature.placeholderText = feature.id
+    feature.placeholderText = convertCodeToEnglish(
+      feature.id.replace('get','')
+    )
   }
   module.find('.code-tag-text').text(
     "<" + feature.placeholderText + ">"
   )
   module.attr('feature-id', feature.id)
+
   return module
 }
 
@@ -600,45 +590,52 @@ function createCodeTagDisplayModule(feature) {
   }
 }
 
+var colorIndex = 0
+var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 function createCodeTagBarTypeDisplayModule(feature) {
-  return createBarFeatureModule(feature)
+  feature.displayValue = evaluateExpression(feature)
+  
+  var template = $(`#templates .bar-type`).first().clone()
+
+  template.attr('id', feature.id)
+  colorIndex = (++colorIndex % colors.length)
+  template.find('.progress-bar').css({
+    width: `${feature.displayValue}%`,
+    backgroundColor: colors[colorIndex]
+  })
+  template.find('.bar-reading').text(`${feature.displayValue}/100`)
+  
+  return template
 }
 
 function createCodeTagTableTypeDisplayModule(feature) {
+  feature.displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.display-mode').first().clone()
-  // Convert return value to display value
-  var displayValue
-  if (feature.id === 'getAppVersion' && 
-    Object.prototype.toString.call(feature.returnValue) === "[object Number]") {
-    // For app version number format v number as 1.0, 2.1, etc," 
-    displayValue = feature.returnValue.toPrecision(2)
-  } else {
-    displayValue = feature.returnValue.toString().replace(/"/g, '')
-  }
-
-  module.find('.code-tag-text').text(displayValue)
+  module.find('.code-tag-text').text(feature.displayValue)
   module.attr('feature-id', feature.id)
   return module
 }
 
 function createCodeTagImageTypeDisplayModule(feature) {
+  feature.displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.image-type').first().clone()
   module.attr('feature-id', feature.id)
-  module.find('img').attr("src", feature.returnValue.toString().replace(/"/g, ''))
+  module.find('img').attr("src", feature.displayValue)
   return module
 }
 
 function createCodeTagLinkTypeDisplayModule(feature) {
+  feature.displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.link-type').first().clone()
-  var linkHTML = feature.returnValue.toString().replace(/"/g, '')
+  var linkHTML = feature.displayValue
   var linkEl = $(linkHTML).attr('target', "_blank")
-  // var city = url.split("/")[-1].replace('+',' ')
   module.attr('feature-id', feature.id)
   module.find('a').replaceWith(linkEl)
   return module
 }
 
 function createCodeTagSettingTypeDisplayModule(feature) {
+  feature.displayValue = evaluateExpression(feature)
   var module = $('#templates .code-tag-module.setting-type').first().clone()
   module.attr('feature-id', feature.id)
   

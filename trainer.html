@@ -8,15 +8,23 @@
   <link href="assets/css/jquery-ui.css" rel="stylesheet" type="text/css" />
   <link href="assets/css/trainer_studio.css" rel="stylesheet" type="text/css" />
   
+  <script>
+    window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+      console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber + ' Column: ' + column + ' StackTrace: ' +  errorObj);
+      console.log(JSON.stringify(errorObj))
+      window.SYNTAX_ERROR = true
+      return true
+    }
+  </script>
+
   <!-- external libraries -->
   <script src="js/platform/lib/tape_bundle.js"></script>
-  <!-- <script src="js/platform/lib/firebase.js"></script> -->
-  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  <script src="js/platform/lib/firebase.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script> -->
   <script src="js/platform/lib/jquery-2.2.4.min.js"></script>
   <script src="js/platform/lib/bootstrap.min.js"></script>
   <script src="js/platform/lib/jquery-ui.js"></script>
   <script src="js/platform/lib/typed.js"></script>
-
 
   <!-- game world classes (for students to edit) -->
   <!-- <script src="js/game/trainer.js"></script>
@@ -42,7 +50,7 @@
     
     <div id="header">
     <!-- <div class="row" id="header"> -->
-      
+
       <div id="header-left">
         
         <div id="getAppIcon" class="code-tag-placeholder">
@@ -78,7 +86,8 @@
     <div class="row" id="trainer-placeholder">
       <div class="col-xs-12" id="trainer-placeholder-inner">
         <div class="trainer-image-wrapper col-xs-12">
-          <img class="trainer-image" src="assets/images/Misty Trainer-Dead.png" alt="text">
+          <img src="assets/images/syntax-error.gif" id="syntax-error-img" class='hidden'>
+          <img class="trainer-image" src="assets/images/Misty Trainer-Dead.png" id="trainer-placeholder-img">
         </div> <!-- end .trainerImageWrapper -->
         <div id="createTrainer" class="code-tag-placeholder">
         </div>
@@ -135,13 +144,16 @@
 
       <div id="footer-left">
         
-        <div id="setAppColor" class="code-tag-placeholder">
+        <div id="setBackgroundColor" class="code-tag-placeholder">
         </div>
         
-        <div id="setAppFont" class="code-tag-placeholder">
+        <div id="setHighlightColor" class="code-tag-placeholder">
+        </div>
+
+        <div id="setFont" class="code-tag-placeholder">
         </div>
         
-        <div id="setAppWallpaper" class="code-tag-placeholder">
+        <div id="setWallpaper" class="code-tag-placeholder">
         </div>
 
       </div>

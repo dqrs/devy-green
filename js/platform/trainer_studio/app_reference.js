@@ -1,4 +1,4 @@
-var appName = "Trainer Studio"
+var appName = "Trainer Studio 3"
 
 var appVersion = "1.0 alpha"
 
@@ -46,9 +46,27 @@ function getAppIcon() {
   return `assets/icons/${appIconNumber}.png`
 }
 
-// TODO:
-function setAppColor() {
 
+function setAppBackgroundColor(color) {
+  if (color === 'red') {
+    setColor('background', 210, 40, 40)
+  } else if (color === 'green') {
+    setColor('background', 40, 210, 40)
+  } else if (color === 'blue') {
+    setColor('background', 40, 40, 210)
+  } else if (color === 'gray') {
+    setColor('background', 40, 40, 40)
+  }
+}
+
+function setAppHighlightColor(color) {
+  if (color === 'light') {
+    setColor('highlight', 120, 150, 120)
+  } else if (color === 'dark') {
+    setColor('highlight', 30, 30, 50)
+  } else if (color === 'special') {
+    setColor('highlight', 40, 180, 180)
+  }
 }
 
 // TODO:
@@ -63,7 +81,9 @@ function setAppFont(fontNumber) {
 
 
 function setAppWallpaper(wallpaperNumber) {
-  if (wallpaperNumber >= 1 && wallpaperNumber <= 10) {
+  if (wallpaperNumber == 0) {
+    setHTMLBackgroundImage(`none`)
+  } else if (wallpaperNumber >= 0 && wallpaperNumber <= 10) {
     setHTMLBackgroundImage(`assets/wallpaper/${wallpaperNumber}.jpg`)
     return true
   } else {
