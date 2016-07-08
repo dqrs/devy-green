@@ -4,6 +4,9 @@ window.db = false
 window.user = false
 window.token = false
 
+window.appSourceCode = ''
+
+window.userSetup = false
 window.guiSetup = false
 window.testResults = {}
 
@@ -22,56 +25,49 @@ function initApp() {
     apiKey: "AIzaSyDkfHrjTE9jevhoE3PcI-biQFrbiaPHuDo",
     authDomain: "project-3047158032960725719.firebaseapp.com",
     databaseURL: "https://project-3047158032960725719.firebaseio.com",
-    storageBucket: "",
-  }
+    storageBucket: "project-3047158032960725719.appspot.com",
+  };
   firebase.initializeApp(config);
 
   db = firebase.database()
 
-  firebase.auth().onAuthStateChanged(function(_user) {
-    if (_user) {
-      // User is signed in
-      user = _user
-      db.ref(`users`).once(`value`).then(initUser)
-    } else {
-      // User is not signed in, so create sign-in popup
-      var provider = new firebase.auth.GithubAuthProvider()
-      provider.addScope('email')
-
-      firebase.auth().signInWithPopup(provider).then(
-        handleLoginSuccess
-      ).catch(
-        handleLoginError
-      )
-    }
-  })
+  firebase.auth().onAuthStateChanged(handleAuthStateChanged)
 }
 
-function handleLoginSuccess(result) {
-  // Use token to access the GitHub API.
-  token = result.credential.accessToken
-  // The signed-in user info.
-  user = result.user
-
-  db.ref(`users`).once(`value`).then(initUser)
+function handleAuthStateChanged(_user) {
+  // alert(`authStateChanged called:\n_user = ${JSON.stringify(_user)}`)
+  if (_user) {
+    // User is signed in
+    user = _user
+    db.ref(`users`).once(`value`).then(initUser)
+  } else {
+    // User is not signed in, so create sign-in popup
+    var provider = new firebase.auth.GithubAuthProvider()
+    firebase.auth().signInWithPopup(provider).catch(handleLoginError)
+  }
 }
 
-function initUser(usersSnapShot) {
-  // clearUserData() // remove eventually (just for debugging)
+function initUser(usersSnapshot) {
+  // usnap = usersSnapshot
+  // usnapval = usersSnapshot.val()
+  // alert(`users snapshot val = ${JSON.stringify(usnapval)}`)
   
   // if user doesn't already exist in db, 
   // then initialize the new user with base data
-  if (!usersSnapShot.hasChild(user.uid)) {
-    // alert("Initializing new user")
-    setupNewUser()
+  if (!(user.uid in usersSnapshot.val())) {
+    alert("Initializing new user")
+    initializeNewUser()
   }
 
   // store global reference to course data in user
   // then set up the UI with course data
   db.ref('courses/' + user.uid).on('value', function (courseSnapshot) {
-    // alert(`course change detected: getAppName entry = ${courseSnapshot.val().features.getAppName.expressionEntered}`)
+    // csnap = courseSnapshot
+    // csnapval = courseSnapshot.val()
+    // alert(`course snapshot val = ${JSON.stringify(csnapval)}`)
     user.course = courseSnapshot.val()
     if (!guiSetup) {
+      appSourceCode = loadAppSourceCode()
       // init trainer object
       var trainerVar = user.course.trainerVar
       if (trainerVar) {
@@ -83,26 +79,38 @@ function initUser(usersSnapShot) {
   })
 }
 
-function setupNewUser() {
-  var userData = {}
-  userData.name = user.displayName
-  db.ref('users/' + user.uid).set(userData)  
+function fbsignout() {
+  firebase.auth().onAuthStateChanged(function() {})
+  firebase.auth().signOut()
+}
+
+function initializeNewUser() {
+  db.ref('users/' + user.uid).set({
+    name: user.displayName,
+    initialized: true
+  })  
   db.ref('courses/' + user.uid + '/panels').set(panels)
   db.ref('courses/' + user.uid + '/features').set(features)
 }
 
+// Loads the student's app.js code for parsing/reading
+function loadAppSourceCode() {
+  var studentAppPath = "js/game/app.js"
+  var referenceAppPath = "js/platform/trainer_studio/app_reference.js"
+  $.ajax(
+    // studentAppPath,
+    referenceAppPath,
+    {
+      cache: false,
+      success: function(data, status, jqXHR) {
+        appSourceCode = data
+      }
+    }
+  )
+}
+
 function handleLoginError(error) {
-  _error = error
-  // Handle Errors here.
-  var errorfCode = error.code
-  var errorMessage = error.message
-  
-  // The email of the user's account used.
-  var email = error.email
-  
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential
-  
+  _loginError = error
   alert("Something went wrong logging you in. Please refresh the page and try again.")
 }
 
@@ -113,20 +121,21 @@ function saveCourseToDB() {
 
 function savePanelToDB(panel) {
   var panelPath = `courses/${user.uid}/panels/${panel.id}/`
-  db.ref(panelPath).update(panel)
+  db.ref(panelPath).set(panel)
 }
 
 function saveFeatureToDB(feature) {
   var featurePath = `courses/${user.uid}/features/${feature.id}`
-  db.ref(featurePath).update(feature)
+  db.ref(featurePath).set(feature)
 }
 
 function clearUserData(event) {
   if (event) {
     event.stopImmediatePropagation()
   }
-  db.ref('users/' + user.uid).set(null)
-  db.ref('courses/' + user.uid).set(null)
+  db.ref('users/' + user.uid).remove()
+  db.ref('courses/' + user.uid).remove()
+  user.delete()
   location.reload()
 }
 
@@ -273,43 +282,3 @@ function setColorScheme(color) {
 function createLink(displayText, URL) {
   return `<a href="${URL}">${displayText}</a>`
 }
-
-// var stringExp = "(['\"`])\\w+\\1"
-// var numericExp = "\\d*\\.?\\d+"
-// var variableExp = "\\w+"
-// var boolExp = "(?:true)|(?:false)"
-// var objPropertyExp = "\\w+\\.\\w+"
-// var funcExp = "\\w+\\.\\w+"
-
-// var feature1 = {
-//   type: "function",
-//   args: [stringExp, boolExp]
-// }
-
-// var feature2 = {
-//   type: "function",
-//   args: [variableExp]
-// }
-
-// function buildRegex(feature) {
-//   var argsStart = "\\(\\s*"
-//   var argsSeparator = "\\s*,\\s*"
-//   var argsEnd = "\\s*\\)"
-  
-//   var regex = "^" + feature.id
-//   if (
-//     feature.type === "function" 
-//     feature.type === "method"
-//   ) {
-//     regex += argsStart
-//     for (var i=0; i < features.args.length; i++) {
-//       regex += feature.args[i]
-//       if (i < args.length - 1) {
-//         regex += argsSeparator
-//       }
-//     }
-//     regex += argsEnd + "$"
-//   }
-
-//   return regex
-// }

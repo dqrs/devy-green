@@ -10,7 +10,8 @@
   
   <!-- external libraries -->
   <script src="js/platform/lib/tape_bundle.js"></script>
-  <script src="js/platform/lib/firebase.js"></script>
+  <!-- <script src="js/platform/lib/firebase.js"></script> -->
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
   <script src="js/platform/lib/jquery-2.2.4.min.js"></script>
   <script src="js/platform/lib/bootstrap.min.js"></script>
   <script src="js/platform/lib/jquery-ui.js"></script>
@@ -47,7 +48,7 @@
         <div id="getAppIcon" class="code-tag-placeholder">
         </div>
         
-        <div id="getAppName" class="code-tag-placeholder">
+        <div id="appName" class="code-tag-placeholder">
         </div>
       
       </div>
@@ -56,7 +57,7 @@
         <div class="code-tag-label">
           <span>Version</span>
         </div>
-        <div id="getAppVersion" class="code-tag-placeholder">
+        <div id="appVersion" class="code-tag-placeholder">
         </div>
 
         <div class="code-tag-label">
@@ -68,7 +69,7 @@
         <div class="code-tag-label">
           <span>In</span>
         </div>
-        <div id="getAppLocationMap" class="code-tag-placeholder">
+        <div id="getAppLocationLink" class="code-tag-placeholder">
         </div>
 
       </div>
@@ -131,7 +132,7 @@
     </div> <!-- end #main -->
   
     <footer class="row">
-      
+
       <div id="footer-left">
         
         <div id="setAppColor" class="code-tag-placeholder">
@@ -145,17 +146,26 @@
 
       </div>
 
+
       <div id="footer-right">
-        <div class="code-tag-label">
-          <span>&copy;</span>
-        </div>
-        <div id="getAppYear" class="code-tag-placeholder">
-        </div>
         
-        <div id="getAppSeason" class="code-tag-placeholder">
+        <div id="footer-right-left">
+          
+          <div class="code-tag-label">
+            <span>&copy;</span>
+          </div>
+          
+          <div id="appYear" class="code-tag-placeholder">
+          </div>
+          
+          <div id="getAppSeason" class="code-tag-placeholder">
+          </div>
+
         </div>
-        
-        <div id="getAppCredits" class="code-tag-placeholder">
+
+        <div id="footer-right-right">
+          <div id="getAppCredits" class="code-tag-placeholder">
+          </div>
         </div>
 
       </div>
@@ -180,6 +190,21 @@
       </div>
     </div>
 
+    <!-- bar display template -->
+    <div class="code-tag-module display-mode bar-type">
+      <div class="stat-bar">
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" role="progressbar">
+        </div>
+        <span class="bar-reading"></span>
+        </div>
+      </div>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+    <!-- end bar display template -->
+
     <div class="code-tag-module display-mode image-type">
       <img class="code-tag-image">
       <div class="change-display-mode-icon">
@@ -189,6 +214,20 @@
 
     <div class="code-tag-module display-mode link-type">
       <a class='display-link'></a>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+
+    <div class="code-tag-module display-mode setting-type">
+      <label></label>
+      <div class="change-display-mode-icon">
+        <span class="glyphicon glyphicon-cog"></span>
+      </div>
+    </div>
+
+    <div class="code-tag-module display-mode trigger-type">
+      <button class="btn btn-primary btn-trigger"></button>
       <div class="change-display-mode-icon">
         <span class="glyphicon glyphicon-cog"></span>
       </div>
@@ -319,16 +358,6 @@
       </tr>
     </table>
     <!-- end table row -->
-
-    <!-- bar display template -->
-    <div class="stat-bar">
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" role="progressbar">
-      </div>
-      <span class="bar-reading"></span>
-      </div>
-    </div>
-    <!-- end bar display template -->
 
     <div class="panel-body locked-panel">
       <h4><span class="glyphicon glyphicon-lock"></span> Locked</h4>

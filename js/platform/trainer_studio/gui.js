@@ -2,6 +2,7 @@ function setupGUI() {
   $(document).off('.data-api')
 
   $(document).on(`click`, `.btn-action`, actionButtonClicked)
+  $(document).on(`click`, `.btn-trigger`, triggerButtonClicked)
   $(document).on(`click`, `.code-tag-module.debug-mode`, createCodeTagPopover)
   $(document).on(
     `click`, `.change-display-mode-icon`, changeCodeTagToDebugMode
@@ -133,8 +134,20 @@ function backButtonClicked(event) {
   }
 }
 
+
+function triggerButtonClicked(event) {
+  var button = $(event.currentTarget)
+  var expression = button.text()
+  eval(expression)
+}
+
 function actionButtonClicked(event) {
   event.stopImmediatePropagation()
+
+  // ignore if button was disabled
+  if ($(event.currentTarget).hasClass('disabled')) {
+    return
+  }
 
   var {codeModule, featureModule, featureId, feature} = getActionButtonClickContext(this)
 
@@ -159,7 +172,30 @@ function actionButtonClicked(event) {
   }
 }
 
-function checkIfCreateTrainerExpressionMatches(feature) {
+function checkIfExpressionMatchesExpected(feature) {
+
+  if (feature.id === 'createTrainer') {
+    return checkIfMatchesTrainerConstructor(feature)
+
+  } else if (feature.type === "global_var") {
+    return checkIfMatchesGlobalVar(feature)
+
+  } else if (feature.type === "instance_var") {
+    return checkIfMatchesInstanceVar(feature)
+
+  } else if (feature.type === "function") {
+    return checkIfMatchesFunctionCall(feature)
+
+  } else if (feature.type === 'method') {
+    return checkIfMatchesMethodCall(feature)
+
+  } else {
+    alert("unrecognized feature type to match!")
+  }
+}
+
+function checkIfMatchesTrainerConstructor(feature) {
+  // perform regex match to allow diff trainer variables
   var newTrainerRegEx = /(var\s)((\w+)\s?=\s?new\sTrainer\(\))/
   var matchArray = newTrainerRegEx.exec(feature.expressionEntered)
   if (matchArray) {
@@ -173,25 +209,38 @@ function checkIfCreateTrainerExpressionMatches(feature) {
   }
 }
 
-function checkIfExpressionMatchesExpected(feature) {
-  var trainerVar = user.course.trainerVar
+function checkIfMatchesGlobalVar(feature) {
+  // check matches variable name exactly
+  return (feature.expressionEntered === feature.id)
+}
 
-  // perform regex match to allow diff trainer variables
-  if (feature.id === 'createTrainer') {
-    // check if matches create trainer statement
-    return checkIfCreateTrainerExpressionMatches(feature)
-  } else if (feature.expressionExpected.startsWith("t.")) {
-    // check matches method call / instance variable expression
-    var parts = feature.expressionEntered.split(".")
-    return (
-      parts.length == 2 && 
-      parts[0] === trainerVar &&
-      parts[1] === feature.expressionExpected.split('.')[1]
-    )
-  } else {
-    // check matches simple function call (exact match)
-    return feature.expressionEntered === feature.expressionExpected
+function checkIfMatchesInstanceVar(feature) {
+  // instance variable expression
+  var parts = feature.expressionEntered.split(".")
+  return (
+    parts.length == 2 && 
+    parts[0] === user.course.trainerVar &&
+    parts[1] === feature.id
+  )
+}
+
+function checkIfMatchesFunctionCall(feature) {
+  if (typeof feature.args === 'undefined') {
+    console.log("No args attribute for " + feature.id)
+    return true
   }
+  var funcRegex = buildFunctionRegex(feature)
+  return funcRegex.match(feature.expressionEntered)
+}
+
+function checkIfMatchesMethodCall(feature) {
+  var parts = feature.expressionEntered.split(".")
+  var funcRegex = buildFunctionRegex(feature)
+  return (
+    parts.length == 2 && 
+    parts[0] === trainerVar &&
+    funcRegex.match(parts[1])
+  )
 }
 
 function codeEntrySaveButtonClicked(clickedElt) {
@@ -394,7 +443,7 @@ function createDebugFeatureModule(feature) {
 function createTableFeatureModuleWithCodeTag(feature) {
   var trTemplate = $('#templates tr.with-code-tag').first().clone()
   trTemplate.find('.label').text(
-    convertCodeToEnglish(feature.expressionExpected)
+    convertCodeToEnglish(feature.id)
   )
   trTemplate.find('.code-tag-placeholder').attr('id', feature.id)
   return trTemplate
@@ -403,10 +452,10 @@ function createTableFeatureModuleWithCodeTag(feature) {
 function createTableFeatureModule(feature) {
   var trTemplate = $('#templates tr.display-info').first().clone()
   trTemplate.find('.label').text(
-    convertCodeToEnglish(feature.expressionExpected)
+    convertCodeToEnglish(feature.id)
   )
   trTemplate.find('.value').text(
-    eval(feature.expressionExpected)
+    eval(feature.expressionEntered)
   )
   return trTemplate
 }
@@ -416,12 +465,9 @@ var colors = ["#090", "#36c","#f4ff00","#f00", "purple"]
 
 function createBarFeatureModule(feature) {
   var value = eval(feature.expressionEntered)
-  var template = $(`#templates .stat-bar`).first().clone()
+  var template = $(`#templates .bar-type`).first().clone()
 
   template.attr('id', feature.id)
-  // template.find('label').text(
-  //   convertCodeToEnglish(feature.expressionExpected)
-  // )
   colorIndex = (++colorIndex % colors.length)
   template.find('.progress-bar').css({
     width: `${value}%`,
@@ -548,25 +594,15 @@ function createCodeTagDisplayModule(feature) {
     return createCodeTagImageTypeDisplayModule(feature)
   } else if (feature.displayType === 'linkType') {
     return createCodeTagLinkTypeDisplayModule(feature)
+  } else if (feature.displayType === 'settingType') {
+    return createCodeTagSettingTypeDisplayModule(feature)
+  } else if (feature.displayType === 'triggerType') {
+    return createCodeTagTriggerTypeDisplayModule(feature)
   }
 }
 
 function createCodeTagBarTypeDisplayModule(feature) {
   return createBarFeatureModule(feature)
-  // var module = $('#templates .code-tag-module.display-mode').first().clone()
-  // // Convert return value to display value
-  // var displayValue
-  // if (feature.id === 'getAppVersion' && 
-  //   Object.prototype.toString.call(feature.returnValue) === "[object Number]") {
-  //   // For app version number format v number as 1.0, 2.1, etc," 
-  //   displayValue = feature.returnValue.toPrecision(2)
-  // } else {
-  //   displayValue = feature.returnValue.toString().replace(/"/g, '')
-  // }
-
-  // module.find('.code-tag-text').text(displayValue)
-  // module.attr('feature-id', feature.id)
-  // return module
 }
 
 function createCodeTagTableTypeDisplayModule(feature) {
@@ -600,6 +636,25 @@ function createCodeTagLinkTypeDisplayModule(feature) {
   // var city = url.split("/")[-1].replace('+',' ')
   module.attr('feature-id', feature.id)
   module.find('a').replaceWith(linkEl)
+  return module
+}
+
+function createCodeTagSettingTypeDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.setting-type').first().clone()
+  module.attr('feature-id', feature.id)
+  
+  var settingName = feature.expressionEntered.replace('setApp', '').replace(/\(.*\)/, '')
+  var settingValue = /\((.*)\)/.exec(feature.expressionEntered)[1]
+  module.find('label').text(`${settingName}: ${settingValue}`)
+  return module
+}
+
+function createCodeTagTriggerTypeDisplayModule(feature) {
+  var module = $('#templates .code-tag-module.trigger-type').first().clone()
+  module.attr('feature-id', feature.id)
+  
+  module.find('label').text(feature.placeholderText)
+  module.find('button').text(feature.expressionEntered)
   return module
 }
 
@@ -726,7 +781,11 @@ function getSourceCodeForTooltip() {
     } else {
       source = "An error occurred while parsing the Trainer object's constructor function."
     }
-  } else if (feature.type === 'variable') {
+  } else if (feature.type === 'global_var') {
+    // display line where variable was defined/assigned first
+    var reg = new RegExp("var\\s*" + property + "\\s*=\\s*.+$", "m")
+    source = reg.exec(appSourceCode)
+  } else if (feature.type === 'instance_var') {
     // display line where variable was defined/assigned first
     var reg = new RegExp("this\\." + property + "\\s*=\\s*.+$", "m")
     source = reg.exec(Trainer.prototype.constructor.toString())
@@ -755,7 +814,6 @@ function getPropertyFromButton(button) {
   Or trainer.getHeight to 'getHeight'
 */
 function getPropertyFromExpression(text) {
-  // alert("getting property from expresssion: " + text)
   // get property name if called on obj
   if (text.split(".").length == 2) {
     text = text.split(".")[1]
@@ -775,4 +833,31 @@ function convertCodeToEnglish(text) {
 function camelToTitleCase(text) {
   var result = text.replace(/([A-Z])/g, " $1" )
   return result.charAt(0).toUpperCase() + result.slice(1);
+}
+
+var regexes = {}
+regexes['str']  = "(['\"`])\\w+\\1"
+regexes['num']  = "\\d*\\.?\\d+"
+regexes['var']  = "\\w+"
+regexes['bool'] = "(?:true)|(?:false)"
+regexes['prop'] = "\\w+\\.\\w+"
+regexes['func'] = "\\w+\\.\\w+"
+
+function buildFunctionRegex(feature) {
+  var argsStart = "\\(\\s*"
+  var argsSeparator = "\\s*,\\s*"
+  var argsEnd = "\\s*\\)"
+  
+  var regex = "^" + feature.id
+  regex += argsStart
+  var numArgs = Object.keys(feature.args).length
+  for (var i=0; i < numArgs; i++) {
+    regex += feature.args[i.tostring()]
+    if (i < numArgs - 1) {
+      regex += argsSeparator
+    }
+  }
+  regex += argsEnd + "$"
+
+  return regex
 }

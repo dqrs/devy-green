@@ -11,7 +11,7 @@ function getAppAuthor() {
 }
 
 var appLocation = "Los Angeles"
-function getAppLocationMap() {
+function getAppLocationLink() {
   var mapsURL = "https://www.google.com/maps/place/"
   mapsURL += appLocation.replace(" ", "+")
   return createLink(appLocation, mapsURL)
@@ -37,7 +37,7 @@ function getAppSeason(month) {
 }
 
 function getAppCredits() {
-  return `${appName} was created by with love by ${getAuthorFullName()} at 9 Dots in ${appLocation}`
+  return `${appName} was created by with love by ${getAppAuthor()} at 9 Dots in ${appLocation}`
 }
 
 

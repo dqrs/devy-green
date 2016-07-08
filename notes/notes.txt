@@ -1,6 +1,7 @@
 DEVY GREEEN:
 ===============================================
 Completed:
+  x Add new hover source for vars -- use line where they're declared (var _____ = ________)
 
 
 Tasks:
@@ -16,6 +17,8 @@ Tasks:
 
   - Display mode for void func buttons
     - Replace with button to trigger func. 
+
+  - Support expressions with variables
   
   - FIX: Looks like converting returnvalues to displayvalues silently fails sometimes and doesnt save to DB, causing all kinds of problems.
   - Refresh stats/attributes after certain funcs (or all funcs)
@@ -31,7 +34,7 @@ Tasks:
   - Create sign out button
   - Ensure that unlocking/completion still works
   - FIX: 'Panel completed' alert coming up for previously completed panels
-  - FIX: Gear icon on display table should be higher
+  - FIX: Gear icon on display table should be higherhttps://open.spotify.com/track/56N2B8xeDutHrwEptOuedG
   - FIX: table alignment
   - Action buttons change color for each step
   - Display tooltip hover above button
@@ -52,14 +55,6 @@ QA:
   - Debug all cloud9 issues
     - ensure that user data is properly saved
 
-Curriculum/Content:
-  - New app tags for app functions (before trainer created)
-    - app season
-    - app credits constructed from others
-    - changeBackgroundcColor
-    - create getInput() func
-    - first/last/reverse name
-
   - Implement all features
   - Get all features on the UI
   - Write tests for all features
@@ -70,6 +65,7 @@ Documentation/Training:
   - Document steps for creating cloud9 workspace
 
 Minor Bugs:
+  - UI tooltips getting orphaned on screen if activate clicked while tooltip displaying
   - FIX: expressionEntered not displaying in codeEntry module when new popover created
   - Allow constructor to contain {} expressions without breaking sourceCodeTooltip regex
 

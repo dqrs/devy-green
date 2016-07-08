@@ -1,3 +1,11 @@
+label {
+  color: white;
+}
+
+body {
+  color: white;
+}
+
 a, a:hover {
   color: white;
 }
@@ -33,10 +41,6 @@ label {
   font-size: 13px;
 }
 
-label.current-stats {
-  width: 80px;
-}
-
 #chatBubble {
   position: absolute;
   top: 110px;
@@ -50,7 +54,7 @@ label.current-stats {
 }
 
 .ui-tooltip {
-  background-color: black;
+  background-color: #222;
   max-width: 1000px;
   width: 600px;
   overflow: ;
@@ -76,14 +80,6 @@ label.current-stats {
 
 .panel-title {
   color: #666;
-}
-
-label {
-  color: white;
-}
-
-body {
-  color: white;
 }
 
 .panel-heading {
@@ -195,7 +191,6 @@ table.display th{
 }
 
 table.display td {
-  /*font-size: 1em;*/
   color: #bbb;
   font-weight: bold;
 }
@@ -217,10 +212,6 @@ tbody.striped tr:nth-child(even) {
   letter-spacing: normal !important;
   box-sizing: content-box;
   box-shadow: 0px 3px 10px rgba(0,0,0,0.65) !important;
-}
-
-.debug-module-popover input, .debug-module-popover a { 
-  /*width: 245px;*/
 }
 
 .popover .popover-title {
@@ -346,12 +337,6 @@ input:focus {
   padding-top: 15px;
 }
 
-/*.code-tag-module {
-  display: inline-block;
-  margin-right: 10px;
-}
-*/
-
 .code-tag-module.display-mode {
   display: flex;
   flex-direction: row;
@@ -364,6 +349,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-right: 10px;
 }
 
@@ -402,7 +388,7 @@ input:focus {
 }
 
 footer .code-tag-text {
-  padding: 0.3em 0.3em 0.0em 0.3em;
+  /*padding: 0.3em 0.3em 0.0em 0.3em;*/
   color: #ccc;
   font-size: 1.0em;
   font-weight: normal;
@@ -456,10 +442,6 @@ footer .code-tag-text {
 }
 .code-tag-module.display-mode:hover .change-display-mode-icon {
   color: white;
-}
-
-h3.by-author {
-  display: inline;
 }
 
 #trainer-placeholder {
@@ -518,6 +500,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start;
   margin: 0px;
 }
 
@@ -526,6 +509,25 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: flex-start;
+  margin: 0px;
+}
+
+#footer-right-left {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0px;
+}
+
+#footer-right-right {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
   margin: 0px;
 }
 
@@ -545,14 +547,8 @@ table .code-tag-module.debug-mode {
   background-color: #2e2e2e !important;
 }
 
-
-table.display th, td {
-  height: 40px;
-  vertical-align: middle !important;
-}
-
 table .code-tag-text {
-  padding: 0.3em 0.3em 0.0em 0.3em;
+  /*padding: 0.3em 0.3em 0.0em 0.3em;*/
   color: #ccc;
   font-size: 0.75em;
   font-weight: normal;
@@ -700,11 +696,11 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding: 0;
   margin-right: 7px;
   margin-left: 3px;
 }
-
 
 /* specific image sizes for features */
 .image-type {
@@ -722,4 +718,26 @@ body {
   font-size: 40px;
   padding: 0px;
   /*border: 1px solid red;*/
+}
+
+[feature-id="getAppCredits"].display-mode {
+  max-width: 250px;
+  padding: 0px;
+  /*border: 1px solid red;*/
+}
+.code-tag-module.display-mode label {
+  font-family: sans-serif;
+}
+
+#footer-left, #footer-right {
+  /*border-top: 1px solid #333;*/
+}
+
+td, th {
+  vertical-align: middle !important;
+}
+
+
+tr {
+  /*line-height: 28px;*/
 }
