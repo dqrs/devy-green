@@ -16,8 +16,8 @@ createChatBubble [function]:
 ------------------------------------------------------
 createLink [function]:
 - parameters:
-  * textToDisplay [string]
   * URL [string]
+  * textToDisplay [string]
 - action: 
   * constructs an HTML link tag that
   displays the {textToDisplay} and links to the {URL}.
@@ -32,7 +32,7 @@ createLink [function]:
 ------------------------------------------------------
 setColor [function]:
 - parameters:
-  * targetElement [string] ('background' or 'highlight')
+  * targetElement [string] ('background' or 'codeTag')
   * redValue [integer] (0-255)
   * greenValue [integer] (0-255)
   * blueValue [integer] (0-255)
@@ -50,14 +50,11 @@ setColor [function]:
 ------------------------------------------------------
 setDefaultFont [function]:
 - parameters:
-  * targetElement [string] ('background' or 'highlight')
-  * redValue [integer] (0-255)
-  * greenValue [integer] (0-255)
-  * blueValue [integer] (0-255)
-- action: 
+  * fontName
   * sets your app's default font to the {fontName} provided.
 - return value:
-  * true if the font was set successfully, false otherwise 
+  * true if the font was set successfully
+  * false otherwise 
 - example 
     usage:
       setFont('baskerville')

@@ -1,14 +1,6 @@
 DEVY GREEEN:
 ===============================================
 Completed:
-  x Refresh stats/attributes after certain funcs (or all funcs)
-  x Implement/test out a few eat/work methods
-  x Set Font
-  x FIX: Gear icon on display table should be higher
-  x FIX: table alignment
-  x find 5-10 icons
-  x Debug all cloud9 issues
-  x ensure that user data is properly saved
 
 /// Before Demo:
 

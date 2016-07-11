@@ -1,4 +1,4 @@
-function creatChatBubble(msg) {
+function createChatBubble(msg) {
   $('#chatBubble').empty()
   $('#chatBubble').css({left: '150px'})
   $('#chatBubble').append('<div class="newMessage"></div>')
@@ -45,14 +45,14 @@ function setColor(target, r, g, b) {
   var el
   if (target === 'background') {
     el = $('body')
-  } else if (target === 'highlight') {
+  } else if (target === 'codeTag') {
     el = $('.panel-title, .code-tag-module')
   }
   el.css('background-color', `rgb(${r}, ${g}, ${b})`)
 }
 
 
-function createLink(displayText, URL) {
+function createLink(URL, displayText) {
   return `<a href="${URL}">${displayText}</a>`
 }
 

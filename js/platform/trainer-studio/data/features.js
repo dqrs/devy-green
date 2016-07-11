@@ -23,7 +23,7 @@ features = {
     displayType: 'imageType',
     placeholderText: "App Icon",
     type: "function",
-    args: '',
+    args: 'num',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
@@ -92,9 +92,9 @@ features = {
     complete: false,
     mode: 'debug'
   },
-  "setHighlightColor": {
-    id: "setHighlightColor",
-    entryInstrux: "Call the function that will set your app's highlight color to the color given",
+  "setCodeTagColor": {
+    id: "setCodeTagColor",
+    entryInstrux: "Call the function that will set the code tag color to the color given",
     displayType: 'settingType',
     type: "function",
     args: 'str',

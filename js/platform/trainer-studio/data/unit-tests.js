@@ -6,6 +6,13 @@ function testAttribute(attr) {
   }
 }
 
+function testGlobalVar(varName) {
+  return function (test) {
+    test.ok(window[varName], `${varName} is defined!`)
+    test.end()
+  }
+}
+
 function testAppFuntion(funcName) {
   return function(test) {
     // var returnVal = window[funcName]()
@@ -20,10 +27,10 @@ var tests  = {
     test.ok(true, "This test has not yet been implemented.")
     test.end()
   },
-  'getAppName': testAppFuntion('getAppName'),
-  'getAppVersion': testAppFuntion('getAppVersion'),
+  'appName': testGlobalVar('appName'),
+  'appVersion': testGlobalVar('appVersion'),
+  'appYear': testGlobalVar('appYear'),
   'getAppAuthor': testAppFuntion('getAppAuthor'),
-  'getAppYear': testAppFuntion('getAppYear'),
   'getAppCredits': testAppFuntion('getAppCredits'),
   'createTrainer': function(test) {
     var t = new Trainer()

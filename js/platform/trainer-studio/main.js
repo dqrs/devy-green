@@ -106,8 +106,8 @@ function loadAppSourceCode() {
   var studentAppPath = "js/app.js"
   var referenceAppPath = "js/platform/trainer-studio/app-reference.js"
   $.ajax(
-    studentAppPath,
-    // referenceAppPath,
+    // studentAppPath,
+    referenceAppPath,
     {
       cache: false,
       success: function(data, status, jqXHR) {
