@@ -15,9 +15,7 @@ function testGlobalVar(varName) {
 
 function testAppFuntion(funcName) {
   return function(test) {
-    // var returnVal = window[funcName]()
-    // test.ok(returnVal, `${funcName}() is defined and returns a value`)
-    test.ok(true, "This test has not yet been implemented.")
+    test.ok(window[funcName], "Function is defined.")
     test.end()
   }
 }
@@ -32,6 +30,13 @@ var tests  = {
   'appYear': testGlobalVar('appYear'),
   'getAppAuthor': testAppFuntion('getAppAuthor'),
   'getAppCredits': testAppFuntion('getAppCredits'),
+  'getAppIcon': testAppFuntion('getAppIcon'),
+  'getAppAuthor': testAppFuntion('getAppAuthor'),
+  'getAppLocationLink': testAppFuntion('getAppLocationLink'),
+  'setFont': testAppFuntion('setFont'),
+  'setBackgroundColor': testAppFuntion('setBackgroundColor'),
+  'setCodeTagColor': testAppFuntion('setCodeTagColor'),
+  'setWallpaper': testAppFuntion('setWallpaper'),
   'createTrainer': function(test) {
     var t = new Trainer()
     test.ok(t, "Trainer object created!")

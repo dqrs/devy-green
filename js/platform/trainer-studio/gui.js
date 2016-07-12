@@ -764,7 +764,7 @@ function evaluateExpression(feature) {
     try {
       eval("window." + feature.expressionToExecute)
     } catch (err) {
-      window[user.course.trainerVar] = err.message
+      window[user.course.trainerVar] = err
     }
     return window[user.course.trainerVar]
 
@@ -773,19 +773,21 @@ function evaluateExpression(feature) {
     try {
       return eval(feature.expressionEntered)
     } catch (err) {
-      return err.message
+      return err
     } 
   }
 }
 
 function formatReturnValue(val) {
   var formattedVal
-  if (typeof val === 'string') {
+  if (val instanceof Error) {
+    formattedVal = val.name + ': ' + val.message
+  } else if (typeof val === 'string') {
     formattedVal = `"${val}"`
   } else if (typeof val === 'object') {
     formattedVal = JSON.stringify(val)
   } else if (typeof val === 'undefined') {
-    formattedVal = '(UNDEFINED)'
+    formattedVal = 'undefined'
   } else {
     formattedVal = val
   }
@@ -831,7 +833,7 @@ function getSourceCodeForTooltip() {
   } else if (property in window) {
     source = window[property].toString()
   } else {
-    source = '(UNDEFINED)'
+    source = 'undefined'
   }
   tooltipText += `<pre><code>${source}</code></pre>`
 
