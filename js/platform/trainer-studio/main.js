@@ -77,9 +77,10 @@ function initUser(usersSnapshot) {
     user.course = courseSnapshot.val()
     if (!guiSetup) {
       appSourceCode = loadAppSourceCode()
+      
       // init trainer object
       var trainerVar = user.course.trainerVar
-      if (trainerVar) {
+      if (trainerVar && window.Trainer) {
         window[trainerVar] = new Trainer()
       }
       setupGUI()
