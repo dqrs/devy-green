@@ -1,10 +1,7 @@
-/* trainer.js */
-
-// declare your trainer class here
-class Trainer {
+/* trainer.js documentation */
 
   /*
-    constructor [constructor]:
+    constructor [method]:
 
     - parameters: none
 
@@ -13,19 +10,8 @@ class Trainer {
     - return value: a new Pokemon Trainer
 
   */
-  constructor() {
-    this.firstName = 'Shdave'
-    this.lastName = 'D'
-    this.age = 30
-    this.energy = 80
-    this.happiness = 50
-    this.slogan = 'Happiness only with success'
-    this.energy = 75
-    this.happiness = 75
-    this.confidence = 75
-    this.intelligence = 75
-    this.strength = 75
-  }
+
+
 
   /*
     Note: For all of the specs below, assume the trainer has
@@ -44,25 +30,23 @@ class Trainer {
 
   - Example: `Ash Ketchum` [string]
   */
-  getFullName() {
-    return `${this.firstName} ${this.lastName}`
-  }
+  
+
 
   /*
   getReverseName [method]:
 
   - Parameters: none
 
-  - Action: constructs the trainer's 'reverse' name from
-    the trainer's {lastName} and {firstName}
+  - Action: constructs the trainer's 'reverse name' from
+    the trainer's {lastName}, a comma, and trainer's {firstName}
   
   - Return Value: reverse name [string]
 
   - Example: `Ketchum, Ash` [string]
   */
-  getReverseName() {
-    return `${this.lastName}, ${this.firstName}`
-  }
+  
+
 
   /*
   getDoubleFullName [method]:
@@ -70,16 +54,14 @@ class Trainer {
   - Parameters: none
 
   - Action: constructs the trainer's 'double full name' from
-    the trainer's {firstName} and {lastName}
+    the trainer's {firstName} and {lastName} by including
+    each name twice.
 
   - Return Value: double full name [string]
 
   - Example: `Ash Ash Ketchum Ketchum` [string]
   */
-  getDoubleFullName() {
-    return `${this.firstName} ${this.firstName} ` +
-     `${this.lastName} ${this.lastName}`
-  }
+  
 
 
   /*
@@ -94,9 +76,8 @@ class Trainer {
 
   - Example: `Ketchum Ketchum, Ash Ash` [string]
   */
-  getDoubleReverseFullName() {
-    return `${this.lastName} ${this.lastName}, ${this.firstName} ${this.firstName} `
-  }
+  
+
 
   /*
   getFirstNameLastInitial [method]:
@@ -110,10 +91,12 @@ class Trainer {
   - Return Value: first name last initial [string]
 
   - Example: `Ash K.` [string]
+
+  - Hint: Do a google search for how to get the first letter
+    of a string in javascript
   */
-  getFirstNameLastInitial() {
-    return `${this.firstName} ${this.lastName[0]}.`
-  }
+  
+
 
   /*
   getFirstInitialLastName [method]:
@@ -128,9 +111,8 @@ class Trainer {
 
   - Return Value: first initial last name [string]
   */
-  getFirstInitialLastName() {
-    return `${this.firstName[0]}. ${this.lastName}`
-  }  
+  
+
   
   /*
   getElementWeakestAgainst [method]:
@@ -157,17 +139,8 @@ class Trainer {
     If the trainer's element is not 'Water', 'Fire', or 'Plant',
     the method should return 'Error! Element not recognized'
   */
-  getElementWeakestAgainst() {
-    if (this.favoriteElement === 'Water') {
-      return 'Plant'
-    } else if (this.favoriteElement === 'Fire') {
-      return 'Water'
-    } else if (this.favoriteElement === 'Plant') {
-      return 'Fire'
-    } else {
-      return 'Error! Element not recognized'
-    }
-  }
+  
+
 
   /*
   getElementStrongestAgainst [method]:
@@ -194,17 +167,8 @@ class Trainer {
     If the trainer's element is not 'Water', 'Fire', or 'Plant',
     the method should return 'Error! Element not recognized'
   */
-  getElementStrongestAgainst() {
-    if (this.favoriteElement === 'Water') {
-      return 'Fire'
-    } else if (this.favoriteElement === 'Fire') {
-      return 'Plant'
-    } else if (this.favoriteElement === 'Plant') {
-      return 'Water'
-    } else {
-      return 'Error! Element not recognized'
-    }
-  }
+  
+
 
   /*
   writeHi [method]:
@@ -219,9 +183,8 @@ class Trainer {
   - Hint: Look for a function in the API docs that can create
     a chat bubble with the string you give it.
   */  
-  writeHi() {
-    createChatBubble("Hi")
-  }
+  
+
 
   /*
   writeSlogan [method]:
@@ -233,9 +196,8 @@ class Trainer {
 
   - Return Value: none
   */
-  writeSlogan() {
-    createChatBubble(this.slogan)
-  }
+  
+
 
   /*
   write [method]:
@@ -247,9 +209,8 @@ class Trainer {
 
   - Return Value: none
   */
-  write(message) {
-    createChatBubble(message)
-  }
+  
+
 
   /*
   sayHi [method]:
@@ -263,9 +224,8 @@ class Trainer {
   - Hint: Look for a function in the API docs that can speak
     words out loud by converting text to speech. 
   */
-  sayHi() {
-    textToSpeech("Hi!")
-  }
+  
+
   
   /*
   saySlogan [method]:
@@ -277,9 +237,7 @@ class Trainer {
 
   - Return Value: none
   */
-  saySlogan() {
-    textToSpeech(this.slogan)
-  }
+  
 
   /*
   say [method]:
@@ -291,111 +249,4 @@ class Trainer {
 
   - Return Value: none
   */
-  say(message) {
-    textToSpeech(message)
-  }
-
-  getAgeInMonths() {
-    return this.age * 12
-  }
-
-  getAgeInWeeks() {
-    return this.age * 52
-  }
-
-  getAgeInDays() {
-    return this.age * 365
-  }
-
-  getAgeInHours() {
-    return getAgeInDays() * 24
-  }
-
-  getAgeInMinutes() {
-    return getAgeInHours() * 60
-  }
-  
-  getAgeInSeconds() {
-    return getAgeInHours() * 60
-  }
-
-  work() {
-    this.coins += 50
-    this.energy -= 20
-    this.happiness -= 10
-    this.confidence += 5
-  }
-
-  rest() {
-    this.energy += 20
-    this.intelligence += 10
-  }
-
-  eat() {
-
-  }
-
-  exercise() {
-
-  }
-
-    /*
-    Returns the name of the Pokemon's image file.
-    The image changes based on the Pokemon's species and
-    whether it is alive or not.
-    For example:
-      a Charmander pokemon's image file should be:
-        'Charmander.png' if it is alive
-        and 'Charmander-Dead.png' if it is dead.
-      a Blastoise pokemon's image file should be:
-        'Blastoise.png' if it is alive
-        and 'Blastoise-Dead.png' if it is dead.
-  */
-  getImageFileName() {
-    return this.getFullName() + '.png'
-  }
-
-  getAgeDescription() {
-    var description = ''
-    if (this.age < 10) {
-      description = 'kid'
-    } else if (this.age < 13) {
-      description = 'pre-teen'
-    } else if (this.age < 20) {
-      description = 'teenager'
-    } else {
-      description = 'adult'
-    }
-    return description
-  }
-
-  getHappinessDescription() {
-    var description = ''
-    if (this.happiness <= 20) {
-      description = 'very sad'
-    } else if (this.happiness <= 40) {
-      description = 'sad'
-    } else if (this.happiness <= 60) {
-      description = 'neutral'
-    } else if (this.happiness <= 80) {
-      description = 'happy'
-    } else if (this.happiness <= 100) {
-      description = 'very happy'
-    }
-    return description
-  }
-
-  getConfidenceDescription() {
-    var description = ''
-    if (this.confidence <= 34) {
-      description = 'not confident'
-    } else if (this.confidence <= 67) {
-      description = 'modestly confident'
-    } else if (this.confidence <= 100) {
-      description = 'very confident'
-    }
-    return description
-  }
-
-
-}
+ 

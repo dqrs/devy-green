@@ -2,6 +2,9 @@ DEVY GREEEN:
 ===============================================
 Completed:
 
+  - 7/17 notes:
+    - Add elementWeakestAgainst etc to features.js / UI
+
 /// Before Demo:
 
   - remove app/trainer reference from repo
