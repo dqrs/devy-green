@@ -24,7 +24,9 @@ function setupGUI() {
 
   setupAppCodeTagModules()
   
+  console.log(`Creating panels...`)
   $('.panel-placeholder').each(function() {
+    console.log(`About to create panel: ` + $(this).attr('id'))
     createPanel(this)
   })
 

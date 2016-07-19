@@ -38,7 +38,12 @@ var tests  = {
   'setCodeTagColor': testAppFuntion('setCodeTagColor'),
   'setWallpaper': testAppFuntion('setWallpaper'),
   'createTrainer': function(test) {
-    var t = new Trainer()
+    var t
+    try {
+      t = new Trainer()
+    } catch (err) {
+      t = false
+    }
     test.ok(t, "Trainer object created!")
     test.end()
   },

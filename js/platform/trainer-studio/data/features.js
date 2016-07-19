@@ -307,17 +307,17 @@ features = {
     complete: false,
     mode: 'debug'
   },
-  // "coins": {
-  //   id: "coins",
-  //   entryInstrux: "Enter the expression that will retrieve your trainer's coins",
-  //   displayType: 'barType',
-  //   type: "instance_var",
-  //   expressionEntered: '',
-  //   hasReturnValue: true,
-  //   status: "expression-empty",
-  //   complete: false,
-  //   mode: 'debug'
-  // },
+  "coins": {
+    id: "coins",
+    entryInstrux: "Enter the expression that will retrieve your trainer's coins",
+    displayType: 'tableType',
+    type: "instance_var",
+    expressionEntered: '',
+    hasReturnValue: true,
+    status: "expression-empty",
+    complete: false,
+    mode: 'debug'
+  },
   "getFullName": {
     id: "getFullName",
     entryInstrux: "Call the method that will create and return your trainer's 'full name'",
@@ -366,18 +366,6 @@ features = {
     complete: false,
     mode: 'debug'
   },
-  "getImageFileName": {
-    id: "getImageFileName",
-    entryInstrux: "Call the method that will create and return your trainer's image filename",
-    displayType: 'tableType',
-    type: "method",
-    args: '',
-    expressionEntered: '',
-    hasReturnValue: true,
-    status: "expression-empty",
-    complete: false,
-    mode: 'debug'
-  },
   "getFirstNameLastInitial": {
     id: "getFirstNameLastInitial",
     entryInstrux: "Call the method that will create and return your trainer's first name followed by their last initial",
@@ -393,6 +381,30 @@ features = {
   "getFirstInitialLastName": {
     id: "getFirstInitialLastName",
     entryInstrux: "Call the method that will create and return your trainer's first initial followed by their last name",
+    displayType: 'tableType',
+    type: "method",
+    args: '',
+    expressionEntered: '',
+    hasReturnValue: true,
+    status: "expression-empty",
+    complete: false,
+    mode: 'debug'
+  },
+  "getElementWeakestAgainst": {
+    id: "getElementWeakestAgainst",
+    entryInstrux: "Call the method that will return the element your trainer is weakest against",
+    displayType: 'tableType',
+    type: "method",
+    args: '',
+    expressionEntered: '',
+    hasReturnValue: true,
+    status: "expression-empty",
+    complete: false,
+    mode: 'debug'
+  },
+  "getElementStrongestAgainst": {
+    id: "getElementStrongestAgainst",
+    entryInstrux: "Call the method that will return the element your trainer is strongest against",
     displayType: 'tableType',
     type: "method",
     args: '',
@@ -559,9 +571,9 @@ features = {
     refresh: 'current-state',
     mode: 'debug'
   },
-  "rest": {
-    id: "rest",
-    entryInstrux: "Call the method that will cause your trainer to rest",
+  "sleep": {
+    id: "sleep",
+    entryInstrux: "Call the method that will cause your trainer to sleep",
     displayType: 'triggerType',
     type: "method",
     args: '',

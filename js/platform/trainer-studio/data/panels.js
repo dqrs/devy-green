@@ -52,7 +52,20 @@ panels = {
       "confidence",
       "intelligence",
       "strength",
-      // "coins",
+    ]
+  },
+  "resources": {
+    id: "resources",
+    title: "Resources",
+    mode: "debug",
+    displayType: "tableType",
+    complete: false,
+    locked: true,
+    minimized: false,
+    // prereqs: ["basic-info"],
+    prereqs: false,
+    features: [
+      "coins"
     ]
   },
   "name": {
@@ -70,9 +83,23 @@ panels = {
       "getReverseName",
       "getDoubleFullName",
       "getDoubleReverseName",
-      "getImageFileName",
       "getFirstNameLastInitial",
-      "getFirstNameLastInitial",
+      "getFirstInitialLastName",
+    ]
+  },
+  "element": {
+    id: "element",
+    title: "Element",
+    mode: "debug",
+    displayType: "tableType",
+    complete: false,
+    locked: true,
+    minimized: false,
+    // prereqs: ['current-state'],
+    prereqs: false,
+    features: [
+      "getElementWeakestAgainst",
+      "getElementStrongestAgainst",
     ]
   },
   "age": {
@@ -122,13 +149,13 @@ panels = {
     // prereqs: ["communicate"],
     prereqs: false,
     features: [
-      "work",
-      "rest",
+      "sleep",
       "exercise",
-      "watchTelevision",
-      "readBook",
-      "takeCompliment",
-      "takeInsult",
+      "work",
+      // "watchTelevision",
+      // "readBook",
+      // "takeCompliment",
+      // "takeInsult",
     ]
   }
 }
