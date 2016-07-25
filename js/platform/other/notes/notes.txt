@@ -1,27 +1,21 @@
 DEVY GREEEN:
 ===============================================
-Completed:
 
-  - 7/17 notes:
-    - Add elementWeakestAgainst etc to features.js / UI
 
-/// Before Demo:
-
-  - remove app/trainer reference from repo
-  - Include app and trainer js instead of reference in trainer.html
-  - Switch loadSource ajax call to app.js (instead of app-reference)
-  - Put app and trainer js files in starting state
-
-Tasks:
-  - finish trainer reference
-  - document functions
-  - create commented trainer.js
-  - create commented app.js
-  - document library functions in library.txt
-  - document function names etc in app.js
-  - document 'suggested' order in readme.txt
-  - finalize exercises
   - write unit tests
+
+  - re-do curric progression
+  - start with vars, then classes/objects, then methods
+  - maybe the app should be a class too?
+
+      app.author
+      app.version
+      app.getIcon()
+
+      wrapper methods for setting/changing vars
+        --> ensure stays between 0 and 100
+         
+
   - add more pokemon references
     - set trainer image
     - favorite pokemon (with image)
@@ -29,10 +23,7 @@ Tasks:
     - favorite element image?
     - make icons appear / image change when hungry, thirst tired
     - add items?
-
-
-
-  
+ 
  - New Trainer Methods:
   - work/sleep/etc should:
     - check for constraints (e.g. cant work unless enough energy)
@@ -52,15 +43,6 @@ Tasks:
   - Create sign out button
   - Action buttons change color for each step
   - Display tooltip hover above button
-
-
-QA:
-
-  - Implement all features
-  - Get all features on the UI
-  - Write tests for all features
-  - create gui libary for students
-    - gui.displayIcon()
 
 Documentation/Training:
   - Document steps for creating cloud9 workspace

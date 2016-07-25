@@ -12,7 +12,6 @@
     * Pokemon Playground 2000
     * Shdave D's Awesome App
 */
-// declare your appName variable here...
 
 
 /* 
@@ -47,6 +46,7 @@
 */
 
 
+
 /*
   getAppAuthor [function]:
 
@@ -57,6 +57,51 @@
 
   - Return Value: author's full name
 */
+
+
+
+/* 
+  appCity [variable // string]: 
+
+  - Stores the name of your app's city
+
+  - For Example:
+    * Sherman Oaks
+    * Las Vegas
+    * Austin
+*/
+
+
+
+/* 
+  appState [variable // string]: 
+
+  - Stores the name of your app's state
+
+  - For Example:
+    * California
+    * Texas
+    * Nevada
+*/
+
+
+/*
+  getAppLocation [function]:
+
+  - Parameters: none
+
+  - Action: constructs a string that contains your {appCity}
+    and {appState} formatted in the usual way.
+  }
+
+  - For example: 
+    * 'Austin, Texas'
+    * 'Sacramento, California'
+    * etc.
+
+  - Return Value: location [string]
+*/
+
 
 
 /*
@@ -100,67 +145,22 @@
 /*
   setFont [function]:
 
-  - Parameters: fontName [string]
+  - Parameters: fontNumber [number]
   
-  - Action: sets the app's default font to {fontName}
+  - Action: sets the app's default font to a font-family
+    based on the {fontNumber} given, as shown below.
+
+      fontNumber:         Action:  
+      1             ==>   set to 'serif'
+      2             ==>   set to 'cursive'
+      3             ==>   set to 'fantasy'
+      4             ==>   set to 'monospace'
+      5             ==>   set to 'sans-serif'
   
   - Return Value: none
   
   - Hint: Take a look in the docs for a function that can set
-  the app's font
-
-  - Extra Credit:
-    * Return the string "Success!" if the font was set
-    successfully. Otherwise, return "Error!"
-    * If you're on a mac, open the Font Book application to see
-    all the fonts available on your computer...
-*/
-
-
-
-/* 
-  appLocationName [variable // string]: 
-
-  - Stores the name of your app's location
-
-  - For Example:
-    * Los Angeles
-    * The Eiffel Tower
-    * 9 Dots
-    * MIT
-*/
-
-
-
-/* 
-  appLocationURL [variable // string]: 
-
-  - stores the URL to a Google Map of your app's location
-
-  - For Example:
-    * https://www.google.com/maps/place/9+Dots/@34.0880332,-118.3411233,17z/data=!3m1!4b1!4m5!3m4!1s0x80c2bf2c60ad3e81:0x2efadb41115b9452!8m2!3d34.0880332!4d-118.3389293
-
-  - Hint: Go to maps.google.com and type in your app's location name.
-*/
-
-
-
-/*
-  getAppLocationLink [function]:
-
-  - Parameters: none
-
-  - Action: constructs the HTML code for a link that links to your 
-    app's location URL and displays your app's location name
-
-  - Return Value: location link [string]
-
-  - For Example:
-    getAppLocationLink() could return:
-    `<a href="https://www.google.com/maps/place/9+Dots/@34.0880332,-118.3411233,17z/data=!3m1!4b1!4m5!3m4!1s0x80c2bf2c60ad3e81:0x2efadb41115b9452!8m2!3d34.0880332!4d-118.3389293">9 Dots</a>`
-
-  - Hint: Look at the API docs for a function to create
-    links.
+  the app's default font
 */
 
 
@@ -186,14 +186,11 @@ function setBackgroundColor(colorName) {
   if (colorName === 'red') {
     // set the background color to a red color
 
-
   } else if (colorName === 'green') {
     // set the background color to a green color
-    // ...
 
   } else if (colorName === 'blue') {
 
-    // ...
   
   }
 }
@@ -239,26 +236,62 @@ function setBackgroundColor(colorName) {
 
 
 
+/* 
+  appLocationURL [variable // string]: 
+
+  - stores the URL to a Google Map of your app's location
+
+  - For Example:
+    * https://www.google.com/maps/place/9+Dots/@34.0880332,-118.3411233,17z/data=!3m1!4b1!4m5!3m4!1s0x80c2bf2c60ad3e81:0x2efadb41115b9452!8m2!3d34.0880332!4d-118.3389293
+
+  - Hint: Go to maps.google.com and type in your app's location name.
+*/
+
+
+
+/*
+  getAppMapLink [function]:
+
+  - Parameters: none
+
+  - Action: constructs the HTML code for a link to a Google Map of
+    your app's location.
+
+    * The link should use your {appLocationURL} as its href.
+    * The link should display your app's location, using the
+      getAppLocation function you wrote.
+    
+  - Return Value: map link [string]
+
+  - For Example:
+    getAppMapLink() could return:
+    `<a href="https://www.google.com/maps/place/9+Dots/@34.0880332,-118.3411233,17z/data=!3m1!4b1!4m5!3m4!1s0x80c2bf2c60ad3e81:0x2efadb41115b9452!8m2!3d34.0880332!4d-118.3389293">Hollywood, CA</a>`
+
+  - Hint: Look at the API docs for a function to create
+    links.
+*/
+
+
 
 /*
   getAppSeason [function]:
 
-  - Parameters: month [string]
+  - Parameters: month [integer] (1-12)
 
-  - Action: determines the season that the month is in(  
-    Summer/Fall/Winter, etc.) 
+  - Action: determines the season that the month is in
+    (Winter, Spring, Summer, or Fall) based on the mapping below.
+
+    month:              season:
+    1,2,12       ==>    "Winter"
+    3,4,5        ==>    "Spring"
+    6,7,8        ==>    "Summer"
+    9,10,11      ==>    "Fall"
 
   - Return Value: the season [string]
 
+  - Hint: Start by handling all months except 12 (December). Then
+    add in support for December.
 */
-function getAppSeason(month) {
-  var springMonths = ["March", "April", "May"]
-  var summerMonths = ["June", "July", "August"]
-  var fallMonths = ["September", "October", "November"]
-  var winterMonths = ["December", "January", "February"]
-  
-  
-}
 
 
 

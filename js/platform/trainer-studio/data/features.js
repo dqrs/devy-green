@@ -68,8 +68,20 @@ features = {
     complete: false,
     mode: 'debug'
   },
-  "getAppLocationLink": {
-    id: "getAppLocationLink",
+  "getAppLocation": {
+    id: "getAppLocation",
+    entryInstrux: "Call the function that will construct and return your app's location",
+    displayType: 'tableType',
+    type: "function",
+    args: '',
+    expressionEntered: '',
+    hasReturnValue: true,
+    status: "expression-empty",
+    complete: false,
+    mode: 'debug'
+  },
+  "getAppMapLink": {
+    id: "getAppMapLink",
     entryInstrux: "Call the function that will create a Google Maps link to your app's location",
     displayType: 'linkType',
     type: "function",
@@ -106,10 +118,10 @@ features = {
   },
   "setFont": {
     id: "setFont",
-    entryInstrux: "Call the function that will set your app's font to the font name given",
+    entryInstrux: "Call the function that will set your app's font",
     displayType: 'settingType',
     type: "function",
-    args: 'str',
+    args: 'num',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",
@@ -143,11 +155,11 @@ features = {
   },
   "getAppSeason": {
     id: "getAppSeason",
-    entryInstrux: "Call the function that will return the season when given a month",
+    entryInstrux: "Call the function that will return the season for the given month",
     displayType: 'tableType',
     placeholderText: "App Season",
     type: "function",
-    args: 'str',
+    args: 'num',
     expressionEntered: '',
     hasReturnValue: true,
     status: "expression-empty",

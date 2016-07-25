@@ -142,7 +142,7 @@ function clearUserData() {
   user.delete()
   db.ref('users/' + user.uid).remove()
   db.ref('courses/' + user.uid).remove()
-  // location.reload()
+  location.reload()
 }
 
 function getPanelFromFeature(feature) {

@@ -6,12 +6,12 @@ createChatBubble [function]:
   * prints out the {message} provided in a chat bubble
   next to the pokemon trainer's picture
 - return value:
-  * (undefined)
+  * none
 - example 
     usage:
       createChatBubble('Hello world!')
     return value: 
-      (undefined)
+      none
 
 ------------------------------------------------------
 createLink [function]:
@@ -25,7 +25,7 @@ createLink [function]:
   * link tag HTML [string]
 - example 
     usage:
-      createLink('Search Engine', 'http://google.com')
+      createLink('http://google.com', 'Search Engine', )
     return value: 
       '<a href="http://google.com">Search Engine</a>'
 
@@ -40,12 +40,12 @@ setColor [function]:
   * sets the {targetElement} to the RGB color determined by 
   {redValue}, {greenValue}, {blueValue}
 - return value:
-  * (undefined)
+  * none
 - example 
     usage:
       setColor('background', 50, 50, 50)
     return value: 
-      (undefined)
+      none
 
 ------------------------------------------------------
 setDefaultFont [function]:
@@ -57,7 +57,7 @@ setDefaultFont [function]:
   * false otherwise 
 - example 
     usage:
-      setFont('baskerville')
+      setDefaultFont('baskerville')
     return value: 
       true
 
@@ -70,12 +70,12 @@ setHTMLBackgroundImage [function]:
   provided. If {imageFileName} is empty, it removes the app
   s background image.
 - return value:
-  * (undefined)
+  * none
 - example 
     usage:
-      setHTMLBackgroundImage('assets/wallpaper/1.png')
+      setHTMLBackgroundImage('assets/wallpaper/1.jpg')
     return value: 
-      (undefined)
+      none
 
 ------------------------------------------------------
 textToSpeech [function]:
@@ -85,9 +85,9 @@ textToSpeech [function]:
   * speaks the {message} provided out loud using your
   computer's speakers
 - return value:
-  * (undefined)
+  * none
 - example 
     usage:
       textToSpeech('Hello world!')
     return value: 
-      (undefined)
+      none

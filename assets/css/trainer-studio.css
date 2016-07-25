@@ -51,10 +51,11 @@ label {
 }
 
 .ui-tooltip {
-  background-color: #222;
+  background-color: rgb(130,130,130);
   max-width: 1000px;
-  width: 600px;
-  overflow: ;
+  min-width: 300px;
+  /*width: 600px;*/
+  /*overflow: ;*/
   overflow-wrap: break-word;
 }
 
@@ -72,7 +73,8 @@ label {
 }
 
 .ui-tooltip h5 {
-  color: #aaa;
+  color: #252525;
+  font-weight: bold;
 }
 
 .control-label {
@@ -116,6 +118,11 @@ code.incorrect {
 
 input:focus::-webkit-input-placeholder {
   color: transparent !important;
+}
+
+.code-input input {
+  color: white !important;
+  /*font-size: 13px;*/
 }
 
 table.display {
@@ -255,11 +262,12 @@ button, input {
 }
 
 input {
-  color: #777 !important;
+  color: white !important;
+  /*font-size: 13px !important;*/
 }
 
 input:focus {
-  color: #777 !important; 
+  color: white !important; 
 }
 
 /*.title-display-module {

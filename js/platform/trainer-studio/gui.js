@@ -78,7 +78,7 @@ function setupAppCodeTagModules() {
 function setupSourceCodeTooltips() {
   $(document).tooltip({
     content: getSourceCodeForTooltip,
-    items: '.return-val-viewer .btn-code,.code-viewer-module.expression-correct .btn-code'
+    items: '.return-val-viewer .btn-code,.code-viewer-module.expression-correct .btn-code, .code-tag-module .btn-trigger'
   })
 }
 
@@ -166,9 +166,10 @@ function triggerButtonClicked(event) {
   var fid = button.parent().attr('feature-id')
   var feature = user.course.features[fid]
   eval(expression) // TODO: consider using evalExpression
-  if (feature.refresh === 'current-state') {
+  if (feature.refresh) {
     // re-render panel
     createPanel($('#current-state'))
+    createPanel($('#resources'))
   }
 }
 
@@ -789,7 +790,7 @@ function formatReturnValue(val) {
   } else if (typeof val === 'object') {
     formattedVal = JSON.stringify(val)
   } else if (typeof val === 'undefined') {
-    formattedVal = 'undefined'
+    formattedVal = '()'
   } else {
     formattedVal = val
   }
@@ -800,8 +801,13 @@ function getSourceCodeForTooltip() {
   var element = $(this)
 
   // /\s*\w+\s*\([\w\d\,\s]*\)\s*\{/
-  var featureModule = element.parent().parent().parent()
-  var property = featureModule.attr('feature-id')
+  if (element.hasClass('btn-trigger')) {
+    var property = element.parent().attr('feature-id')
+  } else {
+    var featureModule = element.parent().parent().parent()
+    var property = featureModule.attr('feature-id')
+  }
+
   var tooltipText = `<h5>Source Code:</h5>`
   var feature = user.course.features[property]
 
@@ -835,7 +841,7 @@ function getSourceCodeForTooltip() {
   } else if (property in window) {
     source = window[property].toString()
   } else {
-    source = 'undefined'
+    source = '(undefined)'
   }
   tooltipText += `<pre><code>${source}</code></pre>`
 
