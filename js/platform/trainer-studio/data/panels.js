@@ -157,5 +157,35 @@ panels = {
       // "takeCompliment",
       // "takeInsult",
     ]
-  }
+  },
+  "pokemon": {
+    id: "pokemon",
+    title: "Pokemon",
+    mode: "debug",
+    displayType: "void",
+    complete: false,
+    minimized: false,
+    locked: true,
+    // prereqs: ["communicate"],
+    prereqs: false,
+    features: [
+      "getFirstPokemon",
+      "getLastPokemon",
+      "getPokemonNumber100",
+      "getPokemonByIndex",
+      "printAllPokemon",
+      "printAllPokemonInReverse",
+      "findPokemonByName",
+      "findPokemonWithHighestAttack",
+      "findPokemonWithHighestDefense",
+      "findPokemonWithLowestSpeed",
+      "findPokemonWithLowestHP",
+      "findAllPokemonWithHPGreaterThan",
+      "findAllPokemonWithAttackGreaterThan",
+      "findAllPokemonWithAttackLessThan",
+      "findAllPokemonWithName",
+      "findAllPokemonWithoutName",
+      "findAllPokemonStartingWithLetter",
+    ]
+  },
 }

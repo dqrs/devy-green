@@ -649,6 +649,9 @@ function createCodeTagBarTypeDisplayModule(feature) {
 
 function createCodeTagTableTypeDisplayModule(feature) {
   var displayValue = evaluateExpression(feature)
+  if (typeof displayValue != 'string') {
+    displayValue = formatReturnValue(displayValue)
+  }
   var module = $('#templates .code-tag-module.display-mode').first().clone()
   module.find('.code-tag-text').text(displayValue)
   module.attr('feature-id', feature.id)
