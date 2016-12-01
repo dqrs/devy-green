@@ -52,7 +52,7 @@ To access a live demo, please go to the following Cloud9 Workspace: https://ide.
 
 (Note: a github account is needed to login and save your progress through the course.)
 
-Once in the devY Red Demo workspace, look for the file tree on the left-hand side. Right-click on trainer.html and select "Preview." This will generate a live-reloadable instance of the application linked to the javascript files in "js" folder. 
+Once in the devY Red Demo workspace, look for the file tree on the left-hand side. Right-click on "trainer.html" and select "Preview." This will generate a live-reloadable instance of the application linked to the javascript files in "js" folder. 
 
 Then open up "app.js" to begin the course. You'll find some basic documentation about the built-in API that the app expects you to use in "docs/api-documentation.txt". Once you've finished the exercises in "app.js", move on to "trainer.js" 
 
@@ -68,14 +68,13 @@ Open an issue to discuss potential changes/additions.
 
 #### (The MIT License)
 
-Copyright (c) 2014 Bill Gooch
+Copyright (c) 2016 David Gershuni
 
 Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
+a copy of this software and associated documentation files (the'Software'), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
