@@ -2,7 +2,7 @@
 
 The devY Red Pokemon Trainer app is a web application that was built to accompany the live devY Red Javascript course taught at [9 Dots Community Learning Center](http://9dots.org) over the [summer](http://www.9dots.org/summer/) of 2016. It's designed for middle school students with little to no prior programming experience. The course focuses on variables, functions, conditionals, and the basics of object-oriented programming. It also includes some exercises covering arrays and for-loops.
 
-![overview screenshot](https://github.com/dqrs/devy-red/screenshots/overview.png)
+![overview screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/overview.png)
 
 ## Table of Contents
 1. [Usage](#Usage)
@@ -20,29 +20,29 @@ The devY Red Pokemon Trainer app is a web application that was built to accompan
 ### 1. Writing Code
 The course starts in a code editor (in this case Cloud9's Ace Editor), where students are given a technical specification describing a variable, function, or method required by the app.
 
-![writing code screenshot](https://github.com/dqrs/devy-red/screenshots/0.png)
+![writing code screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/0.png)
 
 ### 2. Executing Code in the App Interface
 The student can then execute her implementation by clicking the corresponding 'code tag,' which gives the student a description of the Javascript expression that should be entered.
 
-![calling code screenshot](https://github.com/dqrs/devy-red/screenshots/1.png)
+![calling code screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/1.png)
 
 ### 3. Syntax Validation
 The student's Javascript expression is validated against the expected expression for that code tag. The code is only executed if the expression is entered correctly.
 
-![incorrect syntax screenshot](https://github.com/dqrs/devy-red/screenshots/2.png)
+![incorrect syntax screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/2.png)
 
-![correct syntax screenshot](https://github.com/dqrs/devy-red/screenshots/3.png)
+![correct syntax screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/3.png)
 
 ### 4. Testing
 Then unit tests are run on the code verifying its correctness, with partial credit given for each test passed.
 
-![testing screenshot](https://github.com/dqrs/devy-red/screenshots/4.png)
+![testing screenshot](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/4.png)
 
 ### 5. Code Activation
 Finally, the code is 'activated' by the app, visualizing the end-result of the executed expression.
 
-![code activation](https://github.com/dqrs/devy-red/screenshots/5.png)
+![code activation](https://raw.githubusercontent.com/dqrs/devy-red/master/screenshots/5.png)
 
 **[Back to top](#table-of-contents)**
 
