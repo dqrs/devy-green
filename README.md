@@ -49,15 +49,11 @@ Finally, the code is 'activated' by the app, visualizing the end-result of the e
 ## Live Demo
 To access a live demo, please go to the following Cloud9 Workspace: https://ide.c9.io/devytest/devy-red-demo. Login with username: **devytest** and password: **devytest123**
 
-(Note: a Github account is needed to log åin and save your progress through the course.)
+(Note: a Github account is needed to log in and save your progress through the course.)
 
 Once in the devY Red Demo workspace, look for the file tree on the left-hand side. Right-click on "trainer.html" and select "Preview." This will generate a live-reloadable instance of the application linked to the javascript files in the "js" folder. 
 
-<<<<<<< HEAD
-Then open up "app.js" to begin the course. You'll find some basic documentation about the built-in API that some of the specifications require you to use in "docs/api-documentation.txt". Be sure to save your code before trying to execute it in the app. The app should automatically when the code is changed, but if it does not, you should manually refresh the page between code changes. Once you've finished the exercises in "app.js", move on to "trainer.js". 
-=======
-Once in the devY Red Demo workspace, look for the file tree on the left-hand side. Right-click on "trainer.html" and select "Preview." This will generate a live-reloadable instance of the application linked to the javascript files in "js" folder. 
->>>>>>> 4cc2354dba381b7d35b288e3ae861448e1da4418
+Then open up "app.js" to begin the course. You'll find some basic documentation about the built-in API that some of the specifications require you to use in "docs/api-documentation.txt". Be sure to save your code before trying to execute it in the app. The app should automatically refresh when the code is changed, but if it does not, you should manually refresh the page between code changes. Once you've finished the exercises in "app.js", move on to "trainer.js". 
 
 (For instructions on how to run the application locally, please email me at dgershun AT usc DOT edu. Due to the use of Firebase, running locally is slightly non-trivial.)
 
